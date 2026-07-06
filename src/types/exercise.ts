@@ -10,6 +10,7 @@ export type VisualSpec =
   | { kind: 'number-line'; from: number; to: number; jumps: { from: number; to: number; label: string }[] }
   | { kind: 'boxes'; groups: number; perGroup: number; remainder?: number }
   | { kind: 'emoji-count'; emoji: string; count: number; rows?: number }
+  | { kind: 'compare-groups'; left: { emoji: string; count: number }; right: { emoji: string; count: number } }
   | { kind: 'grid-figure'; cells: [number, number][] } // filled cells of a grid
   | { kind: 'dot-grid'; n: number } // n×n square
   | { kind: 'none' }
@@ -40,6 +41,19 @@ export type Answer =
   | { kind: 'choice'; correctId: string }
   | { kind: 'multi'; correctIds: string[] }
 
+/**
+ * A single point in a trace stroke, normalized to a 0..1 box (top-left
+ * origin). See `src/lib/strokes.ts` for the authored stroke data and the
+ * `strokesFor` lookup.
+ */
+export interface StrokePoint {
+  x: number
+  y: number
+}
+
+/** One continuous pen-down-to-pen-up path, as an ordered polyline of normalized points. */
+export type Stroke = StrokePoint[]
+
 /** A fully materialized exercise instance, ready to render and grade. */
 export interface Exercise {
   id: string
@@ -49,9 +63,20 @@ export interface Exercise {
   answer: Answer
   choices?: Choice[]
   dataHighlight?: { relevantIndices: number[]; trapIndex?: number; tokens: string[] }
-  strategies: Strategy[] // >= 1
+  strategies: Strategy[] // >= 1 (Leo exercises may use a single gentle step, since a 4yo doesn't read multi-step strategies)
   microlesson?: string // "¿para qué sirve?" real-world hook
   challenge?: boolean
+  /**
+   * Spanish TTS script for non-reading kids (Leo). Optional because Aira
+   * exercises read their own prompt text; consumed by the Phase 5 audio
+   * player.
+   */
+  audioText?: string
+  /**
+   * Glyph + stroke data for tracing exercises (Leo `trazos` subskills).
+   * Consumed by the Phase 5 TracingPlayer.
+   */
+  trace?: { glyph: string; strokes: Stroke[] }
 }
 
 /** The subset of a Chapter's flavor a generator needs, decoupled from the full Chapter/content schema. */
