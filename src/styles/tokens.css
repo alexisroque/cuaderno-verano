@@ -96,9 +96,25 @@
   }
 }
 
+/* Weakest gem "juega conmigo" nudge in the cabinet. */
+@keyframes gem-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-\[fadeIn_\.35s_ease-out\],
   .animate-\[pop-in_\.45s_ease-out\] {
+    animation: none !important;
+  }
+  [style*='gem-pulse'],
+  [style*='manga-ray'],
+  [style*='levelup-shine'] {
     animation: none !important;
   }
 }

@@ -11,6 +11,7 @@ import { useSettingsStore } from '../state/settingsStore'
 import { usePlayerStore } from '../state/playerStore'
 import { SKILL_META } from '../engine/skills'
 import { MAX_LEVEL } from '../engine/gems'
+import { stickerForDay } from '../engine/collections'
 import { speak } from '../lib/tts'
 import { SpeakButton } from '../components/ui/SpeakButton'
 import { cardTeaser, playerRouteFor } from './cardTeasers'
@@ -22,9 +23,6 @@ const LEO_CARD_META: Record<string, { title: string; emoji: string; accent: stri
   english: { title: 'English', emoji: '🗣️', accent: '#8b5cf6', audio: 'English. Escucha y toca la imagen.' },
   'sorpresa-rotatoria': { title: 'La sorpresa de hoy', emoji: '🧩', accent: '#ec4899', audio: 'La sorpresa de hoy.' },
 }
-
-/** Leo's mural stickers (placeholder from the mockup's jungle set). */
-const MURAL_STICKERS = ['🌳', '🐒', '🦜', '🐍', '🌺', '🦋', '🐘']
 
 /** Stable empty array so the completed-cards selector never returns a fresh reference. */
 const EMPTY: string[] = []
@@ -44,17 +42,27 @@ export function TodayLeo() {
   const settings = useSettingsStore((s) => s.children.leo)
   const completed = useProgressStore((s) => s.profiles.leo.completedCards[dateISO]) ?? EMPTY
   const setActiveCard = usePlayerStore((s) => s.setActiveCard)
+  const grantSticker = useProgressStore((s) => s.grantSticker)
+  const stickerCount = useProgressStore((s) => s.profiles.leo.stickers.length)
 
   const day = useMemo(
     () => composeDay(dateISO, 'leo', progress, content, settings, progress.gems),
     [dateISO, progress, content, settings],
   )
 
+  const allDone = day.cards.length > 0 && day.cards.every((c) => completed.includes(c.cardType))
+
   useEffect(() => {
     speak('¡Hola, Leo! Elige una tarjeta para empezar.', 'es-ES')
     // greet once on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // Grant the day's mural sticker once all of today's cards are done (idempotent
+  // per-day via a chapter-scoped, date-seeded sticker id — §5.8).
+  useEffect(() => {
+    if (allDone) grantSticker('leo', stickerForDay(chapter, dateISO), chapter.id)
+  }, [allDone, chapter, dateISO, grantSticker])
 
   const baseCards = day.cards.filter((c) => c.cardType !== 'sorpresa-rotatoria')
   const surpriseCard = day.cards.find((c) => c.cardType === 'sorpresa-rotatoria')
@@ -131,26 +139,24 @@ export function TodayLeo() {
           </div>
         )}
 
-        {/* El mural */}
+        {/* El mural (tap to open the full MI SELVA mural in the collection) */}
         <div
-          className="mt-4 rounded-3xl p-4 text-white"
+          role="button"
+          tabIndex={0}
+          onClick={() => navigate('/coleccion')}
+          onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && navigate('/coleccion')}
+          className="mt-4 cursor-pointer rounded-3xl p-4 text-white transition-transform active:translate-y-[2px]"
           style={{ background: 'linear-gradient(160deg,#14532d,#166534)' }}
         >
           <div className="flex items-center justify-between">
             <span className="text-base font-black">🌴 MI SELVA</span>
-            <span className="rounded-xl bg-white/20 px-2.5 py-0.5 text-xs">{MURAL_STICKERS.length} pegatinas</span>
+            <span className="rounded-xl bg-white/20 px-2.5 py-0.5 text-xs">{stickerCount} pegatinas</span>
           </div>
-          <div className="mt-2 flex min-h-[56px] flex-wrap items-end gap-3 rounded-2xl bg-white/10 p-3">
-            {MURAL_STICKERS.map((s, i) => (
-              <span key={i} className="text-2xl" aria-hidden>
-                {s}
-              </span>
-            ))}
-            <span className="rounded-lg border-2 border-dashed border-white/50 px-1.5 py-0.5 text-lg opacity-40" aria-hidden>
-              ?
-            </span>
-          </div>
-          <p className="mt-2 text-xs opacity-90">Termina las tarjetas de hoy y gana la pegatina misteriosa 🎁</p>
+          <p className="mt-2 text-xs opacity-90">
+            {allDone
+              ? '¡Has ganado una pegatina! Tócame para colocarla en tu selva 🎁'
+              : 'Termina las tarjetas de hoy y gana la pegatina misteriosa 🎁'}
+          </p>
         </div>
 
         {/* Star gems (simplified) */}

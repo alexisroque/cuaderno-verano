@@ -96,11 +96,13 @@ export function FreeTraining() {
           {skills.map(([id, meta]) => {
             const challenge = hasUnlockedChallenge(profile, id)
             return (
-              <button
+              <div
                 key={id}
-                type="button"
+                role="button"
+                tabIndex={0}
                 onClick={() => setSkill(id)}
-                className="relative flex flex-col items-center rounded-3xl p-4 text-center transition-transform active:translate-y-[2px]"
+                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setSkill(id)}
+                className="relative flex cursor-pointer flex-col items-center rounded-3xl p-4 text-center transition-transform active:translate-y-[2px]"
                 style={{ background: 'var(--card)', boxShadow: '0 2px 6px rgba(184,140,120,.16)', minHeight: leo ? 130 : 96 }}
               >
                 {challenge && (
@@ -117,7 +119,7 @@ export function FreeTraining() {
                     <SpeakButton text={meta.name} size="md" tone="sky" />
                   </span>
                 )}
-              </button>
+              </div>
             )
           })}
         </div>

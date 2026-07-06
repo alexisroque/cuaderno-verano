@@ -155,6 +155,21 @@ export function TodayAira() {
           </span>
         </button>
 
+        {/* Treasure chest entry */}
+        <button
+          type="button"
+          onClick={() => navigate('/coleccion')}
+          className="mt-3 flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left"
+          style={{ background: 'var(--peach-soft)' }}
+        >
+          <span className="text-sm font-bold" style={{ color: '#c26a4c' }}>
+            🎁 El Cofre de los Tesoros · gasta tus monedas
+          </span>
+          <span className="text-sm" style={{ color: 'var(--ink-soft)' }}>
+            →
+          </span>
+        </button>
+
         {/* Gem cabinet */}
         <GemCabinet gems={progress.gems} />
       </div>
