@@ -12,6 +12,9 @@ import { FreeTraining } from './screens/FreeTraining'
 import { Collection } from './screens/Collection'
 import { ParentArea } from './screens/ParentArea'
 import { ProblemPlayer } from './screens/players/ProblemPlayer'
+import { DictationPlayer } from './screens/players/DictationPlayer'
+import { ReadingPlayer } from './screens/players/ReadingPlayer'
+import { DiaryPlayer } from './screens/players/DiaryPlayer'
 import { ComingSoonPlayer } from './screens/players/ComingSoonPlayer'
 import { KitchenSink } from './screens/dev/KitchenSink'
 
@@ -40,6 +43,9 @@ export const routeConfig: RouteObject[] = [
       { path: '/coleccion', element: <Collection /> },
       { path: '/padres', element: <ParentArea /> },
       { path: '/jugar/problema', element: <ProblemPlayer /> },
+      { path: '/jugar/dictado', element: <DictationPlayer /> },
+      { path: '/jugar/sabias-que', element: <ReadingPlayer /> },
+      { path: '/jugar/diario', element: <DiaryPlayer /> },
       { path: '/jugar/proximamente', element: <ComingSoonPlayer /> },
       { path: '/dev/kitchen-sink', element: <KitchenSink /> },
       { path: '*', element: <Navigate to="/" replace /> },

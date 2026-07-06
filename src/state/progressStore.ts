@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { Attempt, ProfileProgress } from '../types/progress'
+import type { Attempt, DiaryEntry, ProfileProgress } from '../types/progress'
 import type { ProfileId } from './profileStore'
 import { createDebouncedPersist, loadState } from '../lib/storage'
 import { ProfileProgressSchema } from './persistSchemas'
@@ -28,6 +28,17 @@ interface ProgressStoreState {
   completedCardsFor: (profile: ProfileId, dateISO: string) => string[]
   /** Marks `cardType` complete for `profile` on `dateISO` (idempotent). */
   markCardComplete: (profile: ProfileId, dateISO: string, cardType: string) => void
+  /**
+   * Records a diary entry (upserts by dateISO+promptId so re-saving the same
+   * day's prompt overwrites rather than duplicating). Powers the diary
+   * collection screen and drives the escritura/diario gem by consistency.
+   */
+  addDiaryEntry: (profile: ProfileId, entry: DiaryEntry) => void
+  /**
+   * Marks a content id consumed for `poolKey` so the day composer stops
+   * re-serving it (episodes, curiosities, diaryPrompts…). Idempotent.
+   */
+  markConsumed: (profile: ProfileId, poolKey: string, id: string) => void
 }
 
 const persisters: Record<ProfileId, ReturnType<typeof createDebouncedPersist>> = {
@@ -74,6 +85,30 @@ export const useProgressStore = create<ProgressStoreState>((set, get) => ({
       const updated = {
         ...current,
         completedCards: { ...current.completedCards, [dateISO]: [...forDay, cardType] },
+      }
+      return { profiles: { ...state.profiles, [profile]: updated } }
+    })
+    persisters[profile].schedule()
+  },
+  addDiaryEntry: (profile, entry) => {
+    set((state) => {
+      const current = state.profiles[profile]
+      const rest = current.diaryEntries.filter(
+        (e) => !(e.dateISO === entry.dateISO && e.promptId === entry.promptId),
+      )
+      const updated = { ...current, diaryEntries: [...rest, entry] }
+      return { profiles: { ...state.profiles, [profile]: updated } }
+    })
+    persisters[profile].schedule()
+  },
+  markConsumed: (profile, poolKey, id) => {
+    set((state) => {
+      const current = state.profiles[profile]
+      const forPool = current.consumedContent[poolKey] ?? []
+      if (forPool.includes(id)) return state
+      const updated = {
+        ...current,
+        consumedContent: { ...current.consumedContent, [poolKey]: [...forPool, id] },
       }
       return { profiles: { ...state.profiles, [profile]: updated } }
     })

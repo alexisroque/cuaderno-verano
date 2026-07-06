@@ -64,11 +64,25 @@ export function cardTeaser(card: CardDescriptor, chapter: Chapter): string {
   }
 }
 
-/** The player route a card should open. Math cards go to the ProblemPlayer; others are stubs for now. */
+/**
+ * The player route a card should open. Aira's math/dictado/sabías-que/diario
+ * cards each have a real player; Leo's players (trazos/contar/english/cuento)
+ * land in Task 5.6 and still route to the ComingSoon stub.
+ */
 export function playerRouteFor(card: CardDescriptor): string {
-  if (card.cardType === 'problema' || (card.cardType === 'contar' && card.subskill)) {
-    return '/jugar/problema'
+  switch (card.cardType) {
+    case 'problema':
+      return '/jugar/problema'
+    case 'contar':
+      return card.subskill ? '/jugar/problema' : '/jugar/proximamente'
+    case 'dictado':
+      return '/jugar/dictado'
+    case 'sabias-que':
+      return '/jugar/sabias-que'
+    case 'diario':
+      return '/jugar/diario'
+    default:
+      // Leo players (trazos, english, cuento…) land in later tasks.
+      return '/jugar/proximamente'
   }
-  // Other players (dictado, diario, trazos, english, cuento…) land in later tasks.
-  return '/jugar/proximamente'
 }

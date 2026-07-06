@@ -81,6 +81,11 @@ export function englishUnitById(id: string) {
   return CONTENT_BUNDLE.englishUnits?.find((u) => u.id === id)
 }
 
+/** Looks up an English mini-reading by id, or undefined. */
+export function englishReadingById(id: string) {
+  return CONTENT_BUNDLE.englishReadings?.find((r) => r.id === id)
+}
+
 /** Finds an episode (and its series) by id across all series, or undefined. */
 export function episodeById(seriesId?: string, episodeId?: string) {
   if (!episodeId) return undefined

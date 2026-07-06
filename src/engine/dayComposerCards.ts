@@ -26,6 +26,8 @@ export interface ContentRef {
   curiosityId?: string
   promptId?: string
   cuentoId?: string
+  /** English mini-reading id (english-readings), used by the ReadingPlayer. */
+  readingId?: string
 }
 
 /** A card DESCRIPTOR: what to render, not a materialized exercise instance. */
