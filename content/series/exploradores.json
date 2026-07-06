@@ -1,0 +1,427 @@
+{
+  "id": "exploradores",
+  "title": "Exploradores i exploradores",
+  "emoji": "🧭",
+  "episodes": [
+    {
+      "id": "exp-01-marco-polo",
+      "order": 1,
+      "title": "Marco Polo, el viatger de la Xina",
+      "dictation": {
+        "ca": "Fa uns 750 anys, el venecià Marco Polo va viatjar fins a la Xina per les rutes de la seda. Allà va conèixer l'emperador Kublai Khan i hi va viure molts anys. Quan va tornar, va explicar el viatge en un llibre famós.",
+        "es": "Hace unos 750 años, el veneciano Marco Polo viajó hasta China por las rutas de la seda. Allí conoció al emperador Kublai Kan y vivió allí muchos años. Cuando volvió, contó su viaje en un libro famoso."
+      },
+      "factExtra": {
+        "ca": "Sabies que molta gent de la seva època no es va creure les històries de Marco Polo, perquè els semblaven massa fantàstiques per ser veritat?",
+        "es": "¿Sabías que mucha gente de su época no se creyó las historias de Marco Polo, porque les parecían demasiado fantásticas para ser verdad?"
+      },
+      "hook": "Demà coneixerem un altre gran viatger, que va recórrer encara més món que ell: Ibn Battuta.",
+      "questions": [
+        {
+          "q": "On va viatjar Marco Polo des de Venècia?",
+          "choices": ["Fins a la Xina, per les rutes de la seda", "Fins al Pol Nord", "Fins a l'Amèrica del Sud", "Fins al fons de l'oceà"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que als veïns de Marco Polo els costava creure les seves històries sobre la Xina?",
+          "choices": ["Perquè descrivia coses molt diferents de tot el que coneixien", "Perquè no sabia explicar res", "Perquè no havia sortit mai de casa", "Perquè parlava massa fluix"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "exp-02-ibn-battuta",
+      "order": 2,
+      "title": "Ibn Battuta, el viatger incansable",
+      "dictation": {
+        "ca": "L'estudiós marroquí Ibn Battuta va viatjar gairebé trenta anys per Àfrica, Àsia i Europa. Va arribar fins a Sumatra, l'illa que visitarem enguany, i hi va conèixer els costums locals. Sempre anotava tot allò que veia pel camí.",
+        "es": "El estudioso marroquí Ibn Battuta viajó casi treinta años por África, Asia y Europa. Llegó hasta Sumatra, la isla que visitaremos este año, y conoció allí las costumbres locales. Siempre anotaba todo lo que veía por el camino."
+      },
+      "factExtra": {
+        "ca": "Sabies que Ibn Battuta va recórrer més de 100.000 quilòmetres, molts més que Marco Polo?",
+        "es": "¿Sabías que Ibn Battuta recorrió más de 100.000 kilómetros, muchos más que Marco Polo?"
+      },
+      "hook": "Aviat coneixerem unes flotes gigantines xineses que també van explorar mars llunyans.",
+      "questions": [
+        {
+          "q": "Quina illa que visitarem nosaltres va arribar a conèixer Ibn Battuta?",
+          "choices": ["Sumatra", "Groenlàndia", "Madagascar", "Islàndia"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si viatgessis trenta anys per llocs diferents com Ibn Battuta, per què creus que seria útil anotar els costums de cada lloc?",
+          "choices": ["Per no oblidar-los i poder-los explicar als altres després", "Perquè així no cal parlar amb ningú", "Perquè els costums no interessen a ningú", "Perquè així el viatge dura menys"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "exp-03-zheng-he",
+      "order": 3,
+      "title": "Zheng He i les flotes gigantines",
+      "dictation": {
+        "ca": "L'almirall xinès Zheng He va comandar flotes enormes, amb centenars de vaixells, fa més de sis-cents anys. Les expedicions van arribar fins a l'Índia i la costa d'Àfrica. Tornava a la Xina amb animals i productes desconeguts.",
+        "es": "El almirante chino Zheng He comandó flotas enormes, con cientos de barcos, hace más de seiscientos años. Las expediciones llegaron hasta la India y la costa de África. Volvía a China con animales y productos desconocidos."
+      },
+      "factExtra": {
+        "ca": "Sabies que alguns dels vaixells de Zheng He eren molt més grans que les naus que Europa faria servir cent anys després?",
+        "es": "¿Sabías que algunos de los barcos de Zheng He eran mucho más grandes que las naves que Europa usaría cien años después?"
+      },
+      "hook": "Demà comença un viatge que canviarà per sempre com entenem el món: la volta completa a la Terra.",
+      "questions": [
+        {
+          "q": "Fins on van arribar les expedicions de Zheng He?",
+          "choices": ["Fins a l'Índia i la costa d'Àfrica", "Fins a la Lluna", "Fins a l'Amèrica del Nord", "Fins al Pol Sud"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que portar regals per als governants ajudava Zheng He en els seus viatges?",
+          "choices": ["Perquè així els altres governants eren més amistosos amb ell", "Perquè els regals feien anar més ràpid els vaixells", "Perquè no calien vaixells si hi havia regals", "No servia de res portar regals"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "exp-04-magalhaes-surt",
+      "order": 4,
+      "title": "Magalhães surt a buscar un pas cap a l'oest",
+      "dictation": {
+        "ca": "L'any 1519, el navegant portuguès Fernando de Magalhães va sortir d'Espanya amb cinc vaixells. Buscava un pas per l'oest cap a les illes de les espècies, a l'Àsia. Ningú havia intentat mai un viatge tan llarg i incert.",
+        "es": "En el año 1519, el navegante portugués Fernando de Magallanes salió de España con cinco barcos. Buscaba un paso por el oeste hacia las islas de las especias, en Asia. Nadie había intentado nunca un viaje tan largo e incierto."
+      },
+      "factExtra": {
+        "ca": "Sabies que dels cinc vaixells que van sortir amb Magalhães, només un va tornar sencer a Espanya tres anys després?",
+        "es": "¿Sabías que de los cinco barcos que salieron con Magallanes, solo uno regresó entero a España tres años después?"
+      },
+      "hook": "Demà descobrirem què li va passar a Magalhães a les illes Filipines.",
+      "questions": [
+        {
+          "q": "Què buscava Magalhães quan va sortir d'Espanya el 1519?",
+          "choices": ["Un pas per l'oest cap a les illes de les espècies", "Un tresor amagat a Europa", "Una muntanya d'or a Àfrica", "Un camí cap al Pol Nord"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si haguessis de fer un viatge llarguíssim cap a un lloc que ningú ha visitat mai, què et faria més por?",
+          "choices": ["No saber si trobaria menjar i aigua pel camí", "Que el vaixell fos massa bonic", "Que arribés massa d'hora", "Que hi hagués massa gent coneguda"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "exp-05-magalhaes-filipines",
+      "order": 5,
+      "title": "Magalhães mor a les Filipines",
+      "dictation": {
+        "ca": "Després de travessar un estret molt perillós, avui anomenat estret de Magalhães, l'expedició va arribar a l'oceà Pacífic. Van navegar fins a les Filipines, on Magalhães es va veure envoltat en una batalla local i hi va morir. El viatge, però, encara no s'havia acabat.",
+        "es": "Después de atravesar un estrecho muy peligroso, hoy llamado estrecho de Magallanes, la expedición llegó al océano Pacífico. Navegaron hasta las Filipinas, donde Magallanes se vio envuelto en una batalla local y murió allí. El viaje, sin embargo, todavía no había terminado."
+      },
+      "factExtra": {
+        "ca": "Sabies que Magalhães no va arribar a completar la volta al món, però el seu nom es fa servir igualment per anomenar tot el viatge?",
+        "es": "¿Sabías que Magallanes no llegó a completar la vuelta al mundo, pero su nombre se usa igualmente para nombrar todo el viaje?"
+      },
+      "hook": "Demà coneixerem qui va aconseguir acabar el viatge que Magalhães havia començat.",
+      "questions": [
+        {
+          "q": "On va morir Magalhães?",
+          "choices": ["A les illes Filipines, en una batalla local", "Al mig de l'oceà Atlàntic", "A casa seva, de vell", "Al desert del Sàhara"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que la resta de la tripulació va decidir continuar el viatge encara que el seu capità hagués mort?",
+          "choices": ["Perquè volien acabar allò que havien començat i tornar a casa", "Perquè no sabien tornar enrere de cap manera", "Perquè els agradava més navegar que menjar", "Perquè el vaixell no podia parar mai"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "exp-06-elcano-completa",
+      "order": 6,
+      "title": "Elcano completa la primera volta al món",
+      "dictation": {
+        "ca": "El basc Juan Sebastián Elcano va agafar el comandament després de la mort de Magalhães. Va travessar l'oceà Índic i va tornar a Espanya el 1522, completant la primera volta al món. Només divuit homes van tornar de tots els que havien sortit.",
+        "es": "El vasco Juan Sebastián Elcano tomó el mando tras la muerte de Magallanes. Atravesó el océano Índico y regresó a España en 1522, completando la primera vuelta al mundo. Solo dieciocho hombres regresaron de todos los que habían salido."
+      },
+      "factExtra": {
+        "ca": "Sabies que aquell viatge va demostrar, per primera vegada de manera pràctica, que la Terra és realment rodona?",
+        "es": "¿Sabías que aquel viaje demostró, por primera vez de manera práctica, que la Tierra es realmente redonda?"
+      },
+      "hook": "Demà coneixerem una dona valenta que també va donar la volta al món, disfressada de mariner.",
+      "questions": [
+        {
+          "q": "Qui va completar la primera volta al món després de la mort de Magalhães?",
+          "choices": ["Juan Sebastián Elcano", "Cristòfor Colom", "Marco Polo", "Ibn Battuta"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que tan pocs homes, només divuit de tots els que van sortir, van aconseguir tornar sencers a Espanya?",
+          "choices": ["Perquè el viatge era llarguíssim i molt perillós, amb malalties i tempestes", "Perquè no els agradava navegar", "Perquè es van avorrir pel camí", "Perquè no hi havia prou vaixells per a tots"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "exp-07-jeanne-baret",
+      "order": 7,
+      "title": "Jeanne Baret, disfressada per navegar",
+      "dictation": {
+        "ca": "A la seva època, les dones no podien pujar als vaixells d'expedició francesos. Per això, la botànica Jeanne Baret es va disfressar d'home per estudiar plantes de terres llunyanes. Així es va convertir en la primera dona que va donar la volta al món.",
+        "es": "En su época, las mujeres no podían subir a los barcos de expedición franceses. Por eso, la botánica Jeanne Baret se disfrazó de hombre para estudiar plantas de tierras lejanas. Así se convirtió en la primera mujer que dio la vuelta al mundo."
+      },
+      "factExtra": {
+        "ca": "Sabies que Jeanne Baret va amagar la seva identitat durant mesos, fins que la tripulació la va descobrir en ple viatge?",
+        "es": "¿Sabías que Jeanne Baret ocultó su identidad durante meses, hasta que la tripulación la descubrió en pleno viaje?"
+      },
+      "hook": "Demà travessarem terres americanes amb una guia jove que coneixia molt bé el camí.",
+      "questions": [
+        {
+          "q": "Per què Jeanne Baret es va disfressar d'home?",
+          "choices": ["Perquè les dones no podien pujar als vaixells d'expedició", "Perquè li agradava vestir-se així", "Perquè feia més fred vestida de dona", "Perquè el capità li ho va demanar"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Què et sembla que hi hagués una norma que impedís a les dones fer un viatge científic com aquell?",
+          "choices": ["Em sembla injust, perquè no depèn de si ets home o dona saber estudiar plantes", "Em sembla bé perquè els homes ho fan tot millor", "És igual, no té importància", "Les dones no haurien de viatjar mai"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "exp-08-sacagawea",
+      "order": 8,
+      "title": "Sacagawea, guia per terres desconegudes",
+      "dictation": {
+        "ca": "La jove Sacagawea, del poble shoshone, va guiar una famosa expedició pels territoris de l'oest nord-americà. Coneixia el terreny, algunes llengües dels pobles indígenes i sabia trobar plantes per menjar. Sense la seva ajuda, l'expedició hauria trobat moltes més dificultats.",
+        "es": "La joven Sacagawea, del pueblo shoshone, guio una famosa expedición por los territorios del oeste norteamericano. Conocía el terreno, algunas lenguas de los pueblos indígenas y sabía encontrar plantas para comer. Sin su ayuda, la expedición habría encontrado muchas más dificultades."
+      },
+      "factExtra": {
+        "ca": "Sabies que Sacagawea va fer bona part d'aquell llarguíssim viatge portant el seu fill petit a l'esquena?",
+        "es": "¿Sabías que Sacagawea hizo buena parte de aquel largísimo viaje llevando a su hijo pequeño a la espalda?"
+      },
+      "hook": "Aviat coneixerem un metge que va explorar el cor d'Àfrica buscant l'origen d'un riu immens.",
+      "questions": [
+        {
+          "q": "Per què va ser tan útil Sacagawea per a l'expedició?",
+          "choices": ["Perquè coneixia el terreny, llengües indígenes i plantes comestibles", "Perquè portava un mapa modern", "Perquè tenia un vaixell propi", "Perquè sabia parlar anglès i prou"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que era tan important tenir una guia local en un viatge per terres desconegudes?",
+          "choices": ["Perquè coneixia perills, camins i recursos que els altres no podien saber", "Perquè feia companyia i prou", "No era gens important, es podia fer igual sense guia", "Perquè sabia cantar cançons"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "exp-09-livingstone",
+      "order": 9,
+      "title": "David Livingstone explora l'Àfrica",
+      "dictation": {
+        "ca": "El metge escocès David Livingstone va passar molts anys explorant rius i terres de l'Àfrica central, encara poc conegudes a Europa. Volia trobar l'origen del riu Nil i lluitar contra el tràfic d'esclaus. Va arribar a llocs on cap europeu havia posat mai els peus.",
+        "es": "El médico escocés David Livingstone pasó muchos años explorando ríos y tierras del África central, todavía poco conocidas en Europa. Quería encontrar el origen del río Nilo y luchar contra el tráfico de esclavos. Llegó a lugares donde ningún europeo había puesto nunca los pies."
+      },
+      "factExtra": {
+        "ca": "Sabies que Livingstone va estar tant temps sense notícies a Àfrica que un periodista el va anar a buscar per saber si encara era viu?",
+        "es": "¿Sabías que Livingstone estuvo tanto tiempo sin noticias en África que un periodista fue a buscarlo para saber si todavía estaba vivo?"
+      },
+      "hook": "Demà coneixerem una dona que va explorar deserts i palaus a l'Orient Mitjà.",
+      "questions": [
+        {
+          "q": "Quins eren els objectius de Livingstone a l'Àfrica?",
+          "choices": ["Trobar l'origen del Nil i lluitar contra el tràfic d'esclaus", "Buscar tresors d'or amagats", "Construir ciutats noves", "Aprendre a volar"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que era tan arriscat explorar llocs on cap europeu havia arribat mai?",
+          "choices": ["Perquè no hi havia mapes ni informació sobre els perills del camí", "Perquè feia massa sol", "Perquè no hi havia animals", "No era gens arriscat"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "exp-10-gertrude-bell",
+      "order": 10,
+      "title": "Gertrude Bell, exploradora de l'Orient Mitjà",
+      "dictation": {
+        "ca": "La britànica Gertrude Bell va recórrer deserts i ciutats antigues de l'Orient Mitjà, sovint sola i a dors de camell. Parlava àrab i persa, i coneixia bé les tribus de la regió. Més tard, va ajudar a fundar un museu.",
+        "es": "La británica Gertrude Bell recorrió desiertos y ciudades antiguas de Oriente Medio, a menudo sola y a lomos de un camello. Hablaba árabe y persa, y conocía bien a las tribus de la región. Más tarde, ayudó a fundar un museo."
+      },
+      "factExtra": {
+        "ca": "Sabies que Gertrude Bell va ser una de les poques dones del seu temps que viatjava sola per deserts llunyans sense por?",
+        "es": "¿Sabías que Gertrude Bell fue una de las pocas mujeres de su tiempo que viajaba sola por desiertos lejanos sin miedo?"
+      },
+      "hook": "Demà arribarem a una dona periodista que va fer la volta al món més ràpid que ningú.",
+      "questions": [
+        {
+          "q": "Quines llengües parlava Gertrude Bell?",
+          "choices": ["Àrab i persa", "Xinès i japonès", "Suec i noruec", "Portuguès i italià"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que parlar la llengua del lloc que exploraves era tan important per a Gertrude Bell?",
+          "choices": ["Perquè li permetia entendre i comunicar-se de veritat amb la gent del lloc", "Perquè així no calia portar mapes", "Perquè feia més curt el camí", "No servia de res parlar la llengua local"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "exp-11-nellie-bly",
+      "order": 11,
+      "title": "Nellie Bly fa la volta al món en 72 dies",
+      "dictation": {
+        "ca": "La periodista Nellie Bly va decidir donar la volta al món més ràpid que ningú havia fet mai. Va viatjar amb vaixells i trens, gairebé sense equipatge, per no perdre temps. Va completar el viatge en setanta-dos dies, un rècord per a la seva època.",
+        "es": "La periodista Nellie Bly decidió dar la vuelta al mundo más rápido que nadie había hecho nunca. Viajó en barcos y trenes, casi sin equipaje, para no perder tiempo. Completó el viaje en setenta y dos días, un récord para su época."
+      },
+      "factExtra": {
+        "ca": "Sabies que Nellie Bly es va inspirar en una novel·la que parlava d'una volta al món en vuitanta dies, i ella la va superar?",
+        "es": "¿Sabías que Nellie Bly se inspiró en una novela que hablaba de una vuelta al mundo en ochenta días, y ella la superó?"
+      },
+      "hook": "Demà baixarem cap al fred extrem, on dos exploradors competien per arribar primer al Pol Sud.",
+      "questions": [
+        {
+          "q": "En quants dies va completar Nellie Bly la seva volta al món?",
+          "choices": ["En setanta-dos dies", "En un any sencer", "En una sola setmana", "En sis mesos"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que Nellie Bly va decidir portar gairebé cap equipatge en el seu viatge?",
+          "choices": ["Perquè menys pes i menys coses fan que el viatge sigui més ràpid", "Perquè no tenia diners per comprar roba", "Perquè no li agradava la roba", "Perquè no sabia què portar"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "exp-12-amundsen",
+      "order": 12,
+      "title": "Amundsen arriba primer al Pol Sud",
+      "dictation": {
+        "ca": "El noruec Roald Amundsen va liderar l'expedició que va arribar primera al Pol Sud, el 1911. Feia servir gossos trineu i pells d'animal per resistir el fred extrem. Un mes més tard hi va arribar l'equip britànic de Robert Scott, però massa tard.",
+        "es": "El noruego Roald Amundsen lideró la expedición que llegó primera al Polo Sur, en 1911. Usaba perros de trineo y pieles de animal para resistir el frío extremo. Un mes más tarde llegó allí el equipo británico de Robert Scott, pero demasiado tarde."
+      },
+      "factExtra": {
+        "ca": "Sabies que Amundsen va planificar tan bé el viatge que va calcular fins i tot quants gossos podria menjar-se l'equip si s'acabava el menjar?",
+        "es": "¿Sabías que Amundsen planificó tan bien el viaje que calculó incluso cuántos perros podría comerse el equipo si se acababa la comida?"
+      },
+      "hook": "Demà coneixerem un altre explorador polar que va viure una de les aventures de supervivència més increïbles de la història.",
+      "questions": [
+        {
+          "q": "Qui va arribar primer al Pol Sud, el 1911?",
+          "choices": ["Roald Amundsen", "Robert Scott", "Ernest Shackleton", "David Livingstone"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que planificar amb molt detall un viatge tan extrem, com va fer Amundsen, va ser clau per aconseguir arribar-hi?",
+          "choices": ["Perquè al fred extrem un sol error de càlcul pot ser molt perillós", "Perquè planificar no serveix de res al fred", "Perquè els gossos ja sabien el camí sols", "No cal planificar mai res"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "exp-13-shackleton",
+      "order": 13,
+      "title": "Shackleton i la gran supervivència a l'Antàrtida",
+      "dictation": {
+        "ca": "El vaixell d'Ernest Shackleton va quedar atrapat i destruït pel gel de l'Antàrtida. Ell i la seva tripulació van sobreviure mesos sobre blocs de gel i illes remotes. Finalment, Shackleton va aconseguir rescatar tots els seus homes sans i estalvis.",
+        "es": "El barco de Ernest Shackleton quedó atrapado y destruido por el hielo de la Antártida. Él y su tripulación sobrevivieron meses sobre bloques de hielo e islas remotas. Finalmente, Shackleton consiguió rescatar a todos sus hombres sanos y salvos."
+      },
+      "factExtra": {
+        "ca": "Sabies que Shackleton no va aconseguir l'objectiu del seu viatge, però és recordat com un heroi per no haver perdut cap home de la tripulació?",
+        "es": "¿Sabías que Shackleton no consiguió el objetivo de su viaje, pero es recordado como un héroe por no haber perdido a ningún hombre de la tripulación?"
+      },
+      "hook": "Aviat deixarem el gel per pujar amunt, cap als cels, amb una aviadora molt valenta.",
+      "questions": [
+        {
+          "q": "Què li va passar al vaixell de Shackleton?",
+          "choices": ["Va quedar atrapat i destruït pel gel de l'Antàrtida", "Es va enfonsar en una tempesta tropical", "El va cremar un incendi al port", "Va xocar amb un altre vaixell"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que es recorda Shackleton com un heroi, encara que no va aconseguir l'objectiu inicial del seu viatge?",
+          "choices": ["Perquè va aconseguir salvar la vida de tota la seva tripulació en una situació molt difícil", "Perquè va tornar amb molts diners", "Perquè no va passar cap dificultat", "Perquè ningú se'n recorda realment"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "exp-14-amelia-earhart",
+      "order": 14,
+      "title": "Amelia Earhart conquereix els cels",
+      "dictation": {
+        "ca": "L'aviadora nord-americana Amelia Earhart va ser la primera dona que va travessar sola l'Atlàntic en avió. Somiava fer la volta al món pilotant el seu propi avió. Durant aquell intent, l'avió va desaparèixer i mai més se'n va saber res.",
+        "es": "La aviadora estadounidense Amelia Earhart fue la primera mujer que atravesó sola el Atlántico en avión. Soñaba con dar la vuelta al mundo pilotando su propio avión. Durante ese intento, el avión desapareció y nunca más se supo nada de él."
+      },
+      "factExtra": {
+        "ca": "Sabies que encara avui, després de tants anys, ningú ha trobat mai les restes de l'avió d'Amelia Earhart?",
+        "es": "¿Sabías que todavía hoy, después de tantos años, nadie ha encontrado nunca los restos del avión de Amelia Earhart?"
+      },
+      "hook": "Demà pujarem encara més amunt amb una alpinista que va conquerir la muntanya més alta del món.",
+      "questions": [
+        {
+          "q": "Quin rècord va aconseguir Amelia Earhart?",
+          "choices": ["Ser la primera dona que va travessar sola l'Atlàntic en avió", "Ser la primera dona astronauta", "Ser la primera dona a arribar al Pol Sud", "Ser la primera dona a pujar l'Everest"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que un misteri com la desaparició d'Amelia Earhart continua interessant tanta gent avui dia?",
+          "choices": ["Perquè no sabem què li va passar realment i això desperta curiositat", "Perquè no és interessant per a ningú", "Perquè tots els avions desapareixen igual", "Perquè ja se sap exactament què va passar"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "exp-15-junko-tabei-tereshkova",
+      "order": 15,
+      "title": "Fins al cim de l'Everest i fins a l'espai",
+      "dictation": {
+        "ca": "La japonesa Junko Tabei va ser la primera dona que va arribar al cim de l'Everest. Pocs anys abans, la soviètica Valentina Tereshkova ja havia estat la primera dona a l'espai, el 1963. Totes dues van obrir camins que semblaven impossibles.",
+        "es": "La japonesa Junko Tabei fue la primera mujer que llegó a la cima del Everest. Pocos años antes, la soviética Valentina Tereshkova ya había sido la primera mujer en el espacio, en 1963. Las dos abrieron caminos que parecían imposibles."
+      },
+      "factExtra": {
+        "ca": "Sabies que Valentina Tereshkova va donar 48 voltes a la Terra durant el seu viatge espacial, tot sola dins la nau?",
+        "es": "¿Sabías que Valentina Tereshkova dio 48 vueltas a la Tierra durante su viaje espacial, sola dentro de la nave?"
+      },
+      "hook": "Aquesta és la fi del viatge amb els exploradors i les exploradores... però encara ens queden molts invents sorprenents per descobrir!",
+      "questions": [
+        {
+          "q": "Quina fita van aconseguir Junko Tabei i Valentina Tereshkova?",
+          "choices": ["Ser les primeres dones a l'Everest i a l'espai", "Ser les primeres dones pilotes de cotxes", "Ser les primeres dones metges", "Ser les primeres dones mestres"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "De tots els exploradors i exploradores que hem conegut en aquesta sèrie, quin t'ha semblat més valent i per què?",
+          "choices": ["Resposta lliure: cadascú pot triar el que més l'hagi impressionat", "Cap, no n'hi ha cap d'interessant", "Tots són exactament iguals", "No en recordo cap"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    }
+  ]
+}

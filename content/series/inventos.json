@@ -1,0 +1,427 @@
+{
+  "id": "inventos",
+  "title": "Invents que van canviar el món",
+  "emoji": "💡",
+  "episodes": [
+    {
+      "id": "inv-01-la-roda",
+      "order": 1,
+      "title": "La roda, un disc que ho canvia tot",
+      "dictation": {
+        "ca": "Fa uns 5.500 anys, algú va tenir la idea de fer servir un disc rodó per moure pesos amb menys esforç. Al principi, la roda va servir per fabricar terrissa, i més tard per construir carros. Avui encara la trobem pertot.",
+        "es": "Hace unos 5.500 años, alguien tuvo la idea de usar un disco redondo para mover pesos con menos esfuerzo. Al principio, la rueda se usó para fabricar alfarería, y más tarde para construir carros. Hoy todavía la encontramos en coches y bicicletas."
+      },
+      "factExtra": {
+        "ca": "Sabies que la roda es va inventar molt més tard que l'agricultura, tot i que sembla un invent més senzill de fer?",
+        "es": "¿Sabías que la rueda se inventó mucho más tarde que la agricultura, aunque parezca un invento más sencillo de hacer?"
+      },
+      "hook": "Demà descobrirem un altre invent que ens permet guardar records i idees per sempre: l'escriptura.",
+      "questions": [
+        {
+          "q": "Per a què es va fer servir primer la roda?",
+          "choices": ["Per fabricar terrissa", "Per volar", "Per encendre foc", "Per nedar més ràpid"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Imagina un dia sense cap roda al món: cotxes, bicicletes ni carretons. Com canviaria la teva vida diària?",
+          "choices": ["Seria molt més difícil transportar coses i moure'ns d'un lloc a un altre", "No canviaria absolutament res", "Seria molt més fàcil viatjar lluny", "Només afectaria als jocs de taula"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "inv-02-escriptura",
+      "order": 2,
+      "title": "L'escriptura, la memòria del món",
+      "dictation": {
+        "ca": "Fa uns 5.000 anys, a Mesopotàmia, els comerciants necessitaven anotar quant gra o quants animals tenien. Així va néixer l'escriptura cuneïforme, feta de petits signes marcats sobre tauletes d'argila. Gràcies a l'escriptura, els coneixements es van poder guardar per sempre.",
+        "es": "Hace unos 5.000 años, en Mesopotamia, los comerciantes necesitaban anotar cuánto grano o cuántos animales tenían. Así nació la escritura cuneiforme, hecha de pequeños signos marcados sobre tablillas de arcilla. Gracias a la escritura, los conocimientos se pudieron guardar para siempre."
+      },
+      "factExtra": {
+        "ca": "Sabies que la paraula \"cuneïforme\" ve de \"cuny\", perquè els signes tenien forma de petita falca?",
+        "es": "¿Sabías que la palabra \"cuneiforme\" viene de \"cuña\", porque los signos tenían forma de pequeña cuña?"
+      },
+      "hook": "Aviat descobrirem un material molt més lleuger que l'argila per escriure-hi: el paper.",
+      "questions": [
+        {
+          "q": "Per què va néixer l'escriptura cuneïforme?",
+          "choices": ["Per anotar quant gra o quants animals es tenien", "Per fer dibuixos bonics només", "Per parlar amb els animals", "Per encendre el foc més fàcilment"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si no existís l'escriptura, com podries recordar demà tot allò important que has fet avui?",
+          "choices": ["Ho explicaria en veu alta a algú altre perquè ho recordi per mi", "No hi ha cap manera de recordar-ho", "Ho oblidaria sense cap problema", "Ho dibuixaria amb els ulls tancats"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "inv-03-el-paper",
+      "order": 3,
+      "title": "El paper arriba des de la Xina",
+      "dictation": {
+        "ca": "Fa uns 2.000 anys, a la Xina, es va inventar el paper barrejant fibres de plantes amb aigua fins formar una pasta fina. Aquella pasta s'estenia i s'assecava, i quedava un full lleuger. Abans, calia escriure sobre pedra o pells d'animal, molt més pesants.",
+        "es": "Hace unos 2.000 años, en China, se inventó el papel mezclando fibras de plantas con agua hasta formar una pasta fina. Esa pasta se extendía y se secaba, y quedaba una hoja ligera. Antes, se escribía sobre piedra o pieles, mucho más pesadas."
+      },
+      "factExtra": {
+        "ca": "Sabies que el secret de com fabricar paper va trigar segles a arribar des de la Xina fins a Europa?",
+        "es": "¿Sabías que el secreto de cómo fabricar papel tardó siglos en llegar desde China hasta Europa?"
+      },
+      "hook": "Demà coneixerem un instrument que va ajudar els navegants a no perdre's mai més al mar.",
+      "questions": [
+        {
+          "q": "On es va inventar el paper?",
+          "choices": ["A la Xina", "A Egipte", "A Grècia", "Al Japó"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que un full de paper lleuger era molt millor que escriure sobre pedra o argila?",
+          "choices": ["Perquè era molt més fàcil de transportar i de guardar", "Perquè la pedra es trencava sola", "Perquè l'argila feia mala olor", "No hi havia cap diferència real"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "inv-04-la-brúixola",
+      "order": 4,
+      "title": "La brúixola, una fletxa que sempre sap el nord",
+      "dictation": {
+        "ca": "Fa més de mil anys, a la Xina, es va veure que una agulla imantada, deixada girar lliurement, sempre assenyalava el nord. Així va néixer la brúixola, un instrument imprescindible per als navegants. Els vaixells ja no s'havien de guiar només per les estrelles.",
+        "es": "Hace más de mil años, en China, se descubrió que una aguja imantada, dejada girar libremente, siempre señalaba el norte. Ese descubrimiento se convirtió en la brújula, un instrumento imprescindible para los navegantes. Los barcos ya no tenían que guiarse solo por las estrellas."
+      },
+      "factExtra": {
+        "ca": "Sabies que sense la brúixola, viatges tan llargs com la volta al món d'Elcano haurien estat molt més difícils?",
+        "es": "¿Sabías que sin la brújula, viajes tan largos como la vuelta al mundo de Elcano habrían sido mucho más difíciles?"
+      },
+      "hook": "Demà coneixerem un invent que va permetre copiar llibres molt més ràpid que a mà.",
+      "questions": [
+        {
+          "q": "Què fa una brúixola?",
+          "choices": ["Assenyala sempre el nord amb una agulla imantada", "Mesura la temperatura de l'aigua", "Fa llum de nit al vaixell", "Compta els dies del calendari"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que abans de la brúixola era tan difícil navegar per l'oceà en un dia ennuvolat, sense veure les estrelles?",
+          "choices": ["Perquè no hi havia cap altra manera fiable de saber la direcció correcta", "Perquè els vaixells no es podien moure sense sol", "Perquè les estrelles no serveixen mai per orientar-se", "No era gens difícil navegar sense brúixola"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "inv-05-imprenta-gutenberg",
+      "order": 5,
+      "title": "Gutenberg i la impremta",
+      "dictation": {
+        "ca": "Cap al 1450, l'alemany Johannes Gutenberg va perfeccionar la impremta amb lletres metàl·liques que es podien moure i reutilitzar. Abans, un llibre s'havia de copiar sencer a mà, i trigava mesos. Amb la impremta, es podien fer moltes còpies d'un llibre en poc temps.",
+        "es": "Hacia 1450, el alemán Johannes Gutenberg perfeccionó la imprenta con letras metálicas que se podían mover y reutilizar. Antes, un libro se tenía que copiar entero a mano, y tardaba meses. Con la imprenta, se podían hacer muchas copias de un libro en poco tiempo."
+      },
+      "factExtra": {
+        "ca": "Sabies que el primer llibre gran imprès per Gutenberg va ser una Bíblia, i que encara se'n conserven còpies avui dia?",
+        "es": "¿Sabías que el primer libro grande impreso por Gutenberg fue una Biblia, y que todavía se conservan copias de ella hoy en día?"
+      },
+      "hook": "Aviat descobrirem un invent per mesurar el temps amb molta més precisió que mai.",
+      "questions": [
+        {
+          "q": "Què va perfeccionar Gutenberg cap a l'any 1450?",
+          "choices": ["La impremta amb lletres metàl·liques reutilitzables", "El primer ordinador", "La primera bicicleta", "El primer rellotge de sorra"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que la impremta va fer que molta més gent poc a poc pogués aprendre a llegir llibres?",
+          "choices": ["Perquè es podien fabricar molts llibres iguals més ràpid i més barats", "Perquè els llibres impresos pesaven menys", "Perquè la impremta ensenyava a llegir sola", "No va canviar res per a la gent normal"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "inv-06-rellotge-mecanic",
+      "order": 6,
+      "title": "El rellotge mecànic mesura les hores",
+      "dictation": {
+        "ca": "Cap al segle XIV, a Europa, van aparèixer els primers rellotges mecànics amb engranatges que movien les busques. Abans, la gent es guiava pel sol, per espelmes o per clepsidres d'aigua. Amb el rellotge mecànic, ciutats i esglésies podien organitzar millor la vida de tots.",
+        "es": "Hacia el siglo XIV, en Europa, aparecieron los primeros relojes mecánicos con engranajes que movían las agujas. Antes, la gente se guiaba por el sol, velas o clepsidras de agua. Con el reloj mecánico, ciudades e iglesias organizaban mejor la vida de todos."
+      },
+      "factExtra": {
+        "ca": "Sabies que els primers rellotges mecànics no tenien busca dels minuts, només marcaven les hores senceres?",
+        "es": "¿Sabías que los primeros relojes mecánicos no tenían aguja de los minutos, solo marcaban las horas enteras?"
+      },
+      "hook": "Demà farem un salt fins a un invent que va portar la llum dins de casa a qualsevol hora: la bombeta.",
+      "questions": [
+        {
+          "q": "Com es guiava la gent per saber l'hora abans del rellotge mecànic?",
+          "choices": ["Pel sol, per espelmes o per clepsidres d'aigua", "Per un despertador digital", "Per un telèfon mòbil", "Per la ràdio"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que saber l'hora exacta era important per organitzar la vida d'una ciutat sencera?",
+          "choices": ["Perquè així molta gent podia coordinar-se per fer coses alhora", "Perquè l'hora no importa mai a ningú", "Perquè només interessava als rics", "Perquè feia més bonic el paisatge"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "inv-07-la-bombeta",
+      "order": 7,
+      "title": "La bombeta il·lumina les cases",
+      "dictation": {
+        "ca": "Cap al 1879, Thomas Edison va perfeccionar la bombeta elèctrica, capaç d'estar encesa hores seguides. Un filament fi s'escalfava amb electricitat fins fer llum, dins d'un vidre buit. Gràcies a la bombeta, les nits de les ciutats es van omplir de llum.",
+        "es": "Hacia 1879, Thomas Edison perfeccionó la bombilla eléctrica, capaz de estar encendida horas seguidas. Un filamento fino se calentaba con electricidad hasta hacer luz, dentro de un vidrio vacío. Gracias a la bombilla, las noches de las ciudades se llenaron de luz."
+      },
+      "factExtra": {
+        "ca": "Sabies que abans de la bombeta, moltes cases s'il·luminaven de nit amb espelmes o llums d'oli, molt més perilloses?",
+        "es": "¿Sabías que antes de la bombilla, muchas casas se iluminaban de noche con velas o lámparas de aceite, mucho más peligrosas?"
+      },
+      "hook": "Aviat descobrirem un invent que va permetre parlar amb algú que estava molt lluny.",
+      "questions": [
+        {
+          "q": "Qui va ser un dels inventors que va perfeccionar la bombeta elèctrica?",
+          "choices": ["Thomas Edison", "Marco Polo", "Johannes Gutenberg", "Alexander Fleming"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Com creus que va canviar la vida de les famílies quan van poder tenir llum elèctrica a casa de nit?",
+          "choices": ["Podien llegir, cuinar o parlar de nit sense por del foc d'una espelma", "No va canviar res important", "Van deixar de dormir mai més", "Només servia per fer festes"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "inv-08-el-telefon",
+      "order": 8,
+      "title": "El telèfon acosta les veus llunyanes",
+      "dictation": {
+        "ca": "L'any 1876, Alexander Graham Bell va patentar el telèfon, un aparell que transformava la veu en senyals elèctrics. Aquells senyals viatjaven per un cable i tornaven a convertir-se en so. Per primera vegada, dues persones podien parlar-se sense estar a la mateixa habitació.",
+        "es": "En el año 1876, Alexander Graham Bell patentó el teléfono, un aparato que transformaba la voz en señales eléctricas. Esas señales viajaban por un cable y volvían a convertirse en sonido. Por primera vez, dos personas podían hablarse sin estar en la misma habitación."
+      },
+      "factExtra": {
+        "ca": "Sabies que la primera frase que es va dir per telèfon va ser una crida per demanar ajuda a un company de feina?",
+        "es": "¿Sabías que la primera frase que se dijo por teléfono fue una llamada para pedir ayuda a un compañero de trabajo?"
+      },
+      "hook": "Demà coneixerem un invent capaç de guardar per sempre la imatge d'un moment concret.",
+      "questions": [
+        {
+          "q": "Qui va patentar el telèfon el 1876?",
+          "choices": ["Alexander Graham Bell", "Thomas Edison", "Johannes Gutenberg", "Edward Jenner"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Com era la vida de la gent abans d'existir el telèfon, quan volien parlar amb algú que vivia lluny?",
+          "choices": ["Havien d'escriure cartes i esperar dies o setmanes per rebre resposta", "Parlaven igual que ara, per videotrucada", "No calia mai parlar amb ningú lluny", "Anaven a peu fins allà mateix"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "inv-09-fotografia",
+      "order": 9,
+      "title": "La fotografia atrapa un instant",
+      "dictation": {
+        "ca": "Cap al 1826, el francès Nicéphore Niépce va aconseguir fer la fotografia més antiga que es conserva avui dia. La llum, en entrar per un forat petit, deixava una imatge fixa sobre una placa. Aquella primera foto va trigar hores a fer-se.",
+        "es": "Hacia 1826, el francés Nicéphore Niépce consiguió hacer la fotografía más antigua que se conserva hoy en día. La luz, al entrar por un pequeño agujero, dejaba una imagen fija sobre una placa. Esa primera foto tardó horas en hacerse."
+      },
+      "factExtra": {
+        "ca": "Sabies que aquella primera fotografia mostrava senzillament el paisatge que es veia des de la finestra de casa seva?",
+        "es": "¿Sabías que aquella primera fotografía mostraba sencillamente el paisaje que se veía desde la ventana de su casa?"
+      },
+      "hook": "Aviat viatjarem molt més ràpid gràcies a un invent que corre sobre rails.",
+      "questions": [
+        {
+          "q": "Què va aconseguir fer Nicéphore Niépce cap al 1826?",
+          "choices": ["La fotografia més antiga que es conserva avui dia", "El primer telèfon del món", "La primera bombeta elèctrica", "El primer avió que va volar"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que abans de la fotografia era tan difícil saber exactament com era la cara d'algú que havia viscut fa segles?",
+          "choices": ["Perquè només hi havia pintures o descripcions, que no sempre eren exactes", "Perquè tothom es feia fotos igualment", "Perquè les cares no canviaven mai", "No hi havia cap dificultat"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "inv-10-ferrocarril",
+      "order": 10,
+      "title": "El ferrocarril, viatjar sobre rails",
+      "dictation": {
+        "ca": "A principis del segle XIX, les primeres locomotores de vapor van començar a estirar vagons plens de gent sobre rails de ferro. Un viatge que abans durava dies a peu o a cavall es podia fer en poques hores. El ferrocarril va acostar ciutats llunyanes.",
+        "es": "A principios del siglo XIX, las primeras locomotoras de vapor empezaron a arrastrar vagones llenos de gente sobre raíles de hierro. Un viaje que antes duraba días a pie o a caballo se podía hacer en pocas horas. El ferrocarril acercó ciudades lejanas."
+      },
+      "factExtra": {
+        "ca": "Sabies que els primers passatgers de tren tenien por que anar tan de pressa els pogués fer mal, perquè no hi estaven acostumats?",
+        "es": "¿Sabías que los primeros pasajeros de tren tenían miedo de que ir tan rápido les pudiera hacer daño, porque no estaban acostumbrados?"
+      },
+      "hook": "Demà coneixerem un invent que ens permet guardar el menjar fresc durant molt més temps.",
+      "questions": [
+        {
+          "q": "Què estiraven les primeres locomotores de vapor?",
+          "choices": ["Vagons plens de persones i mercaderies sobre rails", "Globus aerostàtics pel cel", "Vaixells pel mar", "Carros sense rodes"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que el ferrocarril va canviar tant la manera com la gent es relacionava amb ciutats llunyanes?",
+          "choices": ["Perquè un viatge que abans trigava dies ara es podia fer en poques hores", "Perquè els trens no servien per viatjar", "Perquè la gent va deixar de viatjar del tot", "No va canviar res en absolut"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "inv-11-refrigeracio",
+      "order": 11,
+      "title": "La refrigeració conserva els aliments",
+      "dictation": {
+        "ca": "A finals del segle XIX, es van inventar les primeres màquines capaces de refredar l'aire i conservar els aliments. Abans, calia fer servir gel natural, sal o fum perquè el menjar no es fes malbé. Amb la refrigeració, es podien transportar aliments frescos molt lluny.",
+        "es": "A finales del siglo XIX, se inventaron las primeras máquinas capaces de enfriar el aire y conservar los alimentos. Antes, había que usar hielo natural, sal o humo para que la comida no se estropeara. Con la refrigeración, se podían transportar alimentos frescos muy lejos."
+      },
+      "factExtra": {
+        "ca": "Sabies que abans dels frigorífics, moltes famílies compraven grans blocs de gel natural que un venedor els portava cada dia a casa?",
+        "es": "¿Sabías que antes de los frigoríficos, muchas familias compraban grandes bloques de hielo natural que un vendedor les llevaba cada día a casa?"
+      },
+      "hook": "Aviat coneixerem un descobriment mèdic que va salvar la vida de milions de persones malaltes.",
+      "questions": [
+        {
+          "q": "Com es conservaven els aliments abans d'existir la refrigeració elèctrica?",
+          "choices": ["Amb gel natural, sal o fum", "Amb plàstic de colors", "Amb electricitat estàtica", "No es conservaven mai"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que la refrigeració va permetre que la gent de ciutats grans poguessin menjar peix o fruita d'altres llocs llunyans?",
+          "choices": ["Perquè els aliments es podien transportar sense fer-se malbé pel camí", "Perquè els aliments duraven per sempre sense fred", "Perquè el transport no importa per al menjar", "No hi ha cap relació entre les dues coses"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "inv-12-vacuna-jenner",
+      "order": 12,
+      "title": "Jenner i la primera vacuna",
+      "dictation": {
+        "ca": "L'any 1796, el metge Edward Jenner va provar que inocular una malaltia lleugera de vaca protegia d'una malaltia molt més greu, la verola. Aquell experiment va ser l'origen de les vacunes, que avui salven milions de vides. Al principi, molta gent en tenia por.",
+        "es": "En 1796, el médico Edward Jenner demostró que inocular una enfermedad leve de vaca protegía de otra mucho más grave, la viruela. Ese experimento fue el origen de las vacunas, que hoy salvan millones de vidas. Al principio, la gente tenía miedo de esa idea."
+      },
+      "factExtra": {
+        "ca": "Sabies que la paraula \"vacuna\" ve de \"vaca\", precisament perquè Jenner va fer servir una malaltia de les vaques en el seu experiment?",
+        "es": "¿Sabías que la palabra \"vacuna\" viene de \"vaca\", precisamente porque Jenner usó una enfermedad de las vacas en su experimento?"
+      },
+      "hook": "Demà coneixerem un altre descobriment mèdic, trobat gairebé per casualitat, que combat les infeccions.",
+      "questions": [
+        {
+          "q": "Contra quina malaltia greu va protegir la primera vacuna de Jenner?",
+          "choices": ["La verola", "El refredat comú", "El mal de cap", "Les picades de mosquit"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que algunes persones de l'època de Jenner tenien por d'una idea tan nova com la vacuna?",
+          "choices": ["Perquè els feia por allò que no coneixien i no entenien del tot", "Perquè les vacunes no havien existit mai en cap altre lloc", "Perquè no volien curar-se de cap malaltia", "Perquè els metges no existien encara"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "inv-13-penicil·lina-fleming",
+      "order": 13,
+      "title": "Fleming descobreix la penicil·lina",
+      "dictation": {
+        "ca": "L'any 1928, Alexander Fleming va descobrir la penicil·lina gairebé per casualitat, en veure com una floridura matava bacteris en una placa de laboratori. Aquell descobriment va donar lloc als antibiòtics, medicaments que combaten infeccions perilloses. Abans, una simple ferida infectada podia matar una persona.",
+        "es": "En 1928, Alexander Fleming descubrió la penicilina casi por casualidad, al ver cómo un moho mataba bacterias en una placa de laboratorio. Ese descubrimiento dio lugar a los antibióticos, medicamentos que combaten infecciones peligrosas. Antes, una simple herida infectada podía matar a una persona."
+      },
+      "factExtra": {
+        "ca": "Sabies que Fleming va descobrir la penicil·lina perquè es va oblidar unes plaques de laboratori sense netejar durant les vacances?",
+        "es": "¿Sabías que Fleming descubrió la penicilina porque se olvidó unas placas de laboratorio sin limpiar durante las vacaciones?"
+      },
+      "hook": "Aviat enlairarem els peus de terra amb un invent que ens va permetre volar de veritat.",
+      "questions": [
+        {
+          "q": "Què va descobrir Alexander Fleming l'any 1928?",
+          "choices": ["La penicil·lina", "La vacuna contra la verola", "El telèfon", "La fotografia"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que un descobriment fet gairebé per casualitat, com el de Fleming, pot canviar la vida de milions de persones?",
+          "choices": ["Perquè de vegades una observació atenta d'un fet inesperat porta a descobriments enormes", "Perquè la casualitat mai serveix per a res important", "Perquè els científics no observen mai res", "Perquè els descobriments només passen si es busquen expressament"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "inv-14-avio-wright",
+      "order": 14,
+      "title": "Els germans Wright aixequen el vol",
+      "dictation": {
+        "ca": "El 17 de desembre de 1903, els germans Wright van fer volar el primer avió amb motor de la història. El vol va durar només dotze segons, però va demostrar que un aparell més pesant que l'aire podia enlairar-se. D'allà van néixer els avions moderns.",
+        "es": "El 17 de diciembre de 1903, los hermanos Wright hicieron volar el primer avión con motor de la historia. El vuelo duró solo doce segundos, pero demostró que un aparato más pesado que el aire podía despegar. De ahí nacieron los aviones modernos."
+      },
+      "factExtra": {
+        "ca": "Sabies que abans de construir avions, els germans Wright havien tingut un taller de bicicletes, on van aprendre molt sobre equilibri i mecànica?",
+        "es": "¿Sabías que antes de construir aviones, los hermanos Wright habían tenido un taller de bicicletas, donde aprendieron mucho sobre equilibrio y mecánica?"
+      },
+      "hook": "Demà arribarem al darrer invent d'aquesta sèrie, una xarxa que connecta el món sencer.",
+      "questions": [
+        {
+          "q": "Quant va durar el primer vol dels germans Wright?",
+          "choices": ["Uns dotze segons", "Tres hores senceres", "Un dia complet", "Una setmana"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que dotze segons de vol, tot i ser tan poc temps, es consideren un moment tan important de la història?",
+          "choices": ["Perquè va demostrar per primera vegada que volar amb motor era possible", "Perquè dotze segons és molt de temps volant", "Perquè els germans Wright ho van fer sense cap perill", "No té cap importància real"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "inv-15-internet",
+      "order": 15,
+      "title": "Internet, una xarxa que connecta el món",
+      "dictation": {
+        "ca": "Cap a finals del segle XX, ordinadors de llocs diferents del món es van connectar formant la xarxa que avui coneixem com internet. Gràcies a aquesta xarxa, podem enviar missatges i parlar amb gent llunyana en un instant. Cap invent anterior hi hauria arribat sol.",
+        "es": "Hacia finales del siglo XX, ordenadores de lugares diferentes del mundo se conectaron formando la red que hoy conocemos como internet. Gracias a esa red, podemos enviar mensajes y hablar con gente lejana en un instante. Ningún invento anterior habría llegado tan lejos solo."
+      },
+      "factExtra": {
+        "ca": "Sabies que els primers missatges enviats per aquesta xarxa, fa dècades, viatjaven molt més lentament que un vídeo que avui veiem en un segon?",
+        "es": "¿Sabías que los primeros mensajes enviados por esta red, hace décadas, viajaban mucho más lento que un vídeo que hoy vemos en un segundo?"
+      },
+      "hook": "Aquesta és la fi del viatge pels invents... però cada dia en neixen de nous, i potser algun d'ells el pots inventar tu!",
+      "questions": [
+        {
+          "q": "Què va fer possible internet, segons el text?",
+          "choices": ["Enviar missatges i parlar amb gent d'altres països en un instant", "Viatjar més ràpid en tren", "Conservar millor els aliments", "Curar totes les malalties"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "De tots els invents que hem conegut en aquesta sèrie, quin creus que seria més difícil de deixar de fer servir avui i per què?",
+          "choices": ["Resposta lliure: cadascú pot triar l'invent que troba més imprescindible per a la seva vida", "Cap, no en necessitem cap avui dia", "Tots són igual d'inútils", "No en recordo cap"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    }
+  ]
+}
