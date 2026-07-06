@@ -52,6 +52,215 @@ export const ChaptersSchema = z.array(ChapterSchema)
 export const SUMMER_COVERAGE_START = '2026-06-29'
 export const SUMMER_COVERAGE_END = '2026-09-13'
 
+/** A bilingual dictation/comprehension question. `reflexiva` = open-ended reasoning ("what would you do / why do you think"); `literal` = fact recall from the text. */
+const QuestionSchema = z.object({
+  q: z.string().min(1),
+  choices: z.array(z.string().min(1)).length(4),
+  correctIdx: z.number().int().min(0).max(3),
+  kind: z.enum(['reflexiva', 'literal']),
+})
+
+/** Word count helper: splits on whitespace, ignoring empty tokens. */
+function wordCount(text: string): number {
+  return text.trim().split(/\s+/).filter(Boolean).length
+}
+
+/** Sentence count helper: counts terminal punctuation (. ! ?), treating an ellipsis as one boundary. */
+function sentenceCount(text: string): number {
+  const matches = text.trim().match(/[.!?]+(?:\s|$)/g)
+  return matches ? matches.length : 0
+}
+
+const dictationRange = { minWords: 25, maxWords: 45, minSentences: 2, maxSentences: 4 }
+
+/** One episode of a serialized story: dictation in both languages, a wow-fact, a hook, and comprehension questions. */
+export const EpisodeSchema = z
+  .object({
+    id: z.string().min(1),
+    order: z.number().int().min(1),
+    title: z.string().min(1),
+    dictation: z.object({
+      ca: z.string().min(1),
+      es: z.string().min(1),
+    }),
+    factExtra: z.object({
+      ca: z.string().min(1),
+      es: z.string().min(1),
+    }),
+    hook: z.string().min(1),
+    questions: z.array(QuestionSchema).min(1),
+  })
+  .superRefine((episode, ctx) => {
+    for (const lang of ['ca', 'es'] as const) {
+      const text = episode.dictation[lang]
+      const words = wordCount(text)
+      const sentences = sentenceCount(text)
+      if (words < dictationRange.minWords || words > dictationRange.maxWords) {
+        ctx.addIssue({
+          code: 'custom',
+          message: `dictation.${lang} has ${words} words, expected ${dictationRange.minWords}-${dictationRange.maxWords}`,
+          path: ['dictation', lang],
+        })
+      }
+      if (sentences < dictationRange.minSentences || sentences > dictationRange.maxSentences) {
+        ctx.addIssue({
+          code: 'custom',
+          message: `dictation.${lang} has ${sentences} sentences, expected ${dictationRange.minSentences}-${dictationRange.maxSentences}`,
+          path: ['dictation', lang],
+        })
+      }
+    }
+    const hasReflexiva = episode.questions.some((q) => q.kind === 'reflexiva')
+    if (!hasReflexiva) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'episode must include at least one "reflexiva" question',
+        path: ['questions'],
+      })
+    }
+  })
+
+export type Episode = z.infer<typeof EpisodeSchema>
+
+/** A serialized story: an ordered sequence of episodes consumed one per day. */
+export const SeriesSchema = z.object({
+  id: z.string().min(1),
+  title: z.string().min(1),
+  emoji: z.string().min(1),
+  episodes: z.array(EpisodeSchema).min(1),
+})
+
+export type Series = z.infer<typeof SeriesSchema>
+
+/**
+ * Validates a parsed series beyond per-episode shape: episode `order` values
+ * are sequential starting at 1 (1, 2, 3, ... with no gaps or duplicates).
+ * Throws on the first violation found.
+ */
+export function validateSeries(series: unknown): Series {
+  const parsed = SeriesSchema.parse(series)
+
+  const orders = parsed.episodes.map((e) => e.order)
+  for (let i = 0; i < orders.length; i++) {
+    const expected = i + 1
+    if (orders[i] !== expected) {
+      throw new Error(
+        `series "${parsed.id}": episode order is not sequential — expected order ${expected} at position ${i}, got ${orders[i]} (episode "${parsed.episodes[i].id}")`,
+      )
+    }
+  }
+
+  return parsed
+}
+
+/** A "did you know?" fact card, optionally tied to a chapter for geographic/thematic relevance. */
+export const CuriositySchema = z.object({
+  id: z.string().min(1),
+  text: z.object({ es: z.string().min(1) }),
+  tag: z.string().min(1),
+  chapterId: z.string().min(1).optional(),
+  premium: z.boolean().optional(),
+})
+
+export type Curiosity = z.infer<typeof CuriositySchema>
+export const CuriositiesSchema = z.array(CuriositySchema)
+
+/** A joke used to occasionally replace a dictation. At least one of ca/es must be present. */
+export const JokeSchema = z
+  .object({
+    id: z.string().min(1),
+    text: z.object({
+      es: z.string().min(1).optional(),
+      ca: z.string().min(1).optional(),
+    }),
+    kind: z.literal('chiste'),
+  })
+  .superRefine((joke, ctx) => {
+    if (!joke.text.es && !joke.text.ca) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'joke text must have at least one of "es" or "ca"',
+        path: ['text'],
+      })
+    }
+  })
+
+export type Joke = z.infer<typeof JokeSchema>
+export const JokesSchema = z.array(JokeSchema)
+
+/** A journal-writing prompt, optionally tied to a chapter. */
+export const DiaryPromptSchema = z.object({
+  id: z.string().min(1),
+  text: z.object({ es: z.string().min(1) }),
+  chapterId: z.string().min(1).optional(),
+})
+
+export type DiaryPrompt = z.infer<typeof DiaryPromptSchema>
+export const DiaryPromptsSchema = z.array(DiaryPromptSchema)
+
+/** A geography fact/quiz item tied to the trip itinerary. */
+export const GeographyItemSchema = z.object({
+  id: z.string().min(1),
+  text: z.object({ es: z.string().min(1) }),
+  chapterId: z.string().min(1).optional(),
+  tag: z.string().min(1).optional(),
+})
+
+export type GeographyItem = z.infer<typeof GeographyItemSchema>
+export const GeographyItemsSchema = z.array(GeographyItemSchema)
+
+/** One vocabulary card for Leo's English mini-lessons: a word, an emoji, and read-aloud text. */
+export const EnglishUnitSchema = z.object({
+  id: z.string().min(1),
+  word: z.string().min(1),
+  emoji: z.string().min(1),
+  audioText: z.string().min(1),
+})
+
+export type EnglishUnit = z.infer<typeof EnglishUnitSchema>
+export const EnglishUnitsSchema = z.array(EnglishUnitSchema)
+
+/** A short English mini-reading with a comprehension question, for Aira. */
+export const EnglishReadingSchema = z.object({
+  id: z.string().min(1),
+  title: z.string().min(1),
+  sentences: z.array(z.string().min(1)).min(1),
+  question: z.object({
+    q: z.string().min(1),
+    choices: z.array(z.string().min(1)).length(4),
+    correctIdx: z.number().int().min(0).max(3),
+  }),
+})
+
+export type EnglishReading = z.infer<typeof EnglishReadingSchema>
+export const EnglishReadingsSchema = z.array(EnglishReadingSchema)
+
+/** A "world facts" item (mundo) — general-knowledge card, e.g. flags, capitals, wildlife. */
+export const MundoItemSchema = z.object({
+  id: z.string().min(1),
+  text: z.object({ es: z.string().min(1) }),
+  tag: z.string().min(1).optional(),
+  chapterId: z.string().min(1).optional(),
+})
+
+export type MundoItem = z.infer<typeof MundoItemSchema>
+export const MundoItemsSchema = z.array(MundoItemSchema)
+
+/** A short illustrated story with a comprehension question, for Leo. */
+export const CuentoLeoSchema = z.object({
+  id: z.string().min(1),
+  title: z.string().min(1),
+  sentences: z.array(z.string().min(1)).min(1),
+  question: z.object({
+    q: z.string().min(1),
+    choices: z.array(z.string().min(1)).length(4),
+    correctIdx: z.number().int().min(0).max(3),
+  }),
+})
+
+export type CuentoLeo = z.infer<typeof CuentoLeoSchema>
+export const CuentosLeoSchema = z.array(CuentoLeoSchema)
+
 /**
  * Validates a parsed chapter list beyond per-chapter shape:
  * - every chapter matches ChapterSchema

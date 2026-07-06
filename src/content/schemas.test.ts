@@ -1,5 +1,19 @@
 import { describe, expect, it } from 'vitest'
-import { ChapterSchema, validateChapters } from './schemas'
+import {
+  ChapterSchema,
+  validateChapters,
+  EpisodeSchema,
+  SeriesSchema,
+  validateSeries,
+  CuriositySchema,
+  JokeSchema,
+  DiaryPromptSchema,
+  GeographyItemSchema,
+  EnglishUnitSchema,
+  EnglishReadingSchema,
+  MundoItemSchema,
+  CuentoLeoSchema,
+} from './schemas'
 import realChapters from '../../content/chapters.json'
 
 function makeChapter(overrides: Partial<Record<string, unknown>> = {}) {
@@ -70,5 +84,180 @@ describe('validateChapters', () => {
     const a = makeChapter({ id: 'a', dateStart: '2026-07-12', dateEnd: '2026-09-13' })
     const b = makeChapter({ id: 'b', dateStart: '2026-06-29', dateEnd: '2026-07-12' })
     expect(() => validateChapters([a, b])).toThrow(/sorted|order/i)
+  })
+})
+
+function makeEpisode(overrides: Partial<Record<string, unknown>> = {}) {
+  return {
+    id: 'ep-1',
+    order: 1,
+    title: 'Episodi 1',
+    dictation: {
+      ca: "L'home prehistòric va aprendre a fer foc fa milers d'anys, molt abans de saber escriure cap paraula. Amb el foc es cuinava la carn, s'escalfava el campament i s'espantaven els animals perillosos de la nit.",
+      es: 'El hombre prehistórico aprendió a hacer fuego hace miles de años, mucho antes de saber escribir ninguna palabra. Con el fuego se cocinaba la carne, se calentaba el campamento y se asustaba a los animales peligrosos de la noche.',
+    },
+    factExtra: {
+      ca: 'Sabies que el foc es va fer servir fa més de 400.000 anys?',
+      es: '¿Sabías que el fuego se usó hace más de 400.000 años?',
+    },
+    hook: 'Demà descobrirem com vivien en coves.',
+    questions: [
+      { q: 'Per a què servia el foc?', choices: ['Cuinar', 'Volar', 'Nedar', 'Res'], correctIdx: 0, kind: 'literal' },
+      {
+        q: 'Si no tinguessis foc a l\'hivern, què faries?',
+        choices: ['Buscaria abric', 'Res', 'Ploraria', 'Fugiria'],
+        correctIdx: 0,
+        kind: 'reflexiva',
+      },
+    ],
+    ...overrides,
+  }
+}
+
+describe('EpisodeSchema', () => {
+  it('accepts a well-formed episode', () => {
+    expect(() => EpisodeSchema.parse(makeEpisode())).not.toThrow()
+  })
+
+  it('rejects an episode with no reflexiva question', () => {
+    const bad = makeEpisode({
+      questions: [{ q: 'Q?', choices: ['a', 'b', 'c', 'd'], correctIdx: 0, kind: 'literal' }],
+    })
+    expect(() => EpisodeSchema.parse(bad)).toThrow(/reflexiva/i)
+  })
+
+  it('rejects a dictation that is too short', () => {
+    const bad = makeEpisode({ dictation: { ca: 'Text curt.', es: 'Texto corto.' } })
+    expect(() => EpisodeSchema.parse(bad)).toThrow(/words/i)
+  })
+
+  it('rejects a dictation with fewer than 2 sentences', () => {
+    const longSingleSentence = makeEpisode({
+      dictation: {
+        ca: 'Aquesta és una sola frase molt llarga que continua i continua sense punt final fins arribar al límit de paraules necessari per la validació',
+        es: 'Esta es una sola frase muy larga que continúa y continúa sin punto final hasta llegar al límite de palabras necesario para la validación',
+      },
+    })
+    expect(() => EpisodeSchema.parse(longSingleSentence)).toThrow(/sentences/i)
+  })
+
+  it('rejects choices arrays that are not length 4', () => {
+    const bad = makeEpisode({
+      questions: [{ q: 'Q?', choices: ['a', 'b'], correctIdx: 0, kind: 'reflexiva' }],
+    })
+    expect(() => EpisodeSchema.parse(bad)).toThrow()
+  })
+})
+
+describe('SeriesSchema / validateSeries', () => {
+  function makeSeries(episodeOrders: number[]) {
+    return {
+      id: 'serie-a',
+      title: 'Sèrie A',
+      emoji: '📖',
+      episodes: episodeOrders.map((order, i) => makeEpisode({ id: `ep-${i + 1}`, order })),
+    }
+  }
+
+  it('accepts a well-formed series with sequential order', () => {
+    expect(() => validateSeries(makeSeries([1, 2, 3]))).not.toThrow()
+  })
+
+  it('rejects non-sequential episode order', () => {
+    expect(() => validateSeries(makeSeries([1, 3, 4]))).toThrow(/sequential/i)
+  })
+
+  it('rejects an empty episodes array', () => {
+    expect(() => SeriesSchema.parse({ id: 's', title: 'S', emoji: '📖', episodes: [] })).toThrow()
+  })
+})
+
+describe('CuriositySchema', () => {
+  it('accepts a minimal curiosity', () => {
+    expect(() =>
+      CuriositySchema.parse({ id: 'c1', text: { es: 'Un dato curioso.' }, tag: 'geo' }),
+    ).not.toThrow()
+  })
+
+  it('accepts optional chapterId and premium', () => {
+    expect(() =>
+      CuriositySchema.parse({
+        id: 'c1',
+        text: { es: 'Un dato curioso.' },
+        tag: 'geo',
+        chapterId: 'singapur',
+        premium: true,
+      }),
+    ).not.toThrow()
+  })
+
+  it('rejects a missing tag', () => {
+    expect(() => CuriositySchema.parse({ id: 'c1', text: { es: 'Dato' } })).toThrow()
+  })
+})
+
+describe('JokeSchema', () => {
+  it('accepts a joke with only es', () => {
+    expect(() => JokeSchema.parse({ id: 'j1', text: { es: 'Un chiste' }, kind: 'chiste' })).not.toThrow()
+  })
+
+  it('accepts a joke with only ca', () => {
+    expect(() => JokeSchema.parse({ id: 'j1', text: { ca: 'Un acudit' }, kind: 'chiste' })).not.toThrow()
+  })
+
+  it('rejects a joke with neither es nor ca', () => {
+    expect(() => JokeSchema.parse({ id: 'j1', text: {}, kind: 'chiste' })).toThrow()
+  })
+})
+
+describe('DiaryPromptSchema', () => {
+  it('accepts a minimal diary prompt', () => {
+    expect(() => DiaryPromptSchema.parse({ id: 'd1', text: { es: '¿Qué hiciste hoy?' } })).not.toThrow()
+  })
+})
+
+describe('GeographyItemSchema', () => {
+  it('accepts a minimal geography item', () => {
+    expect(() => GeographyItemSchema.parse({ id: 'g1', text: { es: 'Singapur es una isla-ciudad.' } })).not.toThrow()
+  })
+})
+
+describe('EnglishUnitSchema', () => {
+  it('accepts a vocab unit', () => {
+    expect(() =>
+      EnglishUnitSchema.parse({ id: 'e1', word: 'elephant', emoji: '🐘', audioText: 'This is an elephant.' }),
+    ).not.toThrow()
+  })
+})
+
+describe('EnglishReadingSchema', () => {
+  it('accepts a mini-reading', () => {
+    expect(() =>
+      EnglishReadingSchema.parse({
+        id: 'r1',
+        title: 'The trip',
+        sentences: ['We are going to Singapore.', 'It is very hot there.'],
+        question: { q: 'Where are they going?', choices: ['Singapore', 'Paris', 'Rome', 'Tokyo'], correctIdx: 0 },
+      }),
+    ).not.toThrow()
+  })
+})
+
+describe('MundoItemSchema', () => {
+  it('accepts a minimal mundo item', () => {
+    expect(() => MundoItemSchema.parse({ id: 'm1', text: { es: 'La bandera de Indonesia es roja y blanca.' } })).not.toThrow()
+  })
+})
+
+describe('CuentoLeoSchema', () => {
+  it('accepts a minimal cuento', () => {
+    expect(() =>
+      CuentoLeoSchema.parse({
+        id: 'cu1',
+        title: 'El gato Kiko',
+        sentences: ['Kiko es un gato.', 'Le gusta viajar.'],
+        question: { q: '¿Quién es Kiko?', choices: ['Un gato', 'Un perro', 'Un pez', 'Un pájaro'], correctIdx: 0 },
+      }),
+    ).not.toThrow()
   })
 })
