@@ -75,7 +75,7 @@
 **Files:** Create `package.json`, `vite.config.ts`, `tsconfig.json`, `index.html`, `src/main.tsx`, `src/App.tsx`, `src/styles/tokens.css`.
 
 - [ ] **Step 1:** Scaffold: `npm create vite@latest . -- --template react-ts` (in repo root; keep existing `docs/`, `.gitignore` — extend it with `node_modules/`, `dist/`).
-- [ ] **Step 2:** `npm i react-router zustand idb-keyval zod` and `npm i -D vitest @vitest/coverage-v8 tailwindcss @tailwindcss/vite vite-plugin-pwa jsdom @testing-library/react`.
+- [ ] **Step 2:** `npm i react-router zustand idb-keyval zod` and `npm i -D vitest @vitest/coverage-v8 tailwindcss @tailwindcss/vite vite-plugin-pwa jsdom @testing-library/react tsx`.
 - [ ] **Step 3:** Configure `vite.config.ts`: `base: '/cuaderno-verano/'`, tailwind plugin, `test: { environment: 'jsdom' }`. Add `"test": "vitest run"`, `"validate:content": "tsx scripts/validate-content.ts"` scripts.
 - [ ] **Step 4:** Create `src/styles/tokens.css` with the approved palette as CSS custom properties: `--bg:#fdf6f0; --ink:#5b4a43; --ink-soft:#b0958a; --peach:#f4a988; --peach-soft:#ffe8d6; --mint:#d9ead6; --sky:#cfe2ef; --card:#ffffff;` plus celebration accents `--zap:#38bdf8; --sun:#ffd93d; --pow:#ff8a3d; --navy:#1e3a5f;` and radii `--r-card:22px; --r-pill:999px`.
 - [ ] **Step 5:** `npm run dev` renders "Cuaderno de Verano" placeholder. `npm run build` passes.
@@ -120,8 +120,8 @@
 
 - [ ] **Step 1:** Failing test: every subskill belongs to exactly one skill; Aira has 8 skills, Leo 4; each subskill declares `difficultyRange: [min,max]` and `challenge?: boolean` (next-course content).
 - [ ] **Step 2:** Implement catalog as typed const:
-  - Aira `calculo`: subskills `tablas`, `mult-1cifra`, `mult-2cifras`, `div-resto`, `mental`, `estimacion`, `cajitas`; `problemas`: `1-paso`, `2-pasos`, `dato-trampa`, `dinero`, `tiempo`, `medida`; `ortografia`: rule-tagged (`accents-ca`, `b-v`, `essa-sorda`, `apostrof`, `maj`, `puntuacio`…); `escritura`, `lectura`, `english`, `geografia`, `mundo`. Challenge subskills (🚀, `challenge:true`): `fracciones`, `decimales-dinero`, `hechos-derivados-dec`, `proporcionalidad`.
-  - Leo `trazos`: `letras`, `numeros`, `espejo`; `numeros`: `contar-6`, `descomponer-4-6`, `comparar`; challenge: `contar-20`, `descomponer-7-9`, `dobles`, `mas-menos-1-2`; `english`: `animales`, `colores`, `comida`, `huerto`; `logica`: `patrones`, `formas`, `simetria`, `clasificar`.
+  - Aira `calculo`: subskills `tablas`, `mult-1cifra`, `mult-2cifras`, `div-resto`, `mental`, `estimacion`, `cajitas`, `romanos` (low-weight/lúdico flag); `problemas`: `1-paso`, `2-pasos`, `dato-trampa`, `dinero`, `tiempo`, `medida`, `patrones-crecimiento`; `ortografia`: rule-tagged (`accents-ca`, `b-v`, `essa-sorda`, `apostrof`, `maj`, `puntuacio`…); `escritura`, `lectura`, `english`, `geografia`, `mundo`. Challenge subskills (🚀, `challenge:true`): `fracciones`, `decimales-dinero`, `hechos-derivados-dec`, `proporcionalidad`, `cuadrados` (square numbers, tiny generator built in Task 2.6).
+  - Leo `trazos`: `letras`, `numeros`, `espejo`; `numeros`: `contar-6`, `descomponer-4-6`, `comparar`; challenge: `contar-20`, `descomponer-7-9`, `dobles`, `mas-menos-1-2`, `simbolos`, `estimar` (estimate-then-check, built in Task 3.1); `english`: `animales`, `colores`, `comida`, `huerto`; `logica`: `patrones`, `formas`, `simetria`, `clasificar`, `posiciones` (spatial vocab: encima/debajo/al lado, built in Task 3.2).
 - [ ] **Step 3:** Tests pass. Commit `feat: skills and subskills catalog`.
 
 ### Task 1.2: Mastery model
@@ -167,7 +167,7 @@
 
 **Files:** Create `src/engine/dayComposer.ts`, `src/engine/dayComposer.test.ts`.
 
-- [ ] **Step 1:** Failing tests: same (date, profile, progress) → identical page; Aira page = [problema, dictado, sabias-que, diario] + surprise slot; Leo = [trazos, contar, english, sorpresa]; chapter resolved by date (boundary: 2026-07-15 → borneo-sepilok); dictation card alternates language with ≥60% ca over 30 days; content picks (episode, curiosity, diary prompt) never repeat until pool exhausted (progress tracks consumed ids).
+- [ ] **Step 1:** Failing tests: same (date, profile, progress) → identical page; Aira page = [problema, dictado, sabias-que, diario] + surprise slot; Leo = [trazos, contar, english, sorpresa]; chapter resolved by date (boundary: 2026-07-15 → borneo-sepilok); dictation card alternates language with ≥60% ca over 30 days; ~1 in 6-7 dictation days swaps the episode for a joke dictation (seeded, per spec §6.2); content picks (episode, curiosity, diary prompt, joke) never repeat until pool exhausted (progress tracks consumed ids).
 - [ ] **Step 2:** Implement `composeDay(dateISO, profile, progress, content, settings): DayPage` returning card descriptors `{cardType, subskill?, contentRef?, generatorParams?, surprise?}` — NO exercise instances yet (players instantiate via generator at open time with `rng(seed=date:profile:cardIdx)`).
 - [ ] **Step 3:** Tests pass. Commit `feat: deterministic day composer`.
 
@@ -238,7 +238,7 @@ export interface Generator { subskill: SubskillId; generate(rng: Rng, difficulty
 
 **Files:** Create `src/generators/aira/measure.ts`, `src/generators/aira/fractions.ts`, `src/generators/aira/decimalsMoney.ts`, tests.
 
-- [ ] **Step 1:** Property tests. `measure`: unit conversions with reasoning ("una hormiga mide 4mm…"; only mm/cm/m/km, ml/cl/l, g/kg — no hectogramos per Innovamat), grid area/perimeter (answer verified against generated grid figure). `fracciones` (challenge): part-of-unit visual (pizza slices), part-of-collection (`3/4 de 36`, steps `:4 ×3`), compare/equivalents. `decimales-dinero` (challenge): ±/×/÷ with 2 decimals in € context, strategies `saltos-linea` and `descomposicion-monedas`; all money arithmetic done in integer cents inside the generator (assert no float drift). `hechos-derivados-dec` (challenge): known-fact → derived-fact pairs (5+4=9 → 4,90+3,90=?) with the reasoning step as the strategy. `proporcionalidad` (challenge): recipe doubling/tripling and unit-change deduce-×-or-÷ items. Every challenge subskill declared in Task 1.1's catalog MUST have a registered generator by end of this task (test: iterate catalog, assert registry coverage).
+- [ ] **Step 1:** Property tests. `measure`: unit conversions with reasoning ("una hormiga mide 4mm…"; only mm/cm/m/km, ml/cl/l, g/kg — no hectogramos per Innovamat), grid area/perimeter (answer verified against generated grid figure). `fracciones` (challenge): part-of-unit visual (pizza slices), part-of-collection (`3/4 de 36`, steps `:4 ×3`), compare/equivalents. `decimales-dinero` (challenge): ±/×/÷ with 2 decimals in € context, strategies `saltos-linea` and `descomposicion-monedas`; all money arithmetic done in integer cents inside the generator (assert no float drift). `hechos-derivados-dec` (challenge): known-fact → derived-fact pairs (5+4=9 → 4,90+3,90=?) with the reasoning step as the strategy. `proporcionalidad` (challenge): recipe doubling/tripling and unit-change deduce-×-or-÷ items. `cuadrados` (challenge): square numbers as dot-grids (n×n visual, find n² or n). Every challenge subskill declared in Task 1.1's catalog MUST have a registered generator by end of this task (test: iterate catalog, assert registry coverage).
 - [ ] **Step 2:** Implement; challenge exercises get `challenge: true` marker propagated to Exercise.
 - [ ] **Step 3:** Tests pass. Commit `feat: measure generators and 5º challenge generators (fractions, decimals-as-money)`.
 
@@ -250,7 +250,7 @@ export interface Generator { subskill: SubskillId; generate(rng: Rng, difficulty
 
 **Files:** Create `src/generators/leo/counting.ts`, `src/generators/leo/decomposition.ts`, tests.
 
-- [ ] **Step 1:** Property tests: `contar-6` renders n∈[1..6] animal emojis from chapter flavor, answer=n, choices are 3 near numbers; challenge `contar-20` n∈[7..20]; `comparar`: two emoji groups, "¿dónde hay más?" (or equal), counts within 0-6; `descomponer-4-6`: "hay {t} en total, ves {v}, ¿cuántos escondidos?" answer t−v; challenge `descomponer-7-9`, `dobles` (1-6), `mas-menos-1-2` similar bounds, `simbolos` (pick +, − or = to make a shown equation true, range 1-9). Registry-coverage test for Leo catalog too.
+- [ ] **Step 1:** Property tests: `contar-6` renders n∈[1..6] animal emojis from chapter flavor, answer=n, choices are 3 near numbers; challenge `contar-20` n∈[7..20]; `comparar`: two emoji groups, "¿dónde hay más?" (or equal), counts within 0-6; `descomponer-4-6`: "hay {t} en total, ves {v}, ¿cuántos escondidos?" answer t−v; challenge `descomponer-7-9`, `dobles` (1-6), `mas-menos-1-2` similar bounds, `simbolos` (pick +, − or = to make a shown equation true, range 1-9), `estimar` (challenge: "¿cuántos crees que hay?" rough-guess accepted within ±30%, then count-to-check step). Registry-coverage test for Leo catalog too.
 - [ ] **Step 2:** Implement (visual-first: exercises carry `visual: {kind:'emoji-count', items,…}` for big-tap UI).
 - [ ] **Step 3:** Tests pass. Commit `feat: Leo counting and decomposition generators (I4 + I5 challenges)`.
 
@@ -258,7 +258,7 @@ export interface Generator { subskill: SubskillId; generate(rng: Rng, difficulty
 
 **Files:** Create `src/generators/leo/patterns.ts`, `src/generators/leo/shapes.ts`, tests.
 
-- [ ] **Step 1:** Property tests: pattern `AB/AAB/ABC` sequences with one hidden slot, answer index correct; shapes: "toca el {shape}" among 4 distractors; symmetry: pick the mirrored half (precomputed emoji pairs); classify: "¿cuál NO es {category}?" using flavor animal/food pools.
+- [ ] **Step 1:** Property tests: pattern `AB/AAB/ABC` sequences with one hidden slot, answer index correct; shapes: "toca el {shape}" among 4 distractors; symmetry: pick the mirrored half (precomputed emoji pairs); classify: "¿cuál NO es {category}?" using flavor animal/food pools; `posiciones`: scene of 2 emojis + "toca el que está {encima/debajo/delante/al lado}" with TTS.
 - [ ] **Step 2:** Implement. Tests pass. Commit `feat: Leo logic generators (patterns, shapes, symmetry, classification)`.
 
 ### Task 3.3: Letter/number tracing data
