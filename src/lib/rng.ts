@@ -15,7 +15,11 @@ export interface Rng {
   pick<T>(arr: T[]): T
   /** New array with the same elements in a deterministic random order. Does not mutate input. */
   shuffle<T>(arr: T[]): T[]
-  /** True with probability p (0 = never, 1 = always). */
+  /**
+   * True with probability p. Out-of-range p clamps by construction:
+   * p <= 0 always returns false, p >= 1 always returns true, because
+   * `next()` only ever produces values in [0, 1).
+   */
   chance(p: number): boolean
 }
 
@@ -50,24 +54,29 @@ export function createRng(seed: string): Rng {
   const seedFn = xmur3(seed)
   const next = mulberry32(seedFn())
 
-  return {
-    next,
-    int(min: number, max: number): number {
-      return Math.floor(next() * (max - min + 1)) + min
-    },
-    pick<T>(arr: T[]): T {
-      return arr[this.int(0, arr.length - 1)]
-    },
-    shuffle<T>(arr: T[]): T[] {
-      const result = [...arr]
-      for (let i = result.length - 1; i > 0; i--) {
-        const j = this.int(0, i)
-        ;[result[i], result[j]] = [result[j], result[i]]
-      }
-      return result
-    },
-    chance(p: number): boolean {
-      return next() < p
-    },
+  const int = (min: number, max: number): number => {
+    return Math.floor(next() * (max - min + 1)) + min
   }
+
+  const pick = <T>(arr: T[]): T => {
+    if (arr.length === 0) {
+      throw new Error('pick from empty array')
+    }
+    return arr[int(0, arr.length - 1)]
+  }
+
+  const shuffle = <T>(arr: T[]): T[] => {
+    const result = [...arr]
+    for (let i = result.length - 1; i > 0; i--) {
+      const j = int(0, i)
+      ;[result[i], result[j]] = [result[j], result[i]]
+    }
+    return result
+  }
+
+  const chance = (p: number): boolean => {
+    return next() < p
+  }
+
+  return { next, int, pick, shuffle, chance }
 }

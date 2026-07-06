@@ -71,4 +71,18 @@ describe('createRng', () => {
       expect(rng.chance(1)).toBe(true)
     }
   })
+
+  it('works when methods are destructured (no this-binding required)', () => {
+    const { pick, shuffle, int } = createRng('destructure-seed')
+    const items = ['a', 'b', 'c']
+
+    expect(items).toContain(pick(items))
+    expect([...shuffle(items)].sort()).toEqual([...items].sort())
+    expect(Number.isInteger(int(1, 5))).toBe(true)
+  })
+
+  it('pick throws on an empty array', () => {
+    const rng = createRng('empty-pick-seed')
+    expect(() => rng.pick([])).toThrow('pick from empty array')
+  })
 })
