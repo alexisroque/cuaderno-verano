@@ -57,4 +57,23 @@ describe('registerFlushOnHide', () => {
 
     expect(memoryStore.has('profile:aira')).toBe(false)
   })
+
+  it('registering twice does not double-register listeners (idempotent)', async () => {
+    registerFlushOnHide()
+    registerFlushOnHide()
+
+    const addEventListenerSpy = vi.spyOn(window, 'addEventListener')
+
+    useProgressStore.getState().addCoins('aira', 1)
+    window.dispatchEvent(new Event('pagehide'))
+    await Promise.resolve()
+    await Promise.resolve()
+
+    // A third call after listeners are already registered should not attach
+    // new listeners at all.
+    registerFlushOnHide()
+    expect(addEventListenerSpy).not.toHaveBeenCalledWith('pagehide', expect.anything())
+
+    addEventListenerSpy.mockRestore()
+  })
 })

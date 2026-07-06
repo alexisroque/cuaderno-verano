@@ -85,4 +85,40 @@ describe('createDebouncedPersist', () => {
     await vi.advanceTimersByTimeAsync(200)
     expect(memoryStore.has('my-key')).toBe(true)
   })
+
+  it('overlapping writes: the last scheduled value wins even if an earlier save is still in flight', async () => {
+    const idbKeyval = await import('idb-keyval')
+    const setMock = idbKeyval.set as unknown as ReturnType<typeof vi.fn>
+
+    // Make the underlying save "slow" for the first call only, so it resolves
+    // after later schedule()/flush() calls have already fired their own writes.
+    let releaseFirstWrite: (() => void) | undefined
+    setMock.mockImplementationOnce((key: string, value: unknown) => {
+      return new Promise<void>((resolve) => {
+        releaseFirstWrite = () => {
+          memoryStore.set(key, value)
+          resolve()
+        }
+      })
+    })
+
+    let value: { count: number } = { count: 1 }
+    const persist = createDebouncedPersist('my-key', () => value, 500)
+
+    persist.schedule()
+    await vi.advanceTimersByTimeAsync(500) // fires the slow write, but it hasn't resolved yet
+
+    value = { count: 2 }
+    persist.schedule()
+    await vi.advanceTimersByTimeAsync(500) // fires a second, fast write that resolves immediately
+
+    // Now let the slow first write finally resolve.
+    releaseFirstWrite?.()
+    await Promise.resolve()
+    await Promise.resolve()
+    await Promise.resolve()
+
+    const loaded = await loadState<{ count: number }>('my-key')
+    expect(loaded).toEqual({ count: 2 })
+  })
 })

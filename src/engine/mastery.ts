@@ -5,6 +5,7 @@ const WINDOW_SIZE = 20
 const JUDGE_WINDOW_SIZE = 10
 const RISE_THRESHOLD = 0.85
 const DROP_THRESHOLD = 0.6
+const MIN_JUDGE_SAMPLES = 3
 
 /**
  * Scores one attempt for mastery purposes: a correct attempt with no hints
@@ -59,8 +60,13 @@ function clamp(value: number, [min, max]: [number, number]): number {
  * - Accuracy over the judge window (same 1 / 0.5 / 0 scoring as
  *   `masteryFor`) >= 85% rises one level (capped at the range max);
  *   < 60% drops one level (floored at the range min); otherwise the level
- *   is unchanged. An empty judge window (this can only happen with zero
- *   attempts, handled above) would also mean "stay put".
+ *   is unchanged.
+ * - Minimum-samples guard: if the judge window has fewer than
+ *   `MIN_JUDGE_SAMPLES` attempts, there isn't enough signal to move the
+ *   level either way, so the level stays put. This covers the empty-window
+ *   case (which can only happen with zero attempts, handled above) and
+ *   also low-sample windows (1-2 attempts) that would otherwise let a
+ *   single lucky/unlucky answer swing the difficulty.
  */
 export function suggestedDifficulty(attempts: Attempt[], subskillDef: SubskillDef): number {
   const { difficultyRange } = subskillDef
@@ -75,7 +81,7 @@ export function suggestedDifficulty(attempts: Attempt[], subskillDef: SubskillDe
   const atCurrentLevel = relevant.filter((a) => a.difficulty === currentLevel)
   const judgeWindow = atCurrentLevel.slice(-JUDGE_WINDOW_SIZE)
 
-  if (judgeWindow.length === 0) {
+  if (judgeWindow.length < MIN_JUDGE_SAMPLES) {
     return currentLevel
   }
 

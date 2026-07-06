@@ -101,12 +101,23 @@ describe('suggestedDifficulty', () => {
     expect(suggestedDifficulty([], def({ difficultyRange: [2, 5] }))).toBe(2)
   })
 
-  it('stays at the current level when the judge window is empty', () => {
-    // A single attempt at difficulty 3, but only 1 attempt total (below the 10-window,
-    // but the window itself just contains what's available at that level).
-    const attempts = [attempt({ difficulty: 3, correct: true, hintsUsed: 0 })]
-    // window has 1 attempt at level 3, accuracy 1.0 >= 0.85 => rises to 4
-    expect(suggestedDifficulty(attempts, def({ difficultyRange: [1, 5] }))).toBe(4)
+  it('stays at the current level when the judge window has fewer than 3 samples (1-2 attempts)', () => {
+    // A single attempt at difficulty 3: even though it's correct, 1 sample is not
+    // enough signal to move the level.
+    const oneAttempt = [attempt({ difficulty: 3, correct: true, hintsUsed: 0 })]
+    expect(suggestedDifficulty(oneAttempt, def({ difficultyRange: [1, 5] }))).toBe(3)
+
+    const twoAttempts = Array.from({ length: 2 }, () =>
+      attempt({ difficulty: 3, correct: true, hintsUsed: 0 }),
+    )
+    expect(suggestedDifficulty(twoAttempts, def({ difficultyRange: [1, 5] }))).toBe(3)
+  })
+
+  it('rises by 1 when accuracy at the current level is >= 85% over >= 3 attempts at that level', () => {
+    const threeAttempts = Array.from({ length: 3 }, () =>
+      attempt({ difficulty: 2, correct: true, hintsUsed: 0 }),
+    )
+    expect(suggestedDifficulty(threeAttempts, def({ difficultyRange: [1, 5] }))).toBe(3)
   })
 
   it('rises by 1 when accuracy at the current level is >= 85% over the last 10 attempts at that level', () => {
@@ -162,9 +173,9 @@ describe('suggestedDifficulty', () => {
     // pollute the judge window for level 2.
     const attempts = [
       ...Array.from({ length: 10 }, () => attempt({ difficulty: 4, correct: false })),
-      attempt({ difficulty: 2, correct: true, hintsUsed: 0 }),
+      ...Array.from({ length: 3 }, () => attempt({ difficulty: 2, correct: true, hintsUsed: 0 })),
     ]
-    // judge window: just the single level-2 attempt, accuracy 1.0 >= 0.85 => rises to 3
+    // judge window: just the 3 level-2 attempts, accuracy 1.0 >= 0.85 => rises to 3
     expect(suggestedDifficulty(attempts, def({ difficultyRange: [1, 5] }))).toBe(3)
   })
 
