@@ -1,5 +1,16 @@
 import type { Strategy } from '../../types/exercise'
 
+/**
+ * Shared canonical final-answer line for every division strategy: states the
+ * quotient and remainder in Innovamat's standard "Cociente X, resto Y" form.
+ * Kept as one function so all three strategies (reparto-sucesivo, cajita,
+ * descomposición) end on identical, consistent phrasing — the single place to
+ * change if the wording ever needs to.
+ */
+export function formatQuotientRemainder(quotient: number, remainder: number): string {
+  return `Cociente ${quotient}, resto ${remainder}.`
+}
+
 /** One dealing round of "reparto sucesivo": deal `amountThisRound` to each of `divisor` recipients, consuming `usedThisRound` from the remaining pool. */
 export interface DealingRound {
   amountThisRound: number
@@ -54,10 +65,7 @@ export function buildRepartoSucesivoStrategy(dividend: number, divisor: number):
     }
   })
 
-  const finalText =
-    remainder > 0
-      ? `En total cada uno recibe ${quotient}, y sobra ${remainder}.`
-      : `En total cada uno recibe ${quotient}, y no sobra nada (resto 0).`
+  const finalText = `En total cada uno recibe ${quotient}. ${formatQuotientRemainder(quotient, remainder)}`
 
   return {
     id: 'reparto-sucesivo',
@@ -81,8 +89,8 @@ export function buildCajitaDivisionStrategy(dividend: number, divisor: number): 
     {
       text:
         remainder > 0
-          ? `${dividend} − ${nearestMultiple} = ${remainder}, y como ${remainder} es menor que ${divisor} ya no podemos repartir más. Cociente ${quotient}, resto ${remainder}.`
-          : `${dividend} − ${nearestMultiple} = 0, así que no sobra nada. Cociente ${quotient}, resto 0.`,
+          ? `${dividend} − ${nearestMultiple} = ${remainder}, y como ${remainder} es menor que ${divisor} ya no podemos repartir más. ${formatQuotientRemainder(quotient, remainder)}`
+          : `${dividend} − ${nearestMultiple} = 0, así que no sobra nada. ${formatQuotientRemainder(quotient, remainder)}`,
     },
   ]
 
@@ -108,9 +116,14 @@ function splitIntoDivisorFriendlyChunks(dividendMinusRemainder: number, divisor:
 }
 
 /**
- * "Descomposición": for dividend >= 100, splits the dividend into 2+
- * divisor-friendly chunks (each evenly divisible by `divisor`) summing to
- * `dividend - remainder`, e.g. 200÷9 -> 180÷9=20 y 18÷9=2, resto 2.
+ * "Descomposición": splits the dividend into 2+ divisor-friendly chunks (each
+ * evenly divisible by `divisor`) summing to `dividend - remainder`, e.g.
+ * 200÷9 -> 180÷9=20 y 18÷9=2, resto 2. The caller (division.ts) gates this
+ * strategy on the VALUE of the dividend (>= 100), not on its digit count:
+ * only for dividends of 100+ does a place-value decomposition buy enough over
+ * the simpler cajita strategy to be worth showing. This value-based gate is
+ * intentional (a 2-digit dividend like 84 would decompose to just 80 + 4,
+ * which the cajita strategy already covers more directly).
  */
 export function buildDescomposicionDivisionStrategy(dividend: number, divisor: number): Strategy {
   const quotient = Math.floor(dividend / divisor)
@@ -129,10 +142,7 @@ export function buildDescomposicionDivisionStrategy(dividend: number, divisor: n
     text: `${chunk} ÷ ${divisor} = ${partialQuotients[i]}`,
   }))
 
-  const finalText =
-    remainder > 0
-      ? `${partialQuotients.join(' + ')} = ${quotient}, y sobra ${remainder}.`
-      : `${partialQuotients.join(' + ')} = ${quotient}, resto 0.`
+  const finalText = `${partialQuotients.join(' + ')} = ${quotient}. ${formatQuotientRemainder(quotient, remainder)}`
 
   return {
     id: 'descomposicion',

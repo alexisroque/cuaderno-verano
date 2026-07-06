@@ -6,6 +6,11 @@ export function roundToNearestTen(n: number): number {
   return Math.round(n / 10) * 10
 }
 
+/** Rounds `n` UP to the next 10 (ceiling). Used for budget checks: over-estimating prices keeps the "¿te llega?" answer on the safe side. */
+export function roundUpToNearestTen(n: number): number {
+  return Math.ceil(n / 10) * 10
+}
+
 /** Builds the "pick-plausible" reasoning strategy: round both factors, multiply the rounded values, and compare against the true product. */
 export function buildPickPlausibleStrategy(a: number, b: number): Strategy {
   const roundedA = roundToNearestTen(a)
@@ -24,10 +29,18 @@ export function buildPickPlausibleStrategy(a: number, b: number): Strategy {
   }
 }
 
-/** Builds the "budget-check" reasoning strategy: round each price to the nearest 10, sum the rounded prices, and compare against the budget. */
+/**
+ * Builds the "budget-check" reasoning strategy: round each price UP to the
+ * next 10, sum the rounded prices, and compare against the budget. Rounding
+ * up (not to nearest) is deliberate — when checking whether money is enough,
+ * over-estimating the cost keeps you on the safe side, so a "sí te llega"
+ * conclusion drawn from rounded-up prices is guaranteed correct. (The exact
+ * answer's correctness is already ensured by the >= 15% budget margin in the
+ * generator; here we teach the safe-estimation habit.)
+ */
 export function buildBudgetCheckStrategy(a: number, b: number, budget: number, symbol: string): Strategy {
-  const roundedA = roundToNearestTen(a)
-  const roundedB = roundToNearestTen(b)
+  const roundedA = roundUpToNearestTen(a)
+  const roundedB = roundUpToNearestTen(b)
   const roundedSum = roundedA + roundedB
   const fits = roundedSum <= budget
 
@@ -35,11 +48,11 @@ export function buildBudgetCheckStrategy(a: number, b: number, budget: number, s
     id: 'presupuesto-redondeo',
     name: 'Redondear y comparar con el presupuesto',
     steps: [
-      { text: `Redondeamos los precios: ${a} ${symbol} se acerca a ${roundedA} ${symbol}, y ${b} ${symbol} se acerca a ${roundedB} ${symbol}.` },
+      { text: `Para estar seguros, redondeamos los precios hacia arriba: ${a} ${symbol} lo subimos a ${roundedA} ${symbol}, y ${b} ${symbol} lo subimos a ${roundedB} ${symbol}.` },
       { text: `${roundedA} + ${roundedB} = ${roundedSum}` },
       {
         text: fits
-          ? `${roundedSum} ${symbol} es menos que ${budget} ${symbol}, así que sí te llega.`
+          ? `Incluso redondeando hacia arriba, ${roundedSum} ${symbol} es menos que ${budget} ${symbol}, así que seguro que te llega.`
           : `${roundedSum} ${symbol} es más que ${budget} ${symbol}, así que no te llega.`,
       },
     ],

@@ -68,10 +68,54 @@ function buildDoubling(rng: Rng): Built {
   }
 }
 
-/** Classic triangular numbers: 1, 3, 6, 10, 15, ... (cumulative sums of 1, 2, 3, 4, 5, ...). Always starts at the classic sequence's beginning for consistency across seeds/difficulties. */
-function buildTriangular(): Built {
-  const terms = [1, 3, 6, 10, 15]
-  const nextTerm = 21 // 15 + 6
+/**
+ * Triangular-family numbers: sequences whose consecutive DIFFERENCES
+ * themselves form an arithmetic sequence with a constant second difference
+ * `secondDiff`. The classic triangular numbers (1, 3, 6, 10, 15, …) are the
+ * `secondDiff = 1` case; scaled n(n+1) sequences (2, 6, 12, 20, 30, …) are
+ * the `secondDiff = 2` case. Both are cumulative sums of an arithmetic
+ * sequence, so they share the same "the jump grows by a fixed amount each
+ * time" reasoning. We roll one of three variety modes so d4 isn't always the
+ * identical fixed sequence:
+ *   - 'classic': the textbook 1, 3, 6, 10, 15 (secondDiff 1, first jump +2).
+ *   - 'offset':  a shifted slice of the triangular family, e.g. 3, 6, 10, 15
+ *     (secondDiff 1, first jump rolled 3-5) — n(n+1)/2 shifted to a later start.
+ *   - 'scaled':  the n(n+1) family, e.g. 2, 6, 12, 20 (secondDiff 2).
+ * In every mode the reported differences and the next jump are derived from
+ * the real term list, so the "diferencias" strategy stays exactly correct.
+ */
+function buildTriangular(rng: Rng): Built {
+  const mode = rng.pick(['classic', 'offset', 'scaled'] as const)
+
+  let start: number
+  let firstDiff: number
+  let secondDiff: number
+  if (mode === 'classic') {
+    start = 1
+    firstDiff = 2
+    secondDiff = 1
+  } else if (mode === 'offset') {
+    // Shifted triangular: start at a later triangular number, first jump 3-5.
+    firstDiff = rng.int(3, 5)
+    secondDiff = 1
+    // Start on the matching triangular number so the sequence is a genuine
+    // shifted slice: if the first jump is +k, the start is T_k = k(k+1)/2.
+    start = (firstDiff * (firstDiff + 1)) / 2
+  } else {
+    // Scaled n(n+1): 2, 6, 12, 20, 30, … — differences +4, +6, +8, +10 (secondDiff 2).
+    start = 2
+    firstDiff = 4
+    secondDiff = 2
+  }
+
+  // Build 5 terms whose 4 differences are firstDiff, firstDiff+secondDiff, ….
+  const diffs = [firstDiff, firstDiff + secondDiff, firstDiff + 2 * secondDiff, firstDiff + 3 * secondDiff]
+  const terms = [start]
+  for (const d of diffs) {
+    terms.push(terms[terms.length - 1] + d)
+  }
+  const nextDiff = diffs[diffs.length - 1] + secondDiff
+  const nextTerm = terms[terms.length - 1] + nextDiff
 
   return {
     terms,
@@ -80,8 +124,8 @@ function buildTriangular(): Built {
       id: 'numeros-triangulares',
       name: 'Números triangulares',
       steps: [
-        { text: `Las diferencias son +2, +3, +4, +5 → el siguiente salto es +6.` },
-        { text: `${terms[terms.length - 1]} + 6 = ${nextTerm}` },
+        { text: `Las diferencias son +${diffs.join(', +')} → el siguiente salto es +${nextDiff}.` },
+        { text: `${terms[terms.length - 1]} + ${nextDiff} = ${nextTerm}` },
       ],
     },
   }
@@ -131,7 +175,7 @@ export const patronesCrecimientoGenerator: Generator = {
         : kind === 'doubling'
           ? buildDoubling(rng)
           : kind === 'triangular'
-            ? buildTriangular()
+            ? buildTriangular(rng)
             : buildGrowingStep(rng)
 
     return {

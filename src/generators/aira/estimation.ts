@@ -6,7 +6,6 @@ import {
   buildCorruptedAdditionSteps,
   buildCorruptedMultiplicationSteps,
   buildPickPlausibleStrategy,
-  roundToNearestTen,
 } from './estimationStrategies'
 
 type Kind = 'pick-plausible' | 'budget-check' | 'spot-the-error'
@@ -97,6 +96,19 @@ function buildBudgetCheck(rng: Rng, flavor: ChapterFlavorLite): Built {
     budget = trueSum > budget ? Math.max(1, Math.round(budget * 0.7)) : Math.round(budget * 1.3) + 5
   }
 
+  // The budget-check strategy rounds each price UP to the next 10, so its
+  // conclusion must stay consistent with the true answer. Rounding up only
+  // increases the estimate, so a "no llega" case is always consistent; but a
+  // "sí llega" case can flip if the rounded-up sum overshoots the budget.
+  // Guarantee consistency by lifting the budget above the rounded-up sum
+  // whenever the true sum fits, preserving the >= 15% margin.
+  if (trueSum <= budget) {
+    const roundedUpSum = Math.ceil(a / 10) * 10 + Math.ceil(b / 10) * 10
+    if (roundedUpSum > budget) {
+      budget = roundedUpSum + Math.max(5, Math.round(roundedUpSum * 0.15))
+    }
+  }
+
   const fits = trueSum <= budget
   const choices: Choice[] = rng.shuffle([
     { id: 'si', label: 'Sí' },
@@ -126,12 +138,10 @@ function buildSpotTheError(rng: Rng, difficulty: number): Built {
     : (() => {
         const otherOperand = rng.int(2, 9)
         const splitOperand = rng.int(Math.max(min, 10), max)
-        const chunks = [roundToNearestTen(splitOperand) === splitOperand ? splitOperand : splitOperand]
         // Simple 2-chunk split: tens + units, so descomposición reads naturally.
         const tens = Math.floor(splitOperand / 10) * 10
         const units = splitOperand - tens
         const realChunks = units > 0 ? [tens, units] : [tens || splitOperand]
-        void chunks
         const { steps: builtSteps } = buildCorruptedMultiplicationSteps(rng, splitOperand, otherOperand, realChunks)
         return { steps: builtSteps, promptOperation: `¿cuál es el resultado de ${splitOperand} × ${otherOperand}?` }
       })()

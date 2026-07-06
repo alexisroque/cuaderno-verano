@@ -22,11 +22,14 @@ function recomputeNextTerm(terms: number[]): number[] {
     candidates.push(terms[terms.length - 1] * 2)
   }
 
-  // Growing-step: differences increase by 1 each time.
+  // Growing-step / triangular family: the differences themselves form an
+  // arithmetic sequence (constant second difference). Covers growing-step
+  // (second difference 1), classic/offset triangular (second difference 1)
+  // and scaled n(n+1) triangular (second difference 2).
   if (diffs.length >= 2) {
     const stepDiffs = diffs.slice(1).map((d, i) => d - diffs[i])
-    if (stepDiffs.every((d) => d === 1)) {
-      const nextDiff = diffs[diffs.length - 1] + 1
+    if (stepDiffs.every((d) => d === stepDiffs[0])) {
+      const nextDiff = diffs[diffs.length - 1] + stepDiffs[0]
       candidates.push(terms[terms.length - 1] + nextDiff)
     }
   }
@@ -45,12 +48,6 @@ describe('patronesCrecimientoGenerator', () => {
       const match = exercise.prompt.text.match(/secuencia: ([\d, ]+), \.\.\./)
       expect(match, `prompt malformed: "${exercise.prompt.text}"`).toBeTruthy()
       const terms = match![1].split(',').map((s) => Number(s.trim()))
-
-      // Triangular numbers (d4) are a fixed classic sequence, checked directly.
-      if (terms.join(',') === '1,3,6,10,15') {
-        expect(exercise.answer.value).toBe(21)
-        return
-      }
 
       const candidates = recomputeNextTerm(terms)
       expect(candidates, `no known pattern matched terms ${terms.join(',')}`).not.toHaveLength(0)
@@ -90,6 +87,33 @@ describe('patronesCrecimientoGenerator', () => {
       }
       expect(strategyId).toBe(expectedByDifficulty[ctx.difficulty])
     })
+  })
+
+  it('d4 triangular shows variety: classic (1,3,6,10,15), offset starts, and scaled n(n+1) all appear across seeds, and its strategy stays arithmetically correct', () => {
+    let classic = 0
+    let offset = 0
+    let scaled = 0
+    propertyTestWithDeterminism(patronesCrecimientoGenerator, { difficulties: [4], seeds: 200 }, (exercise) => {
+      expect(exercise.strategies[0].id).toBe('numeros-triangulares')
+      const match = exercise.prompt.text.match(/secuencia: ([\d, ]+), \.\.\./)
+      const terms = match![1].split(',').map((s) => Number(s.trim()))
+
+      // Differences must form an arithmetic sequence (constant second difference).
+      const diffs = terms.slice(1).map((t, i) => t - terms[i])
+      const stepDiffs = diffs.slice(1).map((d, i) => d - diffs[i])
+      expect(stepDiffs.every((d) => d === stepDiffs[0])).toBe(true)
+
+      if (terms.join(',') === '1,3,6,10,15') classic++
+      else if (stepDiffs[0] === 2) scaled++
+      else if (stepDiffs[0] === 1) offset++
+
+      // Recomputed next term matches the generator's answer.
+      const nextDiff = diffs[diffs.length - 1] + stepDiffs[0]
+      expect(exercise.answer.kind === 'number' && exercise.answer.value).toBe(terms[terms.length - 1] + nextDiff)
+    })
+    expect(classic, 'classic triangular should appear').toBeGreaterThan(0)
+    expect(offset, 'offset triangular should appear').toBeGreaterThan(0)
+    expect(scaled, 'scaled n(n+1) triangular should appear').toBeGreaterThan(0)
   })
 
   it('does not throw for NaN/Infinity/undefined difficulty and clamps to range-min (2)', () => {

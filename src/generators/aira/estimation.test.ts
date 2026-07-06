@@ -91,6 +91,46 @@ describe('estimacionGenerator', () => {
         expect(correctChoice!.label).toBe(expectedLabel)
       })
     })
+
+    it('strategy rounds each price UP to the next 10 and its conclusion never contradicts the answer', () => {
+      propertyTestWithDeterminism(estimacionGenerator, { difficulties: DIFFICULTIES }, (exercise) => {
+        const match = exercise.prompt.text.match(
+          /Tienes (\d+) .+\. Quieres comprar .+ de (\d+) .+ y .+ de (\d+) .+\./,
+        )
+        if (!match) return
+        const budget = Number(match[1])
+        const a = Number(match[2])
+        const b = Number(match[3])
+
+        const strategy = exercise.strategies.find((s) => s.id === 'presupuesto-redondeo')
+        expect(strategy, 'budget-check strategy present').toBeDefined()
+
+        // First step must round each price UP to the next 10 (ceiling).
+        const roundStep = strategy!.steps[0].text
+        expect(roundStep).toContain('hacia arriba')
+        const roundedA = Math.ceil(a / 10) * 10
+        const roundedB = Math.ceil(b / 10) * 10
+        expect(roundStep, `round step should mention ${roundedA}`).toContain(String(roundedA))
+        expect(roundStep, `round step should mention ${roundedB}`).toContain(String(roundedB))
+
+        // The rounded sum step is a real, correct addition.
+        const sumStep = strategy!.steps[1].text.match(/(\d+)\s*\+\s*(\d+)\s*=\s*(\d+)/)
+        expect(sumStep, `sum step malformed: "${strategy!.steps[1].text}"`).toBeTruthy()
+        const roundedSum = Number(sumStep![1]) + Number(sumStep![2])
+        expect(roundedSum).toBe(Number(sumStep![3]))
+        expect(roundedSum).toBe(roundedA + roundedB)
+
+        // Conclusion drawn from the rounded-up sum must match the true answer.
+        const answer = exercise.answer
+        if (answer.kind !== 'choice') return
+        const answeredYes = exercise.choices!.find((c) => c.id === answer.correctId)!.label === 'Sí'
+        const strategyConcludesFits = roundedSum <= budget
+        expect(
+          strategyConcludesFits,
+          `round-up strategy conclusion (fits=${strategyConcludesFits}) contradicts answer (fits=${answeredYes}) for a=${a} b=${b} budget=${budget}`,
+        ).toBe(answeredYes)
+      })
+    })
   })
 
   describe('spot-the-error', () => {
