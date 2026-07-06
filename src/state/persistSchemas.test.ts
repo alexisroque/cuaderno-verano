@@ -26,14 +26,16 @@ function validSettings() {
         challengeFrequency: 0.2,
         moduleToggles: { math: true },
         subskillAdjustments: {},
+        weeklyFocus: [],
       },
       leo: {
         missionSize: 5,
         challengeFrequency: 0.2,
         moduleToggles: { math: true },
         subskillAdjustments: {
-          contar: { boost: 1, difficultyOffset: 0, focus: true },
+          contar: { difficultyOffset: 0, boostUntil: '2026-07-20' },
         },
+        weeklyFocus: ['contar-6'],
       },
     },
   }

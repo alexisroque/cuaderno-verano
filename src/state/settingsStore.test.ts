@@ -41,8 +41,20 @@ describe('settingsStore', () => {
     memoryStore.set('settings', {
       pin: '4242',
       children: {
-        aira: { missionSize: 7, challengeFrequency: 0.3, moduleToggles: {}, subskillAdjustments: {} },
-        leo: { missionSize: 3, challengeFrequency: 0.1, moduleToggles: {}, subskillAdjustments: {} },
+        aira: {
+          missionSize: 7,
+          challengeFrequency: 0.3,
+          moduleToggles: {},
+          subskillAdjustments: {},
+          weeklyFocus: [],
+        },
+        leo: {
+          missionSize: 3,
+          challengeFrequency: 0.1,
+          moduleToggles: {},
+          subskillAdjustments: {},
+          weeklyFocus: [],
+        },
       },
     })
 

@@ -3,11 +3,16 @@ import type { ProfileId } from './profileStore'
 import { createDebouncedPersist, loadState } from '../lib/storage'
 import { PersistedSettingsSchema } from './persistSchemas'
 
-/** Per-subskill tuning: nudge how often a subskill appears and how hard it is. */
+/**
+ * Per-subskill tuning: nudge how often a subskill appears and how hard it is.
+ *
+ * `boostUntil`: a dateISO (YYYY-MM-DD) up to and including which a parent's
+ * "boost" on this subskill is active (the scheduler doubles its within-pool
+ * weight while `boostUntil >= todayISO`). `null` means no active boost.
+ */
 export interface SubskillAdjustment {
-  boost: number
   difficultyOffset: number
-  focus: boolean
+  boostUntil: string | null
 }
 
 export interface ChildSettings {
@@ -15,6 +20,8 @@ export interface ChildSettings {
   challengeFrequency: number
   moduleToggles: Record<string, boolean>
   subskillAdjustments: Record<string, SubskillAdjustment>
+  /** Weekly parent-set focus: subskill ids the novelty pool should prefer. Empty = unrestricted. */
+  weeklyFocus: string[]
 }
 
 interface SettingsState {
@@ -34,6 +41,7 @@ function defaultChildSettings(): ChildSettings {
       geography: true,
     },
     subskillAdjustments: {},
+    weeklyFocus: [],
   }
 }
 

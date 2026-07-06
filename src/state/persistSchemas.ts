@@ -57,9 +57,8 @@ export const ProfileProgressSchema = z.object({
 })
 
 const SubskillAdjustmentSchema = z.object({
-  boost: z.number(),
   difficultyOffset: z.number(),
-  focus: z.boolean(),
+  boostUntil: z.string().nullable(),
 })
 
 const ChildSettingsSchema = z.object({
@@ -67,6 +66,7 @@ const ChildSettingsSchema = z.object({
   challengeFrequency: z.number(),
   moduleToggles: z.record(z.string(), z.boolean()),
   subskillAdjustments: z.record(z.string(), SubskillAdjustmentSchema),
+  weeklyFocus: z.array(z.string()),
 })
 
 export const PersistedSettingsSchema = z.object({
