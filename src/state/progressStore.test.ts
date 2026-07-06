@@ -10,7 +10,7 @@ vi.mock('idb-keyval', () => ({
   }),
 }))
 
-import { useProgressStore } from './progressStore'
+import { useProgressStore, hydrateProgress, flushProgress } from './progressStore'
 import { loadState, saveState } from '../lib/storage'
 
 function attempt(overrides: Partial<Record<string, unknown>> = {}) {
@@ -71,5 +71,31 @@ describe('progressStore', () => {
 
     const loaded = await loadState<{ coins: number }>('profile:aira')
     expect(loaded?.coins).toBe(42)
+  })
+
+  it('flushProgress persists pending changes immediately without waiting for the debounce timer', async () => {
+    useProgressStore.getState().addCoins('aira', 7)
+    await flushProgress()
+
+    const loaded = await loadState<{ coins: number }>('profile:aira')
+    expect(loaded?.coins).toBe(7)
+  })
+
+  it('hydrateProgress loads a well-formed persisted blob into the store', async () => {
+    const saved = { ...useProgressStore.getInitialState().profiles.aira, coins: 99 }
+    await saveState('profile:aira', saved)
+
+    await hydrateProgress()
+
+    expect(useProgressStore.getState().profiles.aira.coins).toBe(99)
+  })
+
+  it('hydrateProgress falls back to defaults when the persisted blob is corrupted', async () => {
+    await saveState('profile:aira', { coins: 'not-a-number' })
+
+    const before = useProgressStore.getState().profiles.aira
+    await hydrateProgress()
+
+    expect(useProgressStore.getState().profiles.aira).toEqual(before)
   })
 })

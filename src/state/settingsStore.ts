@@ -1,8 +1,7 @@
 import { create } from 'zustand'
 import type { ProfileId } from './profileStore'
-import { loadState, saveState } from '../lib/storage'
-
-const PERSIST_DEBOUNCE_MS = 500
+import { createDebouncedPersist, loadState } from '../lib/storage'
+import { PersistedSettingsSchema } from './persistSchemas'
 
 /** Per-subskill tuning: nudge how often a subskill appears and how hard it is. */
 export interface SubskillAdjustment {
@@ -38,14 +37,10 @@ function defaultChildSettings(): ChildSettings {
   }
 }
 
-let persistTimer: ReturnType<typeof setTimeout> | undefined
-
-function schedulePersist(state: { pin: string | null; children: Record<ProfileId, ChildSettings> }): void {
-  if (persistTimer) clearTimeout(persistTimer)
-  persistTimer = setTimeout(() => {
-    void saveState('settings', { pin: state.pin, children: state.children })
-  }, PERSIST_DEBOUNCE_MS)
-}
+const persister = createDebouncedPersist('settings', () => {
+  const { pin, children } = useSettingsStore.getState()
+  return { pin, children }
+})
 
 export const useSettingsStore = create<SettingsState>((set) => ({
   pin: null,
@@ -54,32 +49,39 @@ export const useSettingsStore = create<SettingsState>((set) => ({
     leo: defaultChildSettings(),
   },
   setPin: (pin) => {
-    set((state) => {
-      schedulePersist({ pin, children: state.children })
-      return { pin }
-    })
+    set({ pin })
+    persister.schedule()
   },
   updateChildSettings: (profile, patch) => {
-    set((state) => {
-      const updatedChildren = {
+    set((state) => ({
+      children: {
         ...state.children,
         [profile]: { ...state.children[profile], ...patch },
-      }
-      schedulePersist({ pin: state.pin, children: updatedChildren })
-      return { children: updatedChildren }
-    })
+      },
+    }))
+    persister.schedule()
   },
 }))
 
-interface PersistedSettings {
-  pin: string | null
-  children: Record<ProfileId, ChildSettings>
+/** Flushes any pending debounced settings write immediately. */
+export async function flushSettings(): Promise<void> {
+  await persister.flush()
 }
 
-/** Loads persisted settings from IndexedDB into the store, if any were saved. */
+/**
+ * Loads persisted settings from IndexedDB into the store, if any were saved.
+ * A corrupted or malformed blob fails validation and is discarded (the
+ * store keeps its in-memory defaults) rather than crashing hydration.
+ */
 export async function hydrateSettings(): Promise<void> {
-  const saved = await loadState<PersistedSettings>('settings')
-  if (!saved) return
+  const saved = await loadState<unknown>('settings')
+  if (saved === undefined) return
 
-  useSettingsStore.setState({ pin: saved.pin, children: saved.children })
+  const result = PersistedSettingsSchema.safeParse(saved)
+  if (!result.success) {
+    console.warn('hydrateSettings: discarding corrupted settings blob', result.error)
+    return
+  }
+
+  useSettingsStore.setState({ pin: result.data.pin, children: result.data.children })
 }

@@ -1,9 +1,8 @@
 import { create } from 'zustand'
 import type { Attempt, ProfileProgress } from '../types/progress'
 import type { ProfileId } from './profileStore'
-import { loadState, saveState } from '../lib/storage'
-
-const PERSIST_DEBOUNCE_MS = 500
+import { createDebouncedPersist, loadState } from '../lib/storage'
+import { ProfileProgressSchema } from './persistSchemas'
 
 function emptyProgress(): ProfileProgress {
   return {
@@ -26,14 +25,9 @@ interface ProgressStoreState {
   addCoins: (profile: ProfileId, amount: number) => void
 }
 
-let persistTimers: Partial<Record<ProfileId, ReturnType<typeof setTimeout>>> = {}
-
-function schedulePersist(profile: ProfileId, progress: ProfileProgress): void {
-  const existing = persistTimers[profile]
-  if (existing) clearTimeout(existing)
-  persistTimers[profile] = setTimeout(() => {
-    void saveState(`profile:${profile}`, progress)
-  }, PERSIST_DEBOUNCE_MS)
+const persisters: Record<ProfileId, ReturnType<typeof createDebouncedPersist>> = {
+  aira: createDebouncedPersist('profile:aira', () => useProgressStore.getState().profiles.aira),
+  leo: createDebouncedPersist('profile:leo', () => useProgressStore.getState().profiles.leo),
 }
 
 export const useProgressStore = create<ProgressStoreState>((set, get) => ({
@@ -47,9 +41,9 @@ export const useProgressStore = create<ProgressStoreState>((set, get) => ({
         ...state.profiles[profile],
         attempts: [...state.profiles[profile].attempts, attempt],
       }
-      schedulePersist(profile, updated)
       return { profiles: { ...state.profiles, [profile]: updated } }
     })
+    persisters[profile].schedule()
   },
   getAttemptsBySubskill: (profile, subskill) => {
     return get().profiles[profile].attempts.filter((a) => a.subskill === subskill)
@@ -60,23 +54,44 @@ export const useProgressStore = create<ProgressStoreState>((set, get) => ({
         ...state.profiles[profile],
         coins: state.profiles[profile].coins + amount,
       }
-      schedulePersist(profile, updated)
       return { profiles: { ...state.profiles, [profile]: updated } }
     })
+    persisters[profile].schedule()
   },
 }))
 
-/** Loads persisted progress for both profiles from IndexedDB into the store. */
+/** Flushes any pending debounced writes for both profiles immediately. */
+export async function flushProgress(): Promise<void> {
+  await Promise.all([persisters.aira.flush(), persisters.leo.flush()])
+}
+
+/**
+ * Loads persisted progress for both profiles from IndexedDB into the store.
+ * Corrupted or malformed blobs fail validation and are skipped (the store
+ * keeps its in-memory default) rather than crashing hydration.
+ */
 export async function hydrateProgress(): Promise<void> {
   const [aira, leo] = await Promise.all([
-    loadState<ProfileProgress>('profile:aira'),
-    loadState<ProfileProgress>('profile:leo'),
+    loadState<unknown>('profile:aira'),
+    loadState<unknown>('profile:leo'),
   ])
 
-  useProgressStore.setState((state) => ({
-    profiles: {
-      aira: aira ?? state.profiles.aira,
-      leo: leo ?? state.profiles.leo,
-    },
-  }))
+  useProgressStore.setState((state) => {
+    const airaResult = aira === undefined ? undefined : ProfileProgressSchema.safeParse(aira)
+    const leoResult = leo === undefined ? undefined : ProfileProgressSchema.safeParse(leo)
+
+    if (airaResult && !airaResult.success) {
+      console.warn('hydrateProgress: discarding corrupted profile:aira blob', airaResult.error)
+    }
+    if (leoResult && !leoResult.success) {
+      console.warn('hydrateProgress: discarding corrupted profile:leo blob', leoResult.error)
+    }
+
+    return {
+      profiles: {
+        aira: airaResult?.success ? airaResult.data : state.profiles.aira,
+        leo: leoResult?.success ? leoResult.data : state.profiles.leo,
+      },
+    }
+  })
 }
