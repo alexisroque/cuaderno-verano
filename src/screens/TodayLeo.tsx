@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { Shell } from '../components/Shell'
 import { composeDay, type CardDescriptor } from '../engine/dayComposer'
@@ -58,10 +58,23 @@ export function TodayLeo() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // Brief "¡Nueva pegatina!" toast the moment the day is completed, so the
+  // reward is visible above the fold without scrolling down to the mural strip.
+  const [showStickerToast, setShowStickerToast] = useState(false)
+  const wasAllDone = useRef(allDone)
+
   // Grant the day's mural sticker once all of today's cards are done (idempotent
   // per-day via a chapter-scoped, date-seeded sticker id — §5.8).
   useEffect(() => {
     if (allDone) grantSticker('leo', stickerForDay(chapter, dateISO), chapter.id)
+    if (allDone && !wasAllDone.current) {
+      setShowStickerToast(true)
+      speak('¡Has ganado una pegatina nueva!', 'es-ES')
+      const t = setTimeout(() => setShowStickerToast(false), 5000)
+      wasAllDone.current = true
+      return () => clearTimeout(t)
+    }
+    wasAllDone.current = allDone
   }, [allDone, chapter, dateISO, grantSticker])
 
   const baseCards = day.cards.filter((c) => c.cardType !== 'sorpresa-rotatoria')
@@ -75,6 +88,23 @@ export function TodayLeo() {
   return (
     <Shell>
       <div className="mx-auto max-w-2xl pt-1">
+        {/* "¡Nueva pegatina!" toast — visible above the fold, taps through to the mural */}
+        {showStickerToast && (
+          <div
+            role="button"
+            tabIndex={0}
+            onClick={() => navigate('/coleccion')}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && navigate('/coleccion')}
+            className="mb-3 flex cursor-pointer items-center gap-2 rounded-2xl px-4 py-3 text-white transition-transform active:translate-y-[2px]"
+            style={{ background: 'linear-gradient(160deg,#14532d,#166534)', boxShadow: '0 3px 10px rgba(0,0,0,.18)' }}
+          >
+            <span className="text-2xl" aria-hidden>
+              🎉
+            </span>
+            <span className="text-sm font-black">¡Nueva pegatina! Tócame para colocarla en tu selva 🌴</span>
+          </div>
+        )}
+
         {/* 3 big cards */}
         <div className="grid grid-cols-3 gap-3">
           {baseCards.map((card) => {
@@ -155,7 +185,7 @@ export function TodayLeo() {
           <p className="mt-2 text-xs opacity-90">
             {allDone
               ? '¡Has ganado una pegatina! Tócame para colocarla en tu selva 🎁'
-              : 'Termina las tarjetas de hoy y gana la pegatina misteriosa 🎁'}
+              : 'Termina todas las tarjetas de hoy (¡incluida la sorpresa!) y gana la pegatina misteriosa 🎁'}
           </p>
         </div>
 

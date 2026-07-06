@@ -102,7 +102,7 @@ export function Mural() {
 
       {inThisChapter.length === 0 && (
         <p className="rounded-2xl p-4 text-sm" style={{ background: 'var(--card)', color: 'var(--ink-soft)' }}>
-          Termina todas las tarjetas de un día y ganarás una pegatina para tu selva. 🎁
+          Termina todas las tarjetas de un día (¡incluida la sorpresa!) y ganarás una pegatina para tu selva. 🎁
         </p>
       )}
 

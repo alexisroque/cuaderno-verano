@@ -25,13 +25,18 @@ import { KitchenSink } from './screens/dev/KitchenSink'
 
 /**
  * Redirects to profile select when no child is active and the destination
- * requires one. `/` (ProfileSelect) and any `/dev/*` route are always allowed
- * so the picker and the design kitchen-sink stay reachable.
+ * requires one. `/` (ProfileSelect), the parent area `/padres` (opened from the
+ * lock icon before any child is chosen), and any `/dev/*` route are always
+ * allowed so the picker, parent zone, and design kitchen-sink stay reachable.
  */
 function RequireProfile() {
   const activeProfile = useProfileStore((s) => s.activeProfile)
   const { pathname } = useLocation()
-  const exempt = pathname === '/' || pathname.startsWith('/dev')
+  const exempt =
+    pathname === '/' ||
+    pathname === '/padres' ||
+    pathname.startsWith('/padres/') ||
+    pathname.startsWith('/dev')
   if (!activeProfile && !exempt) {
     return <Navigate to="/" replace />
   }

@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from 'react'
+import type { HTMLAttributes, MouseEvent, ReactNode } from 'react'
 import type { UiSize } from './Button'
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
@@ -22,11 +22,26 @@ export function Card({
   interactive = false,
   className = '',
   style,
+  onClick,
+  onKeyDown,
   ...rest
 }: CardProps) {
   const pad = size === 'lg' ? 'p-6' : 'p-4'
+  // An interactive card that acts on click also needs to be keyboard/AT
+  // reachable: expose it as a button and fire onClick on Enter/Space.
+  const isButton = interactive && !!onClick
   return (
     <div
+      role={isButton ? 'button' : undefined}
+      tabIndex={isButton ? 0 : undefined}
+      onClick={onClick}
+      onKeyDown={(e) => {
+        if (isButton && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault()
+          onClick?.(e as unknown as MouseEvent<HTMLDivElement>)
+        }
+        onKeyDown?.(e)
+      }}
       style={{
         background: 'var(--card)',
         borderRadius: 'var(--r-card)',
