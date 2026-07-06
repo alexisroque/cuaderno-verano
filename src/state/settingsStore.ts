@@ -27,8 +27,12 @@ export interface ChildSettings {
 interface SettingsState {
   pin: string | null
   children: Record<ProfileId, ChildSettings>
+  /** dateISO of the last successful backup export, or null if never exported. */
+  lastExport: string | null
   setPin: (pin: string | null) => void
   updateChildSettings: (profile: ProfileId, patch: Partial<ChildSettings>) => void
+  /** Records a backup export having happened on `dateISO` (drives the backup nudge). */
+  setLastExport: (dateISO: string) => void
 }
 
 function defaultChildSettings(): ChildSettings {
@@ -46,8 +50,8 @@ function defaultChildSettings(): ChildSettings {
 }
 
 const persister = createDebouncedPersist('settings', () => {
-  const { pin, children } = useSettingsStore.getState()
-  return { pin, children }
+  const { pin, children, lastExport } = useSettingsStore.getState()
+  return { pin, children, lastExport }
 })
 
 export const useSettingsStore = create<SettingsState>((set) => ({
@@ -56,6 +60,7 @@ export const useSettingsStore = create<SettingsState>((set) => ({
     aira: defaultChildSettings(),
     leo: defaultChildSettings(),
   },
+  lastExport: null,
   setPin: (pin) => {
     set({ pin })
     persister.schedule()
@@ -67,6 +72,10 @@ export const useSettingsStore = create<SettingsState>((set) => ({
         [profile]: { ...state.children[profile], ...patch },
       },
     }))
+    persister.schedule()
+  },
+  setLastExport: (dateISO) => {
+    set({ lastExport: dateISO })
     persister.schedule()
   },
 }))
@@ -91,5 +100,9 @@ export async function hydrateSettings(): Promise<void> {
     return
   }
 
-  useSettingsStore.setState({ pin: result.data.pin, children: result.data.children })
+  useSettingsStore.setState({
+    pin: result.data.pin,
+    children: result.data.children,
+    lastExport: result.data.lastExport,
+  })
 }

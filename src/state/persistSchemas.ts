@@ -78,4 +78,7 @@ export const PersistedSettingsSchema = z.object({
     aira: ChildSettingsSchema,
     leo: ChildSettingsSchema,
   }),
+  // Optional so blobs persisted before this field existed still validate; the
+  // store normalizes a missing value to null on hydration.
+  lastExport: z.string().nullable().default(null),
 })
