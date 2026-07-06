@@ -48,8 +48,8 @@ function buildPrompt(a: number, b: number, product: number, hidden: HidePosition
 export const cajitasGenerator: Generator = {
   subskill: 'cajitas',
   generate(rng, requestedDifficulty, _flavor) {
-    const id = exerciseId(rng, 'cajitas', requestedDifficulty)
     const difficulty = clampDifficulty(requestedDifficulty, 1, 4)
+    const id = exerciseId(rng, 'cajitas', difficulty)
     const [min, max] = OPERAND_RANGES[difficulty]
 
     const a = rng.int(min, max)

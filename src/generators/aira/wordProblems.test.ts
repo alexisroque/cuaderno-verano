@@ -81,6 +81,79 @@ function primaryStrategy(exercise: Exercise): Strategy {
   return exercise.strategies[0]
 }
 
+// ---------------------------------------------------------------------------
+// Independent per-template-family answer recompute (breaks the
+// answer-vs-strategy semi-circularity: the OLD test only checked that
+// `exercise.answer` matched the RESULT the strategy itself claims, so a
+// generator bug that fed the wrong numbers into both `answer` and the
+// strategy the same way would slip through undetected). This recomputes the
+// expected answer from the RELEVANT DATA TOKENS actually shown to the child
+// (`dataHighlight.relevantIndices`), using each template's own arithmetic,
+// entirely independent of what the strategy text says.
+// ---------------------------------------------------------------------------
+
+/** One template family: how to recognize its prompt, and how to recompute its answer from ordered relevant values. */
+interface TemplateFamily {
+  id: string
+  /** A substring/regex unique to this template's question line, distinguishing it from every other template. */
+  match: RegExp
+  /** Recomputes the expected answer from the relevant-token values, in the order they appear in the prompt. */
+  recompute: (values: number[]) => number | undefined
+}
+
+const TEMPLATE_FAMILIES: TemplateFamily[] = [
+  // reparto.ts
+  { id: 'reparto-grupos', match: /tocan a cada uno\?$/, recompute: ([total, kids]) => (kids ? Math.floor(total / kids) : undefined) },
+  { id: 'unidades-por-pack', match: /tenéis en total\?$/, recompute: ([packs, perPack]) => packs * perPack },
+  { id: 'mesas-sillas', match: /pueden sentarse en total\?$/, recompute: ([tables, chairs]) => tables * chairs },
+  { id: 'comparar-cantidades', match: /más hicisteis el lunes\?$/, recompute: ([groupsA, perA, countB]) => groupsA * perA - countB },
+  { id: 'juntar-y-repartir', match: /tocan a cada amigo\?$/, recompute: ([packs, perPack, kids]) => (kids ? Math.floor((packs * perPack) / kids) : undefined) },
+  // dinero.ts
+  { id: 'precio-unitario', match: /¿Cuánto cuesta cada/, recompute: ([count, total]) => (count ? Math.floor(total / count) : undefined) },
+  { id: 'compra-con-cambio', match: /devuelven de cambio\?$/, recompute: ([count, unit, bill]) => bill - unit * count },
+  { id: 'ahorro-hucha', match: /tendrá al final\?$/, recompute: ([start, perWeek, weeks]) => start + perWeek * weeks },
+  { id: 'comparar-precios', match: /más caro es el primero que el segundo\?$/, recompute: ([priceHigh, priceLow]) => priceHigh - priceLow },
+  { id: 'presupuesto', match: /dinero te sobra\?$/, recompute: ([budget, price1, price2]) => budget - (price1 + price2) },
+  { id: 'precio-total', match: /pagáis en total\?$/, recompute: ([unit, count]) => unit * count },
+  // tiempo.ts
+  { id: 'duracion-trayecto', match: /dura el trayecto\?$/, recompute: ([start, end]) => end - start },
+  // hora-llegada / hora-salida share the same question suffix ("en minutos
+  // desde medianoche?"), so both are matched via HORA_LLEGADA_O_SALIDA below
+  // instead of here.
+  { id: 'cuanto-falta', match: /faltan para que empiece\?$/, recompute: ([now, event]) => event - now },
+  { id: 'horario-apertura', match: /minutos está abierto\?$/, recompute: ([open, close]) => close - open },
+  { id: 'minutos-horas', match: /minutos son en total\?$/, recompute: ([hours]) => hours * 60 },
+  // medida.ts
+  { id: 'alturas-comparadas', match: /diferencia de altura hay entre/, recompute: ([tall, short]) => tall - short },
+  { id: 'pesos-animales', match: /kilos pesan entre todos\?$/, recompute: ([weight, count]) => weight * count },
+  { id: 'distancias-viaje', match: /km os quedan por recorrer\?$/, recompute: ([leg1, leg2, planned]) => planned - (leg1 + leg2) },
+  { id: 'capacidades', match: /litros de agua lleváis en total\?$/, recompute: ([count, perBottle]) => count * perBottle },
+  { id: 'distancia-total', match: /km recorréis en total\?$/, recompute: ([leg1, leg2]) => leg1 + leg2 },
+]
+
+/**
+ * "hora-llegada" ("Salís...y el trayecto dura...¿A qué hora llegáis...?",
+ * answer = start + duration) and "hora-salida" ("Queréis llegar...y el
+ * trayecto dura...¿A qué hora tenéis que salir...?", answer = arrival -
+ * duration) share the same question suffix, so they're disambiguated by a
+ * distinctive prefix instead.
+ */
+const HORA_LLEGADA_O_SALIDA: TemplateFamily[] = [
+  { id: 'hora-llegada', match: /^Salís hacia/, recompute: ([start, duration]) => start + duration },
+  { id: 'hora-salida', match: /^Queréis llegar hasta/, recompute: ([arrival, duration]) => arrival - duration },
+]
+
+/** Finds the template family matching `text`, or undefined if none of the known families recognize it. */
+function findFamily(text: string): TemplateFamily | undefined {
+  for (const family of HORA_LLEGADA_O_SALIDA) {
+    if (family.match.test(text)) return family
+  }
+  for (const family of TEMPLATE_FAMILIES) {
+    if (family.match.test(text)) return family
+  }
+  return undefined
+}
+
 /** The five Innovamat phase openers, in order, that the primary strategy must present. */
 const PHASE_OPENERS = [
   '¿Qué está pasando?',
@@ -136,6 +209,45 @@ describe('word-problem generators', () => {
         const resultMatch = lastCalc.text.match(/=\s*(-?\d+)\s*$/) ?? lastCalc.text.match(/=\s*(-?\d+)/)
         expect(resultMatch, `no result in "${lastCalc.text}"`).toBeTruthy()
         expect(Number(resultMatch![1])).toBe(exercise.answer.value)
+      })
+    })
+
+    it('answer is independently recomputable from the RELEVANT DATA TOKENS alone (not just self-consistent with the strategy text)', () => {
+      propertyTestWithDeterminism(generator, { difficulties }, (exercise) => {
+        if (exercise.answer.kind !== 'number') return
+        const dh = exercise.dataHighlight!
+        const relevantValues = dh.relevantIndices.map((idx) => parseTokenNumber(dh.tokens[idx]))
+        expect(relevantValues.every((v) => v !== undefined), 'every relevant token is numeric').toBe(true)
+
+        const family = findFamily(exercise.prompt.text)
+        if (family) {
+          // Strong check: recompute the answer purely from the relevant
+          // token values, using this template's own arithmetic — completely
+          // independent of anything the strategy text claims.
+          const recomputed = family.recompute(relevantValues as number[])
+          expect(
+            recomputed,
+            `[${family.id}] could not recompute from relevant values ${relevantValues.join(',')}: "${exercise.prompt.text}"`,
+          ).not.toBeUndefined()
+          expect(
+            recomputed,
+            `[${family.id}] recomputed answer ${recomputed} != exercise.answer.value ${exercise.answer.value} for "${exercise.prompt.text}"`,
+          ).toBe(exercise.answer.value)
+        } else {
+          // Fallback for any prompt shape not covered by a known family
+          // (e.g. a future template): at minimum, every operand the FIRST
+          // cálculo line actually uses must be among the relevant token
+          // values shown to the child — the strategy can't be computing from
+          // numbers the child was never shown.
+          const strat = primaryStrategy(exercise)
+          const ops = firstLineOperands(strat)
+          for (const op of ops) {
+            expect(
+              relevantValues,
+              `first cálculo line operand ${op} is not among relevant token values ${relevantValues.join(',')}: "${exercise.prompt.text}"`,
+            ).toContain(op)
+          }
+        }
       })
     })
 

@@ -70,12 +70,23 @@ function rollQuantity(rng: Rng, difficulty: number): number {
 }
 
 /**
- * Note appended when a chapter's currency is rupias and we switch the money
- * story to euros (see moneySymbol). Deliberately neutral so it reads fine in
- * every dinero context — buying, saving, comparing — not just at the till.
+ * Rotated lead-in clauses used when a chapter's currency is rupias and we
+ * switch the money story to euros (see moneySymbol). Each ends in a comma so
+ * callers splice it directly in front of the sentence it introduces — no
+ * parenthetical aside, so every Rp problem doesn't read with the exact same
+ * "(aquí lo contáis todo en euros)" note. Deliberately neutral so each reads
+ * fine in every dinero context — buying, saving, comparing — not just at the
+ * till.
  */
-function euroLeadIn(euroSwitch: boolean): string {
-  return euroSwitch ? ' (aquí lo contáis todo en euros).' : ''
+const EURO_LEAD_INS = [
+  'Como pagáis en euros,',
+  'Pagáis con la tarjeta en euros:',
+  'Aquí lo contáis todo en euros:',
+]
+
+/** Picks a rotated euro lead-in clause, or '' when no currency switch applies. */
+function euroLeadIn(rng: Rng, euroSwitch: boolean): string {
+  return euroSwitch ? `${rng.pick(EURO_LEAD_INS)} ` : ''
 }
 
 /** "precio unitario" (1-step): total cost of N equal items ÷ N → unit price. */
@@ -91,16 +102,19 @@ const precioUnitario: ProblemTemplate = {
     const count = rollQuantity(rng, difficulty)
     const unit = rollPrice(rng, difficulty)
     const total = unit * count
+    const leadIn = euroLeadIn(rng, euroSwitch)
     const place = capitalizeFirst(flavor.placePhrase)
 
     const trapMinutes = rollTrap(rng, 10, 40, [count, total, unit])
     // "En Singapur, N entradas cuestan T € en total. ¿Cuánto cuesta cada una?"
+    // When switching to euros, the rotated lead-in comes first as its own
+    // clause, so the place phrase drops to lowercase mid-sentence.
     const parts = [
-      t(`${place},`),
+      t(leadIn ? `${leadIn}${flavor.placePhrase},` : `${place},`),
       num(count),
       t(`${item.plural} cuestan`),
       num(total),
-      t(`${symbol} en total.${euroLeadIn(euroSwitch)}`),
+      t(`${symbol} en total.`),
     ]
     if (opts.injectTrap) {
       parts.push(t(`La cola para pagar duró`), trap(trapMinutes), t(`minutos.`))
@@ -136,15 +150,18 @@ const compraConCambio: ProblemTemplate = {
     // Pay with the next round bill above the spend (10, 20, 50, 100).
     const bill = [10, 20, 50, 100].find((b) => b > spent) ?? spent + 10
     const change = bill - spent
+    const leadIn = euroLeadIn(rng, euroSwitch)
     const place = capitalizeFirst(flavor.placePhrase)
 
     const trapCount = rollTrap(rng, 2, 6, [count, unit, bill, spent, change])
+    // When switching to euros, the rotated lead-in opens the sentence, so the
+    // place phrase drops to lowercase mid-sentence.
     const parts = [
-      t(`${place}, compráis`),
+      t(leadIn ? `${leadIn}${flavor.placePhrase}, compráis` : `${place}, compráis`),
       num(count),
       t(`${item.plural} de`),
       num(unit),
-      t(`${symbol} ${cadaUno(item)}.${euroLeadIn(euroSwitch)} Pagáis con un billete de`),
+      t(`${symbol} ${cadaUno(item)}. Pagáis con un billete de`),
       num(bill),
       t(`${symbol}.`),
     ]
@@ -180,16 +197,17 @@ const ahorroHucha: ProblemTemplate = {
     const start = rng.int(3, 15)
     const saved = perWeek * weeks
     const total = saved + start
+    const leadIn = euroLeadIn(rng, euroSwitch)
 
     const trapDays = rollTrap(rng, 2, 6, [perWeek, weeks, start, saved, total])
     const parts = [
-      t(`Aira ya tiene`),
+      t(leadIn ? `${leadIn}Aira ya tiene` : `Aira ya tiene`),
       num(start),
       t(`${symbol} en la hucha y guarda`),
       num(perWeek),
       t(`${symbol} cada semana durante`),
       num(weeks),
-      t(`semanas.${euroLeadIn(euroSwitch)}`),
+      t(`semanas.`),
     ]
     if (opts.injectTrap) {
       parts.push(t(`El viaje dura`), trap(trapDays), t(`días.`))
@@ -209,7 +227,7 @@ const ahorroHucha: ProblemTemplate = {
   },
 }
 
-/** "comparar precios" (2-step): two items at different prices → how much more one costs. */
+/** "comparar precios" (1-step): two items at different prices → how much more one costs. */
 const compararPrecios: ProblemTemplate = {
   id: 'comparar-precios',
   contexts: ['dinero', 'compra'],
@@ -224,24 +242,33 @@ const compararPrecios: ProblemTemplate = {
     const diff = priceHigh - priceLow
 
     const trapAmount = rollTrap(rng, 20, 60, [priceHigh, priceLow, diff])
+    const leadIn = euroLeadIn(rng, euroSwitch)
+    // Gender-neutral framing: a colon-list of "item: price" avoids ever
+    // needing an article ("un"/"el") in front of the flavor's price item,
+    // whose grammatical gender is unknown (e.g. "una entrada" vs "un plato").
+    // The question and strategy then refer back with "primero"/"segundo"
+    // (both masculine by default, agreeing with the implicit "precio"), never
+    // with the item noun itself.
     const parts = [
-      t(`Un ${item1} cuesta`),
+      t(leadIn ? `${leadIn}comparas dos precios:` : `Comparas dos precios:`),
+      t(`${item1},`),
       num(priceHigh),
-      t(`${symbol} y un ${item2} cuesta`),
+      t(`${symbol}, y`),
+      t(`${item2},`),
       num(priceLow),
-      t(`${symbol}.${euroLeadIn(euroSwitch)}`),
+      t(`${symbol}.`),
     ]
     if (opts.injectTrap) {
       parts.push(t(`Llevas`), trap(trapAmount), t(`${symbol} en la cartera.`))
     }
-    parts.push(t(`¿Cuánto más caro es el ${item1}?`))
+    parts.push(t(`¿Cuánto más caro es el primero que el segundo?`))
 
     const tk = assemble(parts)
     const strategy = buildPhaseStrategy({
-      datos: `El ${item1} vale ${priceHigh} ${symbol} y el ${item2} vale ${priceLow} ${symbol}.`,
+      datos: `El primero (${item1}) vale ${priceHigh} ${symbol} y el segundo (${item2}) vale ${priceLow} ${symbol}.`,
       plan: `Nos preguntan la diferencia de precio; restamos el más barato del más caro.`,
       calculo: [`${priceHigh} − ${priceLow} = ${diff}`],
-      comprobar: `Si al ${item2} le sumas ${diff} ${symbol} llegas a ${priceHigh} ${symbol}, el precio del ${item1}. ¡Cuadra!`,
+      comprobar: `Si al segundo le sumas ${diff} ${symbol} llegas a ${priceHigh} ${symbol}, el precio del primero. ¡Cuadra!`,
       trapCallout: opts.injectTrap ? `los ${trapAmount} ${symbol} de la cartera` : undefined,
     })
 
@@ -266,14 +293,20 @@ const presupuesto: ProblemTemplate = {
     const left = budget - spent
 
     const trapTime = rollTrap(rng, 1, 4, [budget, price1, price2, spent, left])
+    const leadIn = euroLeadIn(rng, euroSwitch)
+    // Gender-neutral framing: a colon-list of "item, a price" avoids ever
+    // needing an article ("un"/"el") in front of the flavor's price item,
+    // whose grammatical gender is unknown (see compararPrecios above).
     const parts = [
-      t(`Tienes`),
+      t(leadIn ? `${leadIn}tienes` : `Tienes`),
       num(budget),
-      t(`${symbol} para gastar. Compras un ${item1} de`),
+      t(`${symbol} para gastar. Compras esto:`),
+      t(`${item1}, a`),
       num(price1),
-      t(`${symbol} y un ${item2} de`),
+      t(`${symbol}, y`),
+      t(`${item2}, a`),
       num(price2),
-      t(`${symbol}.${euroLeadIn(euroSwitch)}`),
+      t(`${symbol}.`),
     ]
     if (opts.injectTrap) {
       parts.push(t(`La tienda cierra en`), trap(trapTime), t(`horas.`))
@@ -306,14 +339,15 @@ const precioTotal: ProblemTemplate = {
     const count = rollQuantity(rng, difficulty)
     const unit = rollPrice(rng, difficulty)
     const total = unit * count
+    const leadIn = euroLeadIn(rng, euroSwitch)
 
     const trapMinutes = rollTrap(rng, 5, 30, [unit, count, total])
     const parts = [
-      t(`Cada ${item.singular} cuesta`),
+      t(leadIn ? `${leadIn}cada ${item.singular} cuesta` : `Cada ${item.singular} cuesta`),
       num(unit),
       t(`${symbol} y compráis`),
       num(count),
-      t(`${item.plural}.${euroLeadIn(euroSwitch)}`),
+      t(`${item.plural}.`),
     ]
     if (opts.injectTrap) {
       parts.push(t(`Esperáis`), trap(trapMinutes), t(`minutos en la cola.`))

@@ -164,9 +164,10 @@ function buildPrompt(terms: number[]): string {
 export const patronesCrecimientoGenerator: Generator = {
   subskill: 'patrones-crecimiento',
   generate(rng, requestedDifficulty, _flavor: ChapterFlavorLite): Exercise {
-    // exerciseId must be the FIRST draw off rng for determinism.
-    const id = exerciseId(rng, 'patrones-crecimiento', requestedDifficulty)
+    // exerciseId must be the FIRST draw off rng for determinism; clamping
+    // first is safe since clampDifficulty never touches rng.
     const difficulty = clampDifficulty(requestedDifficulty, 2, 5)
+    const id = exerciseId(rng, 'patrones-crecimiento', difficulty)
     const kind = pickKindForDifficulty(difficulty)
 
     const built =

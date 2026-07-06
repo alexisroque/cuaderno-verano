@@ -167,9 +167,10 @@ function buildSpotTheError(rng: Rng, difficulty: number): Built {
 export const estimacionGenerator: Generator = {
   subskill: 'estimacion',
   generate(rng, requestedDifficulty, flavor: ChapterFlavorLite): Exercise {
-    // exerciseId must be the FIRST draw off rng for determinism.
-    const id = exerciseId(rng, 'estimacion', requestedDifficulty)
+    // exerciseId must be the FIRST draw off rng for determinism; clamping
+    // first is safe since clampDifficulty never touches rng.
     const difficulty = clampDifficulty(requestedDifficulty, 2, 5)
+    const id = exerciseId(rng, 'estimacion', difficulty)
 
     const kind = rng.pick(KINDS)
     const built =

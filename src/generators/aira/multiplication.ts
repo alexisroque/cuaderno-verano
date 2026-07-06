@@ -179,9 +179,10 @@ export const mult1CifraGenerator: Generator = {
   subskill: 'mult-1cifra',
   generate(rng, requestedDifficulty, flavor) {
     // exerciseId must be the FIRST draw off rng for determinism (see
-    // exerciseId's contract), so capture it before any operand rolls.
-    const id = exerciseId(rng, 'mult-1cifra', requestedDifficulty)
+    // exerciseId's contract); clamping first is safe since clampDifficulty
+    // never touches rng.
     const difficulty = clampDifficulty(requestedDifficulty, MULT_1CIFRA_RANGES)
+    const id = exerciseId(rng, 'mult-1cifra', difficulty)
     const [a, b] = rollOperandsFor1Cifra(rng, difficulty)
     return finishExercise(id, 'mult-1cifra', difficulty, a, b, rng, flavor)
   },
@@ -190,8 +191,8 @@ export const mult1CifraGenerator: Generator = {
 export const mult2CifrasGenerator: Generator = {
   subskill: 'mult-2cifras',
   generate(rng, requestedDifficulty, flavor) {
-    const id = exerciseId(rng, 'mult-2cifras', requestedDifficulty)
     const difficulty = clampDifficulty(requestedDifficulty, MULT_2CIFRAS_RANGES)
+    const id = exerciseId(rng, 'mult-2cifras', difficulty)
     const [a, b] = rollOperands(rng, MULT_2CIFRAS_RANGES[difficulty])
     return finishExercise(id, 'mult-2cifras', difficulty, a, b, rng, flavor)
   },

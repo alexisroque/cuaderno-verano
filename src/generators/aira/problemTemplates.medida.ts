@@ -180,7 +180,7 @@ const capacidades: ProblemTemplate = {
   steps: 1,
   supportsTrap: true,
   difficultyRange: [1, 4],
-  bind(rng, difficulty, flavor, opts): BoundProblem {
+  bind(rng, difficulty, _flavor, opts): BoundProblem {
     const perBottle = rng.int(2, difficulty <= 2 ? 3 : 6)
     const count = rng.int(3, difficulty <= 2 ? 5 : 9)
     const total = perBottle * count
@@ -197,7 +197,6 @@ const capacidades: ProblemTemplate = {
       parts.push(t(`Hace`), trap(trapTemp), t(`grados de calor.`))
     }
     parts.push(t(`¿Cuántos litros de agua lleváis en total?`))
-    void flavor
 
     const tk = assemble(parts)
     const strategy = buildPhaseStrategy({

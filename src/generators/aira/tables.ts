@@ -116,7 +116,7 @@ export const tablasGenerator: Generator = {
   subskill: 'tablas',
   generate(rng, requestedDifficulty, _flavor) {
     const difficulty = clampDifficulty(requestedDifficulty, 1, 4)
-    const id = exerciseId(rng, 'tablas', requestedDifficulty)
+    const id = exerciseId(rng, 'tablas', difficulty)
     const table = rng.pick(TABLE_POOL[difficulty])
     const kind: Kind = rng.pick([...KINDS])
 

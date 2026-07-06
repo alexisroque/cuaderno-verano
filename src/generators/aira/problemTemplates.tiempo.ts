@@ -35,6 +35,12 @@ function rollDuration(rng: Rng, difficulty: number): number {
   return rng.pick([20, 35, 40, 50, 55, 70, 85, 100])
 }
 
+/** Rotated vehicles that can plausibly "salir a las…" — a "trayecto" (the trip itself) can't literally depart, only the vehicle can. */
+const VEHICLES = ['el tren', 'el autobús', 'el barco']
+
+/** A generic transport phrase (always grammatical, flavor-neutral). */
+const vehicle = (rng: Rng): string => rng.pick(VEHICLES)
+
 /** "duración de trayecto" (1-step): start and end time → how long it lasted. */
 const duracionTrayecto: ProblemTemplate = {
   id: 'duracion-trayecto',
@@ -47,10 +53,11 @@ const duracionTrayecto: ProblemTemplate = {
     const duration = rollDuration(rng, difficulty)
     const end = start + duration
     const place = venue(rng)
+    const veh = vehicle(rng)
 
     const trapCount = rollTrap(rng, 2, 8, [start, end, duration])
     const parts = [
-      t(`El trayecto hasta ${place} sale a las`),
+      t(`${capitalizeFirst(veh)} hacia ${place} sale a las`),
       num(start, { display: fmtClock(start) }),
       t(`y llega a las`),
       num(end, { display: fmtClock(end), suffix: '.' }),

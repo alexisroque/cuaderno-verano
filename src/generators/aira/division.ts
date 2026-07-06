@@ -23,11 +23,33 @@ const MAX_DIVIDEND: Record<number, number> = {
   5: 1000,
 }
 
+/** A plural noun phrase tagged with its grammatical gender, so "¿Cuántos/Cuántas…?" agrees with it. */
+interface GenderedNoun {
+  word: string
+  gender: 'm' | 'f'
+}
+
 /** Own word list for division contexts (plural, division-appropriate nouns), independent of `flavor.priceItems`' singular-noun shape. */
-const DIVISION_NOUNS = ['pegatinas', 'fotos', 'cartas', 'canicas', 'pinchos de saté', 'pulseras']
+const DIVISION_NOUNS: GenderedNoun[] = [
+  { word: 'pegatinas', gender: 'f' },
+  { word: 'fotos', gender: 'f' },
+  { word: 'cartas', gender: 'f' },
+  { word: 'canicas', gender: 'f' },
+  { word: 'pinchos de saté', gender: 'm' },
+  { word: 'pulseras', gender: 'f' },
+]
 
 /** Group-container nouns for the "agrupar" meaning (rotated via rng). */
-const GROUP_CONTAINERS = ['grupos', 'botes', 'cajas']
+const GROUP_CONTAINERS: GenderedNoun[] = [
+  { word: 'grupos', gender: 'm' },
+  { word: 'botes', gender: 'm' },
+  { word: 'cajas', gender: 'f' },
+]
+
+/** "¿Cuántos…?" / "¿Cuántas…?" agreeing with the noun's gender. */
+function cuantos(noun: GenderedNoun): string {
+  return noun.gender === 'm' ? 'Cuántos' : 'Cuántas'
+}
 
 type Meaning = 'repartir' | 'agrupar'
 type Variant = 'ask-quotient' | 'ask-remainder'
@@ -95,16 +117,19 @@ function buildRepartirPrompt(rng: Rng, dividend: number, divisor: number, varian
   const targetPhrase = pickRepartirTargetPhrase(rng, divisor)
   const question =
     variant === 'ask-quotient'
-      ? '¿Cuántas recibe cada uno?'
-      : '¿Cuántas sobran sin repartir?'
-  return `Repartimos ${dividend} ${noun} entre ${divisor} ${targetPhrase}. ${question}`
+      ? `¿${cuantos(noun)} recibe cada uno?`
+      : `¿${cuantos(noun)} sobran sin repartir?`
+  return `Repartimos ${dividend} ${noun.word} entre ${divisor} ${targetPhrase}. ${question}`
 }
 
 function buildAgruparPrompt(rng: Rng, dividend: number, divisor: number, variant: Variant): string {
   const noun = rng.pick(DIVISION_NOUNS)
   const container = rng.pick(GROUP_CONTAINERS)
-  const question = variant === 'ask-quotient' ? `¿Cuántos ${container} se llenan?` : '¿Cuántas quedan sin agrupar?'
-  return `${dividend} ${noun} en ${container} de ${divisor}. ${question}`
+  const question =
+    variant === 'ask-quotient'
+      ? `¿${cuantos(container)} ${container.word} se llenan?`
+      : `¿${cuantos(noun)} quedan sin agrupar?`
+  return `${dividend} ${noun.word} en ${container.word} de ${divisor}. ${question}`
 }
 
 function buildPrompt(rng: Rng, dividend: number, divisor: number, meaning: Meaning, variant: Variant): string {
@@ -116,9 +141,10 @@ function buildPrompt(rng: Rng, dividend: number, divisor: number, meaning: Meani
 export const divRestoGenerator: Generator = {
   subskill: 'div-resto',
   generate(rng, requestedDifficulty, _flavor: ChapterFlavorLite) {
-    // exerciseId must be the FIRST draw off rng for determinism.
-    const id = exerciseId(rng, 'div-resto', requestedDifficulty)
+    // exerciseId must be the FIRST draw off rng for determinism; clamping
+    // first is safe since clampDifficulty never touches rng.
     const difficulty = clampDifficulty(requestedDifficulty, 2, 5)
+    const id = exerciseId(rng, 'div-resto', difficulty)
 
     const { divisor, quotient, remainder, dividend } = rollDivision(rng, difficulty)
     const meaning: Meaning = rng.pick(['repartir', 'agrupar'])

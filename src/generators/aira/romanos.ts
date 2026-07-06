@@ -111,9 +111,10 @@ function buildPickCorrectRoman(rng: Rng, n: number): { prompt: string; answer: A
 export const romanosGenerator: Generator = {
   subskill: 'romanos',
   generate(rng, requestedDifficulty, _flavor: ChapterFlavorLite): Exercise {
-    // exerciseId must be the FIRST draw off rng for determinism.
-    const id = exerciseId(rng, 'romanos', requestedDifficulty)
+    // exerciseId must be the FIRST draw off rng for determinism; clamping
+    // first is safe since clampDifficulty never touches rng.
     const difficulty = clampDifficulty(requestedDifficulty, 1, 3)
+    const id = exerciseId(rng, 'romanos', difficulty)
     const maxValue = MAX_VALUE[difficulty]
 
     const n = rng.int(1, maxValue)
@@ -138,8 +139,8 @@ export const romanosGenerator: Generator = {
           id: 'valores-romanos',
           name: 'Valores de las letras romanas',
           steps: [
-            { text: `${toRoman(n)} = ${n}` },
             { text: 'Recuerda: M=1000, D=500, C=100, L=50, X=10, V=5, I=1, y una letra menor antes de una mayor se resta (como en IV o IX).' },
+            { text: `${toRoman(n)} = ${n}` },
           ],
         },
       ],

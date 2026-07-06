@@ -75,9 +75,10 @@ function makeGenerator(subskill: ProblemasSubskill): Generator {
   return {
     subskill,
     generate(rng, requestedDifficulty, flavor: ChapterFlavorLite): Exercise {
-      // exerciseId must be the FIRST draw off rng for determinism.
-      const id = exerciseId(rng, subskill, requestedDifficulty)
+      // exerciseId must be the FIRST draw off rng for determinism; clamping
+      // first is safe since clampDifficulty never touches rng.
       const difficulty = clampDifficulty(requestedDifficulty, min, max)
+      const id = exerciseId(rng, subskill, difficulty)
 
       const candidates = withinDifficulty(candidatesForSubskill(subskill), difficulty)
       const template = rng.pick(candidates)

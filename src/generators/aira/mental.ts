@@ -84,9 +84,10 @@ function buildExerciseForKind(rng: Rng, kind: Kind, cap: number): { prompt: stri
 export const mentalGenerator: Generator = {
   subskill: 'mental',
   generate(rng, requestedDifficulty, _flavor: ChapterFlavorLite): Exercise {
-    // exerciseId must be the FIRST draw off rng for determinism.
-    const id = exerciseId(rng, 'mental', requestedDifficulty)
+    // exerciseId must be the FIRST draw off rng for determinism; clamping
+    // first is safe since clampDifficulty never touches rng.
     const difficulty = clampDifficulty(requestedDifficulty, 1, 5)
+    const id = exerciseId(rng, 'mental', difficulty)
     const cap = MAGNITUDE_CAP[difficulty]
 
     const kind = rng.pick(KINDS)

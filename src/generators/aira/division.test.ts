@@ -171,6 +171,16 @@ describe('divRestoGenerator', () => {
     expect(agruparCount).toBeGreaterThan(0)
   })
 
+  it('never mismatches "Cuántos/Cuántas" against a masculine/feminine noun (200 seeds x each difficulty)', () => {
+    propertyTestWithDeterminism(divRestoGenerator, { difficulties: DIFFICULTIES, seeds: 200 }, (exercise) => {
+      const text = exercise.prompt.text
+      // Masculine nouns ("grupos", "botes", "pinchos de saté") must never follow "Cuántas".
+      expect(text, `"${text}"`).not.toMatch(/Cuántas (grupos|botes|pinchos)/)
+      // Feminine nouns ("cajas", "pegatinas", "fotos", "cartas", "canicas", "pulseras") must never follow "Cuántos".
+      expect(text, `"${text}"`).not.toMatch(/Cuántos (cajas|pegatinas|fotos|cartas|canicas|pulseras)/)
+    })
+  })
+
   it('rolls both ask-quotient and ask-remainder variants, each with a correct answer.value', () => {
     let quotientVariantCount = 0
     let remainderVariantCount = 0

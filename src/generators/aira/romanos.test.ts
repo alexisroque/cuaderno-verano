@@ -59,6 +59,22 @@ describe('romanosGenerator', () => {
     })
   })
 
+  it('presents the strategy rule/legend step BEFORE the worked result step (so Aira learns the rule before seeing the answer)', () => {
+    propertyTestWithDeterminism(romanosGenerator, { difficulties: DIFFICULTIES }, (exercise) => {
+      const strategy = exercise.strategies.find((s) => s.id === 'valores-romanos')
+      expect(strategy, 'valores-romanos strategy always present').toBeDefined()
+      if (!strategy) return
+      expect(strategy.steps.length).toBe(2)
+      expect(strategy.steps[0].text, `first step should be the rule/legend: "${strategy.steps[0].text}"`).toMatch(
+        /^Recuerda: M=1000/,
+      )
+      expect(
+        strategy.steps[1].text,
+        `second step should be the worked result "roman = n": "${strategy.steps[1].text}"`,
+      ).toMatch(/^[MDCLXVI]+ = \d+$/)
+    })
+  })
+
   it('roman-to-decimal: answer.value matches the decoded roman numeral shown in the prompt', () => {
     propertyTestWithDeterminism(romanosGenerator, { difficulties: DIFFICULTIES }, (exercise) => {
       const match = exercise.prompt.text.match(/^¿Qué número decimal es ([MDCLXVI]+)\?$/)

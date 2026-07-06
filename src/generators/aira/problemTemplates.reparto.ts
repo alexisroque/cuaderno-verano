@@ -12,8 +12,26 @@ import {
 
 const MICROLESSON = 'Repartir en grupos iguales y contar por paquetes es lo que hacemos al organizar cosas de verdad: mesas, entradas, souvenirs…'
 
-/** Flavor-neutral countable objects for grouping/sharing stories (already plural). */
-const OBJECTS = ['pegatinas', 'postales', 'conchas', 'fotos del viaje', 'pulseras', 'caramelos']
+/** A flavor-neutral, already-plural countable object for grouping/sharing stories, tagged with its grammatical gender. */
+interface RepartoObject {
+  word: string
+  gender: 'm' | 'f'
+}
+
+/** Flavor-neutral countable objects for grouping/sharing stories (already plural), each tagged with its gender. */
+const OBJECTS: RepartoObject[] = [
+  { word: 'pegatinas', gender: 'f' },
+  { word: 'postales', gender: 'f' },
+  { word: 'conchas', gender: 'f' },
+  { word: 'fotos del viaje', gender: 'f' },
+  { word: 'pulseras', gender: 'f' },
+  { word: 'caramelos', gender: 'm' },
+]
+
+/** "¿Cuántos/Cuántas…?", "todos los/todas las…", and the "los/las" pronoun, all agreeing with the object's gender. */
+const cuantos = (o: RepartoObject) => (o.gender === 'm' ? 'Cuántos' : 'Cuántas')
+const todos = (o: RepartoObject) => (o.gender === 'm' ? 'todos los' : 'todas las')
+const pronounLosLas = (o: RepartoObject) => (o.gender === 'm' ? 'los' : 'las')
 
 /** "reparto en grupos iguales" (1-step): N objects shared among G kids → each gets... */
 const repartoGrupos: ProblemTemplate = {
@@ -29,24 +47,18 @@ const repartoGrupos: ProblemTemplate = {
     const object = rng.pick(OBJECTS)
 
     const trapAge = rollTrap(rng, 7, 12, [total, kids, each])
-    const parts = [
-      t(`Repartís`),
-      num(total),
-      t(`${object} entre`),
-      num(kids),
-      t(`amigos, a partes iguales.`),
-    ]
+    const parts = [t(`Repartís`), num(total), t(`${object.word} entre`), num(kids), t(`amigos, a partes iguales.`)]
     if (opts.injectTrap) {
       parts.push(t(`El mayor tiene`), trap(trapAge), t(`años.`))
     }
-    parts.push(t(`¿Cuántas le tocan a cada uno?`))
+    parts.push(t(`¿${cuantos(object)} le tocan a cada uno?`))
 
     const tk = assemble(parts)
     const strategy = buildPhaseStrategy({
-      datos: `${total} ${object} para ${kids} amigos, a partes iguales.`,
+      datos: `${total} ${object.word} para ${kids} amigos, a partes iguales.`,
       plan: `Nos preguntan cuántas por persona; repartimos, así que dividimos.`,
       calculo: [`${total} ÷ ${kids} = ${each}`],
-      comprobar: `Al revés: ${each} × ${kids} = ${total}, todas las ${object}. ¡Cuadra!`,
+      comprobar: `Al revés: ${each} × ${kids} = ${total}, ${todos(object)} ${object.word}. ¡Cuadra!`,
       trapCallout: opts.injectTrap ? `los ${trapAge} años del mayor` : undefined,
     })
 
@@ -68,21 +80,15 @@ const unidadesPorPack: ProblemTemplate = {
     const object = rng.pick(OBJECTS)
 
     const trapPrice = rollTrap(rng, 2, 9, [packs, perPack, total])
-    const parts = [
-      t(`Compráis`),
-      num(packs),
-      t(`paquetes de ${object}, con`),
-      num(perPack),
-      t(`en cada paquete.`),
-    ]
+    const parts = [t(`Compráis`), num(packs), t(`paquetes de ${object.word}, con`), num(perPack), t(`en cada paquete.`)]
     if (opts.injectTrap) {
       parts.push(t(`Cada paquete cuesta`), trap(trapPrice), t(`euros.`))
     }
-    parts.push(t(`¿Cuántas ${object} tenéis en total?`))
+    parts.push(t(`¿${cuantos(object)} ${object.word} tenéis en total?`))
 
     const tk = assemble(parts)
     const strategy = buildPhaseStrategy({
-      datos: `${packs} paquetes con ${perPack} ${object} en cada uno.`,
+      datos: `${packs} paquetes con ${perPack} ${object.word} en cada uno.`,
       plan: `Nos preguntan el total; multiplicamos los paquetes por lo que trae cada uno.`,
       calculo: [`${packs} × ${perPack} = ${total}`],
       comprobar: `${total} entre ${packs} paquetes da ${perPack} en cada uno. ¡Cuadra!`,
@@ -106,13 +112,7 @@ const mesasSillas: ProblemTemplate = {
     const total = tables * chairs
 
     const trapDishes = rollTrap(rng, 3, 9, [tables, chairs, total])
-    const parts = [
-      t(`En el hawker center hay`),
-      num(tables),
-      t(`mesas y en cada una caben`),
-      num(chairs),
-      t(`personas.`),
-    ]
+    const parts = [t(`En el hawker center hay`), num(tables), t(`mesas y en cada una caben`), num(chairs), t(`personas.`)]
     if (opts.injectTrap) {
       parts.push(t(`El puesto sirve`), trap(trapDishes), t(`platos distintos.`))
     }
@@ -152,21 +152,21 @@ const compararCantidades: ProblemTemplate = {
       num(groupsA),
       t(`tandas de`),
       num(perA),
-      t(`${object}. El martes hacéis`),
+      t(`${object.word}. El martes hacéis`),
       num(countB),
-      t(`${object}.`),
+      t(`${object.word}.`),
     ]
     if (opts.injectTrap) {
       parts.push(t(`Estáis de viaje`), trap(trapDays), t(`días.`))
     }
-    parts.push(t(`¿Cuántas ${object} más hicisteis el lunes?`))
+    parts.push(t(`¿${cuantos(object)} ${object.word} más hicisteis el lunes?`))
 
     const tk = assemble(parts)
     const strategy = buildPhaseStrategy({
-      datos: `El lunes: ${groupsA} tandas de ${perA}. El martes: ${countB} ${object}.`,
+      datos: `El lunes: ${groupsA} tandas de ${perA}. El martes: ${countB} ${object.word}.`,
       plan: `Primero cuántas el lunes (multiplicamos), luego la diferencia con el martes (restamos).`,
       calculo: [`${groupsA} × ${perA} = ${countA}`, `${countA} − ${countB} = ${diff}`],
-      comprobar: `Si al martes (${countB}) le sumas ${diff} llegas a ${countA}, las del lunes. ¡Cuadra!`,
+      comprobar: `Si al martes (${countB}) le sumas ${diff} llegas a ${countA}, el total del lunes. ¡Cuadra!`,
       trapCallout: opts.injectTrap ? `los ${trapDays} días de viaje` : undefined,
     })
 
@@ -201,7 +201,7 @@ const juntarYRepartir: ProblemTemplate = {
       num(packs),
       t(`paquetes con`),
       num(perPack),
-      t(`${object} cada uno y las repartís entre`),
+      t(`${object.word} cada uno y ${pronounLosLas(object)} repartís entre`),
       num(kids),
       t(`amigos.`),
     ]
@@ -209,14 +209,14 @@ const juntarYRepartir: ProblemTemplate = {
     if (opts.injectTrap) {
       parts.push(t(`El más pequeño tiene`), trap(trapAge), t(`años.`))
     }
-    parts.push(t(`¿Cuántas ${object} le tocan a cada amigo?`))
+    parts.push(t(`¿${cuantos(object)} ${object.word} le tocan a cada amigo?`))
 
     const tk = assemble(parts)
     const strategy = buildPhaseStrategy({
-      datos: `${packs} paquetes de ${perPack} ${object}, para ${kids} amigos.`,
-      plan: `Primero cuántas hay en total (multiplicamos), luego las repartimos (dividimos entre los amigos).`,
+      datos: `${packs} paquetes de ${perPack} ${object.word}, para ${kids} amigos.`,
+      plan: `Primero cuántas hay en total (multiplicamos), luego ${pronounLosLas(object)} repartimos (dividimos entre los amigos).`,
       calculo: [`${packs} × ${perPack} = ${total}`, `${total} ÷ ${kids} = ${eachChild}`],
-      comprobar: `Al revés: ${eachChild} × ${kids} = ${total}, todas las ${object}. ¡Cuadra!`,
+      comprobar: `Al revés: ${eachChild} × ${kids} = ${total}, ${todos(object)} ${object.word}. ¡Cuadra!`,
       trapCallout: opts.injectTrap ? `los ${trapAge} años del más pequeño` : undefined,
     })
 
