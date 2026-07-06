@@ -185,6 +185,87 @@ export const SKILL_META: {
   },
 }
 
+/**
+ * Human-readable Spanish label for a subskill id, for the parent panel
+ * (adult register, clear labels). Ids not listed fall back to the raw id in
+ * `subskillLabel`, so a new subskill still renders — just less prettily.
+ */
+export const SUBSKILL_LABELS: Record<SubskillId, string> = {
+  // calculo
+  tablas: 'Tablas de multiplicar',
+  'mult-1cifra': 'Multiplicación · 1 cifra',
+  'mult-2cifras': 'Multiplicación · 2 cifras',
+  'div-resto': 'División con resto',
+  mental: 'Cálculo mental',
+  estimacion: 'Estimación',
+  cajitas: 'Cajitas multiplicativas',
+  romanos: 'Números romanos',
+  fracciones: 'Fracciones',
+  'decimales-dinero': 'Decimales con dinero',
+  'hechos-derivados-dec': 'Hechos derivados (decimales)',
+  cuadrados: 'Números cuadrados',
+  // problemas
+  '1-paso': 'Problemas de 1 paso',
+  '2-pasos': 'Problemas de 2 pasos',
+  'dato-trampa': 'Detectar dato-trampa',
+  dinero: 'Problemas de dinero',
+  tiempo: 'Problemas de tiempo',
+  medida: 'Problemas de medida',
+  'patrones-crecimiento': 'Patrones de crecimiento',
+  proporcionalidad: 'Proporcionalidad',
+  // ortografia
+  'accents-ca': 'Acentos (catalán)',
+  'b-v': 'B / V',
+  'essa-sorda': 'S sorda / sonora',
+  apostrof: 'Apóstrofo',
+  maj: 'Mayúsculas',
+  puntuacio: 'Puntuación',
+  // escritura / lectura
+  diario: 'Diario',
+  comprension: 'Comprensión lectora',
+  reflexion: 'Reflexionar y valorar',
+  // english (aira)
+  reading: 'Reading',
+  vocab: 'Vocabulary',
+  // geografia
+  capitales: 'Capitales',
+  banderas: 'Banderas',
+  'donde-esta': '¿Dónde está?',
+  // mundo
+  espacio: 'El espacio',
+  'como-funciona': 'Cómo funciona',
+  // leo · trazos
+  letras: 'Trazo de letras',
+  'numeros-trazo': 'Trazo de números',
+  espejo: 'Inversiones en espejo',
+  // leo · numeros
+  'contar-6': 'Contar hasta 6',
+  'descomponer-4-6': 'Descomponer 4-6',
+  comparar: 'Comparar cantidades',
+  'contar-20': 'Contar hasta 20',
+  'descomponer-7-9': 'Descomponer 7-9',
+  dobles: 'Dobles',
+  'mas-menos-1-2': 'Más / menos 1-2',
+  simbolos: 'Símbolos + − =',
+  estimar: 'Estimar',
+  // leo · english
+  animales: 'Animals',
+  colores: 'Colours',
+  comida: 'Food',
+  huerto: 'Garden',
+  // leo · logica
+  patrones: 'Patrones',
+  formas: 'Formas',
+  simetria: 'Simetría',
+  clasificar: 'Clasificar',
+  posiciones: 'Posiciones',
+}
+
+/** Friendly label for a subskill id, falling back to the raw id. */
+export function subskillLabel(id: SubskillId): string {
+  return SUBSKILL_LABELS[id] ?? id
+}
+
 /** Finds the skill id that owns `subskillId` for `profile`, or undefined if not found. */
 export function skillOfSubskill(profile: ProfileId, subskillId: SubskillId): SkillId | undefined {
   const skills = CATALOG[profile].skills as Record<string, SkillDef>
