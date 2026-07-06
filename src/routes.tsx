@@ -11,6 +11,8 @@ import { Today } from './screens/Today'
 import { FreeTraining } from './screens/FreeTraining'
 import { Collection } from './screens/Collection'
 import { ParentArea } from './screens/ParentArea'
+import { ProblemPlayer } from './screens/players/ProblemPlayer'
+import { ComingSoonPlayer } from './screens/players/ComingSoonPlayer'
 import { KitchenSink } from './screens/dev/KitchenSink'
 
 /**
@@ -37,6 +39,8 @@ export const routeConfig: RouteObject[] = [
       { path: '/entrenar', element: <FreeTraining /> },
       { path: '/coleccion', element: <Collection /> },
       { path: '/padres', element: <ParentArea /> },
+      { path: '/jugar/problema', element: <ProblemPlayer /> },
+      { path: '/jugar/proximamente', element: <ComingSoonPlayer /> },
       { path: '/dev/kitchen-sink', element: <KitchenSink /> },
       { path: '*', element: <Navigate to="/" replace /> },
     ],
