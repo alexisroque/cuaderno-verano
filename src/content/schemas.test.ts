@@ -231,15 +231,53 @@ describe('EnglishUnitSchema', () => {
 })
 
 describe('EnglishReadingSchema', () => {
-  it('accepts a mini-reading', () => {
+  it('accepts a mini-reading with a literal and a reflexiva question', () => {
     expect(() =>
       EnglishReadingSchema.parse({
         id: 'r1',
         title: 'The trip',
         sentences: ['We are going to Singapore.', 'It is very hot there.'],
-        question: { q: 'Where are they going?', choices: ['Singapore', 'Paris', 'Rome', 'Tokyo'], correctIdx: 0 },
+        questions: [
+          {
+            q: 'Where are they going?',
+            choices: ['Singapore', 'Paris', 'Rome', 'Tokyo'],
+            correctIdx: 0,
+            kind: 'literal',
+          },
+          {
+            q: 'Why do you think they are excited?',
+            choices: ['It is a new place', 'They are bored', 'They are sad', 'They are tired'],
+            correctIdx: 0,
+            kind: 'reflexiva',
+          },
+        ],
       }),
     ).not.toThrow()
+  })
+
+  it('rejects a reading with no reflexiva question', () => {
+    expect(() =>
+      EnglishReadingSchema.parse({
+        id: 'r1',
+        title: 'The trip',
+        sentences: ['We are going to Singapore.'],
+        questions: [
+          { q: 'Where?', choices: ['Singapore', 'Paris', 'Rome', 'Tokyo'], correctIdx: 0, kind: 'literal' },
+          { q: 'When?', choices: ['Today', 'Tomorrow', 'Never', 'Yesterday'], correctIdx: 0, kind: 'literal' },
+        ],
+      }),
+    ).toThrow(/reflexiva/i)
+  })
+
+  it('rejects a reading with fewer than 2 questions', () => {
+    expect(() =>
+      EnglishReadingSchema.parse({
+        id: 'r1',
+        title: 'The trip',
+        sentences: ['We are going to Singapore.'],
+        questions: [{ q: 'Where?', choices: ['Singapore', 'Paris', 'Rome', 'Tokyo'], correctIdx: 0, kind: 'reflexiva' }],
+      }),
+    ).toThrow()
   })
 })
 

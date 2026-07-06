@@ -243,7 +243,7 @@
       "questions": [
         {
           "q": "Per què va aparèixer un camí de terra entre continents?",
-          "choices": ["Perquè el nivell del mar va baixar en una època molt freda", "Perquè algú va construir un pont", "Perquè el mar es va assecar del tot", "Perquè hi havia un vaixell gigant"],
+          "choices": ["Perquè el nivell del mar va baixar en una època molt freda", "Perquè algú va construir un pont", "Perquè el mar es va assecar del tot", "Perquè hi havia un vaixell gegant"],
           "correctIdx": 0,
           "kind": "literal"
         },

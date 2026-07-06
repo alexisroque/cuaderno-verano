@@ -69,23 +69,33 @@ describe('Spanish-agreement sweep (repo-wide)', () => {
     expect(subskills.length).toBeGreaterThan(0)
   })
 
-  it.each(subskills)('%s: no known bad Spanish pattern across %d seeds x every real chapter', (subskill) => {
-    const generator = getGenerator(subskill)!
+  // Some subskills (e.g. mult-1cifra) build a heavier exercise per seed than
+  // others; 200 seeds x every real chapter x this repo-wide pattern sweep
+  // occasionally pushes a single case past vitest's default 5s test timeout
+  // under CPU contention, causing an intermittent flake. Raise the timeout
+  // for these cases rather than reducing seed count, so coverage stays the
+  // same and only the (unrealistic) 5s budget changes.
+  it.each(subskills)(
+    '%s: no known bad Spanish pattern across %d seeds x every real chapter',
+    (subskill) => {
+      const generator = getGenerator(subskill)!
 
-    for (const flavor of REAL_CHAPTER_FLAVORS) {
-      for (let i = 0; i < seeds; i++) {
-        const seed = `spanish-sweep:${subskill}:${flavor.placeName}:${i}`
-        const rng = createRng(seed)
-        // A mid-range difficulty; clampDifficulty in every generator makes
-        // this safe regardless of that subskill's actual catalog range.
-        const exercise = generator.generate(rng, 3, flavor)
+      for (const flavor of REAL_CHAPTER_FLAVORS) {
+        for (let i = 0; i < seeds; i++) {
+          const seed = `spanish-sweep:${subskill}:${flavor.placeName}:${i}`
+          const rng = createRng(seed)
+          // A mid-range difficulty; clampDifficulty in every generator makes
+          // this safe regardless of that subskill's actual catalog range.
+          const exercise = generator.generate(rng, 3, flavor)
 
-        for (const text of allProseIn(exercise)) {
-          for (const { name, pattern } of BAD_PATTERNS) {
-            expect(pattern.test(text), `[${subskill}] "${name}" matched in "${text}" (seed ${seed})`).toBe(false)
+          for (const text of allProseIn(exercise)) {
+            for (const { name, pattern } of BAD_PATTERNS) {
+              expect(pattern.test(text), `[${subskill}] "${name}" matched in "${text}" (seed ${seed})`).toBe(false)
+            }
           }
         }
       }
-    }
-  })
+    },
+    20000,
+  )
 })

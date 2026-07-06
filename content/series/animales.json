@@ -127,7 +127,7 @@
         "ca": "Sabies que les tortugues marines troben el camí de tornada a la seva platja gràcies al camp magnètic de la Terra?",
         "es": "¿Sabías que las tortugas marinas encuentran el camino de vuelta a su playa gracias al campo magnético de la Tierra?"
       },
-      "hook": "Demà descobrirem un rèptil gigant que sembla sortit d'una llegenda.",
+      "hook": "Demà descobrirem un rèptil gegant que sembla sortit d'una llegenda.",
       "questions": [
         {
           "q": "De què s'alimenta principalment la tortuga verda?",
@@ -277,7 +277,7 @@
         },
         {
           "q": "Per què creus que un animal tan enorme com la balena blava pot alimentar-se de preses tan petites com el krill?",
-          "choices": ["Perquè en menja quantitats enormes cada dia per obtenir prou energia", "Perquè el krill és en realitat gigant", "No té cap sentit ni explicació", "Perquè no necessita menjar gaire"],
+          "choices": ["Perquè en menja quantitats enormes cada dia per obtenir prou energia", "Perquè el krill és en realitat gegant", "No té cap sentit ni explicació", "Perquè no necessita menjar gaire"],
           "correctIdx": 0,
           "kind": "reflexiva"
         }
@@ -376,8 +376,8 @@
         "es": "Las tortugas gigantes de las islas Galápagos pueden vivir más de cien años y pesar más de doscientos cincuenta kilos. Se mueven muy despacio, pero eso no les impide recorrer largas distancias buscando comida. Pasan muchas horas del día comiendo hierba y cactus."
       },
       "factExtra": {
-        "ca": "Sabies que una tortuga gegant de les Seychelles anomenada Jonathan té més de cent noranta anys i encara viu avui dia?",
-        "es": "¿Sabías que una tortuga gigante de las Seychelles llamada Jonathan tiene más de ciento noventa años y todavía vive hoy en día?"
+        "ca": "Sabies que una tortuga gegant que viu a l'illa de Santa Helena, anomenada Jonathan, té uns cent noranta anys i encara viu avui dia?",
+        "es": "¿Sabías que una tortuga gigante que vive en la isla de Santa Elena, llamada Jonathan, tiene unos ciento noventa años y todavía vive hoy en día?"
       },
       "hook": "Aviat parlarem d'un mamífer que salta enormes distàncies amb les seves potes.",
       "questions": [

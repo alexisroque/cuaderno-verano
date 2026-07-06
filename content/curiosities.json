@@ -18,7 +18,7 @@
   { "id": "cur-viaje-17", "text": { "es": "Las tortugas verdes, como la mascota Bulan, pueden vivir más de 80 años y recorren miles de kilómetros en el océano para volver siempre a la misma playa donde nacieron." }, "tag": "viaje", "chapterId": "gili-air" },
   { "id": "cur-viaje-18", "text": { "es": "Nusa Penida, cerca de Sanur, es famosa porque en sus aguas se pueden ver mantarrayas gigantes, unos peces planos que pueden medir más de 4 metros de ancho." }, "tag": "viaje", "chapterId": "sanur" },
   { "id": "cur-viaje-19", "text": { "es": "Las cuevas de Batu, cerca de Kuala Lumpur, tienen más de 270 escalones de colores para llegar a un templo dentro de una gruta gigante, y están llenas de monos que a veces roban gafas de sol a los turistas despistados." }, "tag": "viaje", "chapterId": "kuala-lumpur" },
-  { "id": "cur-viaje-20", "text": { "es": "El calao rinoceronte, que viven en la selva de Borneo, tiene un gran cuerno hueco encima del pico que amplifica su voz, como un altavoz natural." }, "tag": "viaje", "chapterId": "borneo-kinabatangan" },
+  { "id": "cur-viaje-20", "text": { "es": "El calao rinoceronte, que vive en la selva de Borneo, tiene un gran cuerno hueco encima del pico que amplifica su voz, como un altavoz natural." }, "tag": "viaje", "chapterId": "borneo-kinabatangan" },
   { "id": "cur-viaje-21", "text": { "es": "En los hawker centers de Singapur puedes comer platos de más de diez países distintos bajo el mismo techo: son mercados de comida callejera con mesas compartidas." }, "tag": "viaje", "chapterId": "singapur" },
   { "id": "cur-viaje-22", "text": { "es": "Malasia, Singapur e Indonesia usan monedas distintas (ringgit, dólar de Singapur y rupia), pero en los tres países se puede escuchar y entender el idioma malayo, muy parecido al indonesio." }, "tag": "viaje", "chapterId": "kuala-lumpur" },
   { "id": "cur-viaje-23", "text": { "es": "Cuando lleguéis a Bali, el reloj se adelantará una hora más respecto a Kuala Lumpur, aunque sigáis viajando hacia el este." }, "tag": "viaje", "chapterId": "ubud" },
@@ -92,7 +92,7 @@
   { "id": "cur-record-09", "text": { "es": "El país con más husos horarios del mundo es Francia, con 12, debido a todos sus territorios de ultramar repartidos por el planeta." }, "tag": "record" },
   { "id": "cur-record-10", "text": { "es": "El árbol más alto del mundo es una secuoya de California llamada Hyperion, con más de 115 metros de altura." }, "tag": "record" },
   { "id": "cur-record-11", "text": { "es": "El lugar más caluroso registrado en la Tierra fue el Valle de la Muerte, en Estados Unidos, con más de 56 grados de temperatura." }, "tag": "record" },
-  { "id": "cur-record-12", "text": { "es": "El insecto más grande del mundo por longitud es un tipo de escarabajo, el titán, que puede superar los 16 centímetros." }, "tag": "record" },
+  { "id": "cur-record-12", "text": { "es": "El escarabajo titán es uno de los escarabajos más grandes y pesados del mundo: puede superar los 16 centímetros de largo, casi como un plátano." }, "tag": "record" },
 
   { "id": "cur-cuerpo-01", "text": { "es": "El cuerpo humano tiene más de 600 músculos, y usamos varios de ellos solo para sonreír." }, "tag": "cuerpo" },
   { "id": "cur-cuerpo-02", "text": { "es": "El esqueleto de un recién nacido tiene más huesos que el de un adulto: algunos se van uniendo entre sí mientras crecemos." }, "tag": "cuerpo" },

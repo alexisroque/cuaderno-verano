@@ -25,7 +25,7 @@
   { "id": "geo-de-01", "text": { "es": "La capital de Alemania es Berlín, un país del centro de Europa conocido por sus castillos y su industria." }, "tag": "capital-of" },
   { "id": "geo-uk-01", "text": { "es": "La capital del Reino Unido es Londres, famosa por el Big Ben y los autobuses rojos de dos pisos." }, "tag": "capital-of" },
   { "id": "geo-gr-01", "text": { "es": "La capital de Grecia es Atenas, cuna de la civilización griega y de los Juegos Olímpicos." }, "tag": "capital-of" },
-  { "id": "geo-continentes-01", "text": { "es": "La Tierra tiene seis continentes habitados: África, América, Asia, Europa, Oceanía y la Antártida (donde casi nadie vive)." }, "tag": "where-is" },
+  { "id": "geo-continentes-01", "text": { "es": "La Tierra tiene cinco continentes habitados —África, América, Asia, Europa y Oceanía— y un sexto, la Antártida, donde casi nadie vive." }, "tag": "where-is" },
   { "id": "geo-continentes-02", "text": { "es": "Asia es el continente más grande del mundo: allí están Singapur, Malasia e Indonesia, los tres países que visitaréis este verano." }, "tag": "where-is", "chapterId": "singapur" },
   { "id": "geo-oceanos-01", "text": { "es": "El océano más grande del planeta es el Pacífico: es tan enorme que él solo ocupa casi un tercio de la superficie de la Tierra." }, "tag": "where-is" },
   { "id": "geo-oceanos-02", "text": { "es": "Entre España y el sudeste asiático hay que cruzar el océano Índico o volar por encima de él, según la ruta del avión." }, "tag": "where-is", "chapterId": "vuelo" },

@@ -1,6 +1,6 @@
 {
   "id": "exploradores",
-  "title": "Exploradores i exploradores",
+  "title": "Exploradors i exploradores",
   "emoji": "🧭",
   "episodes": [
     {
@@ -43,7 +43,7 @@
         "ca": "Sabies que Ibn Battuta va recórrer més de 100.000 quilòmetres, molts més que Marco Polo?",
         "es": "¿Sabías que Ibn Battuta recorrió más de 100.000 kilómetros, muchos más que Marco Polo?"
       },
-      "hook": "Aviat coneixerem unes flotes gigantines xineses que també van explorar mars llunyans.",
+      "hook": "Aviat coneixerem unes flotes gegantines xineses que també van explorar mars llunyans.",
       "questions": [
         {
           "q": "Quina illa que visitarem nosaltres va arribar a conèixer Ibn Battuta?",
@@ -62,7 +62,7 @@
     {
       "id": "exp-03-zheng-he",
       "order": 3,
-      "title": "Zheng He i les flotes gigantines",
+      "title": "Zheng He i les flotes gegantines",
       "dictation": {
         "ca": "L'almirall xinès Zheng He va comandar flotes enormes, amb centenars de vaixells, fa més de sis-cents anys. Les expedicions van arribar fins a l'Índia i la costa d'Àfrica. Tornava a la Xina amb animals i productes desconeguts.",
         "es": "El almirante chino Zheng He comandó flotas enormes, con cientos de barcos, hace más de seiscientos años. Las expediciones llegaron hasta la India y la costa de África. Volvía a China con animales y productos desconocidos."

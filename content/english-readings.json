@@ -8,7 +8,10 @@
       "My brother is four years old.",
       "We love to play together in the park."
     ],
-    "question": { "q": "How old is the brother?", "choices": ["Two", "Three", "Four", "Nine"], "correctIdx": 2 }
+    "questions": [
+      { "q": "How old is the brother?", "choices": ["Two", "Three", "Four", "Nine"], "correctIdx": 2, "kind": "literal" },
+      { "q": "Why do you think families like to play together in the park?", "choices": ["It is fun and they are together", "Parks are always empty", "It is the only game they know", "They do not like their house"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-02-a-big-trip",
@@ -19,7 +22,10 @@
       "Then we visit Malaysia and Indonesia.",
       "I am very excited to see new animals and new places."
     ],
-    "question": { "q": "How many countries do they visit?", "choices": ["One", "Two", "Three", "Four"], "correctIdx": 2 }
+    "questions": [
+      { "q": "How many countries do they visit?", "choices": ["One", "Two", "Three", "Four"], "correctIdx": 2, "kind": "literal" },
+      { "q": "Why do you think the child feels excited before the trip?", "choices": ["Because everything is new and different", "Because the trip is boring", "Because they are staying home", "Because there is nothing to see"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-03-the-merlion",
@@ -30,7 +36,10 @@
       "Water comes out of its mouth.",
       "Many tourists take photos next to it."
     ],
-    "question": { "q": "What is the Merlion's body?", "choices": ["A lion", "A fish", "A bird", "A snake"], "correctIdx": 1 }
+    "questions": [
+      { "q": "What is the Merlion's body?", "choices": ["A lion", "A fish", "A bird", "A snake"], "correctIdx": 1, "kind": "literal" },
+      { "q": "Why do you think so many tourists want a photo with the Merlion?", "choices": ["It is a famous and unusual statue", "It is invisible", "It is very small", "It is far from the city"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-04-the-orangutan",
@@ -41,7 +50,10 @@
       "They eat fruit, leaves, and insects.",
       "Baby orangutans stay with their mothers for many years."
     ],
-    "question": { "q": "What color is an orangutan's fur?", "choices": ["Black", "Orange", "Blue", "White"], "correctIdx": 1 }
+    "questions": [
+      { "q": "What color is an orangutan's fur?", "choices": ["Black", "Orange", "Blue", "White"], "correctIdx": 1, "kind": "literal" },
+      { "q": "Why do you think baby orangutans stay with their mothers for so long?", "choices": ["To learn how to survive in the forest", "Because they cannot see", "Because they do not like fruit", "Because the forest is empty"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-05-hawker-food",
@@ -52,7 +64,10 @@
       "You can eat chicken rice, noodles, or satay.",
       "Everyone sits together at big tables."
     ],
-    "question": { "q": "What is chicken rice?", "choices": ["A drink", "A dessert", "A food", "A game"], "correctIdx": 2 }
+    "questions": [
+      { "q": "What is chicken rice?", "choices": ["A drink", "A dessert", "A food", "A game"], "correctIdx": 2, "kind": "literal" },
+      { "q": "Why do you think hawker centers put many food stalls in one place?", "choices": ["So everyone can choose something different and eat together", "So nobody can eat there", "Because there is only one kind of food", "Because tables are not allowed"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-06-the-river-safari",
@@ -63,7 +78,10 @@
       "We also saw a crocodile near the water.",
       "It was a quiet and exciting adventure."
     ],
-    "question": { "q": "What animal has a big nose?", "choices": ["The crocodile", "The proboscis monkey", "The elephant", "The bird"], "correctIdx": 1 }
+    "questions": [
+      { "q": "What animal has a big nose?", "choices": ["The crocodile", "The proboscis monkey", "The elephant", "The bird"], "correctIdx": 1, "kind": "literal" },
+      { "q": "Why do you think a boat is a good way to see animals on the river?", "choices": ["It is quiet and does not scare the animals away", "It is very loud", "Animals never go near water", "Boats cannot move on rivers"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-07-petronas-towers",
@@ -74,7 +92,10 @@
       "For a few years, they were the tallest towers in the world.",
       "At night, the towers shine with bright lights."
     ],
-    "question": { "q": "How many towers are there?", "choices": ["One", "Two", "Three", "Four"], "correctIdx": 1 }
+    "questions": [
+      { "q": "How many towers are there?", "choices": ["One", "Two", "Three", "Four"], "correctIdx": 1, "kind": "literal" },
+      { "q": "Why do you think the towers shine with lights at night?", "choices": ["To look beautiful and be seen from far away", "To make the city darker", "Because lights are forbidden during the day", "Because nobody can see them"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-08-the-rice-fields",
@@ -85,7 +106,10 @@
       "Water flows from the top field to the bottom field.",
       "The fields look like a giant green staircase."
     ],
-    "question": { "q": "Where are the rice fields built?", "choices": ["In the sea", "On the hills", "In the city", "Under the ground"], "correctIdx": 1 }
+    "questions": [
+      { "q": "Where are the rice fields built?", "choices": ["In the sea", "On the hills", "In the city", "Under the ground"], "correctIdx": 1, "kind": "literal" },
+      { "q": "Why do you think farmers build the rice fields like steps?", "choices": ["So water can flow down from field to field", "So the water cannot move at all", "Because steps look nicer than flat fields", "Because rice does not need water"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-09-monkey-forest",
@@ -96,7 +120,10 @@
       "Sometimes a monkey takes food from your hand.",
       "Visitors must hold their hats and sunglasses tight."
     ],
-    "question": { "q": "What might a monkey take from you?", "choices": ["Your shoes", "Your food", "Your bike", "Your book"], "correctIdx": 1 }
+    "questions": [
+      { "q": "What might a monkey take from you?", "choices": ["Your shoes", "Your food", "Your bike", "Your book"], "correctIdx": 1, "kind": "literal" },
+      { "q": "Why do you think visitors must hold their hats and sunglasses tight?", "choices": ["Because the monkeys are used to people and may grab things", "Because there is a lot of wind", "Because hats are not allowed in the park", "Because monkeys cannot see well"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-10-the-green-turtle",
@@ -107,7 +134,10 @@
       "Green turtles eat seagrass and algae.",
       "They always return to the beach where they were born."
     ],
-    "question": { "q": "What do green turtles eat?", "choices": ["Fish", "Seagrass and algae", "Bread", "Rice"], "correctIdx": 1 }
+    "questions": [
+      { "q": "What do green turtles eat?", "choices": ["Fish", "Seagrass and algae", "Bread", "Rice"], "correctIdx": 1, "kind": "literal" },
+      { "q": "Why do you think green turtles always return to the beach where they were born?", "choices": ["It is a safe and familiar place to lay their eggs", "They forget every other beach", "They cannot swim anywhere else", "The sea pushes them back every time"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-11-no-cars-island",
@@ -118,7 +148,10 @@
       "A cidomo is a small cart pulled by a horse.",
       "The island is quiet and very peaceful."
     ],
-    "question": { "q": "What pulls a cidomo?", "choices": ["A car", "A horse", "A boat", "A bicycle"], "correctIdx": 1 }
+    "questions": [
+      { "q": "What pulls a cidomo?", "choices": ["A car", "A horse", "A boat", "A bicycle"], "correctIdx": 1, "kind": "literal" },
+      { "q": "Why do you think a car-free island is good for children?", "choices": ["It is quieter and safer to walk and play", "There is nothing to do without cars", "Bikes are dangerous for everyone", "Islands need cars to be interesting"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-12-a-day-at-the-beach",
@@ -129,7 +162,10 @@
       "We swim, build sandcastles, and eat fresh fruit.",
       "In the evening, we watch the sun go down."
     ],
-    "question": { "q": "What do they build at the beach?", "choices": ["A tower", "A sandcastle", "A boat", "A kite"], "correctIdx": 1 }
+    "questions": [
+      { "q": "What do they build at the beach?", "choices": ["A tower", "A sandcastle", "A boat", "A kite"], "correctIdx": 1, "kind": "literal" },
+      { "q": "Why do you think watching the sun go down is a nice way to end the day?", "choices": ["It is calm and colorful, a peaceful moment", "It happens every morning", "It makes the beach disappear", "It is the noisiest part of the day"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-13-the-water-park",
@@ -140,7 +176,10 @@
       "Children and grown-ups both have fun there.",
       "After the slides, everyone is happy and wet."
     ],
-    "question": { "q": "What does the water park have?", "choices": ["Slides", "Airplanes", "Snow", "Deserts"], "correctIdx": 0 }
+    "questions": [
+      { "q": "What does the water park have?", "choices": ["Slides", "Airplanes", "Snow", "Deserts"], "correctIdx": 0, "kind": "literal" },
+      { "q": "Why do you think both children and grown-ups enjoy the water park?", "choices": ["Playing with water and going down slides is fun at any age", "Only children are allowed inside", "Grown-ups cannot swim", "The park is only open at night"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-14-packing-a-suitcase",
@@ -151,7 +190,10 @@
       "We also pack sunscreen for hot, sunny days.",
       "A camera is important too, for all the memories."
     ],
-    "question": { "q": "Why do they pack sunscreen?", "choices": ["For cold days", "For hot, sunny days", "For rainy days", "For sleeping"], "correctIdx": 1 }
+    "questions": [
+      { "q": "Why do they pack sunscreen?", "choices": ["For cold days", "For hot, sunny days", "For rainy days", "For sleeping"], "correctIdx": 1, "kind": "literal" },
+      { "q": "Why do you think it is a good idea to pack a camera on a trip?", "choices": ["To keep memories of the places you visit", "Cameras keep clothes clean", "Cameras are needed to pack a suitcase", "It replaces the toothbrush"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-15-a-long-flight",
@@ -162,7 +204,10 @@
       "We watch movies, eat meals, and try to sleep.",
       "When we land, it feels wonderful to walk again."
     ],
-    "question": { "q": "How long is the flight?", "choices": ["Three hours", "Thirteen hours", "One hour", "Thirty hours"], "correctIdx": 1 }
+    "questions": [
+      { "q": "How long is the flight?", "choices": ["Three hours", "Thirteen hours", "One hour", "Thirty hours"], "correctIdx": 1, "kind": "literal" },
+      { "q": "Why do you think it feels wonderful to walk again after landing?", "choices": ["You have been sitting still for many hours", "Walking is not allowed on the plane", "The plane has no seats", "You slept the whole flight"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-16-the-sun-bear",
@@ -173,7 +218,10 @@
       "The sun bear has a very long tongue.",
       "It uses its tongue to eat honey from tree trunks."
     ],
-    "question": { "q": "What does the sun bear eat with its long tongue?", "choices": ["Fish", "Honey", "Grass", "Rice"], "correctIdx": 1 }
+    "questions": [
+      { "q": "What does the sun bear eat with its long tongue?", "choices": ["Fish", "Honey", "Grass", "Rice"], "correctIdx": 1, "kind": "literal" },
+      { "q": "Why does the sun bear need a long tongue?", "choices": ["To reach honey deep inside tree trunks", "To swim faster in rivers", "To climb trees more easily", "To talk to other bears"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-17-batu-caves",
@@ -184,7 +232,10 @@
       "Inside the cave, there is a beautiful temple.",
       "Monkeys live all around the stairs and the cave."
     ],
-    "question": { "q": "What do you climb to reach the cave?", "choices": ["A ladder", "Colorful stairs", "A rope", "An elevator"], "correctIdx": 1 }
+    "questions": [
+      { "q": "What do you climb to reach the cave?", "choices": ["A ladder", "Colorful stairs", "A rope", "An elevator"], "correctIdx": 1, "kind": "literal" },
+      { "q": "Why do you think visitors should be careful with their belongings near the monkeys?", "choices": ["The monkeys are used to people and may take things", "Monkeys never come near the stairs", "Monkeys live inside the temple only", "There are no monkeys at Batu Caves"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-18-market-day",
@@ -195,7 +246,10 @@
       "You can smell sweet mangoes and fresh coconuts.",
       "It is a fun place to walk and look around."
     ],
-    "question": { "q": "What can you smell at the market?", "choices": ["Sweet mangoes", "Cold snow", "Metal", "Smoke"], "correctIdx": 0 }
+    "questions": [
+      { "q": "What can you smell at the market?", "choices": ["Sweet mangoes", "Cold snow", "Metal", "Smoke"], "correctIdx": 0, "kind": "literal" },
+      { "q": "Why do you think markets are full of colors and sounds?", "choices": ["Many sellers and fresh products are all together in one place", "Markets are always empty", "Only one seller works there", "Sounds and colors are forbidden elsewhere"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-19-time-zones",
@@ -206,7 +260,10 @@
       "Bali is one hour ahead of Kuala Lumpur.",
       "It takes a few days for our bodies to feel normal again."
     ],
-    "question": { "q": "Is Singapore ahead or behind Barcelona?", "choices": ["Ahead", "Behind", "The same", "It has no time"], "correctIdx": 0 }
+    "questions": [
+      { "q": "Is Singapore ahead or behind Barcelona?", "choices": ["Ahead", "Behind", "The same", "It has no time"], "correctIdx": 0, "kind": "literal" },
+      { "q": "Why do you think our bodies need a few days to feel normal after changing time zones?", "choices": ["The body's clock needs time to adjust to new hours", "Bodies never notice time changes", "It happens instantly with no effort", "Time zones do not affect sleep"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   },
   {
     "id": "read-20-coming-home",
@@ -217,6 +274,9 @@
       "We say goodbye to new friends and new places.",
       "Soon we will tell everyone at home about our adventure."
     ],
-    "question": { "q": "What do they pack besides clothes?", "choices": ["Memories and photos", "Sand and rocks", "Books only", "Nothing"], "correctIdx": 0 }
+    "questions": [
+      { "q": "What do they pack besides clothes?", "choices": ["Memories and photos", "Sand and rocks", "Books only", "Nothing"], "correctIdx": 0, "kind": "literal" },
+      { "q": "Why do you think it feels good to tell others about a trip when you get home?", "choices": ["Sharing the adventure lets you relive it and connect with others", "Nobody wants to hear about trips", "Talking about a trip erases the memories", "It is required by law"], "correctIdx": 0, "kind": "reflexiva" }
+    ]
   }
 ]

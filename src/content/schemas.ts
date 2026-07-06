@@ -220,17 +220,24 @@ export const EnglishUnitSchema = z.object({
 export type EnglishUnit = z.infer<typeof EnglishUnitSchema>
 export const EnglishUnitsSchema = z.array(EnglishUnitSchema)
 
-/** A short English mini-reading with a comprehension question, for Aira. */
-export const EnglishReadingSchema = z.object({
-  id: z.string().min(1),
-  title: z.string().min(1),
-  sentences: z.array(z.string().min(1)).min(1),
-  question: z.object({
-    q: z.string().min(1),
-    choices: z.array(z.string().min(1)).length(4),
-    correctIdx: z.number().int().min(0).max(3),
-  }),
-})
+/** A short English mini-reading with comprehension questions, for Aira. */
+export const EnglishReadingSchema = z
+  .object({
+    id: z.string().min(1),
+    title: z.string().min(1),
+    sentences: z.array(z.string().min(1)).min(1),
+    questions: z.array(QuestionSchema).min(2),
+  })
+  .superRefine((reading, ctx) => {
+    const hasReflexiva = reading.questions.some((q) => q.kind === 'reflexiva')
+    if (!hasReflexiva) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'reading must include at least one "reflexiva" question',
+        path: ['questions'],
+      })
+    }
+  })
 
 export type EnglishReading = z.infer<typeof EnglishReadingSchema>
 export const EnglishReadingsSchema = z.array(EnglishReadingSchema)
