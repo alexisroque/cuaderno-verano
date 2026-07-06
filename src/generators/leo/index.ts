@@ -14,6 +14,7 @@ import {
 } from './decomposition'
 import { patronesGenerator, formasGenerator, simetriaGenerator } from './patterns'
 import { clasificarGenerator, posicionesGenerator } from './logicScenes'
+import { letrasGenerator, numerosTrazoGenerator, espejoGenerator } from './tracing'
 
 /**
  * Registers every Leo generator on import, mirroring `generators/aira/index.ts`.
@@ -34,6 +35,9 @@ registerGenerator(formasGenerator)
 registerGenerator(simetriaGenerator)
 registerGenerator(clasificarGenerator)
 registerGenerator(posicionesGenerator)
+registerGenerator(letrasGenerator)
+registerGenerator(numerosTrazoGenerator)
+registerGenerator(espejoGenerator)
 
 export {
   contarSeisGenerator,
@@ -50,4 +54,7 @@ export {
   simetriaGenerator,
   clasificarGenerator,
   posicionesGenerator,
+  letrasGenerator,
+  numerosTrazoGenerator,
+  espejoGenerator,
 }

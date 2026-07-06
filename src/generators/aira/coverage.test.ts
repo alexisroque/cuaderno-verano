@@ -29,17 +29,10 @@ import { getGenerator } from '../framework'
  */
 const GENERATOR_EXEMPT_SKILLS = new Set(['ortografia', 'escritura', 'lectura', 'english', 'geografia', 'mundo'])
 
-// KNOWN GAP (intentional, not an oversight): this file only covers
-// `CATALOG.aira`. A second generator family, "Leo" (younger-grade math —
-// subskills like contar-20, dobles, descomponer-7-9, etc.), is planned but
-// does NOT exist in this codebase yet — there's no `CATALOG.leo`, no Leo
-// generators, nothing to register or assert against today. When the Leo
-// family lands, it will need its own coverage test mirroring this one
-// (iterate `CATALOG.leo.skills`, assert each subskill has a registered
-// generator or is deliberately content-exempt). Deliberately NOT stubbing
-// that out here with fake catalog entries or assertions — this comment is
-// the marker so a future reader knows the Leo gap is known and tracked,
-// not missed.
+// This file only covers `CATALOG.aira`. The Leo generator family
+// (younger-grade math/logic/tracing — contar-6, patrones, letras, etc.)
+// has its own mirroring coverage test: `generators/leo/coverage.test.ts`,
+// which iterates `CATALOG.leo.skills` the same way.
 
 describe('Aira generator registry coverage (full catalog)', () => {
   for (const [skillId, skillDef] of Object.entries(CATALOG.aira.skills)) {

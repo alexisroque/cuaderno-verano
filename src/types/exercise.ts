@@ -1,6 +1,19 @@
 import type { Rng } from '../lib/rng'
 
 /**
+ * A single point in a trace stroke, normalized to a 0..1 box (top-left
+ * origin). See `src/lib/strokes.ts` for the authored stroke data and the
+ * `strokesFor` lookup.
+ */
+export interface StrokePoint {
+  x: number
+  y: number
+}
+
+/** One continuous pen-down-to-pen-up path, as an ordered polyline of normalized points. */
+export type Stroke = StrokePoint[]
+
+/**
  * Visual aid attached to a prompt or a strategy step. `'none'` means no
  * visual is rendered — kept explicit (rather than making `visual` always
  * optional) so generators can be deliberate about opting out.
@@ -12,6 +25,7 @@ export type VisualSpec =
   | { kind: 'emoji-count'; emoji: string; count: number; rows?: number }
   | { kind: 'compare-groups'; left: { emoji: string; count: number }; right: { emoji: string; count: number } }
   | { kind: 'scene'; actors: { emoji: string; row: number; col: number }[] } // small spatial layout on an implicit grid, row 0 = top, col 0 = left
+  | { kind: 'mirror-pair'; options: { choiceId: string; strokes: Stroke[] }[] } // two renderings of the same glyph (one true, one mirrored) for the espejo generator
   | { kind: 'grid-figure'; cells: [number, number][] } // filled cells of a grid
   | { kind: 'dot-grid'; n: number } // n×n square
   | { kind: 'none' }
@@ -41,19 +55,6 @@ export type Answer =
   | { kind: 'text'; value: string; accept?: string[] }
   | { kind: 'choice'; correctId: string }
   | { kind: 'multi'; correctIds: string[] }
-
-/**
- * A single point in a trace stroke, normalized to a 0..1 box (top-left
- * origin). See `src/lib/strokes.ts` for the authored stroke data and the
- * `strokesFor` lookup.
- */
-export interface StrokePoint {
-  x: number
-  y: number
-}
-
-/** One continuous pen-down-to-pen-up path, as an ordered polyline of normalized points. */
-export type Stroke = StrokePoint[]
 
 /** A fully materialized exercise instance, ready to render and grade. */
 export interface Exercise {

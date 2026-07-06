@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import './index'
+import '../leo/index'
 import { createRng } from '../../lib/rng'
 import { listRegistered, getGenerator } from '../framework'
 import { REAL_CHAPTER_FLAVORS } from '../testUtils'
@@ -11,7 +12,8 @@ import { REAL_CHAPTER_FLAVORS } from '../testUtils'
  * the known bad patterns this task fixed (gender/number mismatches, stale
  * parentheticals, double spaces, etc.). Cheap and repo-wide by design, so a
  * regression in ANY generator — not just the ones touched by this task —
- * gets caught here.
+ * gets caught here. Imports both `aira/index` and `leo/index` so
+ * `listRegistered()` actually covers every generator family, not just Aira.
  */
 const BAD_PATTERNS: { name: string; pattern: RegExp }[] = [
   { name: 'un + feminine noun (e.g. "un entrada")', pattern: /\bun (entrada|postal|ración|botella|caja|imán)\b/i },
