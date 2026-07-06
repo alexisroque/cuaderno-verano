@@ -1,6 +1,6 @@
 import type { Rng } from '../../lib/rng'
 import type { Choice, Exercise, Generator, Strategy } from '../../types/exercise'
-import { exerciseId } from '../framework'
+import { clampDifficulty, exerciseId } from '../framework'
 
 /** Which times-tables are in scope for each difficulty (catalog range [1, 4]). */
 const TABLE_POOL: Record<number, number[]> = {
@@ -8,10 +8,6 @@ const TABLE_POOL: Record<number, number[]> = {
   2: [3, 4, 6],
   3: [7, 8, 9],
   4: [7, 8, 9], // d4 extends d3's tables with a wider multiplicand range (see rollMultiplicand).
-}
-
-function clampDifficulty(difficulty: number): number {
-  return Math.min(4, Math.max(1, Math.round(difficulty)))
 }
 
 /** The multiplicand ("how many times") rolled against the chosen table, widened at higher difficulty. */
@@ -29,7 +25,10 @@ const PATTERN_FACTS: Record<number, { correct: string; wrongs: string[] }> = {
   4: { correct: 'Todos son el doble de la tabla del 2', wrongs: ['Acaban en 0 o en 5', 'Todos son impares', 'Todos acaban en 3'] },
   5: { correct: 'Acaban en 0 o en 5', wrongs: ['Todos son impares', 'Todos son múltiplos de 7', 'Todos acaban en 2'] },
   6: { correct: 'Todos son el doble de la tabla del 3', wrongs: ['Acaban en 0 o en 5', 'Todos son impares', 'Todos acaban en 9'] },
-  7: { correct: 'No siguen un patrón sencillo en la última cifra', wrongs: ['Acaban en 0 o en 5', 'Todos son pares', 'Todos son múltiplos de 2'] },
+  7: {
+    correct: 'Sus últimas cifras son 7, 4, 1, 8, 5, 2, 9, 6, 3, 0 — ¡las 10 cifras, todas distintas!',
+    wrongs: ['Acaban en 0 o en 5', 'Todos son pares', 'Todos son múltiplos de 2'],
+  },
   8: { correct: 'Todos son el doble de la tabla del 4', wrongs: ['Acaban en 0 o en 5', 'Todos son impares', 'Todos acaban en 1'] },
   9: { correct: 'La suma de sus cifras siempre da 9 (o un múltiplo de 9)', wrongs: ['Acaban en 0 o en 5', 'Todos son pares', 'Todos acaban en 4'] },
   10: { correct: 'Acaban en 0', wrongs: ['Acaban en 5', 'Todos son impares', 'Todos acaban en 1'] },
@@ -116,7 +115,7 @@ function buildPatternHuntExercise(rng: Rng, table: number): Omit<Exercise, 'id' 
 export const tablasGenerator: Generator = {
   subskill: 'tablas',
   generate(rng, requestedDifficulty, _flavor) {
-    const difficulty = clampDifficulty(requestedDifficulty)
+    const difficulty = clampDifficulty(requestedDifficulty, 1, 4)
     const id = exerciseId(rng, 'tablas', requestedDifficulty)
     const table = rng.pick(TABLE_POOL[difficulty])
     const kind: Kind = rng.pick([...KINDS])

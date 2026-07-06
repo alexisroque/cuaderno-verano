@@ -9,6 +9,9 @@
     "mascot": { "id": "kiko", "name": "Kiko el gato explorador", "emoji": "🐱" },
     "flavor": {
       "currency": "euro (EUR)",
+      "currencySymbol": "€",
+      "placePhrase": "en Barcelona",
+      "priceItems": ["bocadillo de tortilla", "granizado de limón", "helado", "billete de metro"],
       "landmarks": ["El aeropuerto de El Prat", "La maleta grande", "El mapa del mundo", "La lista de viaje"],
       "animals": ["Kiko el gato", "Las palomas del barrio", "El pez de la pecera", "El perro del vecino"],
       "foods": ["Bocadillo de tortilla", "Fruta para el avión", "Galletas de despedida", "Agua para el viaje"]
@@ -38,6 +41,9 @@
     "mascot": { "id": "kiko", "name": "Kiko el gato explorador", "emoji": "🐱" },
     "flavor": {
       "currency": "euro (EUR)",
+      "currencySymbol": "€",
+      "placePhrase": "durante el vuelo",
+      "priceItems": ["zumo de naranja", "paquete de galletas", "cómic de viaje", "auricular de avión"],
       "landmarks": ["Vuelo SQ387 BCN-SIN", "Las nubes sobre el mar", "El asiento de ventanilla", "La pantalla del mapa de vuelo"],
       "animals": ["Kiko el gato", "Las gaviotas del aeropuerto"],
       "foods": ["Bandeja de comida de avión", "Zumo de naranja", "Galletas de a bordo", "Agua embotellada"]
@@ -65,6 +71,9 @@
     "mascot": { "id": "mer", "name": "Mer la leona marina", "emoji": "🦁" },
     "flavor": {
       "currency": "dólar de Singapur (SGD)",
+      "currencySymbol": "S$",
+      "placePhrase": "en Singapur",
+      "priceItems": ["plato de chicken rice", "zumo de mango", "pincho de satay", "billete de metro"],
       "landmarks": ["El Merlión", "Marina Bay Sands", "Gardens by the Bay", "Los hawker centers"],
       "animals": ["Mer la leona marina", "Los peces de Gardens by the Bay", "Las aves del jardín", "Las mariposas del parque"],
       "foods": ["Chicken rice", "Satay", "Laksa", "Kaya toast"]
@@ -93,6 +102,9 @@
     "mascot": { "id": "tang", "name": "Tang la orangutana", "emoji": "🦧" },
     "flavor": {
       "currency": "ringgit malasio (MYR)",
+      "currencySymbol": "RM",
+      "placePhrase": "en la selva de Sepilok",
+      "priceItems": ["roti canai", "agua de coco", "plato de arroz con curry", "postal de orangután"],
       "landmarks": ["El centro de rehabilitación de orangutanes", "El centro de osos malayos", "La selva de Sepilok", "La pasarela entre copas de árboles"],
       "animals": ["Tang la orangutana", "Osos malayos (sun bears)", "Calaos de la selva", "Ardillas voladoras"],
       "foods": ["Arroz con curry malayo", "Fruta tropical", "Roti canai", "Agua de coco"]
@@ -120,6 +132,9 @@
     "mascot": { "id": "tang", "name": "Tang la orangutana", "emoji": "🦧" },
     "flavor": {
       "currency": "ringgit malasio (MYR)",
+      "currencySymbol": "RM",
+      "placePhrase": "en el río Kinabatangan",
+      "priceItems": ["plato de fideos malayos", "té helado", "bolsa de rambután", "billete de barco safari"],
       "landmarks": ["El río Kinabatangan", "El bosque inundado", "El embarcadero del safari", "El campamento en la selva"],
       "animals": ["Monos narigudos (proboscis)", "Elefantes pigmeos de Borneo", "Cocodrilos del río", "Calaos rinoceronte"],
       "foods": ["Arroz con pescado del río", "Fideos malayos", "Fruta rambután", "Té helado local"]
@@ -147,6 +162,9 @@
     "mascot": { "id": "rimau", "name": "Rimau el tigre", "emoji": "🐯" },
     "flavor": {
       "currency": "ringgit malasio (MYR)",
+      "currencySymbol": "RM",
+      "placePhrase": "en Kuala Lumpur",
+      "priceItems": ["satay de pollo", "nasi lemak", "roti", "helado de coco"],
       "landmarks": ["Las Torres Petronas", "Jalan Alor", "El mercado central", "La mezquita Jamek"],
       "animals": ["Rimau el tigre", "Los murciélagos de las cuevas Batu", "Los monos de las cuevas Batu", "Aves del parque de la ciudad"],
       "foods": ["Satay", "Nasi lemak", "Roti canai", "Teh tarik"]
@@ -175,6 +193,9 @@
     "mascot": { "id": "ketut", "name": "Ketut el mono", "emoji": "🐒" },
     "flavor": {
       "currency": "rupia indonesia (IDR)",
+      "currencySymbol": "Rp",
+      "placePhrase": "en Ubud",
+      "priceItems": ["plato de nasi goreng", "zumo de fruta de dragón", "pincho de sate lilit", "entrada al Monkey Forest"],
       "landmarks": ["Los arrozales de Tegalalang", "El Templo de Tirta Empul", "El Monkey Forest", "El mercado de Ubud"],
       "animals": ["Ketut el mono", "Los monos del Monkey Forest", "Patos de los arrozales", "Libélulas del campo"],
       "foods": ["Nasi goreng", "Mie goreng", "Sate lilit", "Fruta de dragón"]
@@ -202,6 +223,9 @@
     "mascot": { "id": "bulan", "name": "Bulan la tortuga", "emoji": "🐢" },
     "flavor": {
       "currency": "rupia indonesia (IDR)",
+      "currencySymbol": "Rp",
+      "placePhrase": "en Gili Air",
+      "priceItems": ["agua de coco", "brocheta de pescado a la parrilla", "bolsa de fruta fresca", "alquiler de bici"],
       "landmarks": ["La playa de Gili Air", "El sendero sin coches", "El muelle de llegada", "El arrecife de coral"],
       "animals": ["Bulan la tortuga verde", "Peces de colores del arrecife", "Gatos de la isla", "Aves marinas"],
       "foods": ["Pescado a la parrilla", "Fruta fresca de puesto", "Agua de coco", "Nasi campur"]
@@ -229,6 +253,9 @@
     "mascot": { "id": "bulan", "name": "Bulan la tortuga", "emoji": "🐢" },
     "flavor": {
       "currency": "rupia indonesia (IDR)",
+      "currencySymbol": "Rp",
+      "placePhrase": "en la playa de Sanur",
+      "priceItems": ["batido de fruta", "plato de gado-gado", "entrada a Waterbom", "billete de fast boat"],
       "landmarks": ["La playa de Sanur", "El paseo marítimo", "Waterbom Bali", "Nusa Penida"],
       "animals": ["Bulan la tortuga", "Mantarrayas de Nusa Penida", "Peces payaso", "Aves de la costa"],
       "foods": ["Babi guling (versión sin cerdo para peques)", "Gado-gado", "Batidos de fruta", "Nasi campur"]
@@ -256,6 +283,9 @@
     "mascot": { "id": "kiko", "name": "Kiko el gato explorador", "emoji": "🐱" },
     "flavor": {
       "currency": "euro (EUR)",
+      "currencySymbol": "€",
+      "placePhrase": "en casa",
+      "priceItems": ["helado", "granizado", "bocadillo de tortilla", "refresco"],
       "landmarks": ["La playa de aquí", "La casa de los abuelos", "El chiringuito", "El mercado del pueblo"],
       "animals": ["Kiko el gato", "Gaviotas de la playa", "Perros del parque", "Peces de la pescadería"],
       "foods": ["Helado de verano", "Bocadillo de tortilla", "Sandía", "Paella de los abuelos"]

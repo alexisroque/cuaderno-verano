@@ -31,6 +31,9 @@ export function flavorFromChapter(chapter: Chapter): ChapterFlavorLite {
   return {
     placeName: chapter.place,
     currency: chapter.flavor.currency,
+    currencySymbol: chapter.flavor.currencySymbol,
+    placePhrase: chapter.flavor.placePhrase,
+    priceItems: chapter.flavor.priceItems,
     landmarks: chapter.flavor.landmarks,
     animals: chapter.flavor.animals,
     foods: chapter.flavor.foods,
@@ -49,4 +52,21 @@ export function flavorFromChapter(chapter: Chapter): ChapterFlavorLite {
 export function exerciseId(rng: Rng, subskill: SubskillId, difficulty: number): string {
   const hex = rng.int(0, 0xffffffff).toString(16)
   return `${subskill}-d${difficulty}-${hex}`
+}
+
+/**
+ * Clamps a requested difficulty to the inclusive `[min, max]` range, rounding
+ * to the nearest integer. Guards against non-finite input (`NaN`, `Infinity`,
+ * `-Infinity`, or anything that coerced to a non-finite number, e.g. an `any`
+ * carrying `undefined`) by falling back to `min` instead of propagating NaN
+ * through `Math.round`/`Math.min`/`Math.max` (which would otherwise return
+ * NaN and corrupt every downstream operand roll and the exercise's
+ * `difficulty` field). This is the single shared implementation generators
+ * must use instead of keeping their own local copies.
+ */
+export function clampDifficulty(difficulty: number, min: number, max: number): number {
+  if (!Number.isFinite(difficulty)) {
+    return min
+  }
+  return Math.min(max, Math.max(min, Math.round(difficulty)))
 }

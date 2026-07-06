@@ -1,5 +1,5 @@
 import type { Generator, Strategy } from '../../types/exercise'
-import { exerciseId } from '../framework'
+import { clampDifficulty, exerciseId } from '../framework'
 
 /** Inclusive operand ranges per difficulty (catalog range [1, 4]): both factors grow together. */
 const OPERAND_RANGES: Record<number, [number, number]> = {
@@ -7,10 +7,6 @@ const OPERAND_RANGES: Record<number, [number, number]> = {
   2: [3, 9],
   3: [5, 15],
   4: [10, 25],
-}
-
-function clampDifficulty(difficulty: number): number {
-  return Math.min(4, Math.max(1, Math.round(difficulty)))
 }
 
 const HIDE_POSITIONS = ['a', 'b', 'product'] as const
@@ -53,7 +49,7 @@ export const cajitasGenerator: Generator = {
   subskill: 'cajitas',
   generate(rng, requestedDifficulty, _flavor) {
     const id = exerciseId(rng, 'cajitas', requestedDifficulty)
-    const difficulty = clampDifficulty(requestedDifficulty)
+    const difficulty = clampDifficulty(requestedDifficulty, 1, 4)
     const [min, max] = OPERAND_RANGES[difficulty]
 
     const a = rng.int(min, max)

@@ -1,6 +1,6 @@
 import type { Rng } from '../../lib/rng'
 import type { ChapterFlavorLite, Exercise, Generator, Strategy } from '../../types/exercise'
-import { exerciseId } from '../framework'
+import { clampDifficulty as clampDifficultyToRange, exerciseId } from '../framework'
 import {
   buildAlgoritmoStrategy,
   buildDescomposicionStrategy,
@@ -55,11 +55,12 @@ const MULT_2CIFRAS_RANGES: Record<number, OperandRanges> = {
   5: { a: [11, 99], b: [100, 299] },
 }
 
+/** Clamps `difficulty` to the min/max keys of `ranges`, guarding against NaN/Infinity via the shared framework helper. */
 function clampDifficulty(difficulty: number, ranges: Record<number, OperandRanges>): number {
   const keys = Object.keys(ranges).map(Number)
   const min = Math.min(...keys)
   const max = Math.max(...keys)
-  return Math.min(max, Math.max(min, Math.round(difficulty)))
+  return clampDifficultyToRange(difficulty, min, max)
 }
 
 function rollOperands(rng: Rng, ranges: OperandRanges): [number, number] {
@@ -106,11 +107,28 @@ function buildPureCalculationPrompt(a: number, b: number): string {
   return `¿Cuánto es ${a} × ${b}?`
 }
 
-/** Builds a light-context prompt flavored with the chapter's place/food/currency. */
+/** Capitalizes the first letter of `s`, leaving the rest untouched. */
+function capitalizeFirst(s: string): string {
+  if (s.length === 0) return s
+  return s[0].toUpperCase() + s.slice(1)
+}
+
+/**
+ * Builds a light-context prompt flavored with the chapter's place phrase,
+ * price item and currency symbol. Deliberately keeps `priceItem` singular
+ * throughout (never pluralized) to stay interpolation-safe against
+ * multi-word Spanish noun phrases like "plato de chicken rice" — naively
+ * appending "s" would produce "plato de chicken rices". Uses "cada" rather
+ * than an article ("un"/"una") so the sentence stays grammatically correct
+ * regardless of the price item's gender (avoids "un entrada" for a
+ * feminine noun like "entrada a Waterbom"). Example output: "En Singapur,
+ * cada plato de chicken rice cuesta 4 S$. Si compráis 3, ¿cuánto pagáis en
+ * total?"
+ */
 function buildContextPrompt(rng: Rng, a: number, b: number, flavor: ChapterFlavorLite): string {
-  const food = flavor.foods.length > 0 ? rng.pick(flavor.foods) : 'helado'
-  const currency = flavor.currency ?? '€'
-  return `En ${flavor.placeName}, cada ${food} cuesta ${a}${currency}. Si compras ${b}, ¿cuánto pagas en total?`
+  const priceItem = flavor.priceItems.length > 0 ? rng.pick(flavor.priceItems) : 'helado'
+  const place = capitalizeFirst(flavor.placePhrase)
+  return `${place}, cada ${priceItem} cuesta ${a} ${flavor.currencySymbol}. Si compráis ${b}, ¿cuánto pagáis en total?`
 }
 
 function buildPrompt(rng: Rng, a: number, b: number, flavor: ChapterFlavorLite): string {

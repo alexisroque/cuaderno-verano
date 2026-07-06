@@ -17,6 +17,12 @@ const StickerSchema = z.object({
 
 const FlavorSchema = z.object({
   currency: z.string().min(1).optional(),
+  /** Short symbol for math prompts, e.g. "€", "S$", "RM", "Rp". */
+  currencySymbol: z.string().min(1),
+  /** Ready-to-insert locative phrase, lowercase start, e.g. "en Singapur", "durante el vuelo". */
+  placePhrase: z.string().min(1),
+  /** Singular, lowercase, interpolation-safe noun phrases natural after "cada" (>= 4 per chapter). */
+  priceItems: z.array(z.string().min(1)).min(4),
   landmarks: z.array(z.string().min(1)),
   animals: z.array(z.string().min(1)),
   foods: z.array(z.string().min(1)),

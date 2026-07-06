@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { tablasGenerator } from './tables'
-import { propertyTestWithDeterminism } from '../testUtils'
+import { createRng } from '../../lib/rng'
+import { DEFAULT_TEST_FLAVOR, propertyTestWithDeterminism } from '../testUtils'
+import type { Exercise } from '../../types/exercise'
 
 const DIFFICULTIES = [1, 2, 3, 4]
 
@@ -84,6 +86,13 @@ describe('tablas generator', () => {
     expect(kinds.has('choice')).toBe(true)
   })
 
+  it('the table-of-7 pattern fact is arithmetically true (last digits are 7,4,1,8,5,2,9,6,3,0)', () => {
+    const lastDigits = Array.from({ length: 10 }, (_, i) => (7 * (i + 1)) % 10)
+    expect(lastDigits).toEqual([7, 4, 1, 8, 5, 2, 9, 6, 3, 0])
+    // All 10 digits appear, each exactly once.
+    expect(new Set(lastDigits).size).toBe(10)
+  })
+
   it('pattern-hunt choice set always has exactly 3 choices with exactly one matching correctId', () => {
     propertyTestWithDeterminism(tablasGenerator, { difficulties: DIFFICULTIES }, (exercise) => {
       const answer = exercise.answer
@@ -94,4 +103,18 @@ describe('tablas generator', () => {
       }
     })
   })
+
+  it.each([NaN, Infinity, -Infinity, undefined])(
+    'does not throw for difficulty=%s and clamps to range-min (d1)',
+    (bogusDifficulty) => {
+      const rng = createRng('nan-guard-seed')
+      let exercise: Exercise | undefined
+      expect(() => {
+        exercise = tablasGenerator.generate(rng, bogusDifficulty as unknown as number, DEFAULT_TEST_FLAVOR)
+      }).not.toThrow()
+      expect(exercise).toBeDefined()
+      expect(exercise!.difficulty).toBe(1)
+      expect(Number.isFinite(exercise!.difficulty)).toBe(true)
+    },
+  )
 })

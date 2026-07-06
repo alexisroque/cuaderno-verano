@@ -1,15 +1,32 @@
 import { expect } from 'vitest'
 import { createRng } from '../lib/rng'
 import type { ChapterFlavorLite, Exercise, Generator } from '../types/exercise'
+import { validateChapters } from '../content/schemas'
+import chaptersData from '../../content/chapters.json'
+import { flavorFromChapter } from './framework'
 
-/** Default flavor used by property tests when the caller doesn't need to vary it. */
+/**
+ * Default flavor used by property tests when the caller doesn't need to
+ * vary it. Mirrors the REAL schema shape (see `ChapterFlavorLite` /
+ * `ChapterSchema.flavor`): `currency` is the old free-text descriptive
+ * field, no longer read by generators (superseded by `currencySymbol`);
+ * `priceItems` are realistic multi-word, singular, lowercase noun phrases
+ * (not single words like "churros", which is plural and breaks the
+ * "cada churros cuesta" grammar the old flavor contract produced).
+ */
 export const DEFAULT_TEST_FLAVOR: ChapterFlavorLite = {
   placeName: 'Villamar',
-  currency: '€',
+  currency: 'euro (EUR)',
+  currencySymbol: '€',
+  placePhrase: 'en Villamar',
+  priceItems: ['helado de churro', 'bocadillo de tortilla', 'granizado de limón', 'plato de paella'],
   landmarks: ['El Faro', 'La Muralla'],
   animals: ['delfín', 'gaviota', 'tortuga'],
   foods: ['paella', 'helado', 'churros'],
 }
+
+/** Every real chapter from `content/chapters.json`, projected to `ChapterFlavorLite` via `flavorFromChapter`. */
+export const REAL_CHAPTER_FLAVORS: ChapterFlavorLite[] = validateChapters(chaptersData).map(flavorFromChapter)
 
 export interface PropertyTestOptions {
   /** Number of distinct seeds to try per difficulty. Defaults to 200 per the task's TDD convention. */

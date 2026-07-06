@@ -19,7 +19,14 @@ function chapter(overrides: Partial<Chapter> = {}): Chapter {
     dateEnd: '2026-07-10',
     place: 'Somewhere',
     mascot: { id: 'm1', name: 'Mascota', emoji: '🐒' },
-    flavor: { landmarks: [], animals: [], foods: [] },
+    flavor: {
+      currencySymbol: '€',
+      placePhrase: 'en algún lugar',
+      priceItems: ['helado', 'bocadillo', 'granizado', 'refresco'],
+      landmarks: [],
+      animals: [],
+      foods: [],
+    },
     stickers: [{ id: 's1', emoji: '⭐', name: 'Estrella' }],
     ...overrides,
   }

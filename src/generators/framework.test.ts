@@ -1,6 +1,13 @@
 import { describe, expect, it, beforeEach } from 'vitest'
 import { createRng } from '../lib/rng'
-import { registerGenerator, getGenerator, listRegistered, flavorFromChapter, __resetRegistryForTests } from './framework'
+import {
+  registerGenerator,
+  getGenerator,
+  listRegistered,
+  flavorFromChapter,
+  clampDifficulty,
+  __resetRegistryForTests,
+} from './framework'
 import type { Chapter } from '../content/schemas'
 import type { Exercise, Generator } from '../types/exercise'
 
@@ -21,7 +28,15 @@ function makeTestGenerator(subskill: string): Generator {
   }
 }
 
-const testFlavor = { placeName: 'Testville', landmarks: [], animals: [], foods: [] }
+const testFlavor = {
+  placeName: 'Testville',
+  currencySymbol: '€',
+  placePhrase: 'en Testville',
+  priceItems: ['helado'],
+  landmarks: [],
+  animals: [],
+  foods: [],
+}
 
 describe('generator registry', () => {
   beforeEach(() => {
@@ -87,6 +102,9 @@ describe('flavorFromChapter', () => {
       mascot: { id: 'm1', name: 'Mascota', emoji: '🐢' },
       flavor: {
         currency: '€',
+        currencySymbol: '€',
+        placePhrase: 'en Valencia',
+        priceItems: ['plato de paella', 'horchata', 'fartón', 'granizado de limón'],
         landmarks: ['La Lonja', 'Ciudad de las Artes'],
         animals: ['tortuga', 'gaviota'],
         foods: ['paella', 'horchata'],
@@ -98,6 +116,9 @@ describe('flavorFromChapter', () => {
     expect(flavor).toEqual({
       placeName: 'Valencia',
       currency: '€',
+      currencySymbol: '€',
+      placePhrase: 'en Valencia',
+      priceItems: ['plato de paella', 'horchata', 'fartón', 'granizado de limón'],
       landmarks: ['La Lonja', 'Ciudad de las Artes'],
       animals: ['tortuga', 'gaviota'],
       foods: ['paella', 'horchata'],
@@ -114,6 +135,9 @@ describe('flavorFromChapter', () => {
       place: 'Pirineos',
       mascot: { id: 'm2', name: 'Mascota2', emoji: '🦅' },
       flavor: {
+        currencySymbol: '€',
+        placePhrase: 'en los Pirineos',
+        priceItems: ['bocadillo', 'granizado', 'helado', 'plato de trinxat'],
         landmarks: ['Pico Aneto'],
         animals: ['marmota'],
         foods: ['trinxat'],
@@ -124,5 +148,33 @@ describe('flavorFromChapter', () => {
     const flavor = flavorFromChapter(chapter)
     expect(flavor.currency).toBeUndefined()
     expect(flavor.placeName).toBe('Pirineos')
+  })
+})
+
+describe('clampDifficulty', () => {
+  it('rounds and clamps a normal in-range value', () => {
+    expect(clampDifficulty(2.6, 1, 4)).toBe(3)
+    expect(clampDifficulty(1, 1, 4)).toBe(1)
+    expect(clampDifficulty(4, 1, 4)).toBe(4)
+  })
+
+  it('clamps values outside the range', () => {
+    expect(clampDifficulty(-5, 1, 4)).toBe(1)
+    expect(clampDifficulty(99, 1, 4)).toBe(4)
+  })
+
+  it('falls back to min for NaN instead of propagating it', () => {
+    expect(clampDifficulty(NaN, 1, 4)).toBe(1)
+  })
+
+  it('falls back to min for +Infinity and -Infinity', () => {
+    expect(clampDifficulty(Infinity, 2, 5)).toBe(2)
+    expect(clampDifficulty(-Infinity, 2, 5)).toBe(2)
+  })
+
+  it('falls back to min for an undefined value smuggled in as `any`', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const bogus = undefined as any
+    expect(clampDifficulty(bogus, 1, 4)).toBe(1)
   })
 })

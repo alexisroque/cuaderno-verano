@@ -58,6 +58,12 @@ export interface Exercise {
 export interface ChapterFlavorLite {
   placeName: string
   currency?: string
+  /** Short symbol for math prompts, e.g. "€", "S$", "RM", "Rp". */
+  currencySymbol: string
+  /** Ready-to-insert locative phrase, lowercase start, e.g. "en Singapur", "durante el vuelo". */
+  placePhrase: string
+  /** Singular, lowercase, interpolation-safe noun phrases natural after "cada" (>= 4 per chapter). */
+  priceItems: string[]
   landmarks: string[]
   animals: string[]
   foods: string[]

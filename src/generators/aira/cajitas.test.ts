@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { cajitasGenerator } from './cajitas'
-import { propertyTestWithDeterminism } from '../testUtils'
+import { createRng } from '../../lib/rng'
+import { DEFAULT_TEST_FLAVOR, propertyTestWithDeterminism } from '../testUtils'
+import type { Exercise } from '../../types/exercise'
 
 const DIFFICULTIES = [1, 2, 3, 4]
 
@@ -93,4 +95,18 @@ describe('cajitas generator', () => {
       }
     })
   })
+
+  it.each([NaN, Infinity, -Infinity, undefined])(
+    'does not throw for difficulty=%s and clamps to range-min (d1)',
+    (bogusDifficulty) => {
+      const rng = createRng('nan-guard-seed')
+      let exercise: Exercise | undefined
+      expect(() => {
+        exercise = cajitasGenerator.generate(rng, bogusDifficulty as unknown as number, DEFAULT_TEST_FLAVOR)
+      }).not.toThrow()
+      expect(exercise).toBeDefined()
+      expect(exercise!.difficulty).toBe(1)
+      expect(Number.isFinite(exercise!.difficulty)).toBe(true)
+    },
+  )
 })

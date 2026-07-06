@@ -12,6 +12,9 @@ function makeChapter(overrides: Partial<Record<string, unknown>> = {}) {
     place: 'Barcelona',
     mascot: { id: 'kiko', name: 'Kiko el gato explorador', emoji: '🐱' },
     flavor: {
+      currencySymbol: '€',
+      placePhrase: 'en Barcelona',
+      priceItems: ['bocadillo de tortilla', 'granizado', 'helado', 'plato de paella'],
       landmarks: ['Aeropuerto', 'Casa', 'Maleta', 'Mapa'],
       animals: ['Gato'],
       foods: ['Bocadillo'],
