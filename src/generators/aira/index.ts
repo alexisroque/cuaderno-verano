@@ -7,6 +7,15 @@ import { mentalGenerator } from './mental'
 import { estimacionGenerator } from './estimation'
 import { patronesCrecimientoGenerator } from './growthPatterns'
 import { romanosGenerator } from './romanos'
+import {
+  WORD_PROBLEM_GENERATORS,
+  unPasoGenerator,
+  dosPasosGenerator,
+  datoTrampaGenerator,
+  dineroGenerator,
+  tiempoGenerator,
+  medidaGenerator,
+} from './wordProblems'
 
 /**
  * Registers every Aira generator on import. Callers that need generators
@@ -26,6 +35,9 @@ registerGenerator(mentalGenerator)
 registerGenerator(estimacionGenerator)
 registerGenerator(patronesCrecimientoGenerator)
 registerGenerator(romanosGenerator)
+for (const gen of WORD_PROBLEM_GENERATORS) {
+  registerGenerator(gen)
+}
 
 export {
   mult1CifraGenerator,
@@ -37,4 +49,10 @@ export {
   estimacionGenerator,
   patronesCrecimientoGenerator,
   romanosGenerator,
+  unPasoGenerator,
+  dosPasosGenerator,
+  datoTrampaGenerator,
+  dineroGenerator,
+  tiempoGenerator,
+  medidaGenerator,
 }

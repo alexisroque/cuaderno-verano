@@ -12,6 +12,12 @@ const EXPECTED_SUBSKILLS = [
   'estimacion',
   'patrones-crecimiento',
   'romanos',
+  '1-paso',
+  '2-pasos',
+  'dato-trampa',
+  'dinero',
+  'tiempo',
+  'medida',
 ]
 
 describe('aira generators index', () => {
