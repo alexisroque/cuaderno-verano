@@ -64,18 +64,26 @@ export function createDebouncedPersist(
   const resolveKey = (): string => (typeof key === 'string' ? key : key())
 
   const writeNow = async (): Promise<void> => {
-    const thisGeneration = ++generation
-    await saveState(resolveKey(), getValue())
+    // Persistence must never throw: a failed write should degrade quietly
+    // (the in-memory state stays correct and the next write will retry),
+    // never surface as an unhandled rejection that could crash the app or
+    // fail the test runner when a debounced timer fires after teardown.
+    try {
+      const thisGeneration = ++generation
+      await saveState(resolveKey(), getValue())
 
-    if (thisGeneration >= latestCompletedGeneration) {
-      latestCompletedGeneration = thisGeneration
-      return
+      if (thisGeneration >= latestCompletedGeneration) {
+        latestCompletedGeneration = thisGeneration
+        return
+      }
+
+      // A newer write already completed while this one was in flight: this
+      // write may have just overwritten IndexedDB with a stale value. Heal it
+      // by re-persisting the current value.
+      await saveState(resolveKey(), getValue())
+    } catch {
+      // swallow — persistence is best-effort
     }
-
-    // A newer write already completed while this one was in flight: this
-    // write may have just overwritten IndexedDB with a stale value. Heal it
-    // by re-persisting the current value.
-    await saveState(resolveKey(), getValue())
   }
 
   const schedule = (): void => {

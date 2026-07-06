@@ -16,7 +16,7 @@ export const useProfileStore = create<ProfileStoreState>((set) => ({
     set({ activeProfile: profile })
     // Persist immediately (single scalar, changes rarely) so an accidental
     // reload returns to the same child's day instead of the picker.
-    void saveState(STORAGE_KEY, profile)
+    void saveState(STORAGE_KEY, profile).catch(() => {})
   },
 }))
 
