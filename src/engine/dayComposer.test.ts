@@ -6,6 +6,7 @@ import type { ProfileProgress } from '../types/progress'
 import type { ChildSettings } from '../state/settingsStore'
 import chaptersData from '../../content/chapters.json'
 import { validateChapters } from '../content/schemas'
+import { addDays, daysBetween } from '../lib/dates'
 
 const REAL_CHAPTERS = validateChapters(chaptersData)
 
@@ -227,11 +228,109 @@ describe('composeDay', () => {
   })
 })
 
+describe('desafio surprise injects a challenge card', () => {
+  const AIRA_CHALLENGE_SUBSKILLS = new Set([
+    'fracciones',
+    'decimales-dinero',
+    'hechos-derivados-dec',
+    'cuadrados',
+    'proporcionalidad',
+  ])
+  const LEO_CHALLENGE_SUBSKILLS = new Set([
+    'contar-20',
+    'descomponer-7-9',
+    'dobles',
+    'mas-menos-1-2',
+    'simbolos',
+    'estimar',
+  ])
+
+  it('turns the Aira problema card into a challenge card when a desafio surprise fires', () => {
+    const gems = { calculo: { skillId: 'calculo', level: 2, progress: 0 } }
+    const day = composeDay('2026-01-04', 'aira', progress(), bundle(), settings(), gems)
+
+    expect(day.surprise).toEqual({ kind: 'desafio' })
+    const challengeCards = day.cards.filter((c) => c.challenge === true)
+    expect(challengeCards).toHaveLength(1)
+
+    const problema = day.cards.find((c) => c.cardType === 'problema')
+    expect(problema?.challenge).toBe(true)
+    expect(AIRA_CHALLENGE_SUBSKILLS.has(problema!.subskill ?? '')).toBe(true)
+    expect(problema?.difficulty).toBe(3) // all listed challenge subskills' difficultyRange[0] is 3
+  })
+
+  it('turns the Leo contar card into a challenge card when a desafio surprise fires', () => {
+    const gems = { numeros: { skillId: 'numeros', level: 2, progress: 0 } }
+    const day = composeDay('2026-01-05', 'leo', progress(), bundle(), settings({ missionSize: 3 }), gems)
+
+    expect(day.surprise).toEqual({ kind: 'desafio' })
+    const challengeCards = day.cards.filter((c) => c.challenge === true)
+    expect(challengeCards).toHaveLength(1)
+
+    const contar = day.cards.find((c) => c.cardType === 'contar')
+    expect(contar?.challenge).toBe(true)
+    expect(LEO_CHALLENGE_SUBSKILLS.has(contar!.subskill ?? '')).toBe(true)
+    expect(contar?.difficulty).toBe(2) // all listed challenge subskills' difficultyRange[0] is 2
+  })
+
+  it('does not mark any card as a challenge on a non-desafio day', () => {
+    const day = composeDay('2026-07-16', 'aira', progress(), bundle(), settings(), {})
+    expect(day.surprise === null || day.surprise?.kind !== 'desafio').toBe(true)
+    expect(day.cards.some((c) => c.challenge === true)).toBe(false)
+  })
+
+  it('never throws the challenge-subskill invariant violation across a wide sweep of dates/gem levels for both profiles', () => {
+    // rollSurprise gates `desafio` on hasUnlockedChallengeSkill finding a
+    // qualifying skill; pickChallengeSubskill (dayComposerCards.ts) re-derives
+    // candidates independently. This sweeps many dates and gem configs to
+    // confirm the two gates never diverge (which would throw) — a broader
+    // regression net than the single hardcoded date/gem cases above.
+    const sweeps: { profile: 'aira' | 'leo'; gemsList: Record<string, { skillId: string; level: number; progress: number }>[] }[] = [
+      {
+        profile: 'aira',
+        gemsList: [
+          { calculo: { skillId: 'calculo', level: 2, progress: 0 } },
+          { problemas: { skillId: 'problemas', level: 3, progress: 5 } },
+          {
+            calculo: { skillId: 'calculo', level: 2, progress: 0 },
+            problemas: { skillId: 'problemas', level: 2, progress: 0 },
+          },
+        ],
+      },
+      {
+        profile: 'leo',
+        gemsList: [
+          { numeros: { skillId: 'numeros', level: 2, progress: 0 } },
+          { numeros: { skillId: 'numeros', level: 4, progress: 9 } },
+        ],
+      },
+    ]
+
+    for (const { profile, gemsList } of sweeps) {
+      for (const gems of gemsList) {
+        for (let i = 0; i < 60; i++) {
+          const dateISO = addDays('2026-01-01', i)
+          expect(() =>
+            composeDay(dateISO, profile, progress(), bundle(), settings({ missionSize: 3 }), gems),
+          ).not.toThrow()
+        }
+      }
+    }
+  })
+
+  it('remains deterministic on a desafio day: identical inputs produce a deep-equal DayPage', () => {
+    const gems = { calculo: { skillId: 'calculo', level: 2, progress: 0 } }
+    const day1 = composeDay('2026-01-04', 'aira', progress(), bundle(), settings(), gems)
+    const day2 = composeDay('2026-01-04', 'aira', progress(), bundle(), settings(), gems)
+    expect(day1).toEqual(day2)
+  })
+})
+
 describe('dictation language alternation', () => {
-  it('is >= 55% catalan over any 30-day rolling window (weighted 65% ca)', () => {
+  it('is >= 60% catalan over EVERY rolling 30-day window in a 90-day simulation', () => {
     const results: boolean[] = [] // true = ca
-    for (let i = 0; i < 60; i++) {
-      const dateISO = `2026-${i < 31 ? '07' : '08'}-${String((i % 31) + 1).padStart(2, '0')}`
+    for (let i = 0; i < 90; i++) {
+      const dateISO = addDays('2026-07-01', i)
       const day = composeDay(dateISO, 'aira', progress(), bundle(), settings(), {})
       const dictado = day.cards.find((c) => c.cardType === 'dictado')
       results.push(dictado?.language === 'ca')
@@ -239,7 +338,30 @@ describe('dictation language alternation', () => {
     for (let start = 0; start + 30 <= results.length; start++) {
       const window = results.slice(start, start + 30)
       const caCount = window.filter(Boolean).length
-      expect(caCount).toBeGreaterThanOrEqual(0.55 * 30)
+      expect(caCount).toBeGreaterThanOrEqual(0.6 * 30)
+    }
+  })
+
+  it('follows a deterministic 3-day cycle: exactly 2 ca + 1 es per cycle, stable across profiles/runs', () => {
+    // Cycles are anchored to a fixed epoch (2026-01-01), not the simulation's
+    // start date, so we align the sample window to an actual cycle boundary
+    // (a day index that's a multiple of 3 days after the epoch) rather than
+    // assuming day 0 of the loop is a cycle boundary.
+    const epochOffset = daysBetween('2026-01-01', '2026-07-01')
+    const alignmentPadding = (3 - (epochOffset % 3)) % 3
+    const alignedStart = addDays('2026-07-01', alignmentPadding)
+
+    const languages: ('ca' | 'es')[] = []
+    for (let i = 0; i < 9; i++) {
+      const dateISO = addDays(alignedStart, i)
+      const day = composeDay(dateISO, 'aira', progress(), bundle(), settings(), {})
+      const dictado = day.cards.find((c) => c.cardType === 'dictado')
+      languages.push(dictado!.language!)
+    }
+    for (let cycleStart = 0; cycleStart < languages.length; cycleStart += 3) {
+      const cycle = languages.slice(cycleStart, cycleStart + 3)
+      expect(cycle.filter((l) => l === 'ca').length).toBe(2)
+      expect(cycle.filter((l) => l === 'es').length).toBe(1)
     }
   })
 })

@@ -57,14 +57,18 @@ export function composeDay(
   gems: Record<string, GemState>,
 ): DayPage {
   const chapter = chapterForDate(content.chapters, dateISO)
-  const cards =
-    profile === 'aira'
-      ? buildAiraCards(dateISO, profile, progress, content, settings, gems)
-      : buildLeoCards(dateISO, profile, progress, content, settings, gems)
 
+  // Surprise is rolled BEFORE the card sequence is built so a `desafio` roll
+  // can steer card construction (see buildAiraCards/buildLeoCards): a
+  // desafio day swaps one base card for an actual challenge exercise.
   const gemsWithProgress = Object.values(gems).map((g) => ({ skillId: g.skillId, level: g.level, progress: g.progress }))
   const surpriseRng = createRng(`${dateISO}:${profile}:surprise`)
   const surprise = rollSurprise(surpriseRng, gemsWithProgress, profile)
+
+  const cards =
+    profile === 'aira'
+      ? buildAiraCards(dateISO, profile, progress, content, settings, gems, surprise)
+      : buildLeoCards(dateISO, profile, progress, content, settings, gems, surprise)
 
   return { dateISO, chapterId: chapter.id, cards, surprise }
 }

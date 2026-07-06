@@ -1,9 +1,25 @@
-import type { Rng } from '../lib/rng'
+import { createRng, type Rng } from '../lib/rng'
+import { daysBetween } from '../lib/dates'
 import type { ContentBundle, Episode, Series } from '../types/content'
 import type { ProfileProgress } from '../types/progress'
 
-/** Weighted probability that a dictation day is served in Catalan rather than Spanish. */
-const CA_WEIGHT = 0.65
+/**
+ * Fixed epoch for the Catalan-dictation 3-day cycle, so the cycle boundary is
+ * stable regardless of when a chapter/campaign happens to start (mirrors the
+ * `pickRotatingSorpresa` epoch convention in dayComposerCards.ts).
+ */
+const CA_CYCLE_EPOCH = '2026-01-01'
+
+/**
+ * Base pattern for one dictation-language cycle: 2 Catalan days, 1 Spanish
+ * day. The cycle's internal order is seeded-shuffled per cycle (see
+ * `pickDictationLanguage`) so consecutive days aren't visibly repetitive,
+ * but every complete cycle keeps exactly 2/3 Catalan. Since the cycle length
+ * (3) evenly divides the spec's 30-day compliance window, ANY 30-consecutive
+ * -day span contains exactly 10 whole cycles, guaranteeing >= 60% ca
+ * (in fact exactly 66.7%) regardless of window alignment.
+ */
+const CA_CYCLE_PATTERN: readonly ('ca' | 'es')[] = ['ca', 'ca', 'es']
 
 /** 1-in-N days (uniform over this range) a dictation slot swaps for a joke instead of an episode. */
 const JOKE_CADENCE_MIN = 6
@@ -58,9 +74,24 @@ export function pickUnconsumed<T extends { id: string }>(rng: Rng, pool: T[], co
   return rng.pick(unconsumed.length > 0 ? unconsumed : pool)
 }
 
-/** Seeded dictation language: ~65% Catalan, ~35% Spanish. */
-export function pickDictationLanguage(rng: Rng): 'ca' | 'es' {
-  return rng.chance(CA_WEIGHT) ? 'ca' : 'es'
+/**
+ * Deterministic dictation language for `dateISO`: a repeating 3-day cycle of
+ * 2 Catalan days + 1 Spanish day (guarantees >= 60% ca over ANY 30-day
+ * window, per spec, since 3 evenly divides 30). Which of the 3 slots in a
+ * given cycle is "the" Spanish day varies cycle-to-cycle via a seeded
+ * shuffle keyed on the cycle index (not the day), so the order is stable
+ * across all 3 days of one cycle but varies from one cycle to the next —
+ * variety without ever breaking the 2-ca-per-3-days invariant.
+ */
+export function pickDictationLanguage(dateISO: string): 'ca' | 'es' {
+  const dayIndex = daysBetween(CA_CYCLE_EPOCH, dateISO)
+  const cycleLength = CA_CYCLE_PATTERN.length
+  const cycleIndex = Math.floor(dayIndex / cycleLength)
+  const positionInCycle = ((dayIndex % cycleLength) + cycleLength) % cycleLength
+
+  const cycleRng = createRng(`ca-dictation-cycle:${cycleIndex}`)
+  const shuffled = cycleRng.shuffle([...CA_CYCLE_PATTERN])
+  return shuffled[positionInCycle]
 }
 
 /** Seeded joke-cadence check: true roughly 1-in-(6 or 7) days. */
@@ -74,9 +105,21 @@ export interface DictadoPick {
   language: 'ca' | 'es'
 }
 
-/** Picks the content + language for a `dictado` card: either a joke or the next unconsumed episode. */
-export function pickDictadoContent(rng: Rng, content: ContentBundle, progress: ProfileProgress): DictadoPick {
-  const language = pickDictationLanguage(rng)
+/**
+ * Picks the content + language for a `dictado` card: either a joke or the
+ * next unconsumed episode. Language is the deterministic per-`dateISO`
+ * pattern (see `pickDictationLanguage`), not seeded off `rng` — the joke/
+ * episode pick and the joke-cadence check still use `rng`, so this keeps
+ * joke-day behavior otherwise unchanged: a joke picked on a Catalan-pattern
+ * day just carries `language: 'ca'` like any other dictation that day.
+ */
+export function pickDictadoContent(
+  rng: Rng,
+  content: ContentBundle,
+  progress: ProfileProgress,
+  dateISO: string,
+): DictadoPick {
+  const language = pickDictationLanguage(dateISO)
 
   if (isJokeDay(rng) && content.jokes.length > 0) {
     const joke = pickUnconsumed(rng, content.jokes, consumedIds(progress, 'jokes'))
