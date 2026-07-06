@@ -1,0 +1,197 @@
+import type { ProfileId } from '../state/profileStore'
+
+export type { ProfileId }
+
+export type AiraSkillId =
+  | 'calculo'
+  | 'problemas'
+  | 'ortografia'
+  | 'escritura'
+  | 'lectura'
+  | 'english'
+  | 'geografia'
+  | 'mundo'
+
+export type LeoSkillId = 'trazos' | 'numeros' | 'english' | 'logica'
+
+export type SkillId = AiraSkillId | LeoSkillId
+
+/** Subskill identifiers, as free-form strings (kept ergonomic, not branded). */
+export type SubskillId = string
+
+/** A single learnable subskill within a skill. */
+export interface SubskillDef {
+  id: SubskillId
+  skill: SkillId
+  /** Inclusive difficulty bounds on a 1-5 scale. */
+  difficultyRange: [number, number]
+  /** Marks subskills reserved for kids who are ahead of grade level. */
+  challenge?: boolean
+  /** Marks subskills that should be sampled less often than their peers. */
+  lowWeight?: boolean
+}
+
+interface SkillDef {
+  id: SkillId
+  subskills: Record<SubskillId, SubskillDef>
+}
+
+interface ProfileCatalog<Skills extends string> {
+  skills: Record<Skills, SkillDef>
+}
+
+function subskill(
+  id: SubskillId,
+  skill: SkillId,
+  difficultyRange: [number, number],
+  flags: { challenge?: boolean; lowWeight?: boolean } = {},
+): SubskillDef {
+  return { id, skill, difficultyRange, ...flags }
+}
+
+function skill(id: SkillId, subskills: SubskillDef[]): SkillDef {
+  return {
+    id,
+    subskills: Object.fromEntries(subskills.map((s) => [s.id, s])),
+  }
+}
+
+/** Full skills/subskills catalog for both child profiles. */
+export const CATALOG: {
+  aira: ProfileCatalog<AiraSkillId>
+  leo: ProfileCatalog<LeoSkillId>
+} = {
+  aira: {
+    skills: {
+      calculo: skill('calculo', [
+        subskill('tablas', 'calculo', [1, 4]),
+        subskill('mult-1cifra', 'calculo', [1, 4]),
+        subskill('mult-2cifras', 'calculo', [2, 5]),
+        subskill('div-resto', 'calculo', [2, 5]),
+        subskill('mental', 'calculo', [1, 5]),
+        subskill('estimacion', 'calculo', [2, 5]),
+        subskill('cajitas', 'calculo', [1, 4]),
+        subskill('romanos', 'calculo', [1, 3], { lowWeight: true }),
+        subskill('fracciones', 'calculo', [3, 5], { challenge: true }),
+        subskill('decimales-dinero', 'calculo', [3, 5], { challenge: true }),
+        subskill('hechos-derivados-dec', 'calculo', [3, 5], { challenge: true }),
+        subskill('cuadrados', 'calculo', [3, 5], { challenge: true }),
+      ]),
+      problemas: skill('problemas', [
+        subskill('1-paso', 'problemas', [1, 4]),
+        subskill('2-pasos', 'problemas', [2, 5]),
+        subskill('dato-trampa', 'problemas', [2, 5]),
+        subskill('dinero', 'problemas', [1, 4]),
+        subskill('tiempo', 'problemas', [1, 4]),
+        subskill('medida', 'problemas', [1, 4]),
+        subskill('patrones-crecimiento', 'problemas', [2, 5]),
+        subskill('proporcionalidad', 'problemas', [3, 5], { challenge: true }),
+      ]),
+      ortografia: skill('ortografia', [
+        subskill('accents-ca', 'ortografia', [1, 5]),
+        subskill('b-v', 'ortografia', [1, 5]),
+        subskill('essa-sorda', 'ortografia', [1, 5]),
+        subskill('apostrof', 'ortografia', [1, 5]),
+        subskill('maj', 'ortografia', [1, 5]),
+        subskill('puntuacio', 'ortografia', [1, 5]),
+      ]),
+      escritura: skill('escritura', [subskill('diario', 'escritura', [1, 5])]),
+      lectura: skill('lectura', [
+        subskill('comprension', 'lectura', [1, 5]),
+        subskill('reflexion', 'lectura', [1, 5]),
+      ]),
+      english: skill('english', [
+        subskill('reading', 'english', [1, 5]),
+        subskill('vocab', 'english', [1, 5]),
+      ]),
+      geografia: skill('geografia', [
+        subskill('capitales', 'geografia', [1, 5]),
+        subskill('banderas', 'geografia', [1, 5]),
+        subskill('donde-esta', 'geografia', [1, 5]),
+      ]),
+      mundo: skill('mundo', [
+        subskill('espacio', 'mundo', [1, 5]),
+        subskill('como-funciona', 'mundo', [1, 5]),
+      ]),
+    },
+  },
+  leo: {
+    skills: {
+      trazos: skill('trazos', [
+        subskill('letras', 'trazos', [1, 3]),
+        subskill('numeros-trazo', 'trazos', [1, 3]),
+        subskill('espejo', 'trazos', [1, 3]),
+      ]),
+      numeros: skill('numeros', [
+        subskill('contar-6', 'numeros', [1, 3]),
+        subskill('descomponer-4-6', 'numeros', [1, 3]),
+        subskill('comparar', 'numeros', [1, 3]),
+        subskill('contar-20', 'numeros', [2, 4], { challenge: true }),
+        subskill('descomponer-7-9', 'numeros', [2, 4], { challenge: true }),
+        subskill('dobles', 'numeros', [2, 4], { challenge: true }),
+        subskill('mas-menos-1-2', 'numeros', [2, 4], { challenge: true }),
+        subskill('simbolos', 'numeros', [2, 4], { challenge: true }),
+        subskill('estimar', 'numeros', [2, 4], { challenge: true }),
+      ]),
+      english: skill('english', [
+        subskill('animales', 'english', [1, 3]),
+        subskill('colores', 'english', [1, 3]),
+        subskill('comida', 'english', [1, 3]),
+        subskill('huerto', 'english', [1, 3]),
+      ]),
+      logica: skill('logica', [
+        subskill('patrones', 'logica', [1, 3]),
+        subskill('formas', 'logica', [1, 3]),
+        subskill('simetria', 'logica', [1, 3]),
+        subskill('clasificar', 'logica', [1, 3]),
+        subskill('posiciones', 'logica', [1, 3]),
+      ]),
+    },
+  },
+}
+
+interface SkillMeta {
+  name: string
+  emoji: string
+}
+
+/** Spanish display name + emoji for each skill, keyed by profile. */
+export const SKILL_META: {
+  aira: Record<AiraSkillId, SkillMeta>
+  leo: Record<LeoSkillId, SkillMeta>
+} = {
+  aira: {
+    calculo: { name: 'Cálculo', emoji: '🔢' },
+    problemas: { name: 'Problemas', emoji: '🧩' },
+    ortografia: { name: 'Ortografía', emoji: '✏️' },
+    escritura: { name: 'Escritura', emoji: '📔' },
+    lectura: { name: 'Lectura', emoji: '📖' },
+    english: { name: 'English', emoji: '🗣️' },
+    geografia: { name: 'Geografía', emoji: '🌍' },
+    mundo: { name: 'Mundo', emoji: '🪐' },
+  },
+  leo: {
+    trazos: { name: 'Trazos', emoji: '✍️' },
+    numeros: { name: 'Números', emoji: '🔢' },
+    english: { name: 'English', emoji: '🗣️' },
+    logica: { name: 'Lógica', emoji: '🧩' },
+  },
+}
+
+/** Finds the skill id that owns `subskillId` for `profile`, or undefined if not found. */
+export function skillOfSubskill(profile: ProfileId, subskillId: SubskillId): SkillId | undefined {
+  const skills = CATALOG[profile].skills as Record<string, SkillDef>
+  for (const [skillId, def] of Object.entries(skills)) {
+    if (subskillId in def.subskills) {
+      return skillId as SkillId
+    }
+  }
+  return undefined
+}
+
+/** Returns all subskill defs belonging to `skillId` for `profile`, or [] if the skill doesn't exist for that profile. */
+export function subskillsForSkill(profile: ProfileId, skillId: SkillId): SubskillDef[] {
+  const skills = CATALOG[profile].skills as Record<string, SkillDef>
+  const def = skills[skillId]
+  return def ? Object.values(def.subskills) : []
+}
