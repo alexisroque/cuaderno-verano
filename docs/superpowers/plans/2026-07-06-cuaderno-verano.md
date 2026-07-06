@@ -96,7 +96,7 @@
 
 - [ ] **Step 1:** Failing test: chapters schema rejects overlapping ranges and gaps; accepts the real chapter list.
 - [ ] **Step 2:** Define zod schemas in `src/content/schemas.ts`: `ChapterSchema` `{ id, title, emoji, dateStart, dateEnd (start-inclusive/end-EXCLUSIVE), place, mascot: {id,name,emoji}, flavor: {currency?, landmarks: string[], animals: string[], foods: string[]}, stickers: {id,emoji,name}[] }` + `validateChapters()` asserting: sorted, no gaps, no overlaps, covers 2026-06-29 → 2026-09-13.
-- [ ] **Step 3:** Write `content/chapters.json` with the real itinerary (from spec §4.5): preparativos (…→2026-07-12), vuelo (embedded in singapur flavor), singapur (07-12→07-15), borneo-sepilok (07-15→07-17), borneo-kinabatangan (07-17→07-20), kuala-lumpur (07-20→07-24), ubud (07-24→07-27), gili-air (07-27→07-29), sanur (07-29→08-05), verano-en-casa (08-05→09-13). Each with mascot (Tang 🦧 for borneo etc.), currency, landmarks, animals, foods, 10-14 stickers.
+- [ ] **Step 3:** Write `content/chapters.json` with the real itinerary (from spec §4.5): preparativos (…→2026-07-12), **vuelo (07-12→07-13, its own chapter per spec §10 — timezone-safe boundary; flavor: SQ387, 13h15, husos horarios)**, singapur (07-13→07-15), borneo-sepilok (07-15→07-17), borneo-kinabatangan (07-17→07-20), kuala-lumpur (07-20→07-24), ubud (07-24→07-27), gili-air (07-27→07-29), sanur (07-29→08-05), verano-en-casa (08-05→09-13). Each with mascot (Tang 🦧 for borneo etc.), currency, landmarks, animals, foods, 10-14 stickers.
 - [ ] **Step 4:** `scripts/validate-content.ts` loads every file in `content/`, parses with schemas, exits 1 on error. Wire as `pretest` script.
 - [ ] **Step 5:** Tests pass + `npm run validate:content` green. Commit `feat: content schemas, real summer chapters, validation script`.
 
@@ -144,11 +144,18 @@
 
 **Files:** Create `src/engine/gems.ts`, `src/engine/gems.test.ts`.
 
-- [ ] **Step 1:** Failing tests: levels `piedra(0)→cuarzo→ambar→esmeralda→rubi→diamante→opalo(6)`; level-up requires BOTH ≥80% accuracy over last 20 attempts in that skill AND ≥N attempts at difficulty ≥ level's floor (N=12); never levels down; `checkLevelUp` returns event object for celebration.
+- [ ] **Step 1:** Failing tests: levels `piedra(0)→cuarzo→ambar→esmeralda→rubi→diamante→opalo(6)`; level-up requires BOTH ≥80% accuracy over last 20 attempts in that skill AND ≥N attempts at difficulty ≥ level's floor (N=12); never levels down; `checkLevelUp` returns event object for celebration. Skills without correctness signal (`escritura` via diary): each diary save counts as a correct attempt at difficulty = current level floor (progression by consistency).
 - [ ] **Step 2:** Implement. Include `gemVisual(level)` mapping (emoji + name es).
 - [ ] **Step 3:** Tests pass. Commit `feat: gem progression by mastery`.
 
-### Task 1.5: Surprise engine
+### Task 1.5: Streak
+
+**Files:** Create `src/engine/streak.ts`, `src/engine/streak.test.ts`.
+
+- [ ] **Step 1:** Failing tests: ≥1 completed card in a day extends streak; missing 1 day consumes a grace day (2 grace days per rolling 7) without reset; missing beyond grace → reset to 0 silently (no scolding copy anywhere); streak never blocks anything, only grants coin bonus at 3/7/14/30.
+- [ ] **Step 2:** Implement pure `advanceStreak(streak, dateISO, completedToday): Streak`. Tests pass. Commit `feat: tolerant streak engine`.
+
+### Task 1.6: Surprise engine
 
 **Files:** Create `src/engine/surprises.ts`, `src/engine/surprises.test.ts`.
 
@@ -156,7 +163,7 @@
 - [ ] **Step 2:** Implement `rollSurprise(rng, gems, catalog): Surprise | null`.
 - [ ] **Step 3:** Tests pass. Commit `feat: seeded surprise engine`.
 
-### Task 1.6: Day composer
+### Task 1.7: Day composer
 
 **Files:** Create `src/engine/dayComposer.ts`, `src/engine/dayComposer.test.ts`.
 
@@ -215,7 +222,7 @@ export interface Generator { subskill: SubskillId; generate(rng: Rng, difficulty
 **Files:** Create `src/generators/aira/mental.ts`, `src/generators/aira/estimation.ts`, tests.
 
 - [ ] **Step 1:** Property tests. `mental`: chains like `34+19` (compensation strategy steps: "+20 −1"), doubles/halves, ×10/×100. `estimacion`: three kinds — pick-the-plausible-result (choices), is-budget-enough ("Tienes 65€…" → yes/no + reasoning step), spot-the-error (a worked operation with a wrong digit; answer = the wrong step index).
-- [ ] **Step 2:** Implement both.
+- [ ] **Step 2:** Implement both. Also two small extras from spec §5.1: `patrones-crecimiento` generator (growth sequences 1,3,6,10… find-next with strategy step showing the differences) registered under `problemas`, and `romanos` (roman↔decimal conversion, occasional/lúdico, low weight) under `calculo`.
 - [ ] **Step 3:** Tests pass. Commit `feat: mental calculation and estimation generators`.
 
 ### Task 2.5: Word-problem generator (the flagship)
@@ -231,7 +238,7 @@ export interface Generator { subskill: SubskillId; generate(rng: Rng, difficulty
 
 **Files:** Create `src/generators/aira/measure.ts`, `src/generators/aira/fractions.ts`, `src/generators/aira/decimalsMoney.ts`, tests.
 
-- [ ] **Step 1:** Property tests. `measure`: unit conversions with reasoning ("una hormiga mide 4mm…"; only mm/cm/m/km, ml/cl/l, g/kg — no hectogramos per Innovamat), grid area/perimeter (answer verified against generated grid figure). `fracciones` (challenge): part-of-unit visual (pizza slices), part-of-collection (`3/4 de 36`, steps `:4 ×3`), compare/equivalents. `decimales-dinero` (challenge): ±/×/÷ with 2 decimals in € context, strategies `saltos-linea` and `descomposicion-monedas`; all money arithmetic done in integer cents inside the generator (assert no float drift).
+- [ ] **Step 1:** Property tests. `measure`: unit conversions with reasoning ("una hormiga mide 4mm…"; only mm/cm/m/km, ml/cl/l, g/kg — no hectogramos per Innovamat), grid area/perimeter (answer verified against generated grid figure). `fracciones` (challenge): part-of-unit visual (pizza slices), part-of-collection (`3/4 de 36`, steps `:4 ×3`), compare/equivalents. `decimales-dinero` (challenge): ±/×/÷ with 2 decimals in € context, strategies `saltos-linea` and `descomposicion-monedas`; all money arithmetic done in integer cents inside the generator (assert no float drift). `hechos-derivados-dec` (challenge): known-fact → derived-fact pairs (5+4=9 → 4,90+3,90=?) with the reasoning step as the strategy. `proporcionalidad` (challenge): recipe doubling/tripling and unit-change deduce-×-or-÷ items. Every challenge subskill declared in Task 1.1's catalog MUST have a registered generator by end of this task (test: iterate catalog, assert registry coverage).
 - [ ] **Step 2:** Implement; challenge exercises get `challenge: true` marker propagated to Exercise.
 - [ ] **Step 3:** Tests pass. Commit `feat: measure generators and 5º challenge generators (fractions, decimals-as-money)`.
 
@@ -243,7 +250,7 @@ export interface Generator { subskill: SubskillId; generate(rng: Rng, difficulty
 
 **Files:** Create `src/generators/leo/counting.ts`, `src/generators/leo/decomposition.ts`, tests.
 
-- [ ] **Step 1:** Property tests: `contar-6` renders n∈[1..6] animal emojis from chapter flavor, answer=n, choices are 3 near numbers; challenge `contar-20` n∈[7..20]; `descomponer-4-6`: "hay {t} en total, ves {v}, ¿cuántos escondidos?" answer t−v; challenge `descomponer-7-9`, `dobles` (1-6), `mas-menos-1-2` similar bounds.
+- [ ] **Step 1:** Property tests: `contar-6` renders n∈[1..6] animal emojis from chapter flavor, answer=n, choices are 3 near numbers; challenge `contar-20` n∈[7..20]; `comparar`: two emoji groups, "¿dónde hay más?" (or equal), counts within 0-6; `descomponer-4-6`: "hay {t} en total, ves {v}, ¿cuántos escondidos?" answer t−v; challenge `descomponer-7-9`, `dobles` (1-6), `mas-menos-1-2` similar bounds, `simbolos` (pick +, − or = to make a shown equation true, range 1-9). Registry-coverage test for Leo catalog too.
 - [ ] **Step 2:** Implement (visual-first: exercises carry `visual: {kind:'emoji-count', items,…}` for big-tap UI).
 - [ ] **Step 3:** Tests pass. Commit `feat: Leo counting and decomposition generators (I4 + I5 challenges)`.
 
@@ -296,7 +303,8 @@ export interface Generator { subskill: SubskillId; generate(rng: Rng, difficulty
 **Files:** Create `content/geography.json`, `content/english.json`, `content/mundo.json`.
 
 - [ ] **Step 1:** Schemas + data. Geography: SE-Asia pack (countries/capitals/flags-as-emoji/landmarks for SG/MY/ID + neighbors) + Europe/world basics pack; quiz item kinds: `capital-of`, `flag-pick`, `where-is` (region multiple-choice). English Leo: 6 vocab units (animals, colors, food, garden, numbers, body) each 8-10 `{word, emoji, audioText}`. English Aira: 20 mini-readings (3-5 sentences, A1-A2) with 2 comprehension questions each. Mundo: 30 Sistema Solar / how-things-work quiz items.
-- [ ] **Step 2:** Validate + commit `content: geography, english and world-knowledge packs`.
+- [ ] **Step 2:** `content/cuentos-leo.json`: 15 audio-cuentos (4-6 short sentences es, TTS-read, chapter-flavored when possible: the orangutan who lost his mango…) each ending in ONE visual question `{q, choices: emoji[4], correctIdx}` — feeds Leo's "sorpresa" rotation (spec §4.3/§6.3).
+- [ ] **Step 3:** Validate + commit `content: geography, english, world-knowledge and Leo story packs`.
 
 ---
 
@@ -341,7 +349,7 @@ export interface Generator { subskill: SubskillId; generate(rng: Rng, difficulty
 **Files:** Create `src/screens/players/DictationPlayer.tsx`, `src/lib/textDiff.ts` (+test), `src/screens/players/ReadingPlayer.tsx`, `src/screens/players/DiaryPlayer.tsx`.
 
 - [ ] **Step 1:** `textDiff.ts` TDD: word-level diff tolerant to case/punctuation option flags; returns per-word status (`ok|misspelled|missing|extra`) for highlight; accent errors flagged distinctly (that's the Catalan point).
-- [ ] **Step 2:** DictationPlayer: episode intro (series cover + "Episodio N") → listen (sentence-by-sentence replay buttons, TTS ca/es) → type → self-correct view with diff highlights → fact extra + hook for next episode. Errors feed `ortografia` subskill attempts (rule inference: accent errors → `accents-ca`, etc. — keep heuristic simple: map by error character class).
+- [ ] **Step 2:** DictationPlayer: episode intro (series cover + "Episodio N") → listen (sentence-by-sentence replay buttons, TTS ca/es) → type → self-correct view with diff highlights → fact extra + hook for next episode. Fallback (spec §10): if the needed TTS voice is unavailable, show the dictation text in a "léelo tú en voz alta" adult-reader mode instead of blocking. Errors feed `ortografia` subskill attempts (rule inference: accent errors → `accents-ca`, etc. — keep heuristic simple: map by error character class).
 - [ ] **Step 3:** ReadingPlayer: text → 2 questions (1 reflexiva); DiaryPlayer: prompt + textarea, autosave draft, save → coin + streak credit; entries listed in collection screen.
 - [ ] **Step 4:** Commit `feat: dictation with diff self-correction, reading and diary players`.
 
@@ -352,7 +360,8 @@ export interface Generator { subskill: SubskillId; generate(rng: Rng, difficulty
 - [ ] **Step 1:** `traceScore.ts` TDD: given stroke guide points + user pointer samples → coverage %, direction bonus, generous star mapping (≥50% 1★, ≥70% 2★, ≥85% 3★).
 - [ ] **Step 2:** TracingPlayer: canvas, giant glyph outline, animated direction arrow demo, finger draw (Pointer Events, `touch-action: none`), instant sparkle trail, star result + TTS praise; mirror-flagged glyphs get a ghost "wrong-way" watermark to compare.
 - [ ] **Step 3:** CountingPlayer: emoji field, tap-to-count with counter voice, big number choices. TapImagePlayer: TTS word → 4 image tiles.
-- [ ] **Step 4:** Commit `feat: Leo players (tracing with scoring, counting, tap-image English)`.
+- [ ] **Step 4:** CuentoPlayer: sentence-by-sentence TTS with big illustration emoji, then the visual question (4 emoji tiles). Used by the "sorpresa" rotation alongside patterns/shapes/symmetry/puzzle.
+- [ ] **Step 5:** Commit `feat: Leo players (tracing with scoring, counting, tap-image English, audio stories)`.
 
 ### Task 5.7: Quiz player (geography/mundo/english-Aira) + free training
 
@@ -367,7 +376,8 @@ export interface Generator { subskill: SubskillId; generate(rng: Rng, difficulty
 
 - [ ] **Step 1:** MangaBurst: 500ms CSS-only radial speed-lines + star pop + onomatopeya («¡ZAS!», «¡SUGOI!») — used on correct answers (probabilistic, not every time) . GemLevelUp: full-screen takeover, gem morph animation, mascot cheer. Respect `prefers-reduced-motion`.
 - [ ] **Step 2:** GemCabinet (per-skill gem, level name, progress ring, weakest gem gentle pulse), Passport (stamp grid by day with chapter art, milestone pages), Mural (drag stickers onto chapter scene, position persisted, past murals gallery).
-- [ ] **Step 3:** Commit `feat: manga celebrations, gem cabinet, passport and sticker mural`.
+- [ ] **Step 3:** Coin spending — "El Cofre de los Tesoros" section in the collection screen: spend coins to unlock `premium` curiosities, extra jokes, bonus mural stickers and mascot accessories (hat/scarf cosmetic on the mascot avatar). Prices flat and cheap (5-15 coins); unlocked items persist in progress. This closes the earn→spend loop (spec §7.3).
+- [ ] **Step 4:** Commit `feat: manga celebrations, gem cabinet, passport, mural and coin treasure chest`.
 
 ---
 
@@ -386,7 +396,7 @@ export interface Generator { subskill: SubskillId; generate(rng: Rng, difficulty
 **Files:** Modify `src/screens/parents/Settings.tsx`, `src/state/settingsStore.ts`; create `src/lib/backup.ts` (+test).
 
 - [ ] **Step 1:** Controls wired to scheduler settings: per-subskill Boost (×2, 7 days, auto-expires), difficulty offset (−1/auto/+1), weekly focus picker, per-child mission size (Leo 3-4 / Aira 4-6 cards), challenge frequency, module toggles.
-- [ ] **Step 2:** `backup.ts` TDD: `exportAll()` → versioned JSON blob (both profiles + settings) triggering download; `importAll(json)` validates version + schema, atomic replace. Plus `exportDiaryText(profile)` → readable `.txt` ("El diario de Aira — verano 2026").
+- [ ] **Step 2:** `backup.ts` TDD: `exportAll()` → versioned JSON blob (both profiles + settings) triggering download; `importAll(json)` validates version + schema, atomic replace. Plus `exportDiaryText(profile)` → readable `.txt` ("El diario de Aira — verano 2026"). Parent dashboard shows a discreet "última copia: hace N días" nudge when >14 days since last export (spec §10).
 - [ ] **Step 3:** Commit `feat: parent controls, backup export/import, diary text export`.
 
 ---
