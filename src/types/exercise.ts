@@ -11,6 +11,7 @@ export type VisualSpec =
   | { kind: 'boxes'; groups: number; perGroup: number; remainder?: number }
   | { kind: 'emoji-count'; emoji: string; count: number; rows?: number }
   | { kind: 'compare-groups'; left: { emoji: string; count: number }; right: { emoji: string; count: number } }
+  | { kind: 'scene'; actors: { emoji: string; row: number; col: number }[] } // small spatial layout on an implicit grid, row 0 = top, col 0 = left
   | { kind: 'grid-figure'; cells: [number, number][] } // filled cells of a grid
   | { kind: 'dot-grid'; n: number } // n×n square
   | { kind: 'none' }
