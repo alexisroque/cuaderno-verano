@@ -54,6 +54,9 @@ export const ProfileProgressSchema = z.object({
   coins: z.number(),
   consumedContent: z.record(z.string(), z.array(z.string())),
   unlockedTreasures: z.array(z.string()),
+  // Optional so blobs persisted before this field existed still validate; the
+  // store normalizes a missing value to {} on hydration.
+  completedCards: z.record(z.string(), z.array(z.string())).default({}),
 })
 
 const SubskillAdjustmentSchema = z.object({

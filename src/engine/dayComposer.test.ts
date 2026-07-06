@@ -103,6 +103,7 @@ function progress(overrides: Partial<ProfileProgress> = {}): ProfileProgress {
     coins: 0,
     consumedContent: {},
     unlockedTreasures: [],
+    completedCards: {},
     ...overrides,
   }
 }

@@ -15,6 +15,7 @@ function emptyProgress(): ProfileProgress {
     coins: 0,
     consumedContent: {},
     unlockedTreasures: [],
+    completedCards: {},
   }
 }
 
@@ -23,6 +24,10 @@ interface ProgressStoreState {
   recordAttempt: (profile: ProfileId, attempt: Attempt) => void
   getAttemptsBySubskill: (profile: ProfileId, subskill: string) => Attempt[]
   addCoins: (profile: ProfileId, amount: number) => void
+  /** The cardTypes completed by `profile` on `dateISO` (empty array if none). */
+  completedCardsFor: (profile: ProfileId, dateISO: string) => string[]
+  /** Marks `cardType` complete for `profile` on `dateISO` (idempotent). */
+  markCardComplete: (profile: ProfileId, dateISO: string, cardType: string) => void
 }
 
 const persisters: Record<ProfileId, ReturnType<typeof createDebouncedPersist>> = {
@@ -53,6 +58,22 @@ export const useProgressStore = create<ProgressStoreState>((set, get) => ({
       const updated = {
         ...state.profiles[profile],
         coins: state.profiles[profile].coins + amount,
+      }
+      return { profiles: { ...state.profiles, [profile]: updated } }
+    })
+    persisters[profile].schedule()
+  },
+  completedCardsFor: (profile, dateISO) => {
+    return get().profiles[profile].completedCards[dateISO] ?? []
+  },
+  markCardComplete: (profile, dateISO, cardType) => {
+    set((state) => {
+      const current = state.profiles[profile]
+      const forDay = current.completedCards[dateISO] ?? []
+      if (forDay.includes(cardType)) return state
+      const updated = {
+        ...current,
+        completedCards: { ...current.completedCards, [dateISO]: [...forDay, cardType] },
       }
       return { profiles: { ...state.profiles, [profile]: updated } }
     })

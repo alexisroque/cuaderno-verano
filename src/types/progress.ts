@@ -54,4 +54,11 @@ export interface ProfileProgress {
   coins: number
   consumedContent: Record<string, string[]>
   unlockedTreasures: string[]
+  /**
+   * Which of a given day's cards the child has finished, keyed by dateISO to
+   * the completed cardTypes for that day. Drives the daily-page check marks
+   * and "day complete" logic; independent of `attempts` because non-graded
+   * cards (diario, cuento, sabías-que) still count as done.
+   */
+  completedCards: Record<string, string[]>
 }
