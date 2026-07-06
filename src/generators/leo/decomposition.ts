@@ -1,7 +1,7 @@
 import type { Rng } from '../../lib/rng'
 import type { Choice, Generator } from '../../types/exercise'
 import { clampDifficulty, exerciseId } from '../framework'
-import { cuantosFor, pickAnimal } from './emoji'
+import { cuantosFor, escondidosFor, pickAnimal } from './emoji'
 
 /** Total range per difficulty for descomponer-4-6 (catalog range [1, 3]): total lands in [4, 6]. */
 const DESCOMPONER_TOTAL_RANGE: Record<number, [number, number]> = {
@@ -59,7 +59,7 @@ function buildDescomponer(
     difficulty,
     challenge: challenge || undefined,
     prompt: {
-      text: `Hay ${total} ${animal.noun}s en total. Ves ${visible}. ¿${cuantosFor(animal)} están escondidos?`,
+      text: `Hay ${total} ${animal.noun}s en total. Ves ${visible}. ¿${cuantosFor(animal)} están ${escondidosFor(animal)}?`,
       visual: { kind: 'boxes' as const, groups: 1, perGroup: visible, remainder: hidden },
     },
     answer: { kind: 'choice' as const, correctId },
@@ -71,7 +71,7 @@ function buildDescomponer(
         steps: [{ text: `Si en total hay ${total} y ves ${visible}, los que faltan son ${total} − ${visible} = ${hidden}.` }],
       },
     ],
-    audioText: `Hay ${total} ${animal.noun}s en total, pero solo ves ${visible}. ¿${cuantosFor(animal)} están escondidos en la caja?`,
+    audioText: `Hay ${total} ${animal.noun}s en total, pero solo ves ${visible}. ¿${cuantosFor(animal)} están ${escondidosFor(animal)} en la caja?`,
     microlesson: 'Descomponer un número te ayuda a ver las partes que lo forman.',
   }
 }

@@ -122,3 +122,8 @@ export function fallbackFoodPool(): EmojiNoun[] {
 export function cuantosFor(noun: EmojiNoun): 'Cuántos' | 'Cuántas' {
   return noun.gender === 'm' ? 'Cuántos' : 'Cuántas'
 }
+
+/** "escondidos/escondidas" (plural, masc/fem) agreeing with the noun's gender — used by descomponer's "¿Cuántos/Cuántas están escondidos/escondidas?" prompt. */
+export function escondidosFor(noun: EmojiNoun): 'escondidos' | 'escondidas' {
+  return noun.gender === 'm' ? 'escondidos' : 'escondidas'
+}

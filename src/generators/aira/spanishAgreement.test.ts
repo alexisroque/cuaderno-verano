@@ -30,6 +30,8 @@ const BAD_PATTERNS: { name: string; pattern: RegExp }[] = [
   { name: 'space before punctuation', pattern: / [.,](?!\.\.)/ },
   { name: 'leftover parenthetical euro note', pattern: /\(aquí lo contáis todo en euros\)/ },
   { name: '"el/un" + trayecto departing (trayecto cannot "salir")', pattern: /trayecto (?:sale|salió|saldrá) a las/i },
+  { name: '"Cuántas ... escondidos" (fem. question word + masc. adjective)', pattern: /\bCuántas [^?]*\bescondidos\b/ },
+  { name: '"Cuántos ... escondidas" (masc. question word + fem. adjective)', pattern: /\bCuántos [^?]*\bescondidas\b/ },
 ]
 
 /** Every piece of Spanish prose a generator can surface, for one exercise. */
