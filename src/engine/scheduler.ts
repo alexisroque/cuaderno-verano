@@ -2,7 +2,7 @@ import type { Attempt, GemState } from '../types/progress'
 import type { Rng } from '../lib/rng'
 import type { ChildSettings } from '../state/settingsStore'
 import type { ProfileId } from '../state/profileStore'
-import { CATALOG, type SkillId, type SubskillDef, type SubskillId } from './skills'
+import { CATALOG, CHALLENGE_GATE_LEVEL, type SkillId, type SubskillDef, type SubskillId } from './skills'
 import { masteryFor } from './mastery'
 import { daysBetween } from '../lib/dates'
 
@@ -11,9 +11,6 @@ const SPACED_REPETITION_OFFSETS = [1, 3, 7]
 
 /** Mastery below this threshold puts a subskill in the weak/due pool even without a scheduled failure. */
 const WEAK_MASTERY_THRESHOLD = 0.7
-
-/** Gem level (Ámbar) at/above which challenge subskills for that skill are allowed. */
-const CHALLENGE_GATE_LEVEL = 2
 
 const POOL_WEIGHTS = {
   due: 0.6,

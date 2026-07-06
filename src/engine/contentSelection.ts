@@ -14,10 +14,13 @@ const CA_CYCLE_EPOCH = '2026-01-01'
  * Base pattern for one dictation-language cycle: 2 Catalan days, 1 Spanish
  * day. The cycle's internal order is seeded-shuffled per cycle (see
  * `pickDictationLanguage`) so consecutive days aren't visibly repetitive,
- * but every complete cycle keeps exactly 2/3 Catalan. Since the cycle length
- * (3) evenly divides the spec's 30-day compliance window, ANY 30-consecutive
- * -day span contains exactly 10 whole cycles, guaranteeing >= 60% ca
- * (in fact exactly 66.7%) regardless of window alignment.
+ * but every complete cycle keeps exactly 2/3 Catalan. A misaligned 30-day
+ * window (one not starting exactly on a cycle boundary) spans 11 cycles:
+ * up to 10 full cycles plus two partial fringe cycles at the ends. Each
+ * cycle — full or partial — contributes at most 1 'es' day (the pattern has
+ * exactly one 'es' per 3 days), so a 30-day window has at most 11 'es' days,
+ * i.e. at least 19/30 ≈ 63.3% ca, which still clears the spec's >= 60%
+ * threshold regardless of window alignment.
  */
 const CA_CYCLE_PATTERN: readonly ('ca' | 'es')[] = ['ca', 'ca', 'es']
 

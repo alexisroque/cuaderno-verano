@@ -3,7 +3,7 @@ import type { GemState, ProfileProgress } from '../types/progress'
 import type { ChildSettings } from '../state/settingsStore'
 import type { ProfileId } from '../state/profileStore'
 import { createRng, type Rng } from '../lib/rng'
-import { CATALOG, skillOfSubskill, type SkillId, type SubskillDef, type SubskillId } from './skills'
+import { CATALOG, CHALLENGE_GATE_LEVEL, skillOfSubskill, type SkillId, type SubskillDef, type SubskillId } from './skills'
 import { pickSubskill } from './scheduler'
 import { suggestedDifficulty } from './mastery'
 import { consumedIds, pickDictadoContent, pickUnconsumed } from './contentSelection'
@@ -11,9 +11,6 @@ import type { Surprise } from './surprises'
 
 /** Fixed rotation order for Leo's daily "sorpresa-rotatoria" card. */
 const LEO_ROTATION: readonly string[] = ['patrones', 'formas', 'simetria', 'clasificar', 'posiciones', 'cuento']
-
-/** Gem level (Ámbar) at/above which a skill's challenge subskills are servable. Mirrors scheduler.ts's CHALLENGE_GATE_LEVEL. */
-const CHALLENGE_GATE_LEVEL = 2
 
 const AIRA_CARD_TYPES = ['problema', 'dictado', 'sabias-que', 'diario'] as const
 const LEO_BASE_CARD_TYPES = ['trazos', 'contar', 'english'] as const
@@ -103,7 +100,15 @@ function buildDictadoCard(
   return { cardType: 'dictado', contentRef, generatorSeed: seed, language }
 }
 
-const AIRA_PROBLEMA_SKILLS: SkillId[] = ['problemas', 'calculo']
+/**
+ * Skills searched by `pickChallengeSubskill` for Aira's `problema` slot.
+ * Exported so a catalog-coverage invariant test (skills.test.ts) can assert
+ * every challenge-bearing Aira skill is included here — otherwise a future
+ * catalog edit (e.g. a challenge subskill added to a skill outside this
+ * list) would silently never surface via `desafio`, failing only at runtime
+ * (see `pickChallengeSubskill`'s thrown error) instead of at commit time.
+ */
+export const AIRA_PROBLEMA_SKILLS: SkillId[] = ['problemas', 'calculo']
 
 /**
  * Builds the `problema` card: subskill restricted to problemas/calculo,
@@ -212,7 +217,16 @@ function pickRotatingSorpresa(dateISO: string): string {
   return LEO_ROTATION[index]
 }
 
-const LEO_SKILL_BY_SLOT: Record<(typeof LEO_BASE_CARD_TYPES)[number], 'trazos' | 'numeros' | 'english'> = {
+/**
+ * Maps each Leo base card slot to its owning skill. Only the `contar` slot
+ * currently routes to `pickChallengeSubskill` on a `desafio` day (see
+ * `buildLeoBaseCard`), so `numeros` is the only Leo skill whose challenge
+ * subskills are ever servable. Exported so a catalog-coverage invariant
+ * test (skills.test.ts) can assert no OTHER Leo skill gains a challenge
+ * subskill without a corresponding slot being wired up here — otherwise
+ * that subskill would silently never surface via `desafio`.
+ */
+export const LEO_SKILL_BY_SLOT: Record<(typeof LEO_BASE_CARD_TYPES)[number], 'trazos' | 'numeros' | 'english'> = {
   trazos: 'trazos',
   contar: 'numeros',
   english: 'english',

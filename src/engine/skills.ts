@@ -19,6 +19,13 @@ export type SkillId = AiraSkillId | LeoSkillId
 /** Subskill identifiers, as free-form strings (kept ergonomic, not branded). */
 export type SubskillId = string
 
+/**
+ * Gem level (Ámbar) at/above which a skill's challenge subskills unlock.
+ * Single source of truth: scheduler.ts, surprises.ts, and dayComposerCards.ts
+ * all import this instead of keeping their own copy.
+ */
+export const CHALLENGE_GATE_LEVEL = 2
+
 /** A single learnable subskill within a skill. */
 export interface SubskillDef {
   id: SubskillId

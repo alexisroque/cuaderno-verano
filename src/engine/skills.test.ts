@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { CATALOG, SKILL_META, skillOfSubskill, subskillsForSkill } from './skills'
+import { AIRA_PROBLEMA_SKILLS, LEO_SKILL_BY_SLOT } from './dayComposerCards'
 import type { ProfileId } from '../state/profileStore'
 
 const PROFILES: ProfileId[] = ['aira', 'leo']
@@ -214,5 +215,32 @@ describe('display metadata', () => {
     expect(SKILL_META.leo.numeros.name).toBe('Números')
     expect(SKILL_META.leo.english.name).toBe('English')
     expect(SKILL_META.leo.logica.name).toBe('Lógica')
+  })
+})
+
+describe('challenge subskill coverage (CI-level invariant)', () => {
+  it('every Aira challenge-bearing skill is covered by AIRA_PROBLEMA_SKILLS (used by pickChallengeSubskill)', () => {
+    for (const [skillId, def] of Object.entries(CATALOG.aira.skills)) {
+      const hasChallengeSubskill = Object.values(def.subskills).some((s) => s.challenge)
+      if (hasChallengeSubskill) {
+        expect(
+          AIRA_PROBLEMA_SKILLS,
+          `skill "${skillId}" has a challenge subskill but is missing from AIRA_PROBLEMA_SKILLS in dayComposerCards.ts — it would never be reachable via a 'desafio' surprise. Add it to AIRA_PROBLEMA_SKILLS (or wire up a dedicated slot) when adding challenge subskills to a new skill.`,
+        ).toContain(skillId)
+      }
+    }
+  })
+
+  it('every Leo challenge-bearing skill is covered by a LEO_SKILL_BY_SLOT entry (used by pickChallengeSubskill)', () => {
+    const slottedSkills = new Set(Object.values(LEO_SKILL_BY_SLOT))
+    for (const [skillId, def] of Object.entries(CATALOG.leo.skills)) {
+      const hasChallengeSubskill = Object.values(def.subskills).some((s) => s.challenge)
+      if (hasChallengeSubskill) {
+        expect(
+          slottedSkills.has(skillId as never),
+          `skill "${skillId}" has a challenge subskill but no LEO_BASE_CARD_TYPES slot in dayComposerCards.ts maps to it via LEO_SKILL_BY_SLOT — it would never be reachable via a 'desafio' surprise. Wire up a slot (or extend buildLeoBaseCard's gating) when adding challenge subskills to a new Leo skill.`,
+        ).toBe(true)
+      }
+    }
   })
 })

@@ -1,9 +1,6 @@
 import type { Rng } from '../lib/rng'
 import type { ProfileId } from '../state/profileStore'
-import { CATALOG } from './skills'
-
-/** Gem level (Ámbar) at/above which a skill's challenge subskills unlock. Mirrors scheduler.ts's CHALLENGE_GATE_LEVEL. */
-const CHALLENGE_GATE_LEVEL = 2
+import { CATALOG, CHALLENGE_GATE_LEVEL } from './skills'
 
 /** Probability that any surprise event fires on a given day. */
 const DAILY_EVENT_RATE = 0.3
