@@ -91,8 +91,9 @@ describe('checkLevelUp', () => {
   })
 
   it('does not level up when accuracy qualifies but fewer than 12 attempts reach the depth floor', () => {
-    // 20 attempts, all correct, but only 5 at difficulty >= 1... wait floor for cuarzo is 1, so use
-    // esmeralda's floor (2) by starting from cuarzo (level 1): needs difficulty >= 2, only give 5.
+    // Gem at level 2 (ambar) -> next level esmeralda(3) requires levelFloor(3) = 2.
+    // 20 attempts, all correct (100% accuracy, easily clears the 80% bar), but only
+    // 5 of them are at difficulty >= 2 -- short of the 12 required for the volume gate.
     const attempts = [
       ...Array.from({ length: 5 }, () =>
         attempt({ subskill: 'tablas', correct: true, hintsUsed: 0, difficulty: 2 }),
@@ -101,8 +102,6 @@ describe('checkLevelUp', () => {
         attempt({ subskill: 'tablas', correct: true, hintsUsed: 0, difficulty: 1 }),
       ),
     ]
-    // accuracy = 100% but only 5 attempts at difficulty >= levelFloor(2)=1... this actually floor(2)=1 too.
-    // Use a gem at level 2 (ambar) -> next level esmeralda(3) needs floor=2.
     const result = checkLevelUp(gem({ level: 2 }), attempts, 'calculo', 'aira')
     expect(result).toBeNull()
   })
