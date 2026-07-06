@@ -7,6 +7,7 @@ import type { ChildSettings } from '../state/settingsStore'
 import chaptersData from '../../content/chapters.json'
 import { validateChapters } from '../content/schemas'
 import { addDays, daysBetween } from '../lib/dates'
+import { CATALOG } from './skills'
 
 const REAL_CHAPTERS = validateChapters(chaptersData)
 
@@ -390,6 +391,160 @@ describe('desafio surprise injects a challenge card', () => {
     const day1 = composeDay('2026-01-04', 'aira', progress(), bundle(), settings(), gems)
     const day2 = composeDay('2026-01-04', 'aira', progress(), bundle(), settings(), gems)
     expect(day1).toEqual(day2)
+  })
+})
+
+describe('moduleToggles are consumed in day composition', () => {
+  it('drops the dictado card when ortografia is disabled and shrinks the day (no duplicate card types)', () => {
+    const day = composeDay(
+      '2026-07-16',
+      'aira',
+      progress(),
+      bundle(),
+      settings({ missionSize: 4, moduleToggles: { ortografia: false } }),
+      {},
+    )
+    const types = day.cards.map((c) => c.cardType)
+    expect(types).not.toContain('dictado')
+    // The dropped slot is not refilled: the day is one card shorter.
+    expect(types).toEqual(['problema', 'sabias-que', 'diario'])
+    // Card identity is the cardType (React keys + completion), so never duplicated.
+    expect(new Set(types).size).toBe(types.length)
+  })
+
+  it('drops multiple disabled content slots (dictado/sabias-que/diario), leaving only problema', () => {
+    const day = composeDay(
+      '2026-07-16',
+      'aira',
+      progress(),
+      bundle(),
+      settings({ missionSize: 4, moduleToggles: { ortografia: false, lectura: false, escritura: false } }),
+      {},
+    )
+    expect(day.cards.map((c) => c.cardType)).toEqual(['problema'])
+  })
+
+  it('never produces two cards of the same cardType, even with toggles dropping slots', () => {
+    // Sweep a set of toggle combos across dates; card identity must stay unique.
+    const combos: Record<string, boolean>[] = [
+      { ortografia: false },
+      { lectura: false, escritura: false },
+      { problemas: false, calculo: false },
+      { ortografia: false, lectura: false },
+    ]
+    for (const moduleToggles of combos) {
+      for (let d = 1; d <= 10; d++) {
+        const dateISO = `2026-07-${String(d).padStart(2, '0')}`
+        const day = composeDay(dateISO, 'aira', progress(), bundle(), settings({ moduleToggles }), {})
+        const types = day.cards.map((c) => c.cardType)
+        expect(new Set(types).size, `${dateISO} ${JSON.stringify(moduleToggles)}`).toBe(types.length)
+      }
+    }
+  })
+
+  it('drops the problema slot without refilling with problema when both problemas and calculo are off', () => {
+    const day = composeDay(
+      '2026-07-16',
+      'aira',
+      progress(),
+      bundle(),
+      settings({ missionSize: 4, moduleToggles: { problemas: false, calculo: false } }),
+      {},
+    )
+    const types = day.cards.map((c) => c.cardType)
+    expect(types).not.toContain('problema')
+    // Only the 3 remaining content slots survive; no problema to refill with.
+    expect(types).toEqual(['dictado', 'sabias-que', 'diario'])
+  })
+
+  it('restricts the problema subskill to the enabled problema skill (problemas off → calculo only)', () => {
+    const AIRA_CALCULO_SUBSKILLS = new Set(Object.keys(CATALOG.aira.skills.calculo.subskills))
+    const day = composeDay(
+      '2026-07-16',
+      'aira',
+      progress(),
+      bundle(),
+      settings({ moduleToggles: { problemas: false } }),
+      {},
+    )
+    const problema = day.cards.find((c) => c.cardType === 'problema')
+    expect(AIRA_CALCULO_SUBSKILLS.has(problema?.subskill ?? '')).toBe(true)
+  })
+
+  it('drops Leo base slots and the rotation card per toggles', () => {
+    const day = composeDay(
+      '2026-07-16',
+      'leo',
+      progress(),
+      bundle(),
+      settings({ missionSize: 3, moduleToggles: { numeros: false, logica: false } }),
+      {},
+    )
+    const types = day.cards.map((c) => c.cardType)
+    expect(types).not.toContain('contar')
+    expect(types).not.toContain('sorpresa-rotatoria')
+    expect(types).toEqual(['trazos', 'english'])
+  })
+
+  it('disabling everything is a safe no-op fallback: still a non-empty day (Aira)', () => {
+    const allOff = { problemas: false, calculo: false, ortografia: false, escritura: false, lectura: false, english: false, geografia: false, mundo: false }
+    const day = composeDay('2026-07-16', 'aira', progress(), bundle(), settings({ moduleToggles: allOff }), {})
+    expect(day.cards.length).toBeGreaterThanOrEqual(1)
+  })
+
+  it('disabling everything is a safe no-op fallback: still a non-empty day (Leo)', () => {
+    const allOff = { trazos: false, numeros: false, english: false, logica: false }
+    const day = composeDay('2026-07-16', 'leo', progress(), bundle(), settings({ missionSize: 3, moduleToggles: allOff }), {})
+    expect(day.cards.length).toBeGreaterThanOrEqual(1)
+  })
+
+  it('remains deterministic with toggles applied', () => {
+    const s = settings({ moduleToggles: { ortografia: false } })
+    const a = composeDay('2026-07-16', 'aira', progress(), bundle(), s, {})
+    const b = composeDay('2026-07-16', 'aira', progress(), bundle(), s, {})
+    expect(a).toEqual(b)
+  })
+})
+
+describe('challengeFrequency modulates the desafio surprise rate', () => {
+  // Give every Aira skill a challenge-unlocked gem so desafio is allowed to fire.
+  const unlockedGems = () => {
+    const gems: Record<string, { skillId: string; level: number; progress: number }> = {}
+    for (const id of Object.keys(CATALOG.aira.skills)) {
+      gems[id] = { skillId: id, level: 2, progress: 0 }
+    }
+    return gems
+  }
+
+  function countDesafios(challengeFrequency: number): number {
+    const gems = unlockedGems()
+    let desafios = 0
+    for (let i = 0; i < 200; i++) {
+      const dateISO = addDays('2026-01-01', i)
+      const day = composeDay(dateISO, 'aira', progress(), bundle(), settings({ challengeFrequency }), gems)
+      if (day.surprise?.kind === 'desafio') desafios++
+    }
+    return desafios
+  }
+
+  it('a high frequency yields strictly more desafio days than a low frequency over a seeded sweep', () => {
+    const low = countDesafios(0.1)
+    const high = countDesafios(0.5)
+    expect(high).toBeGreaterThan(low)
+  })
+
+  it('frequency 0 produces no desafio days (but other surprises still fire)', () => {
+    const gems = unlockedGems()
+    let desafios = 0
+    let otherSurprises = 0
+    for (let i = 0; i < 200; i++) {
+      const dateISO = addDays('2026-01-01', i)
+      const day = composeDay(dateISO, 'aira', progress(), bundle(), settings({ challengeFrequency: 0 }), gems)
+      if (day.surprise?.kind === 'desafio') desafios++
+      else if (day.surprise !== null) otherSurprises++
+    }
+    expect(desafios).toBe(0)
+    expect(otherSurprises).toBeGreaterThan(0)
   })
 })
 

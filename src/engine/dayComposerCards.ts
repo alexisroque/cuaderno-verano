@@ -3,7 +3,15 @@ import type { GemState, ProfileProgress } from '../types/progress'
 import type { ChildSettings } from '../state/settingsStore'
 import type { ProfileId } from '../state/profileStore'
 import { createRng, type Rng } from '../lib/rng'
-import { CATALOG, CHALLENGE_GATE_LEVEL, skillOfSubskill, type SkillId, type SubskillDef, type SubskillId } from './skills'
+import {
+  CATALOG,
+  CHALLENGE_GATE_LEVEL,
+  isSkillEnabled,
+  skillOfSubskill,
+  type SkillId,
+  type SubskillDef,
+  type SubskillId,
+} from './skills'
 import { pickSubskill } from './scheduler'
 import { suggestedDifficulty } from './mastery'
 import { consumedIds, pickDictadoContent, pickUnconsumed } from './contentSelection'
@@ -14,6 +22,20 @@ const LEO_ROTATION: readonly string[] = ['patrones', 'formas', 'simetria', 'clas
 
 const AIRA_CARD_TYPES = ['problema', 'dictado', 'sabias-que', 'diario'] as const
 const LEO_BASE_CARD_TYPES = ['trazos', 'contar', 'english'] as const
+
+/**
+ * Which catalog skill(s) each Aira daily slot draws from. A slot is kept only
+ * if at least one of its skills is enabled in the parent's `moduleToggles`;
+ * otherwise it is dropped and the day refills from still-enabled skills (see
+ * `buildAiraCards`). The `problema` slot spans problemas/calculo (mirrors
+ * `AIRA_PROBLEMA_SKILLS`), so it survives as long as either is on.
+ */
+const AIRA_SLOT_SKILLS: Record<(typeof AIRA_CARD_TYPES)[number], SkillId[]> = {
+  problema: ['problemas', 'calculo'],
+  dictado: ['ortografia'],
+  'sabias-que': ['lectura'],
+  diario: ['escritura'],
+}
 
 type AiraCardType = (typeof AIRA_CARD_TYPES)[number]
 type LeoCardType = (typeof LEO_BASE_CARD_TYPES)[number] | 'sorpresa-rotatoria'
@@ -129,8 +151,14 @@ function buildProblemaCard(
   seed: string,
   surprise: Surprise | null,
 ): CardDescriptor {
+  // Restrict to the problema skills the parent left enabled. `buildAiraCards`
+  // only produces a problema card when at least one is enabled, so this is
+  // non-empty here.
+  const problemaSkills = AIRA_PROBLEMA_SKILLS.filter((s) => isSkillEnabled(settings.moduleToggles, s))
+  const skillFilter = problemaSkills.length > 0 ? problemaSkills : AIRA_PROBLEMA_SKILLS
+
   if (surprise?.kind === 'desafio') {
-    const challengeSubskill = pickChallengeSubskill(rng, 'aira', AIRA_PROBLEMA_SKILLS, gems)
+    const challengeSubskill = pickChallengeSubskill(rng, 'aira', skillFilter, gems)
     return {
       cardType: 'problema',
       subskill: challengeSubskill.id,
@@ -141,7 +169,7 @@ function buildProblemaCard(
   }
 
   const subskillId = pickSubskill(rng, attempts, 'aira', settings, dateISO, gems, {
-    skillFilter: AIRA_PROBLEMA_SKILLS,
+    skillFilter,
   })
 
   const owningSkill = skillOfSubskill('aira', subskillId) ?? 'problemas'
@@ -190,11 +218,26 @@ function buildDiarioCard(rng: Rng, content: ContentBundle, progress: ProfileProg
   return { cardType: 'diario', contentRef: picked ? { promptId: picked.id } : undefined, generatorSeed: seed }
 }
 
+/** True if any of `skills` is enabled in the parent's module toggles. */
+function anySkillEnabled(settings: ChildSettings, skills: SkillId[]): boolean {
+  return skills.some((s) => isSkillEnabled(settings.moduleToggles, s))
+}
+
 /**
- * Builds Aira's mission cards: [problema, dictado, sabias-que, diario],
- * truncated to `settings.missionSize`. `surprise` is the day's already-
- * rolled surprise (see composeDay): a `desafio` surprise turns the
- * `problema` slot into a challenge card.
+ * Builds Aira's mission cards. The base sequence is
+ * [problema, dictado, sabias-que, diario], truncated to `settings.missionSize`.
+ *
+ * Module toggles: a slot whose owning skill(s) are all disabled is DROPPED and
+ * the day SHRINKS gracefully (the remaining slots keep their fixed order). We
+ * intentionally do NOT refill a dropped slot with a duplicate card type —
+ * card identity across the app (React keys, per-day completion tracking in
+ * progressStore) is the `cardType`, so a day must never contain two cards of
+ * the same type. Each Aira card type is bound to a distinct skill, so honoring
+ * a toggle simply means one fewer card that day.
+ *
+ * If a parent disables everything, `enabledSkillIds`-style all-off handling
+ * would leave no slots; we then fall back to a single problema card so the day
+ * is never empty.
  */
 export function buildAiraCards(
   dateISO: string,
@@ -205,13 +248,15 @@ export function buildAiraCards(
   gems: Record<string, GemState>,
   surprise: Surprise | null = null,
 ): CardDescriptor[] {
-  const cards: CardDescriptor[] = []
+  const enabledSlots = AIRA_CARD_TYPES.filter((cardType) =>
+    anySkillEnabled(settings, AIRA_SLOT_SKILLS[cardType]),
+  )
 
-  for (let i = 0; i < settings.missionSize && i < AIRA_CARD_TYPES.length; i++) {
+  const cards: CardDescriptor[] = []
+  const push = (cardType: (typeof AIRA_CARD_TYPES)[number]) => {
+    const i = cards.length
     const seed = `${dateISO}:${profile}:${i}`
     const rng = createRng(seed)
-    const cardType = AIRA_CARD_TYPES[i]
-
     switch (cardType) {
       case 'problema':
         cards.push(buildProblemaCard(rng, progress.attempts, settings, dateISO, gems, seed, surprise))
@@ -226,6 +271,18 @@ export function buildAiraCards(
         cards.push(buildDiarioCard(rng, content, progress, seed))
         break
     }
+  }
+
+  // Kept slots, in their fixed order, up to missionSize.
+  for (const cardType of enabledSlots) {
+    if (cards.length >= settings.missionSize) break
+    push(cardType)
+  }
+
+  // Never emit an empty day: a lone problema is the gentle fallback when a
+  // parent has turned every module off.
+  if (cards.length === 0) {
+    push('problema')
   }
 
   return cards
@@ -310,8 +367,13 @@ function buildLeoBaseCard(
 
 /**
  * Builds Leo's mission cards: [trazos, contar, english] (truncated to
- * `settings.missionSize`) + sorpresa-rotatoria. `surprise` is the day's
- * already-rolled surprise (see composeDay).
+ * `settings.missionSize`) + a trailing sorpresa-rotatoria (logica/cuento).
+ * `surprise` is the day's already-rolled surprise (see composeDay).
+ *
+ * Module toggles: a base slot whose skill is disabled is dropped; the
+ * remaining base slots keep their order. The trailing sorpresa-rotatoria is
+ * dropped only when `logica` is disabled. If everything Leo has is disabled we
+ * still emit a single trazos card so the day is never empty.
  */
 export function buildLeoCards(
   dateISO: string,
@@ -322,15 +384,29 @@ export function buildLeoCards(
   gems: Record<string, GemState>,
   surprise: Surprise | null = null,
 ): CardDescriptor[] {
+  const enabledBaseSlots = LEO_BASE_CARD_TYPES.filter((cardType) =>
+    isSkillEnabled(settings.moduleToggles, LEO_SKILL_BY_SLOT[cardType]),
+  )
   const cards: CardDescriptor[] = []
 
-  for (let i = 0; i < settings.missionSize && i < LEO_BASE_CARD_TYPES.length; i++) {
-    const seed = `${dateISO}:${profile}:${i}`
+  for (const cardType of enabledBaseSlots) {
+    if (cards.length >= settings.missionSize) break
+    const seed = `${dateISO}:${profile}:${cards.length}`
     const rng = createRng(seed)
-    const cardType = LEO_BASE_CARD_TYPES[i]
     cards.push(buildLeoBaseCard(rng, cardType, progress, settings, dateISO, gems, seed, surprise))
   }
 
-  cards.push(buildRotationCard(dateISO, profile, progress, content, cards.length))
+  // The rotating surprise card is Leo's `logica` slot (patrones/formas/…),
+  // plus the occasional `cuento`. Drop it when logica is off.
+  if (isSkillEnabled(settings.moduleToggles, 'logica')) {
+    cards.push(buildRotationCard(dateISO, profile, progress, content, cards.length))
+  }
+
+  // Never emit an empty day.
+  if (cards.length === 0) {
+    const seed = `${dateISO}:${profile}:0`
+    cards.push(buildLeoBaseCard(createRng(seed), 'trazos', progress, settings, dateISO, gems, seed, surprise))
+  }
+
   return cards
 }

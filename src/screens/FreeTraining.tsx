@@ -4,7 +4,7 @@ import { SpeakButton } from '../components/ui/SpeakButton'
 import { useProfileStore } from '../state/profileStore'
 import { useProgressStore } from '../state/progressStore'
 import { useSettingsStore } from '../state/settingsStore'
-import { SKILL_META, type SkillId } from '../engine/skills'
+import { SKILL_META, isSkillEnabled, type SkillId } from '../engine/skills'
 import { composeDay } from '../engine/dayComposer'
 import { getContentBundle } from '../content/loader'
 import { currentChapter } from '../content/chapters'
@@ -37,7 +37,12 @@ export function FreeTraining() {
   }, [leo, airaProgress, settings])
 
   const skillMeta = SKILL_META[profile] as Record<string, { name: string; emoji: string }>
-  const skills = Object.entries(skillMeta) as [SkillId, { name: string; emoji: string }][]
+  // Hide skills the parent turned off in "Módulos activos" so free training
+  // matches the daily page. If every skill is disabled, show them all rather
+  // than an empty grid (mirrors enabledSkillIds' all-off fallback).
+  const allSkills = Object.entries(skillMeta) as [SkillId, { name: string; emoji: string }][]
+  const enabled = allSkills.filter(([id]) => isSkillEnabled(settings.moduleToggles, id))
+  const skills = enabled.length > 0 ? enabled : allSkills
 
   if (lightning) {
     return (

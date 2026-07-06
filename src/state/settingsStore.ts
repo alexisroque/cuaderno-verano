@@ -39,11 +39,11 @@ function defaultChildSettings(): ChildSettings {
   return {
     missionSize: 5,
     challengeFrequency: 0.2,
-    moduleToggles: {
-      math: true,
-      reading: true,
-      geography: true,
-    },
+    // Empty means "all modules on": an absent skill key is treated as enabled,
+    // an explicit `false` disables that skill. This stays correct as the
+    // catalog grows (no stale per-skill defaults to keep in sync) — see
+    // `isSkillEnabled` in engine/skills.ts.
+    moduleToggles: {},
     subskillAdjustments: {},
     weeklyFocus: [],
   }

@@ -99,4 +99,55 @@ describe('rollSurprise', () => {
     }
     expect(gemaDobles).toBe(0)
   })
+
+  describe('challengeFrequency modulates the desafio rate', () => {
+    const unlockedGems = () => gemsAtZero('aira').map((g) => (g.skillId === 'calculo' ? { ...g, level: 2 } : g))
+
+    function countDesafios(challengeFrequency: number | undefined): number {
+      const gems = unlockedGems()
+      let desafios = 0
+      for (let i = 0; i < 365; i++) {
+        const dateISO = `2026-${String(1 + Math.floor(i / 30)).padStart(2, '0')}-${String(1 + (i % 28)).padStart(2, '0')}`
+        const rng = createRng(`${dateISO}:aira:surprise`)
+        const result = rollSurprise(rng, gems, 'aira', challengeFrequency)
+        if (result?.kind === 'desafio') desafios++
+      }
+      return desafios
+    }
+
+    it('higher challengeFrequency yields more desafio days than lower', () => {
+      expect(countDesafios(0.5)).toBeGreaterThan(countDesafios(0.1))
+    })
+
+    it('challengeFrequency 0 never rolls desafio, but total event rate stays ~30%', () => {
+      const gems = unlockedGems()
+      let hits = 0
+      let desafios = 0
+      for (let i = 0; i < 365; i++) {
+        const dateISO = `2026-${String(1 + Math.floor(i / 30)).padStart(2, '0')}-${String(1 + (i % 28)).padStart(2, '0')}`
+        const rng = createRng(`${dateISO}:aira:surprise`)
+        const result = rollSurprise(rng, gems, 'aira', 0)
+        if (result !== null) {
+          hits++
+          if (result.kind === 'desafio') desafios++
+        }
+      }
+      expect(desafios).toBe(0)
+      const rate = hits / 365
+      expect(rate).toBeGreaterThan(0.25)
+      expect(rate).toBeLessThan(0.35)
+    })
+
+    it('omitting challengeFrequency keeps the original equal-weight behavior (baseline 0.2 matches undefined)', () => {
+      const gems = unlockedGems()
+      let desafiosUndefined = 0
+      let desafiosBaseline = 0
+      for (let i = 0; i < 365; i++) {
+        const dateISO = `2026-${String(1 + Math.floor(i / 30)).padStart(2, '0')}-${String(1 + (i % 28)).padStart(2, '0')}`
+        if (rollSurprise(createRng(`${dateISO}:aira:surprise`), gems, 'aira')?.kind === 'desafio') desafiosUndefined++
+        if (rollSurprise(createRng(`${dateISO}:aira:surprise`), gems, 'aira', 0.2)?.kind === 'desafio') desafiosBaseline++
+      }
+      expect(desafiosUndefined).toBe(desafiosBaseline)
+    })
+  })
 })

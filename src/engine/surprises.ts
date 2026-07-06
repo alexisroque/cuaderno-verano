@@ -30,6 +30,27 @@ const BASE_WEIGHTS: Record<SurpriseKind, number> = {
   'cofre-mejorado': 1,
 }
 
+/**
+ * The `challengeFrequency` value at which `desafio` keeps its base weight of 1
+ * (i.e. equal footing with the other kinds). This is the default a fresh
+ * profile starts at (see settingsStore DEFAULTS), so an unconfigured child
+ * sees the original equal-weight behavior. Higher settings raise desafio's
+ * share, lower settings shrink it, and 0 removes it entirely.
+ */
+const CHALLENGE_FREQ_BASELINE = 0.2
+
+/**
+ * Maps a parent's `challengeFrequency` (0..~0.5, see Settings.tsx) to a
+ * relative weight for the `desafio` surprise kind. Linear around the baseline:
+ * `baseline → 1`, `0 → 0` (desafio never fires, its mass redistributes to the
+ * other kinds so overall event rate is unchanged), `2*baseline → 2`, etc.
+ * `undefined` (older settings blobs) falls back to the baseline weight of 1.
+ */
+function desafioWeight(challengeFrequency: number | undefined): number {
+  if (challengeFrequency === undefined) return 1
+  return Math.max(0, challengeFrequency / CHALLENGE_FREQ_BASELINE)
+}
+
 /** True if `profile`'s catalog has at least one skill containing a challenge subskill whose gem level is >= CHALLENGE_GATE_LEVEL. */
 function hasUnlockedChallengeSkill(gems: GemWithProgress[], profile: ProfileId): boolean {
   const skills = CATALOG[profile].skills as Record<string, { subskills: Record<string, { challenge?: boolean }> }>
@@ -65,29 +86,43 @@ function weakestGem(gems: GemWithProgress[]): GemWithProgress | undefined {
  *     which case its weight mass is redistributed proportionally across
  *     the other 4 kinds (so the overall ~30% daily fire rate is unaffected
  *     by the gate).
+ *   - `desafio`'s weight also scales with the parent's `challengeFrequency`
+ *     (see `desafioWeight`): higher frequency makes desafio days more likely
+ *     among surprises, 0 removes them, and its mass redistributes to the
+ *     other kinds so the overall ~30% fire rate is unaffected.
  *   - `gema-doble` is excluded from the pick when `gems` is empty (nothing
  *     to target), redistributing the same way.
  * - `gema-doble` targets the weakest gem in `gems`: lowest level first,
  *   ties broken by lowest progress.
+ *
+ * `challengeFrequency` is optional so the surprise-only tests and older
+ * callers stay valid; omitted keeps the original equal-weight behavior.
  */
-export function rollSurprise(rng: Rng, gems: GemWithProgress[], profile: ProfileId): Surprise | null {
+export function rollSurprise(
+  rng: Rng,
+  gems: GemWithProgress[],
+  profile: ProfileId,
+  challengeFrequency?: number,
+): Surprise | null {
   if (!rng.chance(DAILY_EVENT_RATE)) return null
 
   const desafioAllowed = hasUnlockedChallengeSkill(gems, profile)
   const gemaDobleAllowed = gems.length > 0
+  const weightFor = (kind: SurpriseKind): number =>
+    kind === 'desafio' ? desafioWeight(challengeFrequency) : BASE_WEIGHTS[kind]
 
   const availableKinds = (Object.keys(BASE_WEIGHTS) as SurpriseKind[]).filter((kind) => {
-    if (kind === 'desafio' && !desafioAllowed) return false
+    if (kind === 'desafio' && (!desafioAllowed || weightFor('desafio') <= 0)) return false
     if (kind === 'gema-doble' && !gemaDobleAllowed) return false
     return true
   })
 
-  const totalWeight = availableKinds.reduce((sum, kind) => sum + BASE_WEIGHTS[kind], 0)
+  const totalWeight = availableKinds.reduce((sum, kind) => sum + weightFor(kind), 0)
   const roll = rng.next() * totalWeight
   let cursor = 0
   let chosen: SurpriseKind = availableKinds[availableKinds.length - 1]
   for (const kind of availableKinds) {
-    cursor += BASE_WEIGHTS[kind]
+    cursor += weightFor(kind)
     if (roll < cursor) {
       chosen = kind
       break

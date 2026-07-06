@@ -283,3 +283,31 @@ export function subskillsForSkill(profile: ProfileId, skillId: SkillId): Subskil
   const def = skills[skillId]
   return def ? Object.values(def.subskills) : []
 }
+
+/** All skill ids in `profile`'s catalog, in declaration order. */
+export function allSkillIds(profile: ProfileId): SkillId[] {
+  return Object.keys(CATALOG[profile].skills) as SkillId[]
+}
+
+/**
+ * Whether a skill is enabled given a parent's `moduleToggles`. Convention:
+ * an absent key means enabled (default-on), an explicit `false` disables it.
+ * This is the single source of truth for the "Módulos activos" toggles so
+ * the Settings UI, day composition, and free training all agree.
+ */
+export function isSkillEnabled(toggles: Record<string, boolean>, skillId: SkillId): boolean {
+  return toggles[skillId] !== false
+}
+
+/**
+ * The subset of `profile`'s skills that are enabled per `toggles`. If a parent
+ * disabled EVERY skill, we fall back to the full catalog: an empty day is
+ * worse than honoring a probably-accidental "turn everything off", so the
+ * toggles are ignored in that degenerate case (callers rely on this to always
+ * get a non-empty skill set).
+ */
+export function enabledSkillIds(profile: ProfileId, toggles: Record<string, boolean>): SkillId[] {
+  const all = allSkillIds(profile)
+  const enabled = all.filter((id) => isSkillEnabled(toggles, id))
+  return enabled.length > 0 ? enabled : all
+}

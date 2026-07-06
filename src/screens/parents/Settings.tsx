@@ -184,7 +184,10 @@ export function Settings({ profile }: { profile: ProfileId }) {
         </div>
       </Section>
 
-      <Section title="Módulos activos" hint="Apaga una habilidad para que no aparezca en la página de hoy.">
+      <Section
+        title="Módulos activos"
+        hint="Apaga una habilidad y sus tarjetas dejarán de aparecer en la página de hoy y en el entrenamiento libre (ese día trae una tarjeta menos)."
+      >
         <div className="flex flex-col gap-2">
           {skillIds.map((skillId) => {
             const on = settings.moduleToggles[skillId] ?? true

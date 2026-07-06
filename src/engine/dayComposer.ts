@@ -63,7 +63,7 @@ export function composeDay(
   // desafio day swaps one base card for an actual challenge exercise.
   const gemsWithProgress = Object.values(gems).map((g) => ({ skillId: g.skillId, level: g.level, progress: g.progress }))
   const surpriseRng = createRng(`${dateISO}:${profile}:surprise`)
-  const surprise = rollSurprise(surpriseRng, gemsWithProgress, profile)
+  const surprise = rollSurprise(surpriseRng, gemsWithProgress, profile, settings.challengeFrequency)
 
   const cards =
     profile === 'aira'
