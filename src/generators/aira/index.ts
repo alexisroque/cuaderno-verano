@@ -2,6 +2,7 @@ import { registerGenerator } from '../framework'
 import { mult1CifraGenerator, mult2CifrasGenerator } from './multiplication'
 import { tablasGenerator } from './tables'
 import { cajitasGenerator } from './cajitas'
+import { divRestoGenerator } from './division'
 
 /**
  * Registers every Aira generator on import. Callers that need generators
@@ -16,5 +17,6 @@ registerGenerator(mult1CifraGenerator)
 registerGenerator(mult2CifrasGenerator)
 registerGenerator(tablasGenerator)
 registerGenerator(cajitasGenerator)
+registerGenerator(divRestoGenerator)
 
-export { mult1CifraGenerator, mult2CifrasGenerator, tablasGenerator, cajitasGenerator }
+export { mult1CifraGenerator, mult2CifrasGenerator, tablasGenerator, cajitasGenerator, divRestoGenerator }
