@@ -184,6 +184,24 @@ describe.each([
     expect(pureCount).toBeGreaterThan(0)
     expect(contextCount).toBeGreaterThan(0)
   })
+
+  it('context prompts only use plausible quantities (2-12) and prices (<= 100)', () => {
+    propertyTestWithDeterminism(generator, { difficulties, seeds: 200 }, (exercise) => {
+      const text = exercise.prompt.text
+      if (!text.includes('Si compráis')) return
+
+      const qtyMatch = text.match(/Si compráis (\d+)/)
+      expect(qtyMatch, `context prompt missing quantity: "${text}"`).toBeTruthy()
+      const quantity = Number(qtyMatch![1])
+      expect(quantity).toBeGreaterThanOrEqual(2)
+      expect(quantity).toBeLessThanOrEqual(12)
+
+      const priceMatch = text.match(/cuesta (\d+)/)
+      expect(priceMatch, `context prompt missing price: "${text}"`).toBeTruthy()
+      const price = Number(priceMatch![1])
+      expect(price).toBeLessThanOrEqual(100)
+    })
+  })
 })
 
 describe.each([

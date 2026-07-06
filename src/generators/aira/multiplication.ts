@@ -131,9 +131,27 @@ function buildContextPrompt(rng: Rng, a: number, b: number, flavor: ChapterFlavo
   return `${place}, cada ${priceItem} cuesta ${a} ${flavor.currencySymbol}. Si compráis ${b}, ¿cuánto pagáis en total?`
 }
 
+/**
+ * A context prompt reads as plausible only when the quantity ("Si compráis
+ * {b}") is a reasonable basket size (2-12 units) and the price ("cada ...
+ * cuesta {a}") stays within a sane per-item price (<= 100). Outside those
+ * bounds the story ("cada barco cuesta 823, si compráis 47...") stops making
+ * real-world sense, so callers should fall back to the pure-calculation
+ * prompt instead.
+ */
+function isContextPlausible(a: number, b: number): boolean {
+  return b >= 2 && b <= 12 && a <= 100
+}
+
 function buildPrompt(rng: Rng, a: number, b: number, flavor: ChapterFlavorLite): string {
-  // 60% pure-calculation, 40% light-context.
-  return rng.chance(0.6) ? buildPureCalculationPrompt(a, b) : buildContextPrompt(rng, a, b, flavor)
+  // 60% pure-calculation, 40% light-context — but only when the
+  // light-context template stays plausible for (a, b); otherwise fall back
+  // to the pure-calculation prompt.
+  const wantsContext = rng.chance(0.6) === false
+  if (wantsContext && isContextPlausible(a, b)) {
+    return buildContextPrompt(rng, a, b, flavor)
+  }
+  return buildPureCalculationPrompt(a, b)
 }
 
 /** Assembles the final Exercise once (subskill, difficulty, a, b, id) are known. Shared by both generators. */
