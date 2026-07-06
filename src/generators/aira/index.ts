@@ -3,6 +3,10 @@ import { mult1CifraGenerator, mult2CifrasGenerator } from './multiplication'
 import { tablasGenerator } from './tables'
 import { cajitasGenerator } from './cajitas'
 import { divRestoGenerator } from './division'
+import { mentalGenerator } from './mental'
+import { estimacionGenerator } from './estimation'
+import { patronesCrecimientoGenerator } from './growthPatterns'
+import { romanosGenerator } from './romanos'
 
 /**
  * Registers every Aira generator on import. Callers that need generators
@@ -18,5 +22,19 @@ registerGenerator(mult2CifrasGenerator)
 registerGenerator(tablasGenerator)
 registerGenerator(cajitasGenerator)
 registerGenerator(divRestoGenerator)
+registerGenerator(mentalGenerator)
+registerGenerator(estimacionGenerator)
+registerGenerator(patronesCrecimientoGenerator)
+registerGenerator(romanosGenerator)
 
-export { mult1CifraGenerator, mult2CifrasGenerator, tablasGenerator, cajitasGenerator, divRestoGenerator }
+export {
+  mult1CifraGenerator,
+  mult2CifrasGenerator,
+  tablasGenerator,
+  cajitasGenerator,
+  divRestoGenerator,
+  mentalGenerator,
+  estimacionGenerator,
+  patronesCrecimientoGenerator,
+  romanosGenerator,
+}
