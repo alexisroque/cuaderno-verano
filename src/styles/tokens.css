@@ -1,0 +1,18 @@
+@import 'tailwindcss';
+
+:root {
+  --bg: #fdf6f0;
+  --ink: #5b4a43;
+  --ink-soft: #b0958a;
+  --peach: #f4a988;
+  --peach-soft: #ffe8d6;
+  --mint: #d9ead6;
+  --sky: #cfe2ef;
+  --card: #ffffff;
+  --zap: #38bdf8;
+  --sun: #ffd93d;
+  --pow: #ff8a3d;
+  --navy: #1e3a5f;
+  --r-card: 22px;
+  --r-pill: 999px;
+}
