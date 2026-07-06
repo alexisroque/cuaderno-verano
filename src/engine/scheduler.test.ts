@@ -241,4 +241,57 @@ describe('pickSubskill', () => {
     // romanos should be picked meaningfully less often than tablas within the novelty pool.
     expect(romanosCount1).toBeLessThan(tablasCount1 * 0.6)
   })
+
+  it('restricts candidates to skillFilter skills when provided', () => {
+    const rng = createRng('skill-filter-seed')
+    const picks = new Set<string>()
+    for (let i = 0; i < 500; i++) {
+      picks.add(
+        pickSubskill(rng, [], 'aira', settings(), '2026-07-16', noGems, {
+          skillFilter: ['problemas', 'calculo'],
+        }),
+      )
+    }
+    const problemasAndCalculoIds = new Set(
+      [...ALL_AIRA_SUBSKILLS].filter((id) => {
+        const owningSkills = Object.entries(CATALOG.aira.skills).filter(([, def]) => id in def.subskills)
+        return owningSkills.some(([skillId]) => skillId === 'problemas' || skillId === 'calculo')
+      }),
+    )
+    for (const pick of picks) {
+      expect(problemasAndCalculoIds.has(pick)).toBe(true)
+    }
+    // sanity: got more than one distinct pick, so the filter didn't collapse to a single subskill
+    expect(picks.size).toBeGreaterThan(1)
+  })
+
+  it('is fast: 2000 attempts across the full Aira catalog, single pickSubskill call under 50ms', () => {
+    const attempts: Attempt[] = []
+    for (let i = 0; i < 2000; i++) {
+      const subskill = ALL_AIRA_SUBSKILLS[i % ALL_AIRA_SUBSKILLS.length]
+      attempts.push(
+        attempt({
+          subskill,
+          correct: i % 3 !== 0,
+          hintsUsed: i % 5 === 0 ? 1 : 0,
+          dateISO: '2026-07-01',
+          difficulty: (i % 5) + 1,
+        }),
+      )
+    }
+    const rng = createRng('perf-seed')
+    const start = performance.now()
+    pickSubskill(rng, attempts, 'aira', settings(), '2026-07-16', noGems)
+    const elapsed = performance.now() - start
+    expect(elapsed).toBeLessThan(50)
+  })
+
+  it('is robust with empty attempts, no gems, and a weeklyFocus id absent from the catalog: returns a valid subskill id without throwing', () => {
+    const focusedOnUnknown = settings({ weeklyFocus: ['not-a-real-subskill-id'] })
+    const rng = createRng('robustness-seed')
+    expect(() => {
+      const pick = pickSubskill(rng, [], 'aira', focusedOnUnknown, '2026-07-16', {})
+      expect(ALL_AIRA_SUBSKILLS).toContain(pick)
+    }).not.toThrow()
+  })
 })

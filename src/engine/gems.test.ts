@@ -142,6 +142,36 @@ describe('checkLevelUp', () => {
     const result = checkLevelUp(gem({ level: 0 }), [...stale, ...recent], 'calculo', 'aira')
     expect(result?.leveledUp).toBe(true)
   })
+
+  it('windows by dateISO, not array-append order, when attempts from multiple subskills are interleaved out of order', () => {
+    // 30 old failing attempts across two subskills, appended in a jumbled (non-chronological)
+    // order, followed by 20 recent passing attempts (also pooled across both subskills) that
+    // are appended FIRST in the array. Array-order slicing would wrongly keep the stale failing
+    // attempts (they're last in the array); dateISO-sorted windowing must recover the true
+    // most-recent 20 by date and level up.
+    const stale = Array.from({ length: 30 }, (_, i) =>
+      attempt({
+        subskill: i % 2 === 0 ? 'tablas' : 'mental',
+        correct: false,
+        difficulty: 1,
+        dateISO: '2026-06-01',
+      }),
+    )
+    const recent = Array.from({ length: 20 }, (_, i) =>
+      attempt({
+        subskill: i % 2 === 0 ? 'tablas' : 'mental',
+        correct: true,
+        hintsUsed: 0,
+        difficulty: 2,
+        dateISO: '2026-07-16',
+      }),
+    )
+    // Appended out of chronological order: recent (newer dateISO) placed BEFORE stale (older
+    // dateISO) in the array, and interleaved across subskills throughout.
+    const jumbled = [...recent, ...stale]
+    const result = checkLevelUp(gem({ level: 0 }), jumbled, 'calculo', 'aira')
+    expect(result?.leveledUp).toBe(true)
+  })
 })
 
 describe('gemProgress', () => {

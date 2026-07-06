@@ -83,6 +83,23 @@ describe('advanceStreak', () => {
     expect(after.streak.graceUsed).toBe(0)
   })
 
+  it('resets the streak when graceUsed=1 and 2 more days are missed (exceeds the 2-day grace budget)', () => {
+    // Spend 1 grace day (1 missed day), leaving 1 day of grace remaining (budget is 2 total).
+    let state = advanceStreak(streak(), '2026-07-01', true).streak
+    state = advanceStreak(state, '2026-07-03', true).streak // 1 missed day, graceUsed=1
+    expect(state.graceUsed).toBe(1)
+    expect(state.count).toBe(2)
+
+    // Miss 2 more days (07-04, 07-05); check in 07-06 (gap of 3, 2 missed days).
+    // graceRemaining = 2 - 1 = 1, but missedDays = 2 > 1, so the streak resets rather than
+    // surviving on partial grace.
+    const after = advanceStreak(state, '2026-07-06', true)
+    expect(after.streak.count).toBe(1)
+    expect(after.streak.graceUsed).toBe(0)
+    expect(after.streak.lastDayISO).toBe('2026-07-06')
+    expect(after.bonusCoins).toBe(0)
+  })
+
   it('resets graceUsed to 0 once the streak extends 7 consecutive real days', () => {
     let state = advanceStreak(streak(), '2026-07-01', true).streak
     state = advanceStreak(state, '2026-07-03', true).streak // grace spent: 1

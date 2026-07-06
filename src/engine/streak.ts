@@ -2,7 +2,7 @@ import type { Streak } from '../types/progress'
 import { daysBetween } from '../lib/dates'
 
 const MAX_GRACE_PER_WINDOW = 2
-const GRACE_RESET_STREAK_LENGTH = 7
+const GRACE_RESET_CONSECUTIVE_REAL_DAYS = 7
 
 /** count -> bonus coins, checked in descending order so the highest crossed milestone wins. */
 const MILESTONES: Array<{ count: number; coins: number }> = [
@@ -45,7 +45,7 @@ function bonusForCrossing(previousCount: number, newCount: number): number {
  *   the missed days. Otherwise the streak resets: `count = 1`,
  *   `graceUsed = 0`.
  * - Grace budget reset: `graceUsed` resets to 0 as soon as the streak
- *   reaches a multiple of `GRACE_RESET_STREAK_LENGTH` (7) consecutive real
+ *   reaches a multiple of `GRACE_RESET_CONSECUTIVE_REAL_DAYS` (7) consecutive real
  *   (non-lapsed) days, i.e. on a gap-1 extension where the new count is a
  *   multiple of 7. This is the "rolling 7 days" window in effect: earning
  *   a full clean week of real streak days refills the grace budget.
@@ -73,7 +73,7 @@ export function advanceStreak(streak: Streak, dateISO: string, completedToday: b
 
   if (gap === 1) {
     const newCount = streak.count + 1
-    const graceUsed = newCount % GRACE_RESET_STREAK_LENGTH === 0 ? 0 : streak.graceUsed
+    const graceUsed = newCount % GRACE_RESET_CONSECUTIVE_REAL_DAYS === 0 ? 0 : streak.graceUsed
     return {
       streak: { count: newCount, lastDayISO: dateISO, graceUsed },
       bonusCoins: bonusForCrossing(streak.count, newCount),

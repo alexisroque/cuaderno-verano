@@ -2,7 +2,7 @@ import type { Attempt, GemState } from '../types/progress'
 import type { Rng } from '../lib/rng'
 import type { ChildSettings } from '../state/settingsStore'
 import type { ProfileId } from '../state/profileStore'
-import { CATALOG, type SubskillDef, type SubskillId } from './skills'
+import { CATALOG, type SkillId, type SubskillDef, type SubskillId } from './skills'
 import { masteryFor } from './mastery'
 import { daysBetween } from '../lib/dates'
 
@@ -58,21 +58,46 @@ function isLockedChallenge(def: SubskillDef, gems: Record<string, GemState>): bo
 type PoolName = 'due' | 'consolidation' | 'novelty'
 
 /**
+ * Groups attempts by subskill id, once, so callers needing per-subskill
+ * slices (mastery lookups, etc.) don't each re-filter the full attempts
+ * array. Without this, bucketing N subskills over M attempts costs O(N*M)
+ * (each `masteryFor` call re-scans every attempt); precomputing the map
+ * makes it O(M + N).
+ */
+function groupAttemptsBySubskill(attempts: Attempt[]): Map<SubskillId, Attempt[]> {
+  const map = new Map<SubskillId, Attempt[]>()
+  for (const a of attempts) {
+    const list = map.get(a.subskill)
+    if (list) {
+      list.push(a)
+    } else {
+      map.set(a.subskill, [a])
+    }
+  }
+  return map
+}
+
+/**
  * Buckets every unlocked subskill into exactly one pool:
  * - `due`: spaced-repetition due today, OR mastery < 0.7 (includes never-attempted-but-not-novelty
  *   is impossible since no attempts means mastery is undefined, which is handled by `novelty` first).
  * - `novelty`: no attempts at all yet.
  * - `consolidation`: everything else (mastery >= 0.7, not due).
+ *
+ * `attemptsBySubskill` is a precomputed `groupAttemptsBySubskill` map so this
+ * runs in O(subskills + attempts) rather than re-filtering the full attempts
+ * array once per subskill.
  */
 function bucketSubskills(
   defs: SubskillDef[],
-  attempts: Attempt[],
+  attemptsBySubskill: Map<SubskillId, Attempt[]>,
   dueIds: Set<SubskillId>,
 ): Record<PoolName, SubskillDef[]> {
   const pools: Record<PoolName, SubskillDef[]> = { due: [], consolidation: [], novelty: [] }
 
   for (const def of defs) {
-    const mastery = masteryFor(attempts, def.id)
+    const relevant = attemptsBySubskill.get(def.id) ?? []
+    const mastery = masteryFor(relevant, def.id)
     if (mastery === undefined) {
       pools.novelty.push(def)
     } else if (dueIds.has(def.id) || mastery < WEAK_MASTERY_THRESHOLD) {
@@ -105,6 +130,18 @@ function applyFocus(noveltyPool: SubskillDef[], weeklyFocus: string[]): Subskill
   return focused.length > 0 ? focused : noveltyPool
 }
 
+export interface PickSubskillOptions {
+  /**
+   * Restricts the entire candidate set to subskills belonging to one of
+   * these skill ids (e.g. `['problemas', 'calculo']` for the daily problema
+   * card). Applied before pool bucketing, so pool proportions (due/
+   * consolidation/novelty) are computed only over the filtered set.
+   * Undefined/omitted means no restriction (the original full-catalog
+   * behavior), keeping this option backward compatible.
+   */
+  skillFilter?: SkillId[]
+}
+
 /**
  * Picks one subskill to serve next, using weighted pools:
  * - due/weak 60%, consolidation 25%, novelty 15% (weights redistribute
@@ -116,6 +153,8 @@ function applyFocus(noveltyPool: SubskillDef[], weeklyFocus: string[]): Subskill
  * - The novelty pool is restricted to `settings.weeklyFocus` subskills when
  *   set, falling back to the unrestricted novelty pool if the intersection
  *   is empty.
+ * - `options.skillFilter`, when provided, restricts candidates to those
+ *   skills before anything else runs (see `PickSubskillOptions`).
  */
 export function pickSubskill(
   rng: Rng,
@@ -124,10 +163,15 @@ export function pickSubskill(
   settings: ChildSettings,
   todayISO: string,
   gems: Record<string, GemState>,
+  options: PickSubskillOptions = {},
 ): SubskillId {
-  const unlocked = allSubskills(profile).filter((def) => !isLockedChallenge(def, gems))
+  const { skillFilter } = options
+  const baseline = allSubskills(profile).filter((def) => !isLockedChallenge(def, gems))
+  const unlocked = skillFilter ? baseline.filter((def) => skillFilter.includes(def.skill)) : baseline
+
+  const attemptsBySubskill = groupAttemptsBySubskill(attempts)
   const dueIds = new Set(dueSubskills(attempts, todayISO))
-  const pools = bucketSubskills(unlocked, attempts, dueIds)
+  const pools = bucketSubskills(unlocked, attemptsBySubskill, dueIds)
   pools.novelty = applyFocus(pools.novelty, settings.weeklyFocus)
 
   const activePools = (Object.keys(POOL_WEIGHTS) as PoolName[]).filter((name) => pools[name].length > 0)

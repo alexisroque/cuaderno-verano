@@ -28,9 +28,13 @@ const VISUALS: Record<number, GemVisual> = {
   6: { emoji: '🌈', name: 'Ópalo' },
 }
 
-/** Emoji + Spanish display name for a gem level. */
+/** Emoji + Spanish display name for a gem level. Throws for any level outside 0-6 (MAX_LEVEL). */
 export function gemVisual(level: number): GemVisual {
-  return VISUALS[level]
+  const visual = VISUALS[level]
+  if (!visual) {
+    throw new Error(`gemVisual: no visual defined for level ${level}`)
+  }
+  return visual
 }
 
 /**
@@ -70,11 +74,21 @@ function scoreAttempt(attempt: Attempt): number {
   return attempt.hintsUsed > 0 ? 0.5 : 1
 }
 
-/** The most recent `WINDOW_SIZE` attempts across every subskill belonging to `skillId`, in array order. */
+/**
+ * The most recent `WINDOW_SIZE` attempts across every subskill belonging to
+ * `skillId`. Defensively stable-sorts by `dateISO` first: callers are
+ * expected to append attempts chronologically, but when attempts from
+ * multiple subskills are interleaved out of that order (e.g. merged from
+ * different sources), a plain array-order `.slice(-WINDOW_SIZE)` could pick
+ * up stale entries instead of the true most-recent ones. `Array.prototype.sort`
+ * is stable per spec, so same-date attempts keep their relative (original)
+ * order.
+ */
 function skillPooledWindow(attempts: Attempt[], skillId: SkillId, profile: ProfileId): Attempt[] {
   const subskillIds = new Set(subskillsForSkill(profile, skillId).map((s) => s.id))
   const relevant = attempts.filter((a) => subskillIds.has(a.subskill))
-  return relevant.slice(-WINDOW_SIZE)
+  const sorted = [...relevant].sort((a, b) => (a.dateISO < b.dateISO ? -1 : a.dateISO > b.dateISO ? 1 : 0))
+  return sorted.slice(-WINDOW_SIZE)
 }
 
 function accuracy(window: Attempt[]): number {
