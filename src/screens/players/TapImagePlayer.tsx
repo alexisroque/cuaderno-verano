@@ -17,7 +17,9 @@ import { Button } from '../../components/ui/Button'
 import { SpeakButton } from '../../components/ui/SpeakButton'
 import { Celebration } from '../../components/Celebration'
 import { SceneVisual } from '../../components/visuals/GridFigure'
-import { NoCard, PlayerHeader, IntroRow, CARD_COINS } from './playerChrome'
+import { NoCard, PlayerHeader, IntroRow } from './playerChrome'
+import { awardCardCoins } from './rewards'
+import { useCelebrations } from './useCelebrations'
 import { buildEnglishExercise, type EnglishTapExercise } from './englishExercise'
 import { EnglishTiles, EspejoTiles, LogicTiles } from './TapImageTiles'
 
@@ -43,7 +45,7 @@ export function TapImagePlayer() {
   const clearActiveCard = usePlayerStore((s) => s.clearActiveCard)
   const recordAttempt = useProgressStore((s) => s.recordAttempt)
   const markCardComplete = useProgressStore((s) => s.markCardComplete)
-  const addCoins = useProgressStore((s) => s.addCoins)
+  const { overlays, celebrateCorrect, settleAttempt } = useCelebrations()
 
   const chapter = chapterById(chapterId)
   const isEnglish = card?.cardType === 'english'
@@ -100,7 +102,9 @@ export function TapImagePlayer() {
         difficulty: exercise?.difficulty ?? 1,
       })
       markCardComplete(profile, todayISO(), card.cardType)
-      addCoins(profile, CARD_COINS)
+      awardCardCoins(profile, card.challenge)
+      if (attempts.current === 1) celebrateCorrect()
+      settleAttempt(profile)
     }
   }
 
@@ -118,6 +122,7 @@ export function TapImagePlayer() {
 
   return (
     <Shell>
+      {overlays}
       <div className="mx-auto max-w-md pt-1">
         <PlayerHeader chapter={chapter} onExit={exit} />
 

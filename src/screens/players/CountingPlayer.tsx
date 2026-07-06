@@ -19,7 +19,9 @@ import { Celebration } from '../../components/Celebration'
 import { CompareGroups } from '../../components/visuals/EmojiCount'
 import { BoxesVisual } from '../../components/visuals/BoxesVisual'
 import { Visual } from '../../components/visuals/Visual'
-import { NoCard, PlayerHeader, IntroRow, CARD_COINS } from './playerChrome'
+import { NoCard, PlayerHeader, IntroRow } from './playerChrome'
+import { awardCardCoins } from './rewards'
+import { useCelebrations } from './useCelebrations'
 import { BigChoiceTiles } from './BigChoiceTiles'
 
 function chapterById(chapterId: string | null) {
@@ -51,7 +53,7 @@ export function CountingPlayer() {
   const clearActiveCard = usePlayerStore((s) => s.clearActiveCard)
   const recordAttempt = useProgressStore((s) => s.recordAttempt)
   const markCardComplete = useProgressStore((s) => s.markCardComplete)
-  const addCoins = useProgressStore((s) => s.addCoins)
+  const { overlays, celebrateCorrect, settleAttempt } = useCelebrations()
 
   const chapter = chapterById(chapterId)
 
@@ -102,7 +104,9 @@ export function CountingPlayer() {
           difficulty: exercise.difficulty,
         })
         markCardComplete(profile, todayISO(), card.cardType)
-        addCoins(profile, CARD_COINS)
+        awardCardCoins(profile, card.challenge)
+        celebrateCorrect()
+        settleAttempt(profile)
       }
     } else {
       setWrongPick(id)
@@ -112,6 +116,7 @@ export function CountingPlayer() {
 
   return (
     <Shell>
+      {overlays}
       <div className="mx-auto max-w-md pt-1">
         <PlayerHeader chapter={chapter} onExit={exit} />
 

@@ -12,7 +12,9 @@ import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
 import { SpeakButton } from '../../components/ui/SpeakButton'
 import { Celebration } from '../../components/Celebration'
-import { NoCard, PlayerHeader, IntroRow, CARD_COINS } from './playerChrome'
+import { NoCard, PlayerHeader, IntroRow } from './playerChrome'
+import { awardCardCoins } from './rewards'
+import { useCelebrations } from './useCelebrations'
 import { QuestionTiles, type QuestionLike } from './QuestionTiles'
 
 type Resolved =
@@ -36,7 +38,7 @@ export function ReadingPlayer() {
   const recordAttempt = useProgressStore((s) => s.recordAttempt)
   const markCardComplete = useProgressStore((s) => s.markCardComplete)
   const markConsumed = useProgressStore((s) => s.markConsumed)
-  const addCoins = useProgressStore((s) => s.addCoins)
+  const { overlays, celebrateCorrect, settleAttempt } = useCelebrations()
 
   const [step, setStep] = useState(0)
   const [done, setDone] = useState(false)
@@ -75,7 +77,7 @@ export function ReadingPlayer() {
     const poolKey = resolved.kind === 'english' ? 'englishReadings' : 'curiosities'
     markConsumed(profile, poolKey, resolved.consumeId)
     markCardComplete(profile, todayISO(), 'sabias-que')
-    addCoins(profile, CARD_COINS)
+    awardCardCoins(profile, card.challenge)
   }
 
   const onAnswered = (q: QuestionLike, correct: boolean) => {
@@ -89,6 +91,8 @@ export function ReadingPlayer() {
       ms: Date.now() - startedAt.current,
       difficulty: 2,
     })
+    if (q.kind !== 'reflexiva' && correct) celebrateCorrect()
+    settleAttempt(profile)
   }
 
   const advance = () => {
@@ -102,6 +106,7 @@ export function ReadingPlayer() {
 
   return (
     <Shell>
+      {overlays}
       <div className="mx-auto max-w-md pt-1">
         <PlayerHeader chapter={chapter} onExit={exit} />
 

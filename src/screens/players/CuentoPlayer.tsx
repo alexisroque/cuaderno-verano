@@ -13,7 +13,9 @@ import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
 import { SpeakButton } from '../../components/ui/SpeakButton'
 import { Celebration } from '../../components/Celebration'
-import { NoCard, PlayerHeader, IntroRow, CARD_COINS } from './playerChrome'
+import { NoCard, PlayerHeader, IntroRow } from './playerChrome'
+import { awardCardCoins } from './rewards'
+import { useCelebrations } from './useCelebrations'
 
 function chapterById(chapterId: string | null) {
   return (chapterId ? CHAPTERS.find((c) => c.id === chapterId) : undefined) ?? chapterForDate(CHAPTERS, todayISO())
@@ -52,7 +54,7 @@ export function CuentoPlayer() {
   const recordAttempt = useProgressStore((s) => s.recordAttempt)
   const markCardComplete = useProgressStore((s) => s.markCardComplete)
   const markConsumed = useProgressStore((s) => s.markConsumed)
-  const addCoins = useProgressStore((s) => s.addCoins)
+  const { overlays, celebrateCorrect, settleAttempt } = useCelebrations()
 
   const chapter = chapterById(chapterId)
   const cuento = useMemo(() => (card?.contentRef?.cuentoId ? cuentoLeoById(card.contentRef.cuentoId) : undefined), [card])
@@ -95,7 +97,8 @@ export function CuentoPlayer() {
     })
     markConsumed(profile, 'cuentosLeo', cuento.id)
     markCardComplete(profile, todayISO(), card.cardType)
-    addCoins(profile, CARD_COINS)
+    awardCardCoins(profile, card.challenge)
+    settleAttempt(profile)
   }
 
   const nextPage = () => {
@@ -111,6 +114,7 @@ export function CuentoPlayer() {
       finalize()
       setPhase('done')
       setWrongIdx(null)
+      if (attempts.current === 1) celebrateCorrect()
       speak('¡Muy bien, Leo!', 'es-ES')
     } else {
       setWrongIdx(idx)
@@ -120,6 +124,7 @@ export function CuentoPlayer() {
 
   return (
     <Shell>
+      {overlays}
       <div className="mx-auto max-w-md pt-1">
         <PlayerHeader chapter={chapter} onExit={exit} />
 

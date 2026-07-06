@@ -5,8 +5,9 @@ import { Button } from '../../components/ui/Button'
 import { Pill } from '../../components/ui/Pill'
 import type { Chapter } from '../../content/schemas'
 
-/** Coins awarded for completing a non-graded / self-corrected day card. */
-export const CARD_COINS = 5
+// Re-exported from the shared economy so existing imports keep working while
+// `rewards.ts` stays the single source of truth for the coin economy (§5.8).
+export { CARD_COINS, awardCardCoins, coinsForCard } from './rewards'
 
 /** Shown by every player when there is no active card (e.g. after a reload). */
 export function NoCard() {

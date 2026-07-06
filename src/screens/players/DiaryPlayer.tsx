@@ -11,7 +11,9 @@ import { Shell } from '../../components/Shell'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
 import { Celebration } from '../../components/Celebration'
-import { NoCard, PlayerHeader, IntroRow, CARD_COINS } from './playerChrome'
+import { NoCard, PlayerHeader, IntroRow } from './playerChrome'
+import { awardCardCoins } from './rewards'
+import { useCelebrations } from './useCelebrations'
 
 const AUTOSAVE_MS = 1200
 
@@ -32,7 +34,7 @@ export function DiaryPlayer() {
   const recordAttempt = useProgressStore((s) => s.recordAttempt)
   const markCardComplete = useProgressStore((s) => s.markCardComplete)
   const addDiaryEntry = useProgressStore((s) => s.addDiaryEntry)
-  const addCoins = useProgressStore((s) => s.addCoins)
+  const { overlays, settleAttempt } = useCelebrations()
 
   const chapter = useMemo(
     () => (chapterId ? CHAPTERS.find((c) => c.id === chapterId) : undefined) ?? chapterForDate(CHAPTERS, todayISO()),
@@ -85,13 +87,15 @@ export function DiaryPlayer() {
       difficulty: 1,
     })
     markCardComplete(profile, todayISO(), 'diario')
-    addCoins(profile, CARD_COINS)
+    awardCardCoins(profile, card.challenge)
+    settleAttempt(profile)
     setSaved(true)
   }
 
   if (saved) {
     return (
       <Shell>
+        {overlays}
         <div className="mx-auto max-w-md pt-1">
           <PlayerHeader chapter={chapter} onExit={exit} />
           <Card accent="#8b5cf6">

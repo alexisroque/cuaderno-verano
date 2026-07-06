@@ -236,6 +236,65 @@ describe('composeDay', () => {
   })
 })
 
+describe('sabias-que wires english readings into daily play', () => {
+  const reading = (id: string) => ({
+    id,
+    title: id,
+    sentences: ['One.', 'Two.'],
+    questions: [
+      { q: 'literal?', choices: ['a', 'b', 'c', 'd'], correctIdx: 0, kind: 'literal' as const },
+      { q: 'why?', choices: ['a', 'b', 'c', 'd'], correctIdx: 0, kind: 'reflexiva' as const },
+    ],
+  })
+  const withReadings = () =>
+    bundle({ englishReadings: [reading('read-1'), reading('read-2'), reading('read-3')] })
+
+  it('falls back to only curiosityId when the bundle has no english readings', () => {
+    const day = composeDay('2026-07-16', 'aira', progress(), bundle(), settings(), {})
+    const sabiasQue = day.cards.find((c) => c.cardType === 'sabias-que')
+    expect(sabiasQue?.contentRef?.readingId).toBeUndefined()
+    expect(sabiasQue?.contentRef?.curiosityId).toBeDefined()
+  })
+
+  it('surfaces an english reading (with reflexiva questions) on some days when readings exist', () => {
+    // Sweep a month: with a 1-in-3 seeded rate, at least one day must serve a reading.
+    let readingDays = 0
+    let curiosityDays = 0
+    for (let d = 1; d <= 28; d++) {
+      const dateISO = `2026-07-${String(d).padStart(2, '0')}`
+      const day = composeDay(dateISO, 'aira', progress(), withReadings(), settings(), {})
+      const sabiasQue = day.cards.find((c) => c.cardType === 'sabias-que')
+      if (sabiasQue?.contentRef?.readingId) readingDays++
+      if (sabiasQue?.contentRef?.curiosityId) curiosityDays++
+    }
+    expect(readingDays).toBeGreaterThan(0)
+    expect(curiosityDays).toBeGreaterThan(0)
+  })
+
+  it('is deterministic: the same day yields the same sabias-que ref with readings present', () => {
+    const a = composeDay('2026-07-20', 'aira', progress(), withReadings(), settings(), {})
+    const b = composeDay('2026-07-20', 'aira', progress(), withReadings(), settings(), {})
+    const refA = a.cards.find((c) => c.cardType === 'sabias-que')?.contentRef
+    const refB = b.cards.find((c) => c.cardType === 'sabias-que')?.contentRef
+    expect(refA).toEqual(refB)
+  })
+
+  it('avoids re-serving a consumed reading', () => {
+    const consumed = progress({ consumedContent: { englishReadings: ['read-1', 'read-2'] } })
+    // Find a day that serves a reading, then assert it is the only unconsumed one.
+    for (let d = 1; d <= 28; d++) {
+      const dateISO = `2026-07-${String(d).padStart(2, '0')}`
+      const day = composeDay(dateISO, 'aira', consumed, withReadings(), settings(), {})
+      const readingId = day.cards.find((c) => c.cardType === 'sabias-que')?.contentRef?.readingId
+      if (readingId) {
+        expect(readingId).toBe('read-3')
+        return
+      }
+    }
+    throw new Error('expected at least one reading day in the sweep')
+  })
+})
+
 describe('desafio surprise injects a challenge card', () => {
   const AIRA_CHALLENGE_SUBSKILLS = new Set([
     'fracciones',

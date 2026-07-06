@@ -14,6 +14,7 @@ import { ParentArea } from './screens/ParentArea'
 import { ProblemPlayer } from './screens/players/ProblemPlayer'
 import { DictationPlayer } from './screens/players/DictationPlayer'
 import { ReadingPlayer } from './screens/players/ReadingPlayer'
+import { QuizPlayer } from './screens/players/QuizPlayer'
 import { DiaryPlayer } from './screens/players/DiaryPlayer'
 import { TracingPlayer } from './screens/players/TracingPlayer'
 import { CountingPlayer } from './screens/players/CountingPlayer'
@@ -49,6 +50,7 @@ export const routeConfig: RouteObject[] = [
       { path: '/jugar/problema', element: <ProblemPlayer /> },
       { path: '/jugar/dictado', element: <DictationPlayer /> },
       { path: '/jugar/sabias-que', element: <ReadingPlayer /> },
+      { path: '/jugar/quiz', element: <QuizPlayer /> },
       { path: '/jugar/diario', element: <DiaryPlayer /> },
       { path: '/jugar/trazos', element: <TracingPlayer /> },
       { path: '/jugar/contar', element: <CountingPlayer /> },

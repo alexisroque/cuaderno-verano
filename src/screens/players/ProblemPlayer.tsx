@@ -20,6 +20,8 @@ import { NumberPad } from '../../components/ui/NumberPad'
 import { Visual } from '../../components/visuals/Visual'
 import { Celebration } from '../../components/Celebration'
 import { StrategyViewer } from '../../components/StrategyViewer'
+import { awardCardCoins } from './rewards'
+import { useCelebrations } from './useCelebrations'
 import {
   initFlow,
   submitAnswer,
@@ -62,6 +64,7 @@ export function ProblemPlayer() {
   const clearActiveCard = usePlayerStore((s) => s.clearActiveCard)
   const recordAttempt = useProgressStore((s) => s.recordAttempt)
   const markCardComplete = useProgressStore((s) => s.markCardComplete)
+  const { overlays, celebrateCorrect, settleAttempt } = useCelebrations()
 
   const chapter = chapterById(chapterId)
   const mascot = chapter.mascot
@@ -108,12 +111,18 @@ export function ProblemPlayer() {
       difficulty: exercise.difficulty,
     })
     markCardComplete(profile, todayISO(), card.cardType)
+    // Standardized coin economy (§5.8): ProblemPlayer previously awarded none.
+    awardCardCoins(profile, card.challenge)
+    settleAttempt(profile)
   }
 
   const handleSubmit = (given: string | number) => {
     const next = submitAnswer(flow, exercise.answer, given)
     setFlow(next)
-    if (next.step === 'solved') record(true, next.hintsUsed)
+    if (next.step === 'solved') {
+      celebrateCorrect()
+      record(true, next.hintsUsed)
+    }
     if (next.step === 'revealed') record(false, next.hintsUsed)
     setEntry('')
   }
@@ -128,6 +137,7 @@ export function ProblemPlayer() {
 
   return (
     <Shell>
+      {overlays}
       <div className="mx-auto max-w-md pt-1">
         <div className="mb-3 flex items-center justify-between gap-2">
           <button type="button" onClick={finish} className="text-sm font-bold" style={{ color: 'var(--ink-soft)' }}>

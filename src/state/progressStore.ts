@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { Attempt, DiaryEntry, ProfileProgress } from '../types/progress'
+import type { Attempt, DiaryEntry, PlacedSticker, ProfileProgress } from '../types/progress'
 import type { ProfileId } from './profileStore'
 import { createDebouncedPersist, loadState } from '../lib/storage'
 import { ProfileProgressSchema } from './persistSchemas'
@@ -39,6 +39,21 @@ interface ProgressStoreState {
    * re-serving it (episodes, curiosities, diaryPrompts…). Idempotent.
    */
   markConsumed: (profile: ProfileId, poolKey: string, id: string) => void
+  /**
+   * Sets a skill's gem to `level`/`progress` (creating it if absent). Used
+   * after a level-up check fires and by the progress recompute. Never called
+   * with a lower level than the current one by callers (checkLevelUp only
+   * steps up), but the setter itself is unconditional.
+   */
+  setGem: (profile: ProfileId, skillId: string, level: number, progress: number) => void
+  /** Places (or repositions, by stickerId) a sticker on the current chapter mural. */
+  placeSticker: (profile: ProfileId, sticker: PlacedSticker) => void
+  /** Grants a sticker to the inventory as an unplaced entry (x/y = -1) if not already present. */
+  grantSticker: (profile: ProfileId, stickerId: string, chapterId: string) => void
+  /** Adds a passport stamp id (idempotent). */
+  addStamp: (profile: ProfileId, stampId: string) => void
+  /** Unlocks a treasure id in exchange for coins already validated by the caller (idempotent). */
+  unlockTreasure: (profile: ProfileId, treasureId: string) => void
 }
 
 const persisters: Record<ProfileId, ReturnType<typeof createDebouncedPersist>> = {
@@ -110,6 +125,53 @@ export const useProgressStore = create<ProgressStoreState>((set, get) => ({
         ...current,
         consumedContent: { ...current.consumedContent, [poolKey]: [...forPool, id] },
       }
+      return { profiles: { ...state.profiles, [profile]: updated } }
+    })
+    persisters[profile].schedule()
+  },
+  setGem: (profile, skillId, level, progress) => {
+    set((state) => {
+      const current = state.profiles[profile]
+      const updated = {
+        ...current,
+        gems: { ...current.gems, [skillId]: { skillId, level, progress } },
+      }
+      return { profiles: { ...state.profiles, [profile]: updated } }
+    })
+    persisters[profile].schedule()
+  },
+  placeSticker: (profile, sticker) => {
+    set((state) => {
+      const current = state.profiles[profile]
+      const rest = current.stickers.filter((s) => s.stickerId !== sticker.stickerId)
+      const updated = { ...current, stickers: [...rest, sticker] }
+      return { profiles: { ...state.profiles, [profile]: updated } }
+    })
+    persisters[profile].schedule()
+  },
+  grantSticker: (profile, stickerId, chapterId) => {
+    set((state) => {
+      const current = state.profiles[profile]
+      if (current.stickers.some((s) => s.stickerId === stickerId)) return state
+      const updated = { ...current, stickers: [...current.stickers, { stickerId, x: -1, y: -1, chapterId }] }
+      return { profiles: { ...state.profiles, [profile]: updated } }
+    })
+    persisters[profile].schedule()
+  },
+  addStamp: (profile, stampId) => {
+    set((state) => {
+      const current = state.profiles[profile]
+      if (current.passportStamps.includes(stampId)) return state
+      const updated = { ...current, passportStamps: [...current.passportStamps, stampId] }
+      return { profiles: { ...state.profiles, [profile]: updated } }
+    })
+    persisters[profile].schedule()
+  },
+  unlockTreasure: (profile, treasureId) => {
+    set((state) => {
+      const current = state.profiles[profile]
+      if (current.unlockedTreasures.includes(treasureId)) return state
+      const updated = { ...current, unlockedTreasures: [...current.unlockedTreasures, treasureId] }
       return { profiles: { ...state.profiles, [profile]: updated } }
     })
     persisters[profile].schedule()

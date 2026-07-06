@@ -159,7 +159,28 @@ function buildProblemaCard(
   return { cardType: 'problema', subskill: subskillId, generatorSeed: seed, difficulty }
 }
 
+/**
+ * Builds the `sabias-que` card. It rotates between two kinds of reading so
+ * Aira's English mini-readings (each carrying a reflexiva comprehension
+ * question) actually surface in daily play (Task 5.7, closing a 5.5 gap):
+ * - On roughly 1 day in 3 (seeded via `rng`) it serves the next unconsumed
+ *   `english-reading` (contentRef.readingId), which the ReadingPlayer renders
+ *   with its literal + reflexiva questions.
+ * - Otherwise, or if no unconsumed reading is available, it serves the next
+ *   unconsumed curiosity (contentRef.curiosityId), preserving the original
+ *   behavior when `content.englishReadings` is absent/empty.
+ * The choice is fully deterministic (same seed → same card), so composeDay's
+ * "same inputs → deep-equal page" invariant still holds.
+ */
 function buildSabiasQueCard(rng: Rng, content: ContentBundle, progress: ProfileProgress, seed: string): CardDescriptor {
+  const readings = content.englishReadings ?? []
+  const preferReading = readings.length > 0 && rng.chance(1 / 3)
+  if (preferReading) {
+    const reading = pickUnconsumed(rng, readings, consumedIds(progress, 'englishReadings'))
+    if (reading) {
+      return { cardType: 'sabias-que', contentRef: { readingId: reading.id }, generatorSeed: seed }
+    }
+  }
   const picked = pickUnconsumed(rng, content.curiosities, consumedIds(progress, 'curiosities'))
   return { cardType: 'sabias-que', contentRef: picked ? { curiosityId: picked.id } : undefined, generatorSeed: seed }
 }

@@ -14,7 +14,9 @@ import { Shell } from '../../components/Shell'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
 import { Celebration } from '../../components/Celebration'
-import { NoCard, PlayerHeader, IntroRow, CARD_COINS } from './playerChrome'
+import { NoCard, PlayerHeader, IntroRow } from './playerChrome'
+import { awardCardCoins } from './rewards'
+import { useCelebrations } from './useCelebrations'
 import { DiffReview } from './DiffReview'
 
 /** Card language ('ca'|'es') -> BCP-47 tag the TTS wrapper speaks. */
@@ -50,7 +52,7 @@ export function DictationPlayer() {
   const recordAttempt = useProgressStore((s) => s.recordAttempt)
   const markCardComplete = useProgressStore((s) => s.markCardComplete)
   const markConsumed = useProgressStore((s) => s.markConsumed)
-  const addCoins = useProgressStore((s) => s.addCoins)
+  const { overlays, celebrateCorrect, settleAttempt } = useCelebrations()
 
   const [text, setText] = useState('')
   const [diff, setDiff] = useState<TextDiff | null>(null)
@@ -130,11 +132,14 @@ export function DictationPlayer() {
     const poolKey = resolved.kind === 'joke' ? 'jokes' : 'episodes'
     markConsumed(profile, poolKey, resolved.consumeId)
     markCardComplete(profile, todayISO(), 'dictado')
-    addCoins(profile, CARD_COINS)
+    awardCardCoins(profile, card.challenge)
+    if (correct) celebrateCorrect()
+    settleAttempt(profile)
   }
 
   return (
     <Shell>
+      {overlays}
       <div className="mx-auto max-w-md pt-1">
         <PlayerHeader chapter={chapter} onExit={exit} />
 

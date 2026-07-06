@@ -55,6 +55,47 @@
   }
 }
 
+/* Manga burst (5.8): radial speed-lines shoot outward, onomatopoeia pops. */
+@keyframes manga-ray {
+  0% {
+    opacity: 0.95;
+    transform: rotate(var(--rot, 0deg)) scaleY(0.2);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--rot, 0deg)) scaleY(1);
+  }
+}
+
+@keyframes manga-word {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) rotate(-8deg);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.25) rotate(3deg);
+  }
+  100% {
+    transform: scale(1) rotate(-2deg);
+  }
+}
+
+/* Gem level-up takeover: rays sweep, then fade. */
+@keyframes levelup-shine {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--rot, 0deg)) scaleY(0.3);
+  }
+  40% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--rot, 0deg)) scaleY(1.4);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-\[fadeIn_\.35s_ease-out\],
   .animate-\[pop-in_\.45s_ease-out\] {
