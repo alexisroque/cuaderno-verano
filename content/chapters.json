@@ -1,0 +1,278 @@
+[
+  {
+    "id": "preparativos",
+    "title": "Preparativos",
+    "emoji": "🧳",
+    "dateStart": "2026-06-29",
+    "dateEnd": "2026-07-12",
+    "place": "Barcelona",
+    "mascot": { "id": "kiko", "name": "Kiko el gato explorador", "emoji": "🐱" },
+    "flavor": {
+      "currency": "euro (EUR)",
+      "landmarks": ["El aeropuerto de El Prat", "La maleta grande", "El mapa del mundo", "La lista de viaje"],
+      "animals": ["Kiko el gato", "Las palomas del barrio", "El pez de la pecera", "El perro del vecino"],
+      "foods": ["Bocadillo de tortilla", "Fruta para el avión", "Galletas de despedida", "Agua para el viaje"]
+    },
+    "stickers": [
+      { "id": "preparativos-maleta", "emoji": "🧳", "name": "Maleta lista" },
+      { "id": "preparativos-pasaporte", "emoji": "📔", "name": "Pasaporte" },
+      { "id": "preparativos-mapa", "emoji": "🗺️", "name": "Mapa del viaje" },
+      { "id": "preparativos-avion", "emoji": "✈️", "name": "Billete de avión" },
+      { "id": "preparativos-camara", "emoji": "📷", "name": "Cámara de fotos" },
+      { "id": "preparativos-gafas", "emoji": "🕶️", "name": "Gafas de sol" },
+      { "id": "preparativos-crema", "emoji": "🧴", "name": "Crema solar" },
+      { "id": "preparativos-libreta", "emoji": "📓", "name": "Libreta de viaje" },
+      { "id": "preparativos-km", "emoji": "📏", "name": "29.422 km por recorrer" },
+      { "id": "preparativos-vuelos", "emoji": "🛫", "name": "7 vuelos por delante" },
+      { "id": "preparativos-kiko", "emoji": "🐱", "name": "Kiko explorador" },
+      { "id": "preparativos-reloj", "emoji": "⏰", "name": "Cuenta atrás" }
+    ]
+  },
+  {
+    "id": "vuelo",
+    "title": "En ruta",
+    "emoji": "✈️",
+    "dateStart": "2026-07-12",
+    "dateEnd": "2026-07-13",
+    "place": "En ruta",
+    "mascot": { "id": "kiko", "name": "Kiko el gato explorador", "emoji": "🐱" },
+    "flavor": {
+      "currency": "euro (EUR)",
+      "landmarks": ["Vuelo SQ387 BCN-SIN", "Las nubes sobre el mar", "El asiento de ventanilla", "La pantalla del mapa de vuelo"],
+      "animals": ["Kiko el gato", "Las gaviotas del aeropuerto"],
+      "foods": ["Bandeja de comida de avión", "Zumo de naranja", "Galletas de a bordo", "Agua embotellada"]
+    },
+    "stickers": [
+      { "id": "vuelo-despegue", "emoji": "🛫", "name": "Despegue" },
+      { "id": "vuelo-nube", "emoji": "☁️", "name": "Entre las nubes" },
+      { "id": "vuelo-noche", "emoji": "🌙", "name": "Vuelo nocturno" },
+      { "id": "vuelo-13h", "emoji": "⏱️", "name": "13 horas y 15 minutos" },
+      { "id": "vuelo-directo", "emoji": "➡️", "name": "Vuelo directo" },
+      { "id": "vuelo-zonas", "emoji": "🌍", "name": "+6 horas de zona" },
+      { "id": "vuelo-estrellas", "emoji": "✨", "name": "Estrellas desde el cielo" },
+      { "id": "vuelo-aterrizaje", "emoji": "🛬", "name": "Aterrizaje en Singapur" },
+      { "id": "vuelo-pasaporte", "emoji": "📔", "name": "Sello de pasaporte" },
+      { "id": "vuelo-ventanilla", "emoji": "🪟", "name": "Vista de ventanilla" }
+    ]
+  },
+  {
+    "id": "singapur",
+    "title": "Singapur",
+    "emoji": "🇸🇬",
+    "dateStart": "2026-07-13",
+    "dateEnd": "2026-07-15",
+    "place": "Singapur",
+    "mascot": { "id": "mer", "name": "Mer la leona marina", "emoji": "🦁" },
+    "flavor": {
+      "currency": "dólar de Singapur (SGD)",
+      "landmarks": ["El Merlión", "Marina Bay Sands", "Gardens by the Bay", "Los hawker centers"],
+      "animals": ["Mer la leona marina", "Los peces de Gardens by the Bay", "Las aves del jardín", "Las mariposas del parque"],
+      "foods": ["Chicken rice", "Satay", "Laksa", "Kaya toast"]
+    },
+    "stickers": [
+      { "id": "singapur-merlion", "emoji": "🦁", "name": "El Merlión" },
+      { "id": "singapur-marina", "emoji": "🌆", "name": "Marina Bay" },
+      { "id": "singapur-jardines", "emoji": "🌳", "name": "Gardens by the Bay" },
+      { "id": "singapur-hawker", "emoji": "🍲", "name": "Hawker center" },
+      { "id": "singapur-pollo", "emoji": "🍗", "name": "Chicken rice" },
+      { "id": "singapur-satay", "emoji": "🍢", "name": "Satay" },
+      { "id": "singapur-mrt", "emoji": "🚇", "name": "El MRT" },
+      { "id": "singapur-dolar", "emoji": "💵", "name": "Dólar de Singapur" },
+      { "id": "singapur-chicle", "emoji": "🚫", "name": "Ley del chicle" },
+      { "id": "singapur-luces", "emoji": "💡", "name": "Luces de Supertree Grove" },
+      { "id": "singapur-noche", "emoji": "🌃", "name": "Singapur de noche" }
+    ]
+  },
+  {
+    "id": "borneo-sepilok",
+    "title": "Sepilok, Borneo",
+    "emoji": "🦧",
+    "dateStart": "2026-07-15",
+    "dateEnd": "2026-07-17",
+    "place": "Sepilok, Borneo",
+    "mascot": { "id": "tang", "name": "Tang la orangutana", "emoji": "🦧" },
+    "flavor": {
+      "currency": "ringgit malasio (MYR)",
+      "landmarks": ["El centro de rehabilitación de orangutanes", "El centro de osos malayos", "La selva de Sepilok", "La pasarela entre copas de árboles"],
+      "animals": ["Tang la orangutana", "Osos malayos (sun bears)", "Calaos de la selva", "Ardillas voladoras"],
+      "foods": ["Arroz con curry malayo", "Fruta tropical", "Roti canai", "Agua de coco"]
+    },
+    "stickers": [
+      { "id": "sepilok-orangutan", "emoji": "🦧", "name": "Orangután salvaje" },
+      { "id": "sepilok-oso", "emoji": "🐻", "name": "Oso malayo" },
+      { "id": "sepilok-selva", "emoji": "🌴", "name": "Selva de Borneo" },
+      { "id": "sepilok-pasarela", "emoji": "🌉", "name": "Pasarela en las copas" },
+      { "id": "sepilok-cria", "emoji": "🍼", "name": "Cría rescatada" },
+      { "id": "sepilok-ringgit", "emoji": "💰", "name": "Ringgit malasio" },
+      { "id": "sepilok-lluvia", "emoji": "🌧️", "name": "Lluvia tropical" },
+      { "id": "sepilok-hoja", "emoji": "🍃", "name": "Hoja gigante" },
+      { "id": "sepilok-guia", "emoji": "🧭", "name": "Guía de la selva" },
+      { "id": "sepilok-nido", "emoji": "🪹", "name": "Nido de orangután" }
+    ]
+  },
+  {
+    "id": "borneo-kinabatangan",
+    "title": "Río Kinabatangan",
+    "emoji": "🌿",
+    "dateStart": "2026-07-17",
+    "dateEnd": "2026-07-20",
+    "place": "Río Kinabatangan, Borneo",
+    "mascot": { "id": "tang", "name": "Tang la orangutana", "emoji": "🦧" },
+    "flavor": {
+      "currency": "ringgit malasio (MYR)",
+      "landmarks": ["El río Kinabatangan", "El bosque inundado", "El embarcadero del safari", "El campamento en la selva"],
+      "animals": ["Monos narigudos (proboscis)", "Elefantes pigmeos de Borneo", "Cocodrilos del río", "Calaos rinoceronte"],
+      "foods": ["Arroz con pescado del río", "Fideos malayos", "Fruta rambután", "Té helado local"]
+    },
+    "stickers": [
+      { "id": "kinabatangan-barco", "emoji": "🛶", "name": "Safari fluvial" },
+      { "id": "kinabatangan-narigudo", "emoji": "🐒", "name": "Mono narigudo" },
+      { "id": "kinabatangan-elefante", "emoji": "🐘", "name": "Elefante pigmeo" },
+      { "id": "kinabatangan-cocodrilo", "emoji": "🐊", "name": "Cocodrilo del río" },
+      { "id": "kinabatangan-calao", "emoji": "🦤", "name": "Calao rinoceronte" },
+      { "id": "kinabatangan-atardecer", "emoji": "🌅", "name": "Atardecer en el río" },
+      { "id": "kinabatangan-linterna", "emoji": "🔦", "name": "Safari nocturno" },
+      { "id": "kinabatangan-mangle", "emoji": "🌱", "name": "Bosque de manglar" },
+      { "id": "kinabatangan-serpiente", "emoji": "🐍", "name": "Serpiente arbórea" },
+      { "id": "kinabatangan-luciernaga", "emoji": "✨", "name": "Luciérnagas" }
+    ]
+  },
+  {
+    "id": "kuala-lumpur",
+    "title": "Kuala Lumpur",
+    "emoji": "🇲🇾",
+    "dateStart": "2026-07-20",
+    "dateEnd": "2026-07-24",
+    "place": "Kuala Lumpur",
+    "mascot": { "id": "rimau", "name": "Rimau el tigre", "emoji": "🐯" },
+    "flavor": {
+      "currency": "ringgit malasio (MYR)",
+      "landmarks": ["Las Torres Petronas", "Jalan Alor", "El mercado central", "La mezquita Jamek"],
+      "animals": ["Rimau el tigre", "Los murciélagos de las cuevas Batu", "Los monos de las cuevas Batu", "Aves del parque de la ciudad"],
+      "foods": ["Satay", "Nasi lemak", "Roti canai", "Teh tarik"]
+    },
+    "stickers": [
+      { "id": "kl-petronas", "emoji": "🏙️", "name": "Torres Petronas" },
+      { "id": "kl-jalanalor", "emoji": "🍜", "name": "Jalan Alor" },
+      { "id": "kl-satay", "emoji": "🍢", "name": "Satay de Kuala Lumpur" },
+      { "id": "kl-nasilemak", "emoji": "🍛", "name": "Nasi lemak" },
+      { "id": "kl-mrt", "emoji": "🚈", "name": "MRT de Kuala Lumpur" },
+      { "id": "kl-ringgit", "emoji": "💵", "name": "Ringgit malasio" },
+      { "id": "kl-batu", "emoji": "🕌", "name": "Cuevas Batu" },
+      { "id": "kl-tigre", "emoji": "🐯", "name": "Rimau el tigre" },
+      { "id": "kl-mercado", "emoji": "🛍️", "name": "Mercado central" },
+      { "id": "kl-altura", "emoji": "📏", "name": "452 metros de altura" },
+      { "id": "kl-noche", "emoji": "🌃", "name": "Skyline nocturno" }
+    ]
+  },
+  {
+    "id": "ubud",
+    "title": "Ubud, Bali",
+    "emoji": "🌾",
+    "dateStart": "2026-07-24",
+    "dateEnd": "2026-07-27",
+    "place": "Ubud, Bali",
+    "mascot": { "id": "ketut", "name": "Ketut el mono", "emoji": "🐒" },
+    "flavor": {
+      "currency": "rupia indonesia (IDR)",
+      "landmarks": ["Los arrozales de Tegalalang", "El Templo de Tirta Empul", "El Monkey Forest", "El mercado de Ubud"],
+      "animals": ["Ketut el mono", "Los monos del Monkey Forest", "Patos de los arrozales", "Libélulas del campo"],
+      "foods": ["Nasi goreng", "Mie goreng", "Sate lilit", "Fruta de dragón"]
+    },
+    "stickers": [
+      { "id": "ubud-arrozales", "emoji": "🌾", "name": "Arrozales en terrazas" },
+      { "id": "ubud-templo", "emoji": "⛩️", "name": "Templo de agua" },
+      { "id": "ubud-mono", "emoji": "🐒", "name": "Monkey Forest" },
+      { "id": "ubud-rupia", "emoji": "💰", "name": "Rupia indonesia" },
+      { "id": "ubud-mercado", "emoji": "🛍️", "name": "Mercado de Ubud" },
+      { "id": "ubud-ofrenda", "emoji": "🌸", "name": "Ofrenda balinesa" },
+      { "id": "ubud-nasigoreng", "emoji": "🍚", "name": "Nasi goreng" },
+      { "id": "ubud-horafutura", "emoji": "🕐", "name": "Una hora más" },
+      { "id": "ubud-bicicleta", "emoji": "🚲", "name": "Paseo en bici" },
+      { "id": "ubud-cascada", "emoji": "💦", "name": "Cascada escondida" }
+    ]
+  },
+  {
+    "id": "gili-air",
+    "title": "Gili Air",
+    "emoji": "🐢",
+    "dateStart": "2026-07-27",
+    "dateEnd": "2026-07-29",
+    "place": "Gili Air",
+    "mascot": { "id": "bulan", "name": "Bulan la tortuga", "emoji": "🐢" },
+    "flavor": {
+      "currency": "rupia indonesia (IDR)",
+      "landmarks": ["La playa de Gili Air", "El sendero sin coches", "El muelle de llegada", "El arrecife de coral"],
+      "animals": ["Bulan la tortuga verde", "Peces de colores del arrecife", "Gatos de la isla", "Aves marinas"],
+      "foods": ["Pescado a la parrilla", "Fruta fresca de puesto", "Agua de coco", "Nasi campur"]
+    },
+    "stickers": [
+      { "id": "gili-tortuga", "emoji": "🐢", "name": "Tortuga verde" },
+      { "id": "gili-cidomo", "emoji": "🐴", "name": "Cidomo (carro de caballo)" },
+      { "id": "gili-ferry", "emoji": "⛴️", "name": "Ferry entre islas" },
+      { "id": "gili-snorkel", "emoji": "🤿", "name": "Snorkel en el arrecife" },
+      { "id": "gili-sincoches", "emoji": "🚫", "name": "Isla sin coches" },
+      { "id": "gili-arena", "emoji": "🏝️", "name": "Arena blanca" },
+      { "id": "gili-pez", "emoji": "🐠", "name": "Peces de colores" },
+      { "id": "gili-coco", "emoji": "🥥", "name": "Agua de coco" },
+      { "id": "gili-atardecer", "emoji": "🌅", "name": "Atardecer en Gili" },
+      { "id": "gili-bicicleta", "emoji": "🚲", "name": "Bici por la isla" }
+    ]
+  },
+  {
+    "id": "sanur",
+    "title": "Sanur, Bali",
+    "emoji": "🏖️",
+    "dateStart": "2026-07-29",
+    "dateEnd": "2026-08-05",
+    "place": "Sanur, Bali",
+    "mascot": { "id": "bulan", "name": "Bulan la tortuga", "emoji": "🐢" },
+    "flavor": {
+      "currency": "rupia indonesia (IDR)",
+      "landmarks": ["La playa de Sanur", "El paseo marítimo", "Waterbom Bali", "Nusa Penida"],
+      "animals": ["Bulan la tortuga", "Mantarrayas de Nusa Penida", "Peces payaso", "Aves de la costa"],
+      "foods": ["Babi guling (versión sin cerdo para peques)", "Gado-gado", "Batidos de fruta", "Nasi campur"]
+    },
+    "stickers": [
+      { "id": "sanur-playa", "emoji": "🏖️", "name": "Playa de Sanur" },
+      { "id": "sanur-fastboat", "emoji": "🚤", "name": "Fast boat" },
+      { "id": "sanur-waterbom", "emoji": "🎢", "name": "Waterbom Bali" },
+      { "id": "sanur-nusapenida", "emoji": "🏞️", "name": "Nusa Penida" },
+      { "id": "sanur-manta", "emoji": "🦈", "name": "Manta raya" },
+      { "id": "sanur-paseo", "emoji": "🚶", "name": "Paseo marítimo" },
+      { "id": "sanur-batido", "emoji": "🥤", "name": "Batido de fruta" },
+      { "id": "sanur-toro", "emoji": "🐂", "name": "Barca jukung" },
+      { "id": "sanur-sol", "emoji": "☀️", "name": "Sol de Bali" },
+      { "id": "sanur-despedida", "emoji": "👋", "name": "Despedida de Bali" }
+    ]
+  },
+  {
+    "id": "verano-en-casa",
+    "title": "De vuelta",
+    "emoji": "🏡",
+    "dateStart": "2026-08-05",
+    "dateEnd": "2026-09-13",
+    "place": "Casa",
+    "mascot": { "id": "kiko", "name": "Kiko el gato explorador", "emoji": "🐱" },
+    "flavor": {
+      "currency": "euro (EUR)",
+      "landmarks": ["La playa de aquí", "La casa de los abuelos", "El chiringuito", "El mercado del pueblo"],
+      "animals": ["Kiko el gato", "Gaviotas de la playa", "Perros del parque", "Peces de la pescadería"],
+      "foods": ["Helado de verano", "Bocadillo de tortilla", "Sandía", "Paella de los abuelos"]
+    },
+    "stickers": [
+      { "id": "casa-playa", "emoji": "🏖️", "name": "Playa de aquí" },
+      { "id": "casa-abuelos", "emoji": "👴", "name": "Casa de los abuelos" },
+      { "id": "casa-helado", "emoji": "🍦", "name": "Helado de verano" },
+      { "id": "casa-chiringuito", "emoji": "🍹", "name": "Chiringuito" },
+      { "id": "casa-mercado", "emoji": "🧺", "name": "Mercado del pueblo" },
+      { "id": "casa-sandia", "emoji": "🍉", "name": "Sandía fresca" },
+      { "id": "casa-bici", "emoji": "🚲", "name": "Bici por el barrio" },
+      { "id": "casa-amigos", "emoji": "🧑‍🤝‍🧑", "name": "Amigos de siempre" },
+      { "id": "casa-atardecer", "emoji": "🌇", "name": "Atardecer en casa" },
+      { "id": "casa-kiko", "emoji": "🐱", "name": "Kiko de vuelta" },
+      { "id": "casa-diario", "emoji": "📖", "name": "Diario del verano" },
+      { "id": "casa-cole", "emoji": "🎒", "name": "Vuelta al cole a la vista" }
+    ]
+  }
+]

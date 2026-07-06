@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest run",
+    "pretest": "npm run validate:content",
     "validate:content": "tsx scripts/validate-content.ts"
   },
   "dependencies": {
