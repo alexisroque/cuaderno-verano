@@ -85,6 +85,32 @@ export function stopSpeaking(): void {
 }
 
 /**
+ * Resolves once the browser's voice list is populated (or immediately if it
+ * already is). On iOS/Safari `getVoices()` is empty until a `voiceschanged`
+ * event fires shortly after load, so callers that need an accurate voice
+ * inventory (e.g. the Catalan-voice nudge) should await this first. Resolves
+ * after `timeoutMs` regardless, so a browser that never fires the event can't
+ * hang the caller. No-op-resolves when synthesis is unavailable.
+ */
+export function waitForVoices(timeoutMs = 2000): Promise<void> {
+  const s = synth()
+  if (!s) return Promise.resolve()
+  if (s.getVoices().length > 0) return Promise.resolve()
+
+  return new Promise((resolve) => {
+    let done = false
+    const finish = () => {
+      if (done) return
+      done = true
+      s.removeEventListener?.('voiceschanged', finish)
+      resolve()
+    }
+    s.addEventListener?.('voiceschanged', finish)
+    setTimeout(finish, timeoutMs)
+  })
+}
+
+/**
  * Reports which language families have a usable local voice right now. Useful
  * for hiding 🔊 affordances when the device can't speak a given language.
  */

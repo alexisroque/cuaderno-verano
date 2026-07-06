@@ -1,16 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="96" fill="#fdf6f0"/>
+  <!-- Full-bleed peach background for maskable safe zone -->
+  <rect width="512" height="512" fill="#fdf6f0"/>
+  <!-- Sun in the corner -->
   <circle cx="398" cy="118" r="46" fill="#ffd93d"/>
   <g stroke="#ffd93d" stroke-width="10" stroke-linecap="round">
     <line x1="398" y1="44" x2="398" y2="20"/>
     <line x1="452" y1="64" x2="470" y2="46"/>
     <line x1="472" y1="118" x2="496" y2="118"/>
   </g>
+  <!-- Suitcase / notebook body (centered, within ~66% safe zone) -->
   <g transform="translate(256 272)">
+    <!-- handle -->
     <rect x="-42" y="-150" width="84" height="46" rx="22" fill="none" stroke="#c26a4c" stroke-width="18"/>
+    <!-- case -->
     <rect x="-128" y="-116" width="256" height="212" rx="34" fill="#f4a988"/>
     <rect x="-128" y="-116" width="256" height="212" rx="34" fill="none" stroke="#c26a4c" stroke-width="10"/>
+    <!-- middle strap -->
     <rect x="-128" y="-24" width="256" height="26" fill="#ffe8d6"/>
+    <!-- clasp -->
     <rect x="-22" y="-32" width="44" height="42" rx="10" fill="#ffd93d" stroke="#c26a4c" stroke-width="8"/>
+    <!-- travel sticker star -->
+    <text x="-84" y="76" font-size="52" text-anchor="middle" font-family="Arial, sans-serif">✦</text>
+    <text x="80" y="-56" font-size="44" text-anchor="middle" font-family="Arial, sans-serif" fill="#1e3a5f">♥</text>
   </g>
 </svg>

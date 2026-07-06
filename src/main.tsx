@@ -4,9 +4,11 @@ import './styles/tokens.css'
 import App from './App.tsx'
 import { hydrateAll } from './state/hydrate.ts'
 import { registerFlushOnHide } from './state/flush.ts'
+import { boot } from './lib/boot.ts'
 
 await hydrateAll()
 registerFlushOnHide()
+boot()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
