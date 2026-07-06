@@ -18,6 +18,11 @@ const EXPECTED_SUBSKILLS = [
   'dinero',
   'tiempo',
   'medida',
+  'fracciones',
+  'decimales-dinero',
+  'hechos-derivados-dec',
+  'cuadrados',
+  'proporcionalidad',
 ]
 
 describe('aira generators index', () => {

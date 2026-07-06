@@ -16,6 +16,11 @@ import {
   tiempoGenerator,
   medidaGenerator,
 } from './wordProblems'
+import { fraccionesGenerator } from './fractions'
+import { decimalesDineroGenerator } from './decimalMoney'
+import { hechosDerivadosDecGenerator } from './derivedFacts'
+import { cuadradosGenerator } from './squares'
+import { proporcionalidadGenerator } from './proportionality'
 
 /**
  * Registers every Aira generator on import. Callers that need generators
@@ -38,6 +43,11 @@ registerGenerator(romanosGenerator)
 for (const gen of WORD_PROBLEM_GENERATORS) {
   registerGenerator(gen)
 }
+registerGenerator(fraccionesGenerator)
+registerGenerator(decimalesDineroGenerator)
+registerGenerator(hechosDerivadosDecGenerator)
+registerGenerator(cuadradosGenerator)
+registerGenerator(proporcionalidadGenerator)
 
 export {
   mult1CifraGenerator,
@@ -55,4 +65,9 @@ export {
   dineroGenerator,
   tiempoGenerator,
   medidaGenerator,
+  fraccionesGenerator,
+  decimalesDineroGenerator,
+  hechosDerivadosDecGenerator,
+  cuadradosGenerator,
+  proporcionalidadGenerator,
 }
