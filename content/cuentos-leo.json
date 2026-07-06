@@ -1,0 +1,169 @@
+[
+  {
+    "id": "cuento-01-tang-el-mango",
+    "title": "Tang y el mango dulce",
+    "sentences": [
+      "Tang la orangutana vive en un árbol muy alto.",
+      "Un día ve un mango grande y amarillo.",
+      "Tang estira su brazo largo para cogerlo.",
+      "¡Por fin lo alcanza y le da un mordisco muy dulce!"
+    ],
+    "question": { "q": "¿Qué fruta coge Tang?", "choices": ["Una manzana", "Un mango", "Un plátano", "Una fresa"], "correctIdx": 1 }
+  },
+  {
+    "id": "cuento-02-bulan-la-tortuguita",
+    "title": "Bulan, la pequeña tortuga de Gili",
+    "sentences": [
+      "Bulan es una tortuga pequeña que nace en la playa de Gili.",
+      "Con sus patitas, camina despacio hacia el mar.",
+      "Las olas la ayudan a nadar por primera vez.",
+      "Bulan mueve sus aletas y se siente muy feliz en el agua."
+    ],
+    "question": { "q": "¿A dónde camina Bulan?", "choices": ["Al bosque", "Al mar", "A la montaña", "A la ciudad"], "correctIdx": 1 }
+  },
+  {
+    "id": "cuento-03-el-tigre-perdido",
+    "title": "El tigrecito perdido",
+    "sentences": [
+      "Rimau, el pequeño tigre, se aleja jugando entre las flores.",
+      "De pronto no ve a su mamá y se pone un poco triste.",
+      "Rimau ruge suavecito para llamarla.",
+      "Su mamá lo escucha y viene corriendo a abrazarlo.",
+      "Los dos vuelven juntos a casa, muy contentos."
+    ],
+    "question": { "q": "¿Cómo llama Rimau a su mamá?", "choices": ["Cantando", "Rugiendo suavecito", "Silbando", "Llorando fuerte"], "correctIdx": 1 }
+  },
+  {
+    "id": "cuento-04-mer-y-las-olas",
+    "title": "Mer y las olas de Singapur",
+    "sentences": [
+      "Mer, la leona marina, vive cerca de la bahía.",
+      "Le encanta saltar entre las olas del mar.",
+      "Un pez de colores la invita a jugar.",
+      "Mer y el pez nadan juntos toda la tarde."
+    ],
+    "question": { "q": "¿Con quién juega Mer?", "choices": ["Con un pájaro", "Con un pez de colores", "Con un gato", "Con una tortuga"], "correctIdx": 1 }
+  },
+  {
+    "id": "cuento-05-el-oso-y-la-miel",
+    "title": "El oso pequeño y la miel",
+    "sentences": [
+      "En la selva vive un oso muy pequeño.",
+      "Tiene una lengua muy larga, larguísima.",
+      "La mete en un tronco para buscar miel dulce.",
+      "¡Encuentra mucha miel y se la come muy feliz!"
+    ],
+    "question": { "q": "¿Qué busca el oso en el tronco?", "choices": ["Agua", "Miel", "Piedras", "Hojas"], "correctIdx": 1 }
+  },
+  {
+    "id": "cuento-06-el-mono-narigudo",
+    "title": "El mono de la nariz grande",
+    "sentences": [
+      "Junto al río vive un mono con una nariz muy grande.",
+      "Salta de rama en rama sobre el agua.",
+      "Sus amigos los monos lo miran y se ríen contentos.",
+      "Al mono no le importa: ¡está orgulloso de su nariz!"
+    ],
+    "question": { "q": "¿Qué tiene muy grande el mono?", "choices": ["Las orejas", "La cola", "La nariz", "Los pies"], "correctIdx": 2 }
+  },
+  {
+    "id": "cuento-07-el-elefante-pequeno",
+    "title": "El elefante pequeño del río",
+    "sentences": [
+      "Un elefante pequeño camina junto a su mamá.",
+      "Los dos van a bañarse en el río.",
+      "El elefante pequeño juega a echar agua con su trompa.",
+      "Se salpican y se ríen mucho los dos juntos."
+    ],
+    "question": { "q": "¿Con qué echa agua el elefante?", "choices": ["Con la cola", "Con la trompa", "Con las orejas", "Con las patas"], "correctIdx": 1 }
+  },
+  {
+    "id": "cuento-08-ketut-el-mono-curioso",
+    "title": "Ketut, el mono curioso de Ubud",
+    "sentences": [
+      "Ketut vive en un bosque lleno de árboles y templos.",
+      "Ve a una niña con un sombrero muy bonito.",
+      "Ketut se acerca despacito, con mucha curiosidad.",
+      "Al final solo la saluda y se va saltando feliz."
+    ],
+    "question": { "q": "¿Qué lleva la niña que le gusta a Ketut?", "choices": ["Un sombrero", "Un paraguas", "Una mochila", "Unos zapatos"], "correctIdx": 0 }
+  },
+  {
+    "id": "cuento-09-el-calao-cantor",
+    "title": "El pájaro con el pico grande",
+    "sentences": [
+      "En la selva vive un pájaro con un pico muy grande.",
+      "Cuando canta, su voz suena fuerte como un altavoz.",
+      "Todos los animales de la selva lo escuchan.",
+      "Le gusta cantar cada mañana para despertar al bosque."
+    ],
+    "question": { "q": "¿Cuándo canta el pájaro?", "choices": ["Por la noche", "Cada mañana", "Nunca", "Solo en invierno"], "correctIdx": 1 }
+  },
+  {
+    "id": "cuento-10-el-cocodrilo-tranquilo",
+    "title": "El cocodrilo tranquilo del río",
+    "sentences": [
+      "Un cocodrilo descansa flotando en el río.",
+      "Solo se le ven los ojos por encima del agua.",
+      "Una barca pasa despacito y no lo molesta.",
+      "El cocodrilo sigue descansando tranquilo al sol."
+    ],
+    "question": { "q": "¿Dónde descansa el cocodrilo?", "choices": ["En un árbol", "Flotando en el río", "En la arena", "En una cueva"], "correctIdx": 1 }
+  },
+  {
+    "id": "cuento-11-las-luciernagas",
+    "title": "Las luciérnagas de la noche",
+    "sentences": [
+      "Cuando llega la noche, salen muchas luciérnagas.",
+      "Brillan como pequeñas estrellitas entre los árboles.",
+      "Un niño las mira desde la barca, con los ojos muy abiertos.",
+      "Las luciérnagas bailan despacio en la oscuridad."
+    ],
+    "question": { "q": "¿Cómo brillan las luciérnagas?", "choices": ["Como estrellitas", "Como el sol", "No brillan", "Como un rayo"], "correctIdx": 0 }
+  },
+  {
+    "id": "cuento-12-el-gato-viajero",
+    "title": "Kiko, el gato viajero",
+    "sentences": [
+      "Kiko el gato prepara su maleta pequeña.",
+      "Guarda su pelota, su manta y un poco de comida.",
+      "Sube al avión muy emocionado por el viaje.",
+      "Mira por la ventanilla las nubes blancas y suaves."
+    ],
+    "question": { "q": "¿Qué mira Kiko por la ventanilla?", "choices": ["Las nubes", "Los coches", "Las montañas", "El mar"], "correctIdx": 0 }
+  },
+  {
+    "id": "cuento-13-el-mercado-de-frutas",
+    "title": "El mercado de las frutas de colores",
+    "sentences": [
+      "En el mercado hay frutas de muchos colores.",
+      "Hay mangos amarillos, dragones rosas y cocos marrones.",
+      "Un niño elige la fruta más roja que ve.",
+      "Se la come despacito y le sabe muy dulce."
+    ],
+    "question": { "q": "¿Qué fruta elige el niño?", "choices": ["La más roja", "La más verde", "La más pequeña", "Ninguna"], "correctIdx": 0 }
+  },
+  {
+    "id": "cuento-14-el-arrozal-verde",
+    "title": "El arrozal verde y los patitos",
+    "sentences": [
+      "En el campo de arroz hay agua y mucho verde.",
+      "Unos patitos caminan en fila detrás de su mamá.",
+      "Chapotean juntos en el agua fresca.",
+      "Al final se secan al sol, muy tranquilos."
+    ],
+    "question": { "q": "¿Quién va delante de los patitos?", "choices": ["Su mamá", "Un pez", "Un gato", "Nadie"], "correctIdx": 0 }
+  },
+  {
+    "id": "cuento-15-la-vuelta-a-casa",
+    "title": "La vuelta a casa de Kiko",
+    "sentences": [
+      "Después de un largo viaje, Kiko vuelve a casa.",
+      "Trae en su maleta conchas, fotos y muchos recuerdos.",
+      "Sus amigos lo esperan con un fuerte abrazo.",
+      "Kiko les cuenta historias de tigres, monos y tortugas.",
+      "Todos escuchan felices, con muchas ganas de viajar también."
+    ],
+    "question": { "q": "¿Qué trae Kiko en su maleta?", "choices": ["Recuerdos y fotos", "Ropa sucia solamente", "Piedras grises", "Nada"], "correctIdx": 0 }
+  }
+]

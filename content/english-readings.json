@@ -1,0 +1,222 @@
+[
+  {
+    "id": "read-01-my-family",
+    "title": "My Family",
+    "sentences": [
+      "This is my family.",
+      "I have a mother, a father, and a little brother.",
+      "My brother is four years old.",
+      "We love to play together in the park."
+    ],
+    "question": { "q": "How old is the brother?", "choices": ["Two", "Three", "Four", "Nine"], "correctIdx": 2 }
+  },
+  {
+    "id": "read-02-a-big-trip",
+    "title": "A Big Trip",
+    "sentences": [
+      "We are going on a big trip this summer.",
+      "First we fly to Singapore.",
+      "Then we visit Malaysia and Indonesia.",
+      "I am very excited to see new animals and new places."
+    ],
+    "question": { "q": "How many countries do they visit?", "choices": ["One", "Two", "Three", "Four"], "correctIdx": 2 }
+  },
+  {
+    "id": "read-03-the-merlion",
+    "title": "The Merlion",
+    "sentences": [
+      "The Merlion is a famous statue in Singapore.",
+      "It has the head of a lion and the body of a fish.",
+      "Water comes out of its mouth.",
+      "Many tourists take photos next to it."
+    ],
+    "question": { "q": "What is the Merlion's body?", "choices": ["A lion", "A fish", "A bird", "A snake"], "correctIdx": 1 }
+  },
+  {
+    "id": "read-04-the-orangutan",
+    "title": "The Orangutan",
+    "sentences": [
+      "Orangutans live in the forests of Borneo.",
+      "They have long arms and orange fur.",
+      "They eat fruit, leaves, and insects.",
+      "Baby orangutans stay with their mothers for many years."
+    ],
+    "question": { "q": "What color is an orangutan's fur?", "choices": ["Black", "Orange", "Blue", "White"], "correctIdx": 1 }
+  },
+  {
+    "id": "read-05-hawker-food",
+    "title": "Hawker Food",
+    "sentences": [
+      "In Singapore, people eat at hawker centers.",
+      "A hawker center has many food stalls in one place.",
+      "You can eat chicken rice, noodles, or satay.",
+      "Everyone sits together at big tables."
+    ],
+    "question": { "q": "What is chicken rice?", "choices": ["A drink", "A dessert", "A food", "A game"], "correctIdx": 2 }
+  },
+  {
+    "id": "read-06-the-river-safari",
+    "title": "The River Safari",
+    "sentences": [
+      "We took a boat on the Kinabatangan River.",
+      "We saw a proboscis monkey with a big nose.",
+      "We also saw a crocodile near the water.",
+      "It was a quiet and exciting adventure."
+    ],
+    "question": { "q": "What animal has a big nose?", "choices": ["The crocodile", "The proboscis monkey", "The elephant", "The bird"], "correctIdx": 1 }
+  },
+  {
+    "id": "read-07-petronas-towers",
+    "title": "The Petronas Towers",
+    "sentences": [
+      "The Petronas Towers are in Kuala Lumpur.",
+      "They are two tall towers, side by side.",
+      "For a few years, they were the tallest towers in the world.",
+      "At night, the towers shine with bright lights."
+    ],
+    "question": { "q": "How many towers are there?", "choices": ["One", "Two", "Three", "Four"], "correctIdx": 1 }
+  },
+  {
+    "id": "read-08-the-rice-fields",
+    "title": "The Rice Fields",
+    "sentences": [
+      "In Ubud, there are green rice fields on the hills.",
+      "Farmers built them like steps, one above the other.",
+      "Water flows from the top field to the bottom field.",
+      "The fields look like a giant green staircase."
+    ],
+    "question": { "q": "Where are the rice fields built?", "choices": ["In the sea", "On the hills", "In the city", "Under the ground"], "correctIdx": 1 }
+  },
+  {
+    "id": "read-09-monkey-forest",
+    "title": "Monkey Forest",
+    "sentences": [
+      "Monkey Forest is a park in Ubud full of monkeys.",
+      "The monkeys are not afraid of people.",
+      "Sometimes a monkey takes food from your hand.",
+      "Visitors must hold their hats and sunglasses tight."
+    ],
+    "question": { "q": "What might a monkey take from you?", "choices": ["Your shoes", "Your food", "Your bike", "Your book"], "correctIdx": 1 }
+  },
+  {
+    "id": "read-10-the-green-turtle",
+    "title": "The Green Turtle",
+    "sentences": [
+      "Green turtles swim in the sea near Gili Air.",
+      "They can hold their breath for a long time.",
+      "Green turtles eat seagrass and algae.",
+      "They always return to the beach where they were born."
+    ],
+    "question": { "q": "What do green turtles eat?", "choices": ["Fish", "Seagrass and algae", "Bread", "Rice"], "correctIdx": 1 }
+  },
+  {
+    "id": "read-11-no-cars-island",
+    "title": "The Island Without Cars",
+    "sentences": [
+      "Gili Air is a small island with no cars.",
+      "People walk, ride bikes, or use a cidomo.",
+      "A cidomo is a small cart pulled by a horse.",
+      "The island is quiet and very peaceful."
+    ],
+    "question": { "q": "What pulls a cidomo?", "choices": ["A car", "A horse", "A boat", "A bicycle"], "correctIdx": 1 }
+  },
+  {
+    "id": "read-12-a-day-at-the-beach",
+    "title": "A Day at the Beach",
+    "sentences": [
+      "Today we are going to the beach in Sanur.",
+      "The sand is soft and the water is warm.",
+      "We swim, build sandcastles, and eat fresh fruit.",
+      "In the evening, we watch the sun go down."
+    ],
+    "question": { "q": "What do they build at the beach?", "choices": ["A tower", "A sandcastle", "A boat", "A kite"], "correctIdx": 1 }
+  },
+  {
+    "id": "read-13-the-water-park",
+    "title": "The Water Park",
+    "sentences": [
+      "Waterbom is a big water park in Bali.",
+      "It has fast slides and a lazy river.",
+      "Children and grown-ups both have fun there.",
+      "After the slides, everyone is happy and wet."
+    ],
+    "question": { "q": "What does the water park have?", "choices": ["Slides", "Airplanes", "Snow", "Deserts"], "correctIdx": 0 }
+  },
+  {
+    "id": "read-14-packing-a-suitcase",
+    "title": "Packing a Suitcase",
+    "sentences": [
+      "Before a trip, we pack our suitcase.",
+      "We put in clothes, a toothbrush, and a hat.",
+      "We also pack sunscreen for hot, sunny days.",
+      "A camera is important too, for all the memories."
+    ],
+    "question": { "q": "Why do they pack sunscreen?", "choices": ["For cold days", "For hot, sunny days", "For rainy days", "For sleeping"], "correctIdx": 1 }
+  },
+  {
+    "id": "read-15-a-long-flight",
+    "title": "A Long Flight",
+    "sentences": [
+      "The flight from Barcelona to Singapore is very long.",
+      "It takes more than thirteen hours.",
+      "We watch movies, eat meals, and try to sleep.",
+      "When we land, it feels wonderful to walk again."
+    ],
+    "question": { "q": "How long is the flight?", "choices": ["Three hours", "Thirteen hours", "One hour", "Thirty hours"], "correctIdx": 1 }
+  },
+  {
+    "id": "read-16-the-sun-bear",
+    "title": "The Sun Bear",
+    "sentences": [
+      "The sun bear is the smallest bear in the world.",
+      "It lives in the forests of Borneo.",
+      "The sun bear has a very long tongue.",
+      "It uses its tongue to eat honey from tree trunks."
+    ],
+    "question": { "q": "What does the sun bear eat with its long tongue?", "choices": ["Fish", "Honey", "Grass", "Rice"], "correctIdx": 1 }
+  },
+  {
+    "id": "read-17-batu-caves",
+    "title": "Batu Caves",
+    "sentences": [
+      "Batu Caves is near Kuala Lumpur.",
+      "You climb many colorful stairs to reach the cave.",
+      "Inside the cave, there is a beautiful temple.",
+      "Monkeys live all around the stairs and the cave."
+    ],
+    "question": { "q": "What do you climb to reach the cave?", "choices": ["A ladder", "Colorful stairs", "A rope", "An elevator"], "correctIdx": 1 }
+  },
+  {
+    "id": "read-18-market-day",
+    "title": "Market Day",
+    "sentences": [
+      "The market in Ubud is full of colors and sounds.",
+      "Sellers offer fruit, spices, and handmade crafts.",
+      "You can smell sweet mangoes and fresh coconuts.",
+      "It is a fun place to walk and look around."
+    ],
+    "question": { "q": "What can you smell at the market?", "choices": ["Sweet mangoes", "Cold snow", "Metal", "Smoke"], "correctIdx": 0 }
+  },
+  {
+    "id": "read-19-time-zones",
+    "title": "Time Zones",
+    "sentences": [
+      "When we travel east, the clock changes.",
+      "Singapore is many hours ahead of Barcelona.",
+      "Bali is one hour ahead of Kuala Lumpur.",
+      "It takes a few days for our bodies to feel normal again."
+    ],
+    "question": { "q": "Is Singapore ahead or behind Barcelona?", "choices": ["Ahead", "Behind", "The same", "It has no time"], "correctIdx": 0 }
+  },
+  {
+    "id": "read-20-coming-home",
+    "title": "Coming Home",
+    "sentences": [
+      "After many weeks, our trip is coming to an end.",
+      "We pack our suitcase full of memories and photos.",
+      "We say goodbye to new friends and new places.",
+      "Soon we will tell everyone at home about our adventure."
+    ],
+    "question": { "q": "What do they pack besides clothes?", "choices": ["Memories and photos", "Sand and rocks", "Books only", "Nothing"], "correctIdx": 0 }
+  }
+]
