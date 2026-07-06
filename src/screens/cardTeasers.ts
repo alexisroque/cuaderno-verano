@@ -64,25 +64,41 @@ export function cardTeaser(card: CardDescriptor, chapter: Chapter): string {
   }
 }
 
+/** Logic subskills (rotating "sorpresa") that are tap-the-emoji rounds. */
+const TAP_IMAGE_LOGIC = new Set(['patrones', 'formas', 'simetria', 'clasificar', 'posiciones'])
+
 /**
- * The player route a card should open. Aira's math/dictado/sabías-que/diario
- * cards each have a real player; Leo's players (trazos/contar/english/cuento)
- * land in Task 5.6 and still route to the ComingSoon stub.
+ * The player route a card should open, dispatching by card type AND subskill:
+ *  - Aira: problema/dictado/sabías-que/diario each have their own player.
+ *  - Leo (Task 5.6): trazos → Tracing (letras/numeros-trazo) or TapImage
+ *    (espejo, which must render options from strokes); contar → Counting;
+ *    english → TapImage; sorpresa-rotatoria → Cuento (cuento) or TapImage
+ *    (the logic rounds).
  */
 export function playerRouteFor(card: CardDescriptor): string {
   switch (card.cardType) {
     case 'problema':
       return '/jugar/problema'
     case 'contar':
-      return card.subskill ? '/jugar/problema' : '/jugar/proximamente'
+      // Aira has no `contar` slot; for Leo this is the counting/number-sense player.
+      return card.subskill ? '/jugar/contar' : '/jugar/proximamente'
     case 'dictado':
       return '/jugar/dictado'
     case 'sabias-que':
       return '/jugar/sabias-que'
     case 'diario':
       return '/jugar/diario'
+    case 'trazos':
+      // espejo is a mirror-discrimination TAP task (options drawn from strokes),
+      // not a finger-trace — everything else in trazos is a real trace.
+      return card.subskill === 'espejo' ? '/jugar/tocar-imagen' : '/jugar/trazos'
+    case 'english':
+      return '/jugar/tocar-imagen'
+    case 'sorpresa-rotatoria':
+      if (card.subskill === 'cuento') return '/jugar/cuento'
+      if (card.subskill && TAP_IMAGE_LOGIC.has(card.subskill)) return '/jugar/tocar-imagen'
+      return '/jugar/proximamente'
     default:
-      // Leo players (trazos, english, cuento…) land in later tasks.
       return '/jugar/proximamente'
   }
 }

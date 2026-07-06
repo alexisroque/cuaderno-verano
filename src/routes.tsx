@@ -15,6 +15,10 @@ import { ProblemPlayer } from './screens/players/ProblemPlayer'
 import { DictationPlayer } from './screens/players/DictationPlayer'
 import { ReadingPlayer } from './screens/players/ReadingPlayer'
 import { DiaryPlayer } from './screens/players/DiaryPlayer'
+import { TracingPlayer } from './screens/players/TracingPlayer'
+import { CountingPlayer } from './screens/players/CountingPlayer'
+import { TapImagePlayer } from './screens/players/TapImagePlayer'
+import { CuentoPlayer } from './screens/players/CuentoPlayer'
 import { ComingSoonPlayer } from './screens/players/ComingSoonPlayer'
 import { KitchenSink } from './screens/dev/KitchenSink'
 
@@ -46,6 +50,10 @@ export const routeConfig: RouteObject[] = [
       { path: '/jugar/dictado', element: <DictationPlayer /> },
       { path: '/jugar/sabias-que', element: <ReadingPlayer /> },
       { path: '/jugar/diario', element: <DiaryPlayer /> },
+      { path: '/jugar/trazos', element: <TracingPlayer /> },
+      { path: '/jugar/contar', element: <CountingPlayer /> },
+      { path: '/jugar/tocar-imagen', element: <TapImagePlayer /> },
+      { path: '/jugar/cuento', element: <CuentoPlayer /> },
       { path: '/jugar/proximamente', element: <ComingSoonPlayer /> },
       { path: '/dev/kitchen-sink', element: <KitchenSink /> },
       { path: '*', element: <Navigate to="/" replace /> },
