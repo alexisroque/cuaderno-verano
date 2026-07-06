@@ -1,0 +1,567 @@
+{
+  "id": "animales",
+  "title": "Animales asombrosos",
+  "emoji": "🐾",
+  "episodes": [
+    {
+      "id": "an-01-orangutan",
+      "order": 1,
+      "title": "El orangután, un primo muy cercano",
+      "dictation": {
+        "ca": "L'orangutan és un dels grans simis que viu a les selves de Borneo i Sumatra. Comparteix gairebé el 97% del seu ADN amb els humans. Passa quasi tota la vida enfilat als arbres, menjant fruita i construint nius per dormir.",
+        "es": "El orangután es uno de los grandes simios que vive en las selvas de Borneo y Sumatra. Comparte casi el 97% de su ADN con los humanos. Pasa casi toda la vida trepado a los árboles, comiendo fruta y construyendo nidos para dormir."
+      },
+      "factExtra": {
+        "ca": "Sabies que la paraula \"orangutan\" ve del malai i vol dir \"persona del bosc\"?",
+        "es": "¿Sabías que la palabra \"orangután\" viene del malayo y significa \"persona del bosque\"?"
+      },
+      "hook": "Demà coneixerem un mico amb un nas ben particular.",
+      "questions": [
+        {
+          "q": "On viu l'orangutan de manera salvatge?",
+          "choices": ["A Borneo i Sumatra", "A l'Antàrtida", "A Austràlia", "Al desert del Sàhara"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si visitessis Borneo i veiessis un orangutan salvatge, com creus que hauries de comportar-te per no espantar-lo?",
+          "choices": ["Mantenir la distància i parlar fluix", "Cridar molt fort per saludar-lo", "Acostar-me corrent a tocar-lo", "Llançar-li menjar de seguida"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-02-mono-narigudo",
+      "order": 2,
+      "title": "El mico narigut de Borneo",
+      "dictation": {
+        "ca": "El mico narigut, o proboscis, viu als manglars i boscos inundats del riu Kinabatangan. Els mascles tenen un nas enorme que els cau per damunt de la boca. Aquest nas gran els ajuda a fer un so més fort per atreure les femelles.",
+        "es": "El mono narigudo, o proboscis, vive en los manglares y bosques inundados del río Kinabatangan. Los machos tienen una nariz enorme que les cuelga por encima de la boca. Esta nariz grande les ayuda a hacer un sonido más fuerte para atraer a las hembras."
+      },
+      "factExtra": {
+        "ca": "Sabies que el mico narigut és un bon nedador i pot creuar rius sencers saltant d'un arbre a l'aigua?",
+        "es": "¿Sabías que el mono narigudo es un buen nadador y puede cruzar ríos enteros saltando de un árbol al agua?"
+      },
+      "hook": "Aviat descobrirem un elefant molt petit que també viu a Borneo.",
+      "questions": [
+        {
+          "q": "Per a què serveix el nas gran dels micos narigut mascles?",
+          "choices": ["Per fer un so més fort i atreure femelles", "Per respirar sota l'aigua", "Per volar més lluny", "Per veure de nit"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que un animal desenvolupa una característica tan cridanera com un nas enorme al llarg de moltes generacions?",
+          "choices": ["Perquè ajuda a atreure parella i per tant es transmet als fills", "Perquè li agrada com queda estèticament", "No té cap raó ni explicació", "Perquè així fa més por als altres micos"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-03-elefante-pigmeo",
+      "order": 3,
+      "title": "L'elefant pigmeu de Borneo",
+      "dictation": {
+        "ca": "L'elefant pigmeu de Borneo és més petit que els seus cosins africans, però igual d'intel·ligent. Viu en grups familiars vora els rius i menja fulles, escorça i fruites tot el dia. Malgrat el nom, pot pesar tant com un cotxe petit.",
+        "es": "El elefante pigmeo de Borneo es más pequeño que sus primos africanos, pero igual de inteligente. Vive en grupos familiares junto a los ríos y come hojas, corteza y frutas todo el día. A pesar del nombre, puede pesar tanto como un coche pequeño."
+      },
+      "factExtra": {
+        "ca": "Sabies que aquests elefants es comuniquen entre ells amb sons tan greus que els humans gairebé no els podem sentir?",
+        "es": "¿Sabías que estos elefantes se comunican entre ellos con sonidos tan graves que los humanos casi no podemos oírlos?"
+      },
+      "hook": "Demà veurem un ocell amb un bec impressionant que viu a la mateixa selva.",
+      "questions": [
+        {
+          "q": "On viuen normalment els elefants pigmeus de Borneo?",
+          "choices": ["En grups familiars vora els rius", "Sols i sota terra", "Dins de coves de gel", "Al mig del desert"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si observessis una família d'elefants pigmeus des de lluny durant un safari, quines normes creus que hauríeu de seguir per no molestar-los?",
+          "choices": ["Quedar-se al vaixell o cotxe i no fer soroll", "Baixar a acariciar les cries", "Fer fotos amb flaix ben a prop", "Cridar-los perquè es girin cap a la càmera"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-04-calao",
+      "order": 4,
+      "title": "El calau, l'ocell del bec gegant",
+      "dictation": {
+        "ca": "El calau rinoceront té un bec enorme amb una protuberància a sobre que sembla una banya. Aquest bec, tot i la mida, és molt lleuger perquè és buit per dins. Amb ell, menja figues i altres fruites de les copes dels arbres.",
+        "es": "El cálao rinoceronte tiene un pico enorme con una protuberancia encima que parece un cuerno. Este pico, a pesar del tamaño, es muy ligero porque está hueco por dentro. Con él, come higos y otras frutas de las copas de los árboles."
+      },
+      "factExtra": {
+        "ca": "Sabies que la femella del calau es tanca dins d'un forat de l'arbre i el mascle li porta menjar per un petit forat durant setmanes?",
+        "es": "¿Sabías que la hembra del cálao se encierra dentro de un hueco del árbol y el macho le lleva comida por un pequeño agujero durante semanas?"
+      },
+      "hook": "Aviat coneixerem una tortuga que neda per tots els oceans del món.",
+      "questions": [
+        {
+          "q": "Per què el bec del calau és lleuger malgrat ser tan gran?",
+          "choices": ["Perquè és buit per dins", "Perquè és de plàstic", "Perquè no té ossos al cos", "Perquè és molt petit en realitat"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que la femella del calau es tanca dins de l'arbre mentre cria els fills?",
+          "choices": ["Per protegir els ous i les cries dels depredadors", "Perquè no li agrada volar", "Perquè fa massa fred fora", "No hi ha cap motiu especial"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-05-tortuga-verde",
+      "order": 5,
+      "title": "La tortuga verda, viatgera dels oceans",
+      "dictation": {
+        "ca": "La tortuga verda pot viatjar milers de quilòmetres pels oceans abans de tornar sempre a la mateixa platja on va néixer. S'alimenta principalment d'algues i herbes marines, cosa poc habitual entre les tortugues. Pot arribar a viure més de vuitanta anys.",
+        "es": "La tortuga verde puede viajar miles de kilómetros por los océanos antes de volver siempre a la misma playa donde nació. Se alimenta principalmente de algas y hierbas marinas, algo poco habitual entre las tortugas. Puede llegar a vivir más de ochenta años."
+      },
+      "factExtra": {
+        "ca": "Sabies que les tortugues marines troben el camí de tornada a la seva platja gràcies al camp magnètic de la Terra?",
+        "es": "¿Sabías que las tortugas marinas encuentran el camino de vuelta a su playa gracias al campo magnético de la Tierra?"
+      },
+      "hook": "Demà descobrirem un rèptil gigant que sembla sortit d'una llegenda.",
+      "questions": [
+        {
+          "q": "De què s'alimenta principalment la tortuga verda?",
+          "choices": ["D'algues i herbes marines", "De peixos grans", "De coralls durs", "De cocos flotants"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si fessis snorkel i trobessis una tortuga marina nedant, com t'hauries de comportar per no fer-li mal ni espantar-la?",
+          "choices": ["Nedar tranquil·lament sense tocar-la ni perseguir-la", "Agafar-la per les aletes per fer-me una foto", "Nedar molt ràpid cap a ella", "Tirar-li menjar de la platja"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-06-dragon-komodo",
+      "order": 6,
+      "title": "El drac de Komodo",
+      "dictation": {
+        "ca": "El drac de Komodo és el llangardaix més gran del món i viu només en unes poques illes d'Indonèsia. Pot arribar a mesurar tres metres i té una mossegada verinosa molt perillosa. Malgrat el seu aspecte lent, pot córrer ràpid si cal caçar una presa.",
+        "es": "El dragón de Komodo es el lagarto más grande del mundo y vive solo en unas pocas islas de Indonesia. Puede medir tres metros y tiene una mordida venenosa muy peligrosa. A pesar de su aspecto lento, puede correr rápido para cazar."
+      },
+      "factExtra": {
+        "ca": "Sabies que el drac de Komodo pot olorar un animal mort a quilòmetres de distància gràcies a la seva llengua bífida?",
+        "es": "¿Sabías que el dragón de Komodo puede olfatear un animal muerto a kilómetros de distancia gracias a su lengua bífida?"
+      },
+      "hook": "Aviat coneixerem un felí ratllat que és el rei de la selva asiàtica.",
+      "questions": [
+        {
+          "q": "On viu de manera natural el drac de Komodo?",
+          "choices": ["En unes poques illes d'Indonèsia", "A tota Europa", "Al Pol Sud", "Dins dels oceans"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que és important que un animal tan perillós com el drac de Komodo tingui el seu espai protegit lluny dels humans?",
+          "choices": ["Per evitar accidents i alhora protegir l'espècie de perdre el seu hàbitat", "Perquè així no es pot fer turisme mai", "No cal protegir-lo de res", "Perquè li agrada estar sol sempre"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-07-tigre",
+      "order": 7,
+      "title": "El tigre, el felí més gran",
+      "dictation": {
+        "ca": "El tigre és el felí més gran del món i les seves ratlles negres són úniques, com les nostres empremtes digitals. Caça sol, de nit, i pot fer salts enormes per atrapar la seva presa. Avui, moltes subespècies de tigre estan en perill d'extinció.",
+        "es": "El tigre es el felino más grande del mundo y sus rayas negras son únicas, como nuestras huellas digitales. Caza solo, de noche, y puede dar saltos enormes para atrapar a su presa. Hoy, muchas subespecies de tigre están en peligro de extinción."
+      },
+      "factExtra": {
+        "ca": "Sabies que la pell d'un tigre també té ratlles a sota del pèl, no només al pelatge de fora?",
+        "es": "¿Sabías que la piel de un tigre también tiene rayas debajo del pelo, no solo en el pelaje de fuera?"
+      },
+      "hook": "Demà veurem un altre mamífer amb una trompa curta molt curiosa.",
+      "questions": [
+        {
+          "q": "Per què les ratlles de cada tigre són úniques?",
+          "choices": ["Perquè funcionen com les nostres empremtes digitals", "Perquè es pinten cada dia", "Perquè canvien de color amb l'edat", "Perquè totes són exactament iguals"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si fossis responsable de protegir els tigres que queden al món, quina mesura proposaries per salvar-los de l'extinció?",
+          "choices": ["Protegir la selva on viuen i prohibir-ne la caça", "Portar-los tots a un zoo petit", "No fer res i esperar", "Deixar que cadascú faci el que vulgui"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-08-tapir",
+      "order": 8,
+      "title": "El tapir, cosí llunyà del cavall",
+      "dictation": {
+        "ca": "El tapir malai té una petita trompa flexible que fa servir per agafar fulles dels arbustos. És un animal tímid que viu prop de rius, on li encanta submergir-se per refrescar-se. Sembla un porc gran, però és cosí llunyà dels cavalls.",
+        "es": "El tapir malayo tiene una pequeña trompa flexible que usa para agarrar hojas de los arbustos. Es un animal tímido que vive cerca de ríos, donde le encanta sumergirse para refrescarse. Parece un cerdo grande, pero es primo lejano de los caballos."
+      },
+      "factExtra": {
+        "ca": "Sabies que les cries de tapir neixen amb ratlles i taques que els ajuden a camuflar-se entre la llum i l'ombra de la selva?",
+        "es": "¿Sabías que las crías de tapir nacen con rayas y manchas que les ayudan a camuflarse entre la luz y la sombra de la selva?"
+      },
+      "hook": "Aviat farem un salt cap a un ocell que no vola gens però corre moltíssim.",
+      "questions": [
+        {
+          "q": "Per a què fa servir el tapir la seva petita trompa?",
+          "choices": ["Per agafar fulles i fruites", "Per volar entre els arbres", "Per cavar túnels sota terra", "Per nedar més ràpid que un peix"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que les cries de tapir neixen amb ratlles i taques si els adults no en tenen?",
+          "choices": ["Perquè els ajuda a amagar-se dels depredadors quan són petits i vulnerables", "Perquè els agrada més aquest disseny", "No serveix per a res en realitat", "Perquè així els reconeix més fàcilment la seva mare"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-09-avestruz",
+      "order": 9,
+      "title": "L'estruç, l'ocell que corre com un cotxe",
+      "dictation": {
+        "ca": "L'estruç és l'ocell més gran del món, però no pot volar perquè les ales són massa petites per al seu cos. En canvi, pot córrer a més de setanta quilòmetres per hora. Els seus ous són els més grans de qualsevol animal viu avui.",
+        "es": "El avestruz es el ave más grande del mundo, pero no puede volar porque sus alas son demasiado pequeñas para su cuerpo. En cambio, puede correr a más de setenta kilómetros por hora. Sus huevos son los más grandes de cualquier animal vivo hoy."
+      },
+      "factExtra": {
+        "ca": "Sabies que un únic ou d'estruç pot pesar el mateix que vint-i-quatre ous de gallina junts?",
+        "es": "¿Sabías que un único huevo de avestruz puede pesar lo mismo que veinticuatro huevos de gallina juntos?"
+      },
+      "hook": "Demà coneixerem un mamífer marí gegant amb un cant molt especial.",
+      "questions": [
+        {
+          "q": "Per què l'estruç no pot volar?",
+          "choices": ["Perquè les seves ales són massa petites per al seu cos", "Perquè no té ales", "Perquè li fa por l'altura", "Perquè pesa massa poc"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si un animal no pot volar com la majoria d'ocells, quina altra habilitat creus que necessita per sobreviure als depredadors?",
+          "choices": ["Córrer molt ràpid o defensar-se amb força", "No necessita cap habilitat especial", "Amagar-se sota l'aigua tota la vida", "Volar igualment sense ales"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-10-ballena-azul",
+      "order": 10,
+      "title": "La balena blava, la gegant dels oceans",
+      "dictation": {
+        "ca": "La balena blava és l'animal més gran que ha existit mai a la Terra, més gran que qualsevol dinosaure. Pot mesurar prop de trenta metres i el seu cor pesa tant com un cotxe petit. Malgrat la mida, s'alimenta de petits crustacis anomenats krill.",
+        "es": "La ballena azul es el animal más grande que ha existido en la Tierra, más grande que cualquier dinosaurio. Puede medir cerca de treinta metros y su corazón pesa como un coche pequeño. A pesar del tamaño, se alimenta de pequeños crustáceos llamados kril."
+      },
+      "factExtra": {
+        "ca": "Sabies que els cants de la balena blava poden sentir-se a centenars de quilòmetres de distància sota l'aigua?",
+        "es": "¿Sabías que los cantos de la ballena azul pueden oírse a centenares de kilómetros de distancia bajo el agua?"
+      },
+      "hook": "Aviat parlarem d'un rèptil que porta la seva casa a sobre.",
+      "questions": [
+        {
+          "q": "De què s'alimenta principalment la balena blava?",
+          "choices": ["De petits crustacis anomenats krill", "De taurons grans", "De vaixells", "De coralls"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que un animal tan enorme com la balena blava pot alimentar-se de preses tan petites com el krill?",
+          "choices": ["Perquè en menja quantitats enormes cada dia per obtenir prou energia", "Perquè el krill és en realitat gigant", "No té cap sentit ni explicació", "Perquè no necessita menjar gaire"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-11-camaleon",
+      "order": 11,
+      "title": "El camaleó, mestre del camuflatge",
+      "dictation": {
+        "ca": "El camaleó pot canviar de color gràcies a cèl·lules especials de la pell, encara que no ho fa només per amagar-se. Sovint canvia de color per mostrar el seu estat d'ànim. Els seus ulls es poden moure de manera independent l'un de l'altre.",
+        "es": "El camaleón puede cambiar de color gracias a células especiales de la piel, aunque no lo hace solo para esconderse. A menudo cambia de color para mostrar su estado de ánimo. Sus ojos pueden moverse de manera independiente el uno del otro."
+      },
+      "factExtra": {
+        "ca": "Sabies que la llengua d'un camaleó pot ser més llarga que el seu propi cos i atrapa insectes en una fracció de segon?",
+        "es": "¿Sabías que la lengua de un camaleón puede ser más larga que su propio cuerpo y atrapa insectos en una fracción de segundo?"
+      },
+      "hook": "Demà coneixerem un animal ple de pues que es fa una bola quan té por.",
+      "questions": [
+        {
+          "q": "Per què canvia de color el camaleó, a més d'amagar-se?",
+          "choices": ["Per mostrar el seu estat d'ànim o comunicar-se", "Només per fer-se el graciós", "Perquè li agrada el color vermell", "No canvia mai de color"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si poguessis comunicar el teu estat d'ànim canviant de color com un camaleó, quin color triaries quan estàs content i per què?",
+          "choices": ["Un color viu i alegre, com el groc o el verd", "Cap color, m'és indiferent", "Sempre negre, sense excepció", "No tindria cap sentit triar un color"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-12-erizo",
+      "order": 12,
+      "title": "L'eriçó, una bola de pues",
+      "dictation": {
+        "ca": "L'eriçó es defensa dels perills fent-se una bola i mostrant les seves centenars de pues punxegudes. Aquesta estratègia funciona molt bé contra la majoria de depredadors, que prefereixen buscar una presa més fàcil. De nit, surt a buscar cucs, insectes i cargols per menjar.",
+        "es": "El erizo se defiende de los peligros haciéndose una bola y mostrando sus centenares de púas puntiagudas. Esta estrategia funciona muy bien contra la mayoría de depredadores, que prefieren buscar una presa más fácil. De noche, sale a buscar gusanos, insectos y caracoles para comer."
+      },
+      "factExtra": {
+        "ca": "Sabies que un eriçó pot tenir més de cinc mil pues repartides per tot el seu cos?",
+        "es": "¿Sabías que un erizo puede tener más de cinco mil púas repartidas por todo su cuerpo?"
+      },
+      "hook": "Aviat descobrirem un ocell que no pot volar però és un gran nedador.",
+      "questions": [
+        {
+          "q": "Com es defensa l'eriçó dels seus depredadors?",
+          "choices": ["Fent-se una bola i mostrant les pues", "Corrent molt ràpid", "Escalant arbres alts", "Amagant-se sota l'aigua"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que fer-se una bola amb pues és una bona estratègia de defensa per a un animal petit i lent?",
+          "choices": ["Perquè fa mal tocar-lo i el depredador es cansa d'intentar-ho", "Perquè així fa més goig visualment", "No serveix de res realment", "Perquè així pot volar millor"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-13-pinguino",
+      "order": 13,
+      "title": "El pingüí, un ocell nedador",
+      "dictation": {
+        "ca": "El pingüí no pot volar per l'aire, però és un excel·lent nedador gràcies a les seves ales convertides en aletes. Sota l'aigua pot arribar a velocitats sorprenents mentre caça peixos i calamars. A terra, en canvi, camina bellugant-se d'una manera que ens fa somriure.",
+        "es": "El pingüino no puede volar por el aire, pero es un excelente nadador gracias a sus alas convertidas en aletas. Bajo el agua puede alcanzar velocidades sorprendentes mientras caza peces y calamares. En tierra, en cambio, camina moviéndose de una manera que nos hace sonreír."
+      },
+      "factExtra": {
+        "ca": "Sabies que alguns pingüins poden capbussar-se a més de cinc-cents metres de profunditat per caçar el seu menjar?",
+        "es": "¿Sabías que algunos pingüinos pueden sumergirse a más de quinientos metros de profundidad para cazar su comida?"
+      },
+      "hook": "Demà coneixerem un rèptil molt lent que pot viure més de cent anys.",
+      "questions": [
+        {
+          "q": "En què s'han convertit les ales del pingüí?",
+          "choices": ["En aletes per nedar", "En braços per caminar", "En un tercer ull", "En orelles grans"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que un animal que no pot volar, com el pingüí, va desenvolupar aletes tan bones per nedar en comptes d'ales per volar?",
+          "choices": ["Perquè el seu entorn i la seva alimentació depenen de l'aigua, no de l'aire", "Perquè li fa mandra volar", "No hi ha cap raó especial", "Perquè totes les aus acaben nedant algun dia"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-14-tortuga-gigante",
+      "order": 14,
+      "title": "La tortuga gegant, la més longeva",
+      "dictation": {
+        "ca": "Les tortugues gegants de les Galápagos poden viure més de cent anys i pesar més de dues-centes cinquanta quilos. Es mouen a poc a poc, però això no els impedeix recórrer llargues distàncies buscant menjar. Passen hores del dia menjant herba i cactus.",
+        "es": "Las tortugas gigantes de las islas Galápagos pueden vivir más de cien años y pesar más de doscientos cincuenta kilos. Se mueven muy despacio, pero eso no les impide recorrer largas distancias buscando comida. Pasan muchas horas del día comiendo hierba y cactus."
+      },
+      "factExtra": {
+        "ca": "Sabies que una tortuga gegant de les Seychelles anomenada Jonathan té més de cent noranta anys i encara viu avui dia?",
+        "es": "¿Sabías que una tortuga gigante de las Seychelles llamada Jonathan tiene más de ciento noventa años y todavía vive hoy en día?"
+      },
+      "hook": "Aviat parlarem d'un mamífer que salta enormes distàncies amb les seves potes.",
+      "questions": [
+        {
+          "q": "Quants anys pot viure una tortuga gegant de les Galápagos?",
+          "choices": ["Més de cent anys", "Només deu anys", "Menys d'un any", "Uns cinc anys com a màxim"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que un animal tan lent com la tortuga gegant pot arribar a viure tants anys?",
+          "choices": ["Perquè el seu cos i metabolisme lent li fan gastar poca energia", "Perquè no menja mai res", "Perquè és més fort que qualsevol altre animal", "No hi ha cap explicació possible"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-15-canguro",
+      "order": 15,
+      "title": "El cangur, campió del salt",
+      "dictation": {
+        "ca": "El cangur és un marsupial d'Austràlia que es desplaça fent grans salts amb les potes posteriors molt fortes. Pot saltar més de tres metres d'alçada i nou metres de llargada d'un sol salt. Les cries neixen petites i creixen dins la butxaca de la mare.",
+        "es": "El canguro es un marsupial de Australia que se desplaza a saltos con sus patas traseras fuertes. Puede saltar más de tres metros de altura y nueve de largo de un solo salto. Las crías nacen pequeñas y crecen en la bolsa de la madre."
+      },
+      "factExtra": {
+        "ca": "Sabies que una cria de cangur, quan neix, és tan petita com un gra de raïm?",
+        "es": "¿Sabías que una cría de canguro, al nacer, es tan pequeña como un grano de uva?"
+      },
+      "hook": "Demà coneixerem un animal amb el coll més llarg del món.",
+      "questions": [
+        {
+          "q": "Com es desplaça normalment el cangur?",
+          "choices": ["Fent grans salts amb les potes posteriors", "Arrossegant-se per terra", "Volant curtes distàncies", "Nedant sempre a l'aigua"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que és útil per a una cria de cangur créixer dins la butxaca de la mare en comptes de quedar-se sola des del principi?",
+          "choices": ["Perquè hi està protegida i alimentada mentre encara és molt vulnerable", "Perquè així la mare no ha de portar-la a sobre", "No té cap avantatge real", "Perquè és més divertit per a la cria"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-16-jirafa",
+      "order": 16,
+      "title": "La girafa, la torre de la sabana",
+      "dictation": {
+        "ca": "La girafa és l'animal terrestre més alt del món gràcies al seu coll llarguíssim, fet de set vèrtebres allargades. Aquest coll li permet menjar fulles de les copes dels arbres. El seu cor ha de bombejar molt fort perquè la sang arribi al cap.",
+        "es": "La jirafa es el animal terrestre más alto del mundo gracias a su cuello larguísimo, hecho de siete vértebras alargadas. Este cuello le permite comer hojas de las copas de los árboles. Su corazón bombea muy fuerte para que la sangre llegue a la cabeza."
+      },
+      "factExtra": {
+        "ca": "Sabies que les girafes dormen molt poques hores al dia, sovint menys de dues, i sovint fan-ho dretes?",
+        "es": "¿Sabías que las jirafas duermen muy pocas horas al día, a menudo menos de dos, y a menudo lo hacen de pie?"
+      },
+      "hook": "Aviat parlarem d'un cavall amb ratlles negres i blanques.",
+      "questions": [
+        {
+          "q": "Quantes vèrtebres formen el coll de la girafa?",
+          "choices": ["Set", "Vint", "Dues", "Cent"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que tenir un coll tan llarg dona un avantatge a la girafa per sobreviure a la sabana?",
+          "choices": ["Perquè pot menjar fulles que cap altre animal no arriba a tocar", "Perquè així corre més ràpid", "Perquè li permet nedar millor", "No té cap avantatge real"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-17-cebra",
+      "order": 17,
+      "title": "La zebra i les seves ratlles úniques",
+      "dictation": {
+        "ca": "La zebra viu en grups a la sabana africana i cada individu té un patró de ratlles diferent. Alguns científics creuen que les ratlles confonen els insectes que piquen i ajuden a reconèixer-se entre elles. Quan corren juntes, és més difícil triar una presa.",
+        "es": "La cebra vive en grupos en la sabana africana y cada una tiene un patrón de rayas diferente. Algunos científicos creen que las rayas confunden a los insectos y ayudan a reconocerse entre ellas. Cuando corren juntas, es más difícil elegir a una presa."
+      },
+      "factExtra": {
+        "ca": "Sabies que no hi ha dues zebres al món amb exactament el mateix patró de ratlles?",
+        "es": "¿Sabías que no hay dos cebras en el mundo con exactamente el mismo patrón de rayas?"
+      },
+      "hook": "Demà coneixerem un ocell que construeix els nius més grans del cel.",
+      "questions": [
+        {
+          "q": "Per què creuen alguns científics que serveixen les ratlles de la zebra?",
+          "choices": ["Per confondre insectes i ajudar a reconèixer-se entre elles", "Per fer-les invisibles del tot", "Per volar més ràpid", "Per canviar de color cada dia"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que córrer totes juntes en grup ajuda les zebres a defensar-se millor dels depredadors que córrer soles?",
+          "choices": ["Perquè confon el depredador i és més difícil triar una sola presa", "Perquè així fan més soroll i molesten", "No serveix de res córrer juntes", "Perquè així es cansen menys individualment"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-18-aguila",
+      "order": 18,
+      "title": "L'àguila, la reina del cel",
+      "dictation": {
+        "ca": "L'àguila té una vista tan aguda que pot distingir un petit animal movent-se des de quilòmetres de distància. Construeix nius enormes, anomenats aeris, a dalt d'arbres alts o penya-segats rocosos. Cada any, moltes àguiles tornen al mateix niu i el fan encara més gran.",
+        "es": "El águila tiene una vista tan aguda que puede distinguir un pequeño animal moviéndose desde kilómetros de distancia. Construye nidos enormes en la parte alta de árboles o acantilados rocosos. Cada año, muchas águilas vuelven al mismo nido y lo hacen todavía más grande."
+      },
+      "factExtra": {
+        "ca": "Sabies que la vista d'una àguila és fins a quatre vegades més aguda que la d'un humà?",
+        "es": "¿Sabías que la vista de un águila es hasta cuatro veces más aguda que la de un humano?"
+      },
+      "hook": "Aviat coneixerem un mamífer marí que fa servir eines per obrir el seu menjar.",
+      "questions": [
+        {
+          "q": "On construeix normalment els seus nius l'àguila?",
+          "choices": ["A dalt d'arbres alts o penya-segats", "Dins de coves fosques", "Sota l'aigua", "Al terra pla de la sabana"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que a una àguila li convé tenir una vista tan aguda per caçar des de tan amunt?",
+          "choices": ["Perquè li permet localitzar preses petites des de molt lluny abans de baixar-hi", "Perquè així pot mirar-se al mirall", "No li serveix de res tenir bona vista", "Perquè li agrada mirar el paisatge"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-19-nutria",
+      "order": 19,
+      "title": "La llúdriga marina i les seves eines",
+      "dictation": {
+        "ca": "La llúdriga marina és un dels pocs animals, a més dels humans, que fa servir eines de manera habitual. Fa servir una pedra plana per trencar la closca de musclos mentre floteja d'esquena. Per no allunyar-se mentre dorm, s'embolica sovint amb algues.",
+        "es": "La nutria marina es uno de los pocos animales, además de los humanos, que usa herramientas de manera habitual. Usa una piedra plana para romper la concha de mejillones mientras flota de espaldas. Para no alejarse mientras duerme, se envuelve a menudo con algas."
+      },
+      "factExtra": {
+        "ca": "Sabies que la llúdriga marina té el pelatge més dens de tot el regne animal, amb centenars de milers de pèls a cada centímetre quadrat de pell?",
+        "es": "¿Sabías que la nutria marina tiene el pelaje más denso de todo el reino animal, con centenares de miles de pelos en cada centímetro cuadrado de piel?"
+      },
+      "hook": "Demà arribarem al final d'aquesta aventura amb un animal molt proper a casa.",
+      "questions": [
+        {
+          "q": "Com fa servir la llúdriga marina una pedra plana?",
+          "choices": ["Per trencar la closca de musclos i garotes", "Per construir un niu", "Per pintar el seu pelatge", "Per navegar més ràpid"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que embolicar-se amb algues ajuda la llúdriga marina a dormir tranquil·la sense allunyar-se massa?",
+          "choices": ["Perquè les algues estan fixades i eviten que la corrent l'arrossegui", "Perquè les algues fan bona olor", "No serveix de res fer-ho", "Perquè així s'amaga dels dofins"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "an-20-perro",
+      "order": 20,
+      "title": "El gos, el millor amic de l'ésser humà",
+      "dictation": {
+        "ca": "El gos va ser el primer animal domesticat, fa més de quinze mil anys, i encara ens acompanya arreu. Té un olfacte extraordinari, capaç de detectar olors que els humans mai no podríem percebre. Avui ajuda persones cegues i fa companyia a moltes famílies.",
+        "es": "El perro fue el primer animal domesticado, hace más de quince mil años, y todavía nos acompaña por todas partes. Tiene un olfato extraordinario, capaz de detectar olores que los humanos nunca podríamos percibir. Hoy ayuda a personas ciegas y hace compañía a muchas familias."
+      },
+      "factExtra": {
+        "ca": "Sabies que el nas d'un gos pot ser fins a cent mil vegades més sensible que el nas d'un humà?",
+        "es": "¿Sabías que la nariz de un perro puede ser hasta cien mil veces más sensible que la nariz de un humano?"
+      },
+      "hook": "Aquesta és la fi del nostre viatge pel món animal... però encara ens queden moltes aventures per descobrir junts!",
+      "questions": [
+        {
+          "q": "Quines feines fa avui el gos per ajudar els humans?",
+          "choices": ["Ajudar persones cegues i cercar desapareguts", "Conduir cotxes", "Cuinar el sopar", "Netejar la casa"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "De tots els animals que hem conegut en aquesta sèrie, quin t'ha semblat més sorprenent i per què?",
+          "choices": ["Cadascú pot triar el seu preferit i explicar el motiu", "Cap, tots són igual d'avorrits", "No en recordo cap", "Els animals no són interessants"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    }
+  ]
+}

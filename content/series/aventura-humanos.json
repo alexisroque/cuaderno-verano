@@ -1,0 +1,567 @@
+{
+  "id": "aventura-humanos",
+  "title": "La gran aventura dels humans",
+  "emoji": "🧑‍🤝‍🧑",
+  "episodes": [
+    {
+      "id": "ah-01-caminar-drets",
+      "order": 1,
+      "title": "Uns homínids es posen drets",
+      "dictation": {
+        "ca": "Fa milions d'anys, uns homínids molt antics van començar a caminar drets sobre les dues cames. Així les mans els quedaven lliures per agafar fruits i pedres. Caminar dret també els permetia veure més lluny per damunt de l'herba alta.",
+        "es": "Hace millones de años, unos homínidos muy antiguos empezaron a caminar erguidos sobre las dos piernas. Así las manos les quedaban libres para agarrar frutos y piedras. Caminar de pie también les permitía ver más lejos por encima de la hierba."
+      },
+      "factExtra": {
+        "ca": "Sabies que uns peus fossilitzats trobats a Àfrica, de fa més de 3,6 milions d'anys, demostren que aquells homínids ja caminaven drets?",
+        "es": "¿Sabías que unas huellas fosilizadas encontradas en África, de hace más de 3,6 millones de años, demuestran que aquellos homínidos ya caminaban erguidos?"
+      },
+      "hook": "Demà descobrirem per què les mans lliures van canviar-ho tot.",
+      "questions": [
+        {
+          "q": "Per què els homínids caminaven drets?",
+          "choices": ["Per tenir les mans lliures i veure més lluny", "Per córrer més ràpid que els lleons", "Per no mullar-se els peus", "Per semblar més alts"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si de sobte només poguessis caminar a quatre grapes, què et costaria més fer durant el dia?",
+          "choices": ["Portar coses amb les mans mentre camino", "Dormir de nit", "Menjar assegut", "Parlar amb algú"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-02-mans-lliures-eines",
+      "order": 2,
+      "title": "Unes mans lliures, unes primeres eines",
+      "dictation": {
+        "ca": "Amb les mans lliures, els primers humans van aprendre a fabricar eines senzilles. Picaven una pedra contra una altra fins obtenir una vora ben tallant. Amb aquesta eina podien tallar carn i obrir fruits durs.",
+        "es": "Con las manos libres, los primeros humanos aprendieron a fabricar herramientas sencillas. Golpeaban una piedra contra otra hasta conseguir un borde bien afilado. Con esa herramienta podían cortar carne y abrir frutos duros."
+      },
+      "factExtra": {
+        "ca": "Sabies que les eines de pedra més antigues que s'han trobat tenen gairebé 3,3 milions d'anys?",
+        "es": "¿Sabías que las herramientas de piedra más antiguas que se han encontrado tienen casi 3,3 millones de años?"
+      },
+      "hook": "Aviat aprendran a controlar un element encara més poderós: el foc.",
+      "questions": [
+        {
+          "q": "Com fabricaven les primeres eines?",
+          "choices": ["Picant una pedra contra una altra", "Fonent metall", "Tallant fusta amb els dits", "Comprant-les al mercat"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si haguessis de tallar una fruita dura sense cap eina de metall, què podries fer servir avui en dia?",
+          "choices": ["Una pedra amb la vora tallant", "Les mans nues", "Un mirall", "Una fulla d'arbre"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-03-dominar-el-foc",
+      "order": 3,
+      "title": "El gran descobriment del foc",
+      "dictation": {
+        "ca": "Dominar el foc va ser un canvi molt important de la prehistòria. Amb el foc, els humans es podien escalfar de nit i espantar els animals perillosos. També van veure que la carn cuinada es mastegava molt millor.",
+        "es": "Dominar el fuego fue un cambio muy importante de la prehistoria. Con el fuego, los humanos podían calentarse de noche y asustar a los animales peligrosos. También vieron que la carne cocinada se masticaba mucho mejor."
+      },
+      "factExtra": {
+        "ca": "Sabies que alguns experts creuen que els humans van controlar el foc fa més de 400.000 anys?",
+        "es": "¿Sabías que algunos expertos creen que los humanos controlaron el fuego hace más de 400.000 años?"
+      },
+      "hook": "Demà coneixerem uns cosins nostres molt forts: els neandertals.",
+      "questions": [
+        {
+          "q": "Quins avantatges va donar el foc als primers humans?",
+          "choices": ["Escalfar-se, espantar animals i cuinar millor la carn", "Volar més lluny", "Nedar sota l'aigua", "Fer-se invisibles"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si un dia et quedessis sense llum ni foc a casa, què faries per no tenir por a la nit?",
+          "choices": ["Buscaria una llanterna o una espelma", "Em quedaria quiet sense fer res", "Marxaria corrent de casa", "Tancaria els ulls fort"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-04-caçadors-recol·lectors",
+      "order": 4,
+      "title": "Caçadors i recol·lectors",
+      "dictation": {
+        "ca": "Durant milers d'anys, els humans van viure com a caçadors i recol·lectors. Els homes i les dones caçaven animals amb llances i recollien fruits i arrels del bosc. Com que la caça no sempre sortia bé, calia compartir el menjar.",
+        "es": "Durante miles de años, los humanos vivieron como cazadores y recolectores. Los hombres y las mujeres cazaban animales con lanzas y recogían frutos y raíces del bosque. Como la caza no siempre salía bien, había que compartir la comida."
+      },
+      "factExtra": {
+        "ca": "Sabies que aquests grups es movien sovint d'un lloc a un altre seguint els animals i les fruites de cada estació?",
+        "es": "¿Sabías que estos grupos se movían a menudo de un lugar a otro siguiendo a los animales y las frutas de cada estación?"
+      },
+      "hook": "Ben aviat coneixerem els neandertals, uns caçadors molt hàbils.",
+      "questions": [
+        {
+          "q": "Per què calia compartir el menjar entre tot el grup?",
+          "choices": ["Perquè la caça no sempre sortia bé", "Perquè així ningú cuinava", "Perquè els animals ho demanaven", "Perquè no hi havia menjar mai"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si visquessis en un grup de caçadors i un dia no aconseguíssiu cap animal, què creus que hauríeu de fer per no passar gana?",
+          "choices": ["Recollir fruits, arrels i altres aliments del bosc", "Esperar sense fer res fins l'endemà", "Barallar-nos pel poc menjar", "Marxar cadascú pel seu compte"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-05-neandertals",
+      "order": 5,
+      "title": "Els neandertals, uns cosins molt forts",
+      "dictation": {
+        "ca": "Els neandertals eren uns humans forts que van viure a Europa i Àsia durant milers d'anys. Estaven ben adaptats al fred, caçaven grans animals i fins i tot enterraven els seus morts amb cura.",
+        "es": "Los neandertales eran unos humanos fuertes que vivieron en Europa y Asia durante miles de años. Estaban bien adaptados al frío, cazaban grandes animales e incluso enterraban a sus muertos con cuidado."
+      },
+      "factExtra": {
+        "ca": "Sabies que els neandertals es van extingir fa uns 40.000 anys, però que avui portem un petit percentatge del seu ADN?",
+        "es": "¿Sabías que los neandertales se extinguieron hace unos 40.000 años, pero que hoy llevamos un pequeño porcentaje de su ADN?"
+      },
+      "hook": "Demà parlarem d'un altre tipus d'humà que va sortir d'Àfrica: el nostre.",
+      "questions": [
+        {
+          "q": "On van viure principalment els neandertals?",
+          "choices": ["A Europa i Àsia", "Només a Austràlia", "Només a l'Amèrica del Nord", "Al fons de l'oceà"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que enterrar els morts amb cura demostra que els neandertals no eren \"salvatges\"?",
+          "choices": ["Perquè només fem gestos de respecte cap a algú que estimem", "Perquè només ho fan els animals ferotges", "Perquè no vol dir res especial", "Perquè ho feien per amagar-se dels lleons"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-06-sapiens-surt-africa",
+      "order": 6,
+      "title": "L'Homo sapiens surt d'Àfrica",
+      "dictation": {
+        "ca": "El nostre tipus d'humà, l'Homo sapiens, va aparèixer a Àfrica fa uns 300.000 anys. Amb el temps, alguns grups van decidir marxar cap a terres desconegudes, travessant deserts i muntanyes. Poc a poc, van arribar a Àsia i Europa.",
+        "es": "Nuestro tipo de humano, el Homo sapiens, apareció en África hace unos 300.000 años. Con el tiempo, algunos grupos decidieron marchar hacia tierras desconocidas, atravesando desiertos y montañas. Poco a poco, llegaron a Asia y Europa."
+      },
+      "factExtra": {
+        "ca": "Sabies que tots els humans que vivim avui al món descendim d'aquells primers Homo sapiens africans?",
+        "es": "¿Sabías que todos los humanos que vivimos hoy en el mundo descendemos de aquellos primeros Homo sapiens africanos?"
+      },
+      "hook": "Aviat descobrirem un art fantàstic que van pintar sobre les parets de les coves.",
+      "questions": [
+        {
+          "q": "On va aparèixer l'Homo sapiens?",
+          "choices": ["A Àfrica", "A l'Antàrtida", "A la Lluna", "Al fons del mar"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si haguessis de marxar cap a una terra desconeguda com aquells primers sapiens, quines tres coses t'emportaries per sobreviure pel camí?",
+          "choices": ["Menjar, eines i alguna manera de fer foc", "Un llibre, unes sabates i un mirall", "Un joguet, un cotxe i un rellotge", "Res, marxaria amb les mans buides"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-07-art-rupestre",
+      "order": 7,
+      "title": "Pintures a les parets de les coves",
+      "dictation": {
+        "ca": "Fa milers d'anys, els humans van començar a pintar animals i mans sobre les parets de les coves. Feien servir terres de color roig i negre, barrejades amb aigua o greix animal. Potser volien explicar les seves caceres.",
+        "es": "Hace miles de años, los humanos empezaron a pintar animales y manos sobre las paredes de las cuevas. Usaban tierras de color rojo y negro, mezcladas con agua o grasa animal. Quizás querían explicar sus cacerías."
+      },
+      "factExtra": {
+        "ca": "Sabies que a la cova d'Altamira, a Cantàbria, hi ha pintures de bisons de fa més de 14.000 anys?",
+        "es": "¿Sabías que en la cueva de Altamira, en Cantabria, hay pinturas de bisontes de hace más de 14.000 años?"
+      },
+      "hook": "Demà veurem com aquells caçadors es van convertir en agricultors.",
+      "questions": [
+        {
+          "q": "Amb què feien els colors per pintar les coves?",
+          "choices": ["Amb terres de color barrejades amb aigua o greix", "Amb pintura d'una botiga", "Amb suc de taronja", "Amb neu de colors"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si no tinguessis paper ni llapis, com explicaries a algú del futur com era un dia normal a la teva vida?",
+          "choices": ["Dibuixant escenes a una paret o pedra", "No ho explicaria de cap manera", "Cantant sense parar", "Fent bombolles de sabó"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-08-vestits-agulles",
+      "order": 8,
+      "title": "Els primers vestits i les agulles d'os",
+      "dictation": {
+        "ca": "Per protegir-se del fred intens, els humans van aprendre a cosir pells d'animals amb agulles fetes d'os. Aquestes agulles tenien un forat molt petit per on passava un fil de tendó animal. Així van poder viure en llocs molt gèlids.",
+        "es": "Para protegerse del frío intenso, los humanos aprendieron a coser pieles de animales con agujas hechas de hueso. Estas agujas tenían un agujero muy pequeño por donde pasaba un hilo de tendón animal. Así pudieron vivir en lugares muy helados."
+      },
+      "factExtra": {
+        "ca": "Sabies que s'han trobat agulles d'os de fa uns 40.000 anys, amb un forat tan fi com el d'una agulla d'avui?",
+        "es": "¿Sabías que se han encontrado agujas de hueso de hace unos 40.000 años, con un agujero tan fino como el de una aguja de hoy?"
+      },
+      "hook": "Molt aviat, alguns grups travessaran gel fins a terres completament noves.",
+      "questions": [
+        {
+          "q": "Amb què feien les primeres agulles de cosir?",
+          "choices": ["Amb os o banya d'animal", "Amb fusta tova", "Amb fulles seques", "Amb pedra tallada molt fina"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que la roba ben ajustada al cos abriga més que una simple pell posada per damunt?",
+          "choices": ["Perquè deixa entrar menys aire fred pels forats", "Perquè pesa més i per això dona calor", "Perquè és de color fosc", "No hi ha cap motiu"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-09-creuant-el-gel",
+      "order": 9,
+      "title": "Creuant el gel cap a terres noves",
+      "dictation": {
+        "ca": "Durant una època molt freda, el nivell del mar va baixar i van aparèixer camins de terra i gel entre continents. Alguns grups d'humans els van aprofitar per travessar cap a Amèrica, on encara no havia arribat ningú.",
+        "es": "Durante una época muy fría, el nivel del mar bajó y aparecieron caminos de tierra y hielo entre continentes. Algunos grupos de humanos los aprovecharon para atravesar hacia América, donde todavía no había llegado nadie."
+      },
+      "factExtra": {
+        "ca": "Sabies que aquest pas de terra i gel, entre Àsia i Amèrica, es coneix amb el nom de Beríngia?",
+        "es": "¿Sabías que este paso de tierra y hielo, entre Asia y América, se conoce con el nombre de Beringia?"
+      },
+      "hook": "Demà descobrirem com aquells nòmades es van convertir en agricultors.",
+      "questions": [
+        {
+          "q": "Per què va aparèixer un camí de terra entre continents?",
+          "choices": ["Perquè el nivell del mar va baixar en una època molt freda", "Perquè algú va construir un pont", "Perquè el mar es va assecar del tot", "Perquè hi havia un vaixell gigant"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si haguessis de fer un viatge llarg i molt fred cap a un lloc desconegut, què faries per aguantar el fred pel camí?",
+          "choices": ["Portaria roba d'abric i buscaria refugi cada nit", "Aniria amb roba lleugera per anar més ràpid", "No em prepararia gens", "Esperaria que fes calor abans de marxar"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-10-nomada-agricultor",
+      "order": 10,
+      "title": "Del nòmada a l'agricultor",
+      "dictation": {
+        "ca": "Fa uns 10.000 anys, alguns grups van deixar de moure's i es van quedar a viure sempre al mateix lloc. Van descobrir que si plantaven llavors de blat, al cap d'uns mesos podien collir-ne el gra. Aquest canvi es diu revolució agrícola.",
+        "es": "Hace unos 10.000 años, algunos grupos dejaron de moverse y se quedaron a vivir siempre en el mismo lugar. Descubrieron que si plantaban semillas de trigo, al cabo de unos meses podían recoger el grano. Este cambio se llama revolución agrícola."
+      },
+      "factExtra": {
+        "ca": "Sabies que la primera agricultura va néixer a la regió d'Orient Pròxim coneguda com la Mitja Lluna Fèrtil?",
+        "es": "¿Sabías que la primera agricultura nació en la región de Oriente Próximo conocida como la Media Luna Fértil?"
+      },
+      "hook": "Demà veurem com van néixer els primers pobles estables.",
+      "questions": [
+        {
+          "q": "Què van descobrir els humans fa uns 10.000 anys?",
+          "choices": ["Que podien plantar llavors i collir-ne el gra", "Que els animals sabien parlar", "Que el foc apagava els incendis", "Que el mar es podia beure"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Quins avantatges i inconvenients creus que té quedar-se sempre al mateix lloc en comptes de moure's contínuament?",
+          "choices": ["Avantatge: més seguretat; inconvenient: has d'esperar que creixi el menjar", "No hi ha cap avantatge ni cap inconvenient", "Només hi ha inconvenients", "Només hi ha avantatges"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-11-llavors-blat",
+      "order": 11,
+      "title": "Les primeres llavors i el blat",
+      "dictation": {
+        "ca": "Els primers agricultors triaven amb cura les millors llavors de blat per plantar-les l'any següent. Poc a poc, aquelles plantes es van fer més grosses i donaven més gra que les plantes salvatges. Aquest procés es diu domesticació.",
+        "es": "Los primeros agricultores elegían con cuidado las mejores semillas de trigo para plantarlas el año siguiente. Poco a poco, esas plantas se hicieron más grandes y daban más grano que las plantas salvajes. Este proceso se llama domesticación."
+      },
+      "factExtra": {
+        "ca": "Sabies que el blat que mengem avui és molt diferent de la planta salvatge original, gràcies a milers d'anys de selecció?",
+        "es": "¿Sabías que el trigo que comemos hoy es muy diferente de la planta salvaje original, gracias a miles de años de selección?"
+      },
+      "hook": "Aviat descobrirem que també van aprendre a domesticar animals.",
+      "questions": [
+        {
+          "q": "Què triaven amb cura els primers agricultors?",
+          "choices": ["Les millors llavors per plantar-les l'any següent", "Les pedres més dures per construir cases", "Els animals més petits per menjar-los", "Els arbres més alts per fer llenya"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que triar sempre les millors llavors, any rere any, va fer que el blat canviés amb el temps?",
+          "choices": ["Perquè les característiques bones es van repetint i acumulant generació rere generació", "Perquè les llavors es cansaven de ser iguals", "Perquè la pluja canviava el color del gra", "No té cap explicació possible"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-12-domesticar-animals",
+      "order": 12,
+      "title": "Domesticar animals",
+      "dictation": {
+        "ca": "A més de conrear plantes, els humans van aprendre a domesticar animals com el gos, la cabra i l'ovella. Els animals domesticats donaven llet, llana, carn i força per treballar la terra. El gos ja ajudava a caçar molt abans.",
+        "es": "Además de cultivar plantas, los humanos aprendieron a domesticar animales como el perro, la cabra y la oveja. Los animales domesticados daban leche, lana, carne y fuerza para trabajar la tierra. El perro ya ayudaba a cazar mucho antes."
+      },
+      "factExtra": {
+        "ca": "Sabies que el gos va ser el primer animal domesticat pels humans, fa més de 15.000 anys?",
+        "es": "¿Sabías que el perro fue el primer animal domesticado por los humanos, hace más de 15.000 años?"
+      },
+      "hook": "Demà veurem com aquestes famílies d'agricultors van formar els primers pobles.",
+      "questions": [
+        {
+          "q": "Quins animals van domesticar els primers agricultors?",
+          "choices": ["El gos, la cabra i l'ovella", "El tigre i el cocodril", "La balena i el dofí", "L'àguila i el falcó"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si haguessis de triar un sol animal per ajudar-te a viure al camp fa milers d'anys, quin triaries i per què?",
+          "choices": ["Un gos, per vigilar i ajudar a caçar", "Un peix, per fer-lo servir de coixí", "Una papallona, perquè és bonica", "Cap, no calen animals"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-13-primers-pobles",
+      "order": 13,
+      "title": "Neixen els primers pobles",
+      "dictation": {
+        "ca": "Amb l'agricultura, moltes famílies es van quedar a viure juntes al mateix indret durant generacions. Així van néixer els primers pobles, amb cases fetes de fang, pedra o canyes. Calia organitzar-se per compartir la feina i el menjar.",
+        "es": "Con la agricultura, muchas familias se quedaron a vivir juntas en el mismo lugar durante generaciones. Así nacieron los primeros pueblos, con casas hechas de barro, piedra o cañas. Había que organizarse para compartir el trabajo y la comida."
+      },
+      "factExtra": {
+        "ca": "Sabies que el poblat de Jericó, a Orient Mitjà, és un dels assentaments humans més antics del món?",
+        "es": "¿Sabías que el poblado de Jericó, en Oriente Medio, es uno de los asentamientos humanos más antiguos del mundo?"
+      },
+      "hook": "Ben aviat coneixerem un invent que encara fem servir avui: la roda.",
+      "questions": [
+        {
+          "q": "De què eren fetes les primeres cases dels pobles?",
+          "choices": ["De fang, pedra o canyes", "De vidre i formigó", "De gel", "De metall pur"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si visquessis en un poble on tothom ha de repartir-se la feina, quina feina t'agradaria fer i per què?",
+          "choices": ["Cuidar els animals, perquè m'agraden", "Cap, preferiria no fer res", "Totes alhora, sense triar-ne cap", "Marxar del poble de seguida"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-14-la-roda",
+      "order": 14,
+      "title": "La roda, un invent que ho canvia tot",
+      "dictation": {
+        "ca": "Fa uns 5.500 anys, algú va tenir una idea genial: fer servir un disc rodó per moure càrregues pesants amb menys esforç. Aquest disc, la roda, es va fer servir primer per fer terrissa i després per construir carros.",
+        "es": "Hace unos 5.500 años, alguien tuvo una idea genial: usar un disco redondo para mover cargas pesadas con menos esfuerzo. Ese disco, la rueda, se usó primero para hacer alfarería y después para construir carros."
+      },
+      "factExtra": {
+        "ca": "Sabies que la roda es va inventar molt més tard que l'agricultura, tot i que sembla un invent més senzill?",
+        "es": "¿Sabías que la rueda se inventó mucho más tarde que la agricultura, aunque parezca un invento más sencillo?"
+      },
+      "hook": "Demà descobrirem un altre invent fet amb fang i foc: la ceràmica.",
+      "questions": [
+        {
+          "q": "Per a què es va fer servir primer la roda?",
+          "choices": ["Per fer terrissa", "Per volar", "Per nedar", "Per encendre foc"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Imagina que el món no tingués rodes de cap tipus: com canviaria el teu dia a dia?",
+          "choices": ["Costaria molt més transportar coses i moure'ns", "No canviaria absolutament res", "Seria més fàcil viatjar", "Només afectaria als jocs de taula"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-15-ceramica",
+      "order": 15,
+      "title": "Fang i foc: neix la ceràmica",
+      "dictation": {
+        "ca": "Amb l'agricultura, calia guardar el gra i l'aigua d'una manera segura, i per això va néixer la ceràmica. Les persones modelaven el fang humit amb les mans fins donar-li forma de bol. Després, coïen les peces al foc perquè quedessin dures.",
+        "es": "Con la agricultura, había que guardar el grano y el agua de una manera segura, y por eso nació la cerámica. Las personas moldeaban el barro húmedo con las manos hasta darle forma de cuenco. Después, cocían las piezas al fuego para que quedaran duras."
+      },
+      "factExtra": {
+        "ca": "Sabies que algunes peces de ceràmica trobades a la Xina tenen més de 18.000 anys d'antiguitat?",
+        "es": "¿Sabías que algunas piezas de cerámica encontradas en China tienen más de 18.000 años de antigüedad?"
+      },
+      "hook": "Aviat descobrirem com van aprendre a treballar amb metalls.",
+      "questions": [
+        {
+          "q": "Per què va néixer la ceràmica?",
+          "choices": ["Per guardar el gra i l'aigua de manera segura", "Per fer joguines de plàstic", "Per construir carreteres", "Per fer roba d'hivern"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si no existissin ni pots ni bosses ni caixes, com guardaries l'aigua per beure demà?",
+          "choices": ["Buscaria algun recipient natural, com una carbassa buidada", "No la guardaria, la beuria tota de cop", "La deixaria escampada per terra", "Demanaria a algú que la vigilés tota l'estona"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-16-metalls-coure-bronze",
+      "order": 16,
+      "title": "Els metalls: del coure al bronze",
+      "dictation": {
+        "ca": "Amb el temps, els humans van veure que algunes pedres, escalfades molt, es fonien i es convertien en metall líquid. Així van aprendre a treballar primer el coure i, més tard, el bronze, una mescla de coure i estany.",
+        "es": "Con el tiempo, los humanos vieron que algunas piedras, calentadas mucho, se fundían y se convertían en metal líquido. Así aprendieron a trabajar primero el cobre y, más tarde, el bronce, una mezcla de cobre y estaño."
+      },
+      "factExtra": {
+        "ca": "Sabies que aquesta època es diu Edat del Bronze i que va durar milers d'anys, fins que es va descobrir el ferro?",
+        "es": "¿Sabías que esta época se llama Edad del Bronce y que duró miles de años, hasta que se descubrió el hierro?"
+      },
+      "hook": "Demà entrarem per fi a les primeres grans ciutats de la història.",
+      "questions": [
+        {
+          "q": "De què es fa el bronze?",
+          "choices": ["D'una mescla de coure i estany", "Només de fusta", "D'aigua congelada", "De vidre fos"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que unes eines de metall eren millors que unes eines de pedra per treballar el camp?",
+          "choices": ["Perquè el metall es podia fer servir més temps sense trencar-se", "Perquè el metall és més bonic de color", "Perquè el metall flota millor a l'aigua", "No hi ha cap diferència real"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-17-primeres-ciutats",
+      "order": 17,
+      "title": "Neixen les primeres ciutats",
+      "dictation": {
+        "ca": "Quan els pobles van créixer molt, alguns es van convertir en grans ciutats amb milers d'habitants. A Mesopotàmia, entre els rius Tigris i Èufrates, van aparèixer ciutats plenes de temples, mercats i carrers. Calia un govern per organitzar-ho tot.",
+        "es": "Cuando los pueblos crecieron mucho, algunos se convirtieron en grandes ciudades con miles de habitantes. En Mesopotamia, entre los ríos Tigris y Éufrates, aparecieron ciudades llenas de templos, mercados y calles. Hacía falta un gobierno para organizarlo todo."
+      },
+      "factExtra": {
+        "ca": "Sabies que la paraula \"Mesopotàmia\" vol dir \"entre rius\", perquè es troba entre el Tigris i l'Èufrates?",
+        "es": "¿Sabías que la palabra \"Mesopotamia\" significa \"entre ríos\", porque se encuentra entre el Tigris y el Éufrates?"
+      },
+      "hook": "Demà descobrirem l'invent que va permetre guardar tota aquesta informació: l'escriptura.",
+      "questions": [
+        {
+          "q": "On van aparèixer algunes de les primeres grans ciutats?",
+          "choices": ["A Mesopotàmia, entre el Tigris i l'Èufrates", "Al Pol Nord", "Al mig de l'oceà Pacífic", "A la Lluna"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que una ciutat amb milers de persones necessita un govern que organitzi les coses?",
+          "choices": ["Perquè sense organització seria molt difícil repartir bé els recursos i evitar problemes", "Perquè el govern serveix només per fer festes", "Perquè així ningú necessita treballar", "No cal cap organització mai"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-18-escriptura",
+      "order": 18,
+      "title": "S'inventa l'escriptura",
+      "dictation": {
+        "ca": "A Mesopotàmia, els comerciants necessitaven anotar quant gra o quants animals tenien guardats. Van inventar l'escriptura cuneïforme, feta de petits signes marcats sobre tauletes d'argila. Amb l'escriptura, els humans van poder guardar coneixements per sempre.",
+        "es": "En Mesopotamia, los comerciantes necesitaban anotar cuánto grano o cuántos animales tenían guardados. Inventaron la escritura cuneiforme, hecha de pequeños signos marcados sobre tablillas de arcilla. Con la escritura, los humanos pudieron guardar conocimientos para siempre."
+      },
+      "factExtra": {
+        "ca": "Sabies que \"cuneïforme\" ve de la paraula \"cuny\", perquè els signes tenien forma de petita falca?",
+        "es": "¿Sabías que \"cuneiforme\" viene de la palabra \"cuña\", porque los signos tenían forma de pequeña cuña?"
+      },
+      "hook": "Aviat veurem com aquesta invenció va ajudar a portar comptes i fer comerç.",
+      "questions": [
+        {
+          "q": "Per què va néixer l'escriptura cuneïforme?",
+          "choices": ["Per anotar quant gra o quants animals es tenien guardats", "Per fer dibuixos bonics només", "Per parlar amb els animals", "Per escriure cançons de bressol"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si no existís l'escriptura, com podries recordar demà tot allò important que has fet avui?",
+          "choices": ["Ho explicaria en veu alta a algú altre perquè ho recordi per mi", "No hi ha cap manera de recordar-ho", "Ho oblidaria sense cap problema", "Ho dibuixaria amb els ulls tancats"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-19-numeros-comerç",
+      "order": 19,
+      "title": "Nombres i comerç entre pobles",
+      "dictation": {
+        "ca": "Amb ciutats plenes de mercats, calia un sistema de nombres per comptar mercaderies i fer intercanvis justos. Els mercaders viatjaven entre pobles llunyans portant gra, teles i espècies per vendre. Així, les idees viatjaven d'un lloc a un altre.",
+        "es": "Con ciudades llenas de mercados, hacía falta un sistema de números para contar mercancías y hacer intercambios justos. Los mercaderes viajaban entre pueblos lejanos llevando grano, telas y especias para vender. Así, las ideas viajaban de un lugar a otro."
+      },
+      "factExtra": {
+        "ca": "Sabies que abans d'inventar la moneda, molta gent feia comerç intercanviant directament un producte per un altre?",
+        "es": "¿Sabías que antes de inventar la moneda, mucha gente hacía comercio intercambiando directamente un producto por otro?"
+      },
+      "hook": "Demà arribarem al final d'aquest viatge, per veure què ens ha quedat de tot això.",
+      "questions": [
+        {
+          "q": "Què portaven els mercaders d'un poble a un altre?",
+          "choices": ["Gra, teles i espècies", "Núvols i pluja", "Sorra del desert únicament", "Res, només caminaven"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Si haguessis de bescanviar un dels teus joguets per aliment sense fer servir diners, com decidiries si l'intercanvi és just?",
+          "choices": ["Compararia quant val cada cosa per a mi i per a l'altra persona", "Donaria qualsevol cosa sense pensar-hi", "No acceptaria mai bescanviar res", "Deixaria que l'altra persona decidís sola"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ah-20-llegat-fins-avui",
+      "order": 20,
+      "title": "Un llegat que arriba fins avui",
+      "dictation": {
+        "ca": "Des dels primers homínids drets fins a les grans ciutats amb escriptura, hem fet un viatge de milions d'anys. Cada invent, com el foc, l'agricultura o la roda, va canviar per sempre la manera de viure. Avui encara fem servir aquells invents tan antics.",
+        "es": "Desde los primeros homínidos erguidos hasta las grandes ciudades con escritura, hemos hecho un viaje de millones de años. Cada invento, como el fuego, la agricultura o la rueda, cambió para siempre la manera de vivir. Hoy todavía usamos aquellos inventos tan antiguos."
+      },
+      "factExtra": {
+        "ca": "Sabies que a aquesta ciència que estudia els humans i la seva evolució se l'anomena \"antropologia\"?",
+        "es": "¿Sabías que a esta ciencia que estudia a los humanos y su evolución se la llama \"antropología\"?"
+      },
+      "hook": "Aquesta és la fi del viatge pels humans... però la següent aventura, amb els animals, tot just comença!",
+      "questions": [
+        {
+          "q": "Quins invents es citen com a exemples de canvis que encara fem servir avui?",
+          "choices": ["El foc, l'agricultura i la roda", "El telèfon mòbil i internet", "L'avió i el cotxe elèctric", "El televisor i la ràdio"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "De tots els invents que hem après en aquesta sèrie, quin creus que va canviar més la vida dels humans i per què?",
+          "choices": ["L'escriptura, perquè va permetre guardar i compartir el coneixement per sempre", "Cap, tots són igual d'importants sense excepció", "El foc, però només serveix per cuinar", "No en recordo cap"],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    }
+  ]
+}
