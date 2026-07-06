@@ -2,6 +2,7 @@ import { useEffect, type ReactNode } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import { useProfileStore, type ProfileId } from '../state/profileStore'
 import { useProgressStore } from '../state/progressStore'
+import { useTestModeStore } from '../state/testModeStore'
 import { currentChapter } from '../content/chapters'
 import { speak } from '../lib/tts'
 import { Pill } from './ui/Pill'
@@ -36,6 +37,8 @@ export function Shell({ children }: { children: ReactNode }) {
   const { pathname } = useLocation()
   const streak = useProgressStore((s) => (profile ? s.profiles[profile].streak.count : 0))
   const coins = useProgressStore((s) => (profile ? s.profiles[profile].coins : 0))
+  const testMode = useTestModeStore((s) => s.active)
+  const exitTestMode = useTestModeStore((s) => s.disable)
 
   const isLeo = profile === 'leo'
   const chapter = currentChapter()
@@ -53,6 +56,26 @@ export function Shell({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-screen flex-col" style={{ background: 'var(--bg)', color: 'var(--ink)' }}>
+      {testMode && (
+        <div
+          role="status"
+          className="flex items-center justify-center gap-3 px-4 py-2 text-sm font-bold"
+          style={{ background: 'var(--sky)', color: 'var(--navy)' }}
+        >
+          <span>🧪 Modo prueba · el progreso no se guarda</span>
+          <button
+            type="button"
+            onClick={() => {
+              exitTestMode()
+              navigate('/')
+            }}
+            className="rounded-full px-3 py-1 text-xs font-extrabold transition-transform active:translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--navy)]"
+            style={{ background: 'var(--navy)', color: '#fff' }}
+          >
+            Salir
+          </button>
+        </div>
+      )}
       <header className="flex flex-wrap items-center justify-between gap-3 px-5 pt-5 pb-3 sm:px-8">
         <div className="flex items-center gap-3">
           <IconTile emoji={meta.emoji} tone={meta.tone} size={isLeo ? 'lg' : 'md'} tilt />

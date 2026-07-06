@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import type { ProfileId } from '../../state/profileStore'
 import { useSettingsStore } from '../../state/settingsStore'
+import { useTestModeStore } from '../../state/testModeStore'
 import { useParentSession } from './session'
 import { Dashboard } from './Dashboard'
 import { Heatmap } from './Heatmap'
@@ -10,13 +11,14 @@ import { Backup } from './Backup'
 import { todayISO } from '../../lib/clock'
 import { daysBetween } from '../../lib/dates'
 
-type Tab = 'dashboard' | 'heatmap' | 'settings' | 'backup'
+type Tab = 'dashboard' | 'heatmap' | 'settings' | 'backup' | 'testmode'
 
 const TABS: { id: Tab; label: string; emoji: string }[] = [
   { id: 'dashboard', label: 'Actividad', emoji: '📊' },
   { id: 'heatmap', label: 'Mapa de calor', emoji: '🗺️' },
   { id: 'settings', label: 'Ajustes', emoji: '⚙️' },
   { id: 'backup', label: 'Copia', emoji: '💾' },
+  { id: 'testmode', label: 'Modo prueba', emoji: '🧪' },
 ]
 
 const CHILDREN: { id: ProfileId; name: string; emoji: string }[] = [
@@ -59,9 +61,68 @@ function BackupNudge({ onGoBackup }: { onGoBackup: () => void }) {
 }
 
 /**
+ * "Modo prueba" toggle: lets the parent try the exercises without any of it
+ * counting toward the kids' real progress. Turning it ON snapshots the current
+ * progress and drops to profile select so the parent can play as either kid;
+ * turning it OFF restores the pre-test progress. Nothing is written to disk
+ * while it is on, so there is zero trace afterwards.
+ */
+function TestModePanel({ onEnabled }: { onEnabled: () => void }) {
+  const active = useTestModeStore((s) => s.active)
+  const enable = useTestModeStore((s) => s.enable)
+  const disable = useTestModeStore((s) => s.disable)
+
+  function toggle() {
+    if (active) {
+      disable()
+    } else {
+      enable()
+      onEnabled()
+    }
+  }
+
+  return (
+    <div
+      className="rounded-2xl p-5"
+      style={{ background: 'var(--card)', boxShadow: '0 2px 6px rgba(184,140,120,.14)' }}
+    >
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex-1">
+          <div className="flex items-center gap-2 text-base font-extrabold" style={{ color: 'var(--navy)' }}>
+            <span aria-hidden>🧪</span> Modo prueba
+          </div>
+          <p className="mt-1 text-sm" style={{ color: 'var(--ink-soft)' }}>
+            Prueba los ejercicios sin que cuenten para Aira ni Leo. Al salir, no queda rastro.
+          </p>
+        </div>
+        <button
+          type="button"
+          role="switch"
+          aria-checked={active}
+          aria-label="Activar modo prueba"
+          onClick={toggle}
+          className="relative h-8 w-14 shrink-0 rounded-full transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--navy)]"
+          style={{ background: active ? 'var(--navy)' : '#d8cec8' }}
+        >
+          <span
+            className="absolute top-1 h-6 w-6 rounded-full bg-white transition-all"
+            style={{ left: active ? '30px' : '4px', boxShadow: '0 1px 3px rgba(0,0,0,.2)' }}
+          />
+        </button>
+      </div>
+      {active && (
+        <p className="mt-3 text-sm font-semibold" style={{ color: '#c26a4c' }}>
+          Modo prueba activo. El progreso no se está guardando.
+        </p>
+      )}
+    </div>
+  )
+}
+
+/**
  * The unlocked parent panel: child selector (Aira/Leo) + section tabs
- * (Actividad / Mapa de calor / Ajustes / Copia). Adult register, denser than
- * the kid UI but on-brand (navy accents on the warm peach base).
+ * (Actividad / Mapa de calor / Ajustes / Copia / Modo prueba). Adult register,
+ * denser than the kid UI but on-brand (navy accents on the warm peach base).
  */
 export function ParentPanel() {
   const navigate = useNavigate()
@@ -157,6 +218,7 @@ export function ParentPanel() {
         {tab === 'heatmap' && <Heatmap profile={child} />}
         {tab === 'settings' && <Settings profile={child} />}
         {tab === 'backup' && <Backup />}
+        {tab === 'testmode' && <TestModePanel onEnabled={() => navigate('/')} />}
       </div>
     </main>
   )

@@ -1,8 +1,9 @@
 import { create } from 'zustand'
 import type { Attempt, DiaryEntry, PlacedSticker, ProfileProgress } from '../types/progress'
 import type { ProfileId } from './profileStore'
-import { createDebouncedPersist, loadState } from '../lib/storage'
+import { createDebouncedPersist, loadState, type DebouncedPersist } from '../lib/storage'
 import { ProfileProgressSchema } from './persistSchemas'
+import { isTestModeActive } from './testModeStore'
 
 function emptyProgress(): ProfileProgress {
   return {
@@ -56,9 +57,34 @@ interface ProgressStoreState {
   unlockTreasure: (profile: ProfileId, treasureId: string) => void
 }
 
-const persisters: Record<ProfileId, ReturnType<typeof createDebouncedPersist>> = {
-  aira: createDebouncedPersist('profile:aira', () => useProgressStore.getState().profiles.aira),
-  leo: createDebouncedPersist('profile:leo', () => useProgressStore.getState().profiles.leo),
+/**
+ * Wraps a persister so that while "Modo prueba" is active every persistence
+ * write is suppressed: `schedule()`/`flush()` become no-ops. Progress still
+ * mutates in memory (the app behaves normally), but nothing reaches IndexedDB,
+ * so exiting test mode — or simply reloading — leaves the real saved progress
+ * exactly as it was. Settings persistence lives in its own store and is
+ * unaffected.
+ */
+function guardWithTestMode(persister: DebouncedPersist): DebouncedPersist {
+  return {
+    schedule: () => {
+      if (isTestModeActive()) return
+      persister.schedule()
+    },
+    flush: async () => {
+      if (isTestModeActive()) return
+      await persister.flush()
+    },
+  }
+}
+
+const persisters: Record<ProfileId, DebouncedPersist> = {
+  aira: guardWithTestMode(
+    createDebouncedPersist('profile:aira', () => useProgressStore.getState().profiles.aira),
+  ),
+  leo: guardWithTestMode(
+    createDebouncedPersist('profile:leo', () => useProgressStore.getState().profiles.leo),
+  ),
 }
 
 export const useProgressStore = create<ProgressStoreState>((set, get) => ({
