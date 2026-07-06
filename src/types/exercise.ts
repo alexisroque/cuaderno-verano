@@ -1,0 +1,70 @@
+import type { Rng } from '../lib/rng'
+
+/**
+ * Visual aid attached to a prompt or a strategy step. `'none'` means no
+ * visual is rendered — kept explicit (rather than making `visual` always
+ * optional) so generators can be deliberate about opting out.
+ */
+export type VisualSpec =
+  | { kind: 'rectangle-model'; rows: number; colsSplit: number[] }
+  | { kind: 'number-line'; from: number; to: number; jumps: { from: number; to: number; label: string }[] }
+  | { kind: 'boxes'; groups: number; perGroup: number; remainder?: number }
+  | { kind: 'emoji-count'; emoji: string; count: number; rows?: number }
+  | { kind: 'grid-figure'; cells: [number, number][] } // filled cells of a grid
+  | { kind: 'dot-grid'; n: number } // n×n square
+  | { kind: 'none' }
+
+/** One step of a worked strategy: a Spanish-language explanation plus an optional visual. */
+export interface StrategyStep {
+  text: string
+  visual?: VisualSpec
+}
+
+/** One named way to solve an exercise (Innovamat teaches several strategies per operation). */
+export interface Strategy {
+  id: string
+  name: string
+  steps: StrategyStep[]
+}
+
+/** A selectable option for choice/multi answers. */
+export interface Choice {
+  id: string
+  label: string
+}
+
+/** The canonical correct answer for an exercise, in one of several shapes. */
+export type Answer =
+  | { kind: 'number'; value: number }
+  | { kind: 'text'; value: string; accept?: string[] }
+  | { kind: 'choice'; correctId: string }
+  | { kind: 'multi'; correctIds: string[] }
+
+/** A fully materialized exercise instance, ready to render and grade. */
+export interface Exercise {
+  id: string
+  subskill: string
+  difficulty: number
+  prompt: { text: string; visual?: VisualSpec }
+  answer: Answer
+  choices?: Choice[]
+  dataHighlight?: { relevantIndices: number[]; trapIndex?: number; tokens: string[] }
+  strategies: Strategy[] // >= 1
+  microlesson?: string // "¿para qué sirve?" real-world hook
+  challenge?: boolean
+}
+
+/** The subset of a Chapter's flavor a generator needs, decoupled from the full Chapter/content schema. */
+export interface ChapterFlavorLite {
+  placeName: string
+  currency?: string
+  landmarks: string[]
+  animals: string[]
+  foods: string[]
+}
+
+/** A pure exercise generator for one subskill: (rng, difficulty, flavor) -> Exercise. */
+export interface Generator {
+  subskill: string
+  generate(rng: Rng, difficulty: number, flavor: ChapterFlavorLite): Exercise
+}
