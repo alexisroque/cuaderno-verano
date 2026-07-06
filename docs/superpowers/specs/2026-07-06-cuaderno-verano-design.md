@@ -53,7 +53,7 @@ Portada con los dos avatares. Cada perfil tiene su mundo visual y su estado. Sin
 1. **El problema del día** — problema con enunciado ambientado en el capítulo actual (dinero en SGD/MYR/IDR simplificado a €, horarios de vuelos, distancias, fauna). Formato Innovamat.
 2. **El dictado del día** — episodio de una serie cultural (ver §6.2), audio TTS, en catalán o castellano (alternancia con más peso al catalán por la prioridad de ortografía).
 3. **¿Sabías que...?** — lectura corta (serie cultural o viaje) + pregunta de comprensión reflexiva ("¿tú qué habrías hecho?", "¿por qué crees que...?").
-4. **Mi diario** — pregunta-disparador del día para escribir 3-5 frases. Guarda borradores. Los textos quedan como recuerdo del verano exportable.
+4. **Mi diario** — pregunta-disparador del día para escribir 3-5 frases. Guarda borradores. Los textos viajan en la exportación JSON del panel de padres (§8) y además se pueden exportar como texto legible ("El diario de Aira — verano 2026") para conservarlo como recuerdo.
 
 ### 4.3 La página de hoy — Leo
 3 tarjetas grandes con audio en todo + 1 rotatoria:
@@ -81,7 +81,7 @@ La app lee la fecha del iPad y activa el capítulo correspondiente:
 | 29 jul–4 ago | Sanur 🏖️ | playa, snorkel, day-trips |
 | 5 ago → | Verano en casa 🏖️👵 | playa local, abuelos, helados, chiringuito |
 
-Los capítulos son JSON (fechas, lugar, mascota, vocabulario de ambientación, curiosidades, pegatinas del mural). Cambiar el tema otro verano = editar datos, no código. El "Pasaporte de Exploradores" del travel-planner del padre cubre experiencias del viaje; el pasaporte del Cuaderno cubre logros de aprendizaje (complementarios, no duplicados).
+Convención de rangos: inicio inclusivo, fin exclusivo (el 15 jul pertenece a Borneo, no a Singapur); los días de vuelo/traslado pertenecen al capítulo de destino. Los capítulos son JSON (fechas, lugar, mascota, vocabulario de ambientación, curiosidades, pegatinas del mural). Cambiar el tema otro verano = editar datos, no código. El "Pasaporte de Exploradores" del travel-planner del padre cubre experiencias del viaje; el pasaporte del Cuaderno cubre logros de aprendizaje (complementarios, no duplicados).
 
 ## 5. Motor de ejercicios de matemáticas
 
@@ -111,7 +111,7 @@ Leo (base I4): conteo resultativo, descomposición 4-6, comparación, patrones, 
 ### 5.3 Motor adaptativo
 - Cada habilidad (gema) se desglosa en **subtemas etiquetados** (p. ej. Cálculo → tablas, ×1 cifra, ×2 cifras, división con resto, mental, estimación; Ortografía → regla por regla).
 - Cada respuesta registra: subtema, acierto, pistas usadas, tiempo.
-- **Selección ponderada**: ~60% subtemas flojos o vencidos (repetición espaciada), ~25% consolidación, ~15% novedad/desafío. Proporciones ajustables.
+- **Selección ponderada** (valores por defecto): 60% subtemas flojos o vencidos (repetición espaciada), 25% consolidación, 15% novedad; los desafíos 🚀 del curso siguiente son adicionales y aparecen ~1 de cada 5 días vía el motor de sorpresas (§7.4), nunca dentro del cupo de novedad. Proporciones ajustables desde el panel de padres.
 - **Dificultad auto-calibrada** por subtema según precisión en ventana móvil (últimas 15-20): zona de "difícil pero alcanzable".
 - Los ajustes del panel de padres (§8) actúan como prioridades por encima del motor.
 
@@ -142,7 +142,7 @@ Formato episodio: 2-4 frases dictadas (TTS) → escritura → autocorrección co
 
 ### 7.1 Gemas por habilidad
 7 niveles: Piedra → Cuarzo → Ámbar → Esmeralda → Rubí → Diamante → Ópalo.
-- Suben por **maestría** (precisión sostenida a dificultad creciente), no por volumen. Sin descensos.
+- Suben por **maestría** (precisión sostenida a dificultad creciente), no por volumen. Sin descensos. Los umbrales concretos por nivel (p. ej. ≥80% en las últimas 20 respuestas a la dificultad del nivel) se fijan en la fase de planificación, calibrados para el objetivo de 1-2 subidas/semana.
 - Aira: Cálculo, Problemas, Ortografía, Escritura, Lectura, English, Geografía, Mundo.
 - Leo: Trazos, Números, English, Lógica — presentadas como estrellas que crecen (mismo sistema interno).
 - Subida de gema = EL momento: pantalla completa, ráfaga manga, transformación. Frecuencia objetivo: 1-2/semana.
