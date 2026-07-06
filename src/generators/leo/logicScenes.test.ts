@@ -70,14 +70,16 @@ describe('posicionesGenerator (posiciones)', () => {
     })
   })
 
-  it('difficulty 1 only uses encima/debajo; higher difficulties add al lado/delante', () => {
-    const seenAtD1 = new Set<string>()
-    propertyTestWithDeterminism(posicionesGenerator, { difficulties: [1], seeds: 100 }, (exercise) => {
-      const match = exercise.prompt.text.match(/está (encima|debajo|al lado|delante) del otro/)
-      if (match) seenAtD1.add(match[1])
-    })
-    expect(seenAtD1.size).toBeGreaterThan(0)
-    for (const pos of seenAtD1) {
+  it('only offers encima/debajo at every difficulty — "al lado" and "delante" were dropped for having an ambiguous or duplicate scene', () => {
+    const seen = new Set<string>()
+    for (const difficulty of DIFFICULTIES) {
+      propertyTestWithDeterminism(posicionesGenerator, { difficulties: [difficulty], seeds: 100 }, (exercise) => {
+        const match = exercise.prompt.text.match(/está (encima|debajo|al lado|delante) del otro/)
+        if (match) seen.add(match[1])
+      })
+    }
+    expect(seen.size).toBeGreaterThan(0)
+    for (const pos of seen) {
       expect(['encima', 'debajo']).toContain(pos)
     }
   })

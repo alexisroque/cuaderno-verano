@@ -60,28 +60,39 @@ export const clasificarGenerator: Generator = {
   },
 }
 
-type Position = 'encima' | 'debajo' | 'al lado' | 'delante'
-const POSITIONS: Position[] = ['encima', 'debajo', 'al lado', 'delante']
+/**
+ * Only `encima`/`debajo` are offered. `al lado` was dropped: on a 2-actor
+ * scene, "al lado" is symmetric — both actors are equally "beside" each
+ * other, so a child tapping either one is correct, but the generator only
+ * graded `mover` as correct. Making it unambiguous would need a 3+ item
+ * row with a named anchor ("toca el que está al lado de X"), which is more
+ * complexity than this small 2-actor scene format supports well. `delante`
+ * was also dropped: the emoji grid has no depth cue for a 4-5yo, so it was
+ * implemented with the exact same delta as `debajo` (the row below), making
+ * every "delante" scene visually identical to a "debajo" scene — same
+ * ambiguity, different label. `encima`/`debajo` are the only two relations
+ * this 2-actor top/bottom layout can render with a single, unique answer.
+ */
+type Position = 'encima' | 'debajo'
+const POSITIONS: Position[] = ['encima', 'debajo']
 
 /** Small scene pool: a "container" emoji (fixed reference point) plus a "mover" emoji placed relative to it. */
 const SCENE_ACTORS = ['🐶', '🐱', '🐰', '🐢', '⭐', '🎈']
 
-/** Positions available per difficulty (catalog range [1, 3]): fewer, easier-to-picture relations first. */
+/** Positions available per difficulty (catalog range [1, 3]): both are unambiguous, so all difficulties share the same pool. */
 const POSITION_POOL: Record<number, Position[]> = {
-  1: ['encima', 'debajo'],
-  2: ['encima', 'debajo', 'al lado'],
+  1: POSITIONS,
+  2: POSITIONS,
   3: POSITIONS,
 }
 
-/** Reference cell every scene is built around (row, col), leaving room to place the mover above/below/beside/in-front on a 3x3 implicit grid. */
+/** Reference cell every scene is built around (row, col), leaving room to place the mover above/below it on a 3x3 implicit grid. */
 const REFERENCE_CELL = { row: 1, col: 1 }
 
-/** Deltas (row, col) that place the mover at `position` relative to the reference cell. "delante" (in front) reads as the row just below, from Leo's viewpoint looking at the scene. */
+/** Deltas (row, col) that place the mover at `position` relative to the reference cell. */
 const POSITION_DELTA: Record<Position, { row: number; col: number }> = {
   encima: { row: -1, col: 0 },
   debajo: { row: 1, col: 0 },
-  'al lado': { row: 0, col: 1 },
-  delante: { row: 1, col: 0 },
 }
 
 export const posicionesGenerator: Generator = {
@@ -127,7 +138,7 @@ export const posicionesGenerator: Generator = {
         },
       ],
       audioText: `Mira la escena. Toca el que está ${targetPosition}.`,
-      microlesson: 'Las palabras de posición como encima, debajo o al lado te ayudan a describir dónde están las cosas.',
+      microlesson: 'Las palabras de posición como encima o debajo te ayudan a describir dónde están las cosas.',
     }
   },
 }

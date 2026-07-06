@@ -32,6 +32,17 @@ const BAD_PATTERNS: { name: string; pattern: RegExp }[] = [
   { name: '"el/un" + trayecto departing (trayecto cannot "salir")', pattern: /trayecto (?:sale|salió|saldrá) a las/i },
   { name: '"Cuántas ... escondidos" (fem. question word + masc. adjective)', pattern: /\bCuántas [^?]*\bescondidos\b/ },
   { name: '"Cuántos ... escondidas" (masc. question word + fem. adjective)', pattern: /\bCuántos [^?]*\bescondidas\b/ },
+  // Naive `${noun}s` pluralization spoken to a non-reading child (Leo's
+  // emoji-noun pool): nouns ending in -z need -ces (pez -> peces, not
+  // "pezs"), and nouns ending in an accented vowel/tilde-bearing consonant
+  // (orangután, león) need the accent dropped and -es added, not a bare -s.
+  { name: 'naive plural: word+zs (should be -ces, e.g. "pezs" -> "peces")', pattern: /\b\w*zs\b/i },
+  { name: 'naive plural: word+áns/óns/énes-typo (accented vowel/consonant + bare s, e.g. "orangutáns", "leóns")', pattern: /\b\w*[áéíóú][a-zñ]?ns\b/i },
+  // Curated list of every known-bad naive `${noun}s` plural for the current
+  // Leo noun pool (emoji.ts) — belt-and-braces on top of the regexes above,
+  // so a regression is caught even if a future noun doesn't match the
+  // general patterns above.
+  { name: 'known-bad naive plural from the Leo noun pool', pattern: /\b(pezs|orangutáns|leóns|pez payasos)\b/ },
 ]
 
 /** Every piece of Spanish prose a generator can surface, for one exercise. */

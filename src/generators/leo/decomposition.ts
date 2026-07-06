@@ -1,7 +1,7 @@
 import type { Rng } from '../../lib/rng'
 import type { Choice, Generator } from '../../types/exercise'
 import { clampDifficulty, exerciseId } from '../framework'
-import { cuantosFor, escondidosFor, pickAnimal } from './emoji'
+import { cuantosFor, escondidosFor, nounForCount, pickAnimal, pluralOf } from './emoji'
 
 /** Total range per difficulty for descomponer-4-6 (catalog range [1, 3]): total lands in [4, 6]. */
 const DESCOMPONER_TOTAL_RANGE: Record<number, [number, number]> = {
@@ -59,7 +59,7 @@ function buildDescomponer(
     difficulty,
     challenge: challenge || undefined,
     prompt: {
-      text: `Hay ${total} ${animal.noun}s en total. Ves ${visible}. ¿${cuantosFor(animal)} están ${escondidosFor(animal)}?`,
+      text: `Hay ${total} ${pluralOf(animal)} en total. Ves ${visible}. ¿${cuantosFor(animal)} están ${escondidosFor(animal)}?`,
       visual: { kind: 'boxes' as const, groups: 1, perGroup: visible, remainder: hidden },
     },
     answer: { kind: 'choice' as const, correctId },
@@ -71,7 +71,7 @@ function buildDescomponer(
         steps: [{ text: `Si en total hay ${total} y ves ${visible}, los que faltan son ${total} − ${visible} = ${hidden}.` }],
       },
     ],
-    audioText: `Hay ${total} ${animal.noun}s en total, pero solo ves ${visible}. ¿${cuantosFor(animal)} están ${escondidosFor(animal)} en la caja?`,
+    audioText: `Hay ${total} ${pluralOf(animal)} en total, pero solo ves ${visible}. ¿${cuantosFor(animal)} están ${escondidosFor(animal)} en la caja?`,
     microlesson: 'Descomponer un número te ayuda a ver las partes que lo forman.',
   }
 }
@@ -117,7 +117,7 @@ export const doblesGenerator: Generator = {
       difficulty,
       challenge: true,
       prompt: {
-        text: `El doble de ${n} es tener dos grupos de ${n} ${animal.noun}s. ¿Cuántos hay en total?`,
+        text: `El doble de ${n} es tener dos grupos de ${n} ${nounForCount(animal, n)}. ¿Cuántos hay en total?`,
         visual: { kind: 'compare-groups', left: { emoji: animal.emoji, count: n }, right: { emoji: animal.emoji, count: n } },
       },
       answer: { kind: 'choice', correctId },
@@ -129,7 +129,7 @@ export const doblesGenerator: Generator = {
           steps: [{ text: `${n} + ${n} = ${value}` }],
         },
       ],
-      audioText: `Mira los dos grupos de ${n} ${animal.noun}s. Ese es el doble de ${n}. ¿Cuántos hay en total?`,
+      audioText: `Mira los dos grupos de ${n} ${nounForCount(animal, n)}. Ese es el doble de ${n}. ¿Cuántos hay en total?`,
       microlesson: 'El doble de un número es sumarlo con él mismo.',
     }
   },
@@ -165,7 +165,7 @@ export const masMenosUnoDosGenerator: Generator = {
       difficulty,
       challenge: true,
       prompt: {
-        text: `Hay ${n} ${animal.noun}s. ¿Cuánto es ${n} ${sign} ${diff}?`,
+        text: `Hay ${n} ${nounForCount(animal, n)}. ¿Cuánto es ${n} ${sign} ${diff}?`,
         visual: { kind: 'emoji-count', emoji: animal.emoji, count: n },
       },
       answer: { kind: 'choice', correctId },
@@ -177,7 +177,7 @@ export const masMenosUnoDosGenerator: Generator = {
           steps: [{ text: `${n} ${sign} ${diff} = ${value}` }],
         },
       ],
-      audioText: `Hay ${n} ${animal.noun}s. ¿Cuánto es ${n} ${sign === '+' ? 'más' : 'menos'} ${diff}?`,
+      audioText: `Hay ${n} ${nounForCount(animal, n)}. ¿Cuánto es ${n} ${sign === '+' ? 'más' : 'menos'} ${diff}?`,
       microlesson: 'Sumar o restar 1 o 2 es contar un poquito hacia arriba o hacia abajo.',
     }
   },
@@ -277,7 +277,7 @@ export const estimarGenerator: Generator = {
       difficulty,
       challenge: true,
       prompt: {
-        text: `Mira rápido: ¿cuántos ${animal.noun}s crees que hay?`,
+        text: `Mira rápido: ¿cuántos ${pluralOf(animal)} crees que hay?`,
         visual: { kind: 'emoji-count', emoji: animal.emoji, count: n },
       },
       answer: { kind: 'choice', correctId },
@@ -289,7 +289,7 @@ export const estimarGenerator: Generator = {
           steps: [{ text: `Adivina primero, y luego cuenta despacio para comprobar: hay ${n}.` }],
         },
       ],
-      audioText: `Mira rápido, sin contar uno a uno. ¿Cuántos ${animal.noun}s crees que hay? Elige el grupo que te parezca correcto.`,
+      audioText: `Mira rápido, sin contar uno a uno. ¿Cuántos ${pluralOf(animal)} crees que hay? Elige el grupo que te parezca correcto.`,
       microlesson: 'Estimar es adivinar una cantidad aproximada sin contar todo.',
     }
   },

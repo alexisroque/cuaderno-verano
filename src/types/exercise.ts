@@ -25,7 +25,11 @@ export type VisualSpec =
   | { kind: 'emoji-count'; emoji: string; count: number; rows?: number }
   | { kind: 'compare-groups'; left: { emoji: string; count: number }; right: { emoji: string; count: number } }
   | { kind: 'scene'; actors: { emoji: string; row: number; col: number }[] } // small spatial layout on an implicit grid, row 0 = top, col 0 = left
-  | { kind: 'mirror-pair'; options: { choiceId: string; strokes: Stroke[] }[] } // two renderings of the same glyph (one true, one mirrored) for the espejo generator
+  // Two renderings of the same glyph (one true, one mirrored) for the espejo generator.
+  // UI MUST render mirror-pair options from `strokes` here, NEVER from the corresponding
+  // `choice.label` (see src/generators/leo/tracing.ts) — labels like "3 (espejo)" name which
+  // option is mirrored and would leak the answer if shown to the child before grading.
+  | { kind: 'mirror-pair'; options: { choiceId: string; strokes: Stroke[] }[] }
   | { kind: 'grid-figure'; cells: [number, number][] } // filled cells of a grid
   | { kind: 'dot-grid'; n: number } // n×n square
   | { kind: 'none' }

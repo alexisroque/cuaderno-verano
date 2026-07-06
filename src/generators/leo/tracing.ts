@@ -123,6 +123,10 @@ export const espejoGenerator: Generator = {
     const mirrored = strokes.map(mirrorStroke)
 
     // "correct" is always the true (non-mirrored) orientation; which side (choice-0/choice-1) it lands on is randomized.
+    // UI MUST render mirror-pair options from strokes (prompt.visual.options[].strokes / mirrorPairOptions below), NEVER
+    // from choice.label — labels like "3 (espejo)" spell out which option is mirrored and would leak the answer to a
+    // reading-capable UI (or to anyone glancing at the choices). The label text exists only for non-visual consumers
+    // (analytics, tests, a11y text alternatives that are read AFTER answering) and must never be shown before grading.
     const correctFirst = rng.chance(0.5)
     const choices: Choice[] = correctFirst
       ? [{ id: 'correct', label: glyph }, { id: 'mirrored', label: `${glyph} (espejo)` }]

@@ -1,7 +1,7 @@
 import type { Rng } from '../../lib/rng'
 import type { Choice, Generator } from '../../types/exercise'
 import { clampDifficulty, exerciseId } from '../framework'
-import { cuantosFor, pickAnimal } from './emoji'
+import { cuantosFor, nounForCount, pickAnimal, pluralOf } from './emoji'
 
 /** Inclusive count range per difficulty (catalog range [1, 3] for contar-6). */
 const COUNT_RANGE: Record<number, [number, number]> = {
@@ -53,7 +53,7 @@ export const contarSeisGenerator: Generator = {
       subskill: 'contar-6',
       difficulty,
       prompt: {
-        text: `¿${cuantosFor(animal)} ${animal.noun}${n === 1 ? '' : 's'} ves?`,
+        text: `¿${cuantosFor(animal)} ${nounForCount(animal, n)} ves?`,
         visual: { kind: 'emoji-count', emoji: animal.emoji, count: n },
       },
       answer: { kind: 'choice', correctId },
@@ -65,7 +65,7 @@ export const contarSeisGenerator: Generator = {
           steps: [{ text: 'Toca cada uno y cuenta en voz alta: 1, 2, 3...' }],
         },
       ],
-      audioText: `¿${cuantosFor(animal)} ${animal.noun}${n === 1 ? '' : 's'} ves? Tócalos para contarlos.`,
+      audioText: `¿${cuantosFor(animal)} ${nounForCount(animal, n)} ves? Tócalos para contarlos.`,
       microlesson: 'Contar cosas de una en una es el primer paso para aprender a sumar.',
     }
   },
@@ -90,7 +90,7 @@ export const contarVeinteGenerator: Generator = {
       difficulty,
       challenge: true,
       prompt: {
-        text: `¿${cuantosFor(animal)} ${animal.noun}${n === 1 ? '' : 's'} ves? Cuéntalos en filas.`,
+        text: `¿${cuantosFor(animal)} ${nounForCount(animal, n)} ves? Cuéntalos en filas.`,
         visual: { kind: 'emoji-count', emoji: animal.emoji, count: n, rows },
       },
       answer: { kind: 'choice', correctId },
@@ -102,7 +102,7 @@ export const contarVeinteGenerator: Generator = {
           steps: [{ text: 'Cuenta una fila entera y luego sigue con la siguiente.' }],
         },
       ],
-      audioText: `¿${cuantosFor(animal)} ${animal.noun}${n === 1 ? '' : 's'} ves? Cuéntalos fila por fila con el dedo.`,
+      audioText: `¿${cuantosFor(animal)} ${nounForCount(animal, n)} ves? Cuéntalos fila por fila con el dedo.`,
       microlesson: 'Contar en filas ayuda cuando hay demasiados para contarlos todos de golpe.',
     }
   },
@@ -136,7 +136,7 @@ export const compararGenerator: Generator = {
       subskill: 'comparar',
       difficulty,
       prompt: {
-        text: `¿Dónde hay más ${animal.noun}s? Mira los dos grupos.`,
+        text: `¿Dónde hay más ${pluralOf(animal)}? Mira los dos grupos.`,
         visual: { kind: 'compare-groups', left: { emoji: animal.emoji, count: left }, right: { emoji: animal.emoji, count: right } },
       },
       answer: { kind: 'choice', correctId: winner },
@@ -149,7 +149,7 @@ export const compararGenerator: Generator = {
           steps: [{ text: 'Cuenta cada grupo y compara: el número más grande tiene más.' }],
         },
       ],
-      audioText: `Mira los dos grupos de ${animal.noun}s. ¿Dónde hay más? Toca izquierda, derecha, o iguales si son los mismos.`,
+      audioText: `Mira los dos grupos de ${pluralOf(animal)}. ¿Dónde hay más? Toca izquierda, derecha, o iguales si son los mismos.`,
       microlesson: 'Comparar cantidades te ayuda a decidir cuál grupo tiene más o menos.',
     }
   },
