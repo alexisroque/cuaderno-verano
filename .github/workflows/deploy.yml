@@ -24,7 +24,9 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - run: npm test
+      # --no-file-parallelism avoids vitest worker-RPC timeouts ("onTaskUpdate")
+      # when the CPU-heavy property-test sweeps saturate the CI runner.
+      - run: npm test -- --no-file-parallelism
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:

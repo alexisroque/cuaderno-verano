@@ -74,5 +74,10 @@ export default defineConfig({
   ],
   test: {
     environment: 'jsdom',
+    // CPU-heavy property-test sweeps can starve vitest's worker→main RPC on
+    // constrained CI runners; give teardown/hooks generous margin so a slow
+    // task update doesn't surface as an "onTaskUpdate" unhandled timeout.
+    teardownTimeout: 30000,
+    hookTimeout: 30000,
   },
 })
