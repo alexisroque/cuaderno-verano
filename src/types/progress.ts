@@ -16,11 +16,16 @@ export interface GemState {
   progress: number
 }
 
-/** Daily-use streak tracking, with a single grace day allowed per lapse. */
+/**
+ * Daily-use streak tracking. `graceUsed` counts how many "grace" days
+ * (missed days forgiven without resetting the streak) have been spent
+ * since the last time the streak extended 7 consecutive real (non-grace)
+ * days — see `src/engine/streak.ts` for the full semantics.
+ */
 export interface Streak {
   count: number
   lastDayISO: string
-  graceUsed: boolean
+  graceUsed: number
 }
 
 /** A sticker the child has placed on the summer mural/map. */

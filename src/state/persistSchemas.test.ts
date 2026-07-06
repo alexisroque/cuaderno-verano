@@ -7,7 +7,7 @@ function validProgress() {
       { dateISO: '2026-07-16', cardType: 'mc', subskill: 'tablas', correct: true, hintsUsed: 0, ms: 1200, difficulty: 2 },
     ],
     gems: { calculo: { skillId: 'calculo', level: 2, progress: 0.5 } },
-    streak: { count: 3, lastDayISO: '2026-07-16', graceUsed: false },
+    streak: { count: 3, lastDayISO: '2026-07-16', graceUsed: 0 },
     stickers: [{ stickerId: 'sticker-1', x: 10, y: 20, chapterId: 'preparativos' }],
     passportStamps: ['preparativos'],
     diaryEntries: [{ dateISO: '2026-07-16', promptId: 'p1', text: 'Hoy...' }],

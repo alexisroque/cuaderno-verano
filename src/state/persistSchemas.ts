@@ -28,7 +28,7 @@ const GemStateSchema = z.object({
 const StreakSchema = z.object({
   count: z.number(),
   lastDayISO: z.string(),
-  graceUsed: z.boolean(),
+  graceUsed: z.number(),
 })
 
 const PlacedStickerSchema = z.object({

@@ -8,7 +8,7 @@ function emptyProgress(): ProfileProgress {
   return {
     attempts: [],
     gems: {},
-    streak: { count: 0, lastDayISO: '', graceUsed: false },
+    streak: { count: 0, lastDayISO: '', graceUsed: 0 },
     stickers: [],
     passportStamps: [],
     diaryEntries: [],
