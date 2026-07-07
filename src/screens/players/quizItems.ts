@@ -20,51 +20,38 @@ export interface QuizItem {
   skill: QuizSkill
   /** Subskill id recorded in the attempt. */
   subskill: string
-}
-
-/** Spanish topic labels for mundo tags. */
-const MUNDO_TAG_LABELS: Record<string, string> = {
-  'sistema-solar': 'el espacio y el sistema solar',
-  'como-funciona': 'cómo funcionan las cosas',
-  'curiosidad-ciencia': 'una curiosidad de ciencia',
+  /** Optional supporting emoji shown as a visual next to the question. */
+  emoji?: string
+  /** Optional one-line "why" shown after answering (the learning moment). */
+  explanation?: string
+  /** When set, the question itself is spoken on demand (es voice). */
+  speakQuestionLang?: 'es-ES'
 }
 
 /**
- * Builds a 4-choice "topic recognition" question from a fact whose `tag` maps
- * to a label. The correct choice is the fact's own topic label; distractors
- * are the other labels for that pool plus, if fewer than 3, a generic filler.
- * Deterministic over `rng`. Returns null when the tag isn't mappable.
+ * Builds a real 4-choice quiz item from a mundo item. The item already carries
+ * the question, four choices, the correct index, an emoji visual and an
+ * explanation — this just shapes it into the shared QuizItem contract, keeping
+ * the choice order authored (distractors are already plausible-but-wrong).
+ * The question is `literal` (one defensible answer) and the emoji + explanation
+ * turn each item into a mini-learning moment after answering.
  */
-function topicQuestion(
-  rng: Rng,
-  tag: string | undefined,
-  labels: Record<string, string>,
-  fillers: string[],
-): QuestionLike | null {
-  if (!tag) return null
-  const correct = labels[tag]
-  if (!correct) return null
-
-  const others = Object.values(labels).filter((l) => l !== correct)
-  const pool = [...others, ...fillers.filter((f) => f !== correct)]
-  const distractors = rng.shuffle(pool).slice(0, 3)
-  const choices = rng.shuffle([correct, ...distractors])
-  return {
-    q: '¿Sobre qué trata este dato?',
-    choices,
-    correctIdx: choices.indexOf(correct),
+export function mundoQuizItem(_rng: Rng, item: MundoItem): QuizItem | null {
+  const question: QuestionLike = {
+    q: item.question.es,
+    choices: item.choices.map((c) => c.es),
+    correctIdx: item.correctIdx,
     kind: 'literal',
   }
-}
-
-const MUNDO_FILLERS = ['la historia antigua', 'los deportes', 'la música', 'los inventos famosos']
-
-/** Builds a quiz item from a mundo fact, or null if it isn't quizzable. */
-export function mundoQuizItem(rng: Rng, item: MundoItem): QuizItem | null {
-  const question = topicQuestion(rng, item.tag, MUNDO_TAG_LABELS, MUNDO_FILLERS)
-  if (!question) return null
-  const subskill = item.tag === 'sistema-solar' ? 'espacio' : 'como-funciona'
-  return { id: item.id, passage: item.text.es, question, skill: 'mundo', subskill }
+  return {
+    id: item.id,
+    question,
+    skill: 'mundo',
+    subskill: item.subskill,
+    emoji: item.emoji,
+    explanation: item.explanation.es,
+    speakQuestionLang: 'es-ES',
+  }
 }
 
 /**

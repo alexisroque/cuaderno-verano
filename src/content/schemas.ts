@@ -293,13 +293,37 @@ export const EnglishReadingSchema = z
 export type EnglishReading = z.infer<typeof EnglishReadingSchema>
 export const EnglishReadingsSchema = z.array(EnglishReadingSchema)
 
-/** A "world facts" item (mundo) — general-knowledge card, e.g. flags, capitals, wildlife. */
-export const MundoItemSchema = z.object({
-  id: z.string().min(1),
-  text: z.object({ es: z.string().min(1) }),
-  tag: z.string().min(1).optional(),
-  chapterId: z.string().min(1).optional(),
-})
+/**
+ * A "Mundo" (world-knowledge) quiz item: a real multiple-choice question with
+ * exactly one defensible correct answer, a supporting emoji visual, and a
+ * one-line explanation shown after answering (the mini-learning moment).
+ *
+ * `subskill` routes the recorded attempt to one of the two Mundo gems:
+ * `espacio` (Sistema Solar) or `como-funciona` (how-things-work / science).
+ */
+export const MundoItemSchema = z
+  .object({
+    id: z.string().min(1),
+    subskill: z.enum(['espacio', 'como-funciona']),
+    question: z.object({ es: z.string().min(1) }),
+    choices: z.array(z.object({ es: z.string().min(1) })).length(4),
+    correctIdx: z.number().int().min(0).max(3),
+    /** A supporting emoji shown next to the question (e.g. "🪐"). */
+    emoji: z.string().min(1),
+    /** One-line "why" shown after answering, both right and wrong. */
+    explanation: z.object({ es: z.string().min(1) }),
+    chapterId: z.string().min(1).optional(),
+  })
+  .superRefine((item, ctx) => {
+    const seen = new Set(item.choices.map((c) => c.es))
+    if (seen.size !== item.choices.length) {
+      ctx.addIssue({
+        code: 'custom',
+        message: `mundo item "${item.id}": choices must be distinct`,
+        path: ['choices'],
+      })
+    }
+  })
 
 export type MundoItem = z.infer<typeof MundoItemSchema>
 export const MundoItemsSchema = z.array(MundoItemSchema)

@@ -12,9 +12,11 @@ import {
   EnglishUnitSchema,
   EnglishReadingSchema,
   MundoItemSchema,
+  MundoItemsSchema,
   CuentoLeoSchema,
 } from './schemas'
 import realChapters from '../../content/chapters.json'
+import realMundo from '../../content/mundo.json'
 
 function makeChapter(overrides: Partial<Record<string, unknown>> = {}) {
   return {
@@ -319,8 +321,47 @@ describe('EnglishReadingSchema', () => {
 })
 
 describe('MundoItemSchema', () => {
-  it('accepts a minimal mundo item', () => {
-    expect(() => MundoItemSchema.parse({ id: 'm1', text: { es: 'La bandera de Indonesia es roja y blanca.' } })).not.toThrow()
+  const base = {
+    id: 'm1',
+    subskill: 'espacio',
+    question: { es: '¿Cuál es el planeta más grande?' },
+    choices: [{ es: 'Júpiter' }, { es: 'Saturno' }, { es: 'la Tierra' }, { es: 'Marte' }],
+    correctIdx: 0,
+    emoji: '🪐',
+    explanation: { es: 'Júpiter es enorme.' },
+  }
+
+  it('accepts a well-formed mundo quiz item', () => {
+    expect(() => MundoItemSchema.parse(base)).not.toThrow()
+  })
+
+  it('rejects a subskill outside the two Mundo gems', () => {
+    expect(() => MundoItemSchema.parse({ ...base, subskill: 'historia' })).toThrow()
+  })
+
+  it('rejects a choices array that is not length 4', () => {
+    expect(() => MundoItemSchema.parse({ ...base, choices: [{ es: 'a' }, { es: 'b' }, { es: 'c' }] })).toThrow()
+  })
+
+  it('rejects a correctIdx out of range', () => {
+    expect(() => MundoItemSchema.parse({ ...base, correctIdx: 4 })).toThrow()
+  })
+
+  it('rejects duplicate choices', () => {
+    expect(() =>
+      MundoItemSchema.parse({ ...base, choices: [{ es: 'Júpiter' }, { es: 'Júpiter' }, { es: 'la Tierra' }, { es: 'Marte' }] }),
+    ).toThrow(/distinct/i)
+  })
+
+  it('accepts the real mundo pool: every item has 4 choices and a valid correctIdx', () => {
+    const items = MundoItemsSchema.parse(realMundo)
+    expect(items.length).toBeGreaterThan(0)
+    for (const item of items) {
+      expect(item.choices).toHaveLength(4)
+      expect(item.correctIdx).toBeGreaterThanOrEqual(0)
+      expect(item.correctIdx).toBeLessThanOrEqual(3)
+      expect(item.choices[item.correctIdx]).toBeDefined()
+    }
   })
 })
 

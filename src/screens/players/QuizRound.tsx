@@ -39,6 +39,7 @@ export function QuizRound({
   const [answered, setAnswered] = useState(false)
   const [score, setScore] = useState(0)
   const [burstKey, setBurstKey] = useState<number | null>(null)
+  const [showExplanation, setShowExplanation] = useState(false)
 
   const total = items.length
   const done = step >= total
@@ -47,6 +48,7 @@ export function QuizRound({
   const handleAnswered = (correct: boolean) => {
     if (answered) return
     setAnswered(true)
+    setShowExplanation(true)
     onAnswer(item, correct)
     if (correct) {
       setScore((s) => s + 1)
@@ -57,6 +59,7 @@ export function QuizRound({
 
   const next = () => {
     setAnswered(false)
+    setShowExplanation(false)
     setStep((s) => s + 1)
   }
 
@@ -102,10 +105,31 @@ export function QuizRound({
             )}
           </div>
         )}
+        {(item.emoji || item.speakQuestionLang) && (
+          <div className="flex items-center justify-center gap-3 py-2">
+            {item.emoji && (
+              <span className="text-6xl" aria-hidden>
+                {item.emoji}
+              </span>
+            )}
+            {item.speakQuestionLang && (
+              <SpeakButton text={item.question.q} lang={item.speakQuestionLang} tone="mint" label="Escuchar la pregunta" />
+            )}
+          </div>
+        )}
       </Card>
 
       <Card className="mt-4">
         <QuestionTiles key={step} question={item.question} onAnswered={handleAnswered} />
+        {showExplanation && item.explanation && (
+          <p
+            className="mt-3 rounded-2xl p-3 text-sm font-semibold leading-relaxed"
+            style={{ background: 'var(--sky)', color: '#2f6690' }}
+          >
+            <span aria-hidden>💡 </span>
+            {item.explanation}
+          </p>
+        )}
         {answered && (
           <Button variant="primary" onClick={next} className="mt-4 w-full">
             {step + 1 < total ? 'Siguiente →' : 'Ver resultado →'}

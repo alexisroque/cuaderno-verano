@@ -1,32 +1,362 @@
 [
-  { "id": "mundo-sol-01", "text": { "es": "El Sol es una estrella enorme, tan grande que dentro de él cabrían más de un millón de planetas como la Tierra." }, "tag": "sistema-solar" },
-  { "id": "mundo-mercurio-01", "text": { "es": "Mercurio es el planeta más cercano al Sol y también el más pequeño de todo el sistema solar." }, "tag": "sistema-solar" },
-  { "id": "mundo-venus-01", "text": { "es": "Venus es el planeta más caluroso, aunque no es el más cercano al Sol: sus espesas nubes atrapan el calor como una manta gigante." }, "tag": "sistema-solar" },
-  { "id": "mundo-tierra-01", "text": { "es": "La Tierra es el único planeta del sistema solar donde sabemos que existe vida, gracias al agua líquida y al aire que respiramos." }, "tag": "sistema-solar" },
-  { "id": "mundo-luna-01", "text": { "es": "La Luna no tiene luz propia: lo que vemos brillar por la noche es la luz del Sol que rebota en su superficie." }, "tag": "sistema-solar" },
-  { "id": "mundo-marte-01", "text": { "es": "Marte se ve rojizo porque su suelo está lleno de óxido de hierro, el mismo material que forma el óxido en un clavo mojado." }, "tag": "sistema-solar" },
-  { "id": "mundo-jupiter-01", "text": { "es": "Júpiter es el planeta más grande del sistema solar: es tan enorme que podría contener a todos los demás planetas juntos." }, "tag": "sistema-solar" },
-  { "id": "mundo-saturno-01", "text": { "es": "Saturno tiene unos anillos espectaculares hechos de trozos de hielo y roca que giran a su alrededor." }, "tag": "sistema-solar" },
-  { "id": "mundo-urano-01", "text": { "es": "Urano es un planeta helado que gira casi tumbado de lado, como si rodara en vez de dar vueltas normalmente." }, "tag": "sistema-solar" },
-  { "id": "mundo-neptuno-01", "text": { "es": "Neptuno es el planeta más lejano al Sol y tiene los vientos más fuertes de todo el sistema solar." }, "tag": "sistema-solar" },
-  { "id": "mundo-arcoiris-01", "text": { "es": "Un arcoíris aparece cuando la luz del Sol atraviesa gotas de lluvia y se separa en todos los colores que la forman." }, "tag": "como-funciona" },
-  { "id": "mundo-arcoiris-02", "text": { "es": "El arcoíris siempre tiene los mismos siete colores en el mismo orden: rojo, naranja, amarillo, verde, azul, índigo y violeta." }, "tag": "como-funciona" },
-  { "id": "mundo-cielo-01", "text": { "es": "El cielo se ve azul porque el aire dispersa más la luz azul del Sol que los demás colores, y esa luz azul llega a nuestros ojos desde todas direcciones." }, "tag": "como-funciona" },
-  { "id": "mundo-atardecer-01", "text": { "es": "Al atardecer el cielo se ve rojo o naranja porque la luz del Sol tiene que atravesar mucho más aire y solo esos colores consiguen llegar hasta tus ojos." }, "tag": "como-funciona" },
-  { "id": "mundo-abejas-01", "text": { "es": "Las abejas fabrican miel a partir del néctar de las flores, que guardan y transforman dentro de sus panales." }, "tag": "como-funciona" },
-  { "id": "mundo-abejas-02", "text": { "es": "Una abeja visita cientos de flores al día y, al moverse de una a otra, ayuda a que las plantas se reproduzcan: se llama polinización." }, "tag": "como-funciona" },
-  { "id": "mundo-abejas-03", "text": { "es": "Para producir un solo kilo de miel, las abejas de una colmena pueden necesitar visitar varios millones de flores." }, "tag": "como-funciona" },
-  { "id": "mundo-volcanes-01", "text": { "es": "Un volcán entra en erupción cuando la roca fundida del interior de la Tierra, llamada magma, sube a la superficie y sale como lava." }, "tag": "como-funciona" },
-  { "id": "mundo-volcanes-02", "text": { "es": "Indonesia tiene más de cien volcanes activos, más que casi cualquier otro país del mundo, porque está sobre varias placas terrestres que chocan entre sí." }, "tag": "como-funciona", "chapterId": "ubud" },
-  { "id": "mundo-truenos-01", "text": { "es": "El trueno y el rayo ocurren al mismo tiempo, pero vemos el rayo antes de oír el trueno porque la luz viaja mucho más rápido que el sonido." }, "tag": "como-funciona" },
-  { "id": "mundo-nubes-01", "text": { "es": "Las nubes están formadas por millones de diminutas gotas de agua o cristales de hielo flotando en el aire." }, "tag": "como-funciona" },
-  { "id": "mundo-mareas-01", "text": { "es": "Las mareas del mar suben y bajan por la fuerza de atracción de la Luna sobre el agua de los océanos." }, "tag": "como-funciona" },
-  { "id": "mundo-imanes-01", "text": { "es": "Un imán atrae objetos de hierro o acero porque genera un campo magnético invisible a su alrededor." }, "tag": "curiosidad-ciencia" },
-  { "id": "mundo-relampago-01", "text": { "es": "Un rayo puede alcanzar temperaturas de hasta 30.000 grados, más caliente que la superficie del Sol." }, "tag": "curiosidad-ciencia" },
-  { "id": "mundo-corazon-01", "text": { "es": "El corazón humano late unas 100.000 veces al día, sin descansar nunca, para bombear la sangre por todo el cuerpo." }, "tag": "curiosidad-ciencia" },
-  { "id": "mundo-pulpo-01", "text": { "es": "Un pulpo tiene tres corazones y puede cambiar de color en un instante para camuflarse entre las rocas." }, "tag": "curiosidad-ciencia" },
-  { "id": "mundo-diamante-01", "text": { "es": "Los diamantes se forman muy profundo bajo tierra, sometidos a tanta presión y calor que el carbono se convierte en la piedra más dura que existe." }, "tag": "curiosidad-ciencia" },
-  { "id": "mundo-gravedad-01", "text": { "es": "En la Luna pesarías mucho menos que en la Tierra, porque su gravedad es unas seis veces más débil: ¡podrías dar saltos enormes!" }, "tag": "curiosidad-ciencia" },
-  { "id": "mundo-sonido-01", "text": { "es": "El sonido viaja mucho más rápido en el agua que en el aire, por eso las ballenas pueden oírse entre sí a kilómetros de distancia." }, "tag": "curiosidad-ciencia" },
-  { "id": "mundo-estrellas-01", "text": { "es": "Muchas de las estrellas que ves de noche son tan lejanas que su luz tardó años, siglos o incluso miles de años en llegar hasta tus ojos." }, "tag": "sistema-solar" }
+  {
+    "id": "mundo-planeta-grande",
+    "subskill": "espacio",
+    "question": { "es": "¿Cuál es el planeta más grande del sistema solar?" },
+    "choices": [{ "es": "Júpiter" }, { "es": "Saturno" }, { "es": "la Tierra" }, { "es": "Marte" }],
+    "correctIdx": 0,
+    "emoji": "🪐",
+    "explanation": { "es": "Júpiter es tan grande que cabrían dentro todos los demás planetas juntos." }
+  },
+  {
+    "id": "mundo-planeta-cercano-sol",
+    "subskill": "espacio",
+    "question": { "es": "¿Qué planeta está más cerca del Sol?" },
+    "choices": [{ "es": "Mercurio" }, { "es": "Venus" }, { "es": "la Tierra" }, { "es": "Marte" }],
+    "correctIdx": 0,
+    "emoji": "☀️",
+    "explanation": { "es": "Mercurio es el planeta más cercano al Sol y también el más pequeño." }
+  },
+  {
+    "id": "mundo-primer-planeta-orden",
+    "subskill": "espacio",
+    "question": { "es": "Si ordenamos los planetas desde el Sol, ¿cuál va justo después de la Tierra?" },
+    "choices": [{ "es": "Marte" }, { "es": "Venus" }, { "es": "Júpiter" }, { "es": "Mercurio" }],
+    "correctIdx": 0,
+    "emoji": "🔴",
+    "explanation": { "es": "El orden es Mercurio, Venus, Tierra, Marte… así que Marte va después de la Tierra." }
+  },
+  {
+    "id": "mundo-planeta-rojo",
+    "subskill": "espacio",
+    "question": { "es": "¿A qué planeta llaman «el planeta rojo»?" },
+    "choices": [{ "es": "Marte" }, { "es": "Júpiter" }, { "es": "Saturno" }, { "es": "Neptuno" }],
+    "correctIdx": 0,
+    "emoji": "🔴",
+    "explanation": { "es": "Marte se ve rojizo porque su suelo tiene óxido de hierro, como un clavo oxidado." }
+  },
+  {
+    "id": "mundo-planeta-anillos",
+    "subskill": "espacio",
+    "question": { "es": "¿Qué planeta es famoso por sus grandes anillos?" },
+    "choices": [{ "es": "Saturno" }, { "es": "la Tierra" }, { "es": "Mercurio" }, { "es": "Venus" }],
+    "correctIdx": 0,
+    "emoji": "🪐",
+    "explanation": { "es": "Los anillos de Saturno están hechos de trozos de hielo y roca que giran a su alrededor." }
+  },
+  {
+    "id": "mundo-sol-que-es",
+    "subskill": "espacio",
+    "question": { "es": "¿Qué es en realidad el Sol?" },
+    "choices": [{ "es": "una estrella" }, { "es": "un planeta" }, { "es": "una luna" }, { "es": "un cometa" }],
+    "correctIdx": 0,
+    "emoji": "⭐",
+    "explanation": { "es": "El Sol es una estrella enorme; parece más grande solo porque está mucho más cerca." }
+  },
+  {
+    "id": "mundo-luna-luz",
+    "subskill": "espacio",
+    "question": { "es": "¿Por qué brilla la Luna por la noche?" },
+    "choices": [
+      { "es": "Porque refleja la luz del Sol" },
+      { "es": "Porque tiene fuego dentro" },
+      { "es": "Porque es una estrella" },
+      { "es": "Porque tiene una bombilla gigante" }
+    ],
+    "correctIdx": 0,
+    "emoji": "🌙",
+    "explanation": { "es": "La Luna no tiene luz propia: vemos la luz del Sol rebotando en su superficie." }
+  },
+  {
+    "id": "mundo-tierra-vida",
+    "subskill": "espacio",
+    "question": { "es": "¿Qué hace que la Tierra sea especial en el sistema solar?" },
+    "choices": [
+      { "es": "Es el único planeta donde sabemos que hay vida" },
+      { "es": "Es el planeta más grande" },
+      { "es": "Es el más cercano al Sol" },
+      { "es": "No tiene atmósfera" }
+    ],
+    "correctIdx": 0,
+    "emoji": "🌍",
+    "explanation": { "es": "La Tierra tiene agua líquida y aire respirable, y por eso conocemos vida solo aquí." }
+  },
+  {
+    "id": "mundo-planeta-lejano",
+    "subskill": "espacio",
+    "question": { "es": "¿Cuál es el planeta más lejano al Sol?" },
+    "choices": [{ "es": "Neptuno" }, { "es": "Saturno" }, { "es": "Marte" }, { "es": "Júpiter" }],
+    "correctIdx": 0,
+    "emoji": "🔵",
+    "explanation": { "es": "Neptuno es el planeta más lejano y tiene los vientos más fuertes del sistema solar." }
+  },
+  {
+    "id": "mundo-cuantos-planetas",
+    "subskill": "espacio",
+    "question": { "es": "¿Cuántos planetas tiene el sistema solar?" },
+    "choices": [{ "es": "8" }, { "es": "5" }, { "es": "10" }, { "es": "12" }],
+    "correctIdx": 0,
+    "emoji": "🌌",
+    "explanation": { "es": "Son ocho: Mercurio, Venus, Tierra, Marte, Júpiter, Saturno, Urano y Neptuno." }
+  },
+  {
+    "id": "mundo-estrellas-luz-tarda",
+    "subskill": "espacio",
+    "question": { "es": "La luz de muchas estrellas que ves de noche…" },
+    "choices": [
+      { "es": "tardó años en llegar hasta tus ojos" },
+      { "es": "llega al instante desde muy cerca" },
+      { "es": "sale de la Luna" },
+      { "es": "la fabrican los aviones" }
+    ],
+    "correctIdx": 0,
+    "emoji": "✨",
+    "explanation": { "es": "Las estrellas están tan lejos que su luz viaja años, o siglos, antes de llegar." }
+  },
+  {
+    "id": "mundo-luna-gravedad",
+    "subskill": "espacio",
+    "question": { "es": "¿Por qué en la Luna podrías dar saltos enormes?" },
+    "choices": [
+      { "es": "Porque su gravedad es más débil que la de la Tierra" },
+      { "es": "Porque no hay aire" },
+      { "es": "Porque hace mucho frío" },
+      { "es": "Porque es de noche" }
+    ],
+    "correctIdx": 0,
+    "emoji": "🌕",
+    "explanation": { "es": "La gravedad de la Luna es unas seis veces más débil, así que pesas mucho menos." }
+  },
+  {
+    "id": "mundo-venus-caliente",
+    "subskill": "espacio",
+    "question": { "es": "¿Cuál es el planeta más caluroso del sistema solar?" },
+    "choices": [{ "es": "Venus" }, { "es": "Mercurio" }, { "es": "Marte" }, { "es": "la Tierra" }],
+    "correctIdx": 0,
+    "emoji": "🌋",
+    "explanation": { "es": "Venus es el más caluroso porque sus nubes espesas atrapan el calor como una manta." }
+  },
+  {
+    "id": "mundo-rayo-antes-trueno",
+    "subskill": "como-funciona",
+    "question": { "es": "¿Por qué vemos el rayo antes de oír el trueno?" },
+    "choices": [
+      { "es": "Porque la luz viaja más rápido que el sonido" },
+      { "es": "Porque el trueno llega primero pero no lo notamos" },
+      { "es": "Porque el rayo es más fuerte" },
+      { "es": "Porque el sonido no viaja por el aire" }
+    ],
+    "correctIdx": 0,
+    "emoji": "⚡",
+    "explanation": { "es": "Ocurren a la vez, pero la luz llega casi al instante y el sonido tarda más." }
+  },
+  {
+    "id": "mundo-cielo-azul",
+    "subskill": "como-funciona",
+    "question": { "es": "¿Por qué vemos el cielo azul durante el día?" },
+    "choices": [
+      { "es": "Porque el aire dispersa más la luz azul del Sol" },
+      { "es": "Porque el cielo está pintado de azul" },
+      { "es": "Porque el mar se refleja arriba" },
+      { "es": "Porque el Sol es de color azul" }
+    ],
+    "correctIdx": 0,
+    "emoji": "🌤️",
+    "explanation": { "es": "El aire reparte la luz azul en todas direcciones, y esa luz azul llega a tus ojos." }
+  },
+  {
+    "id": "mundo-arcoiris",
+    "subskill": "como-funciona",
+    "question": { "es": "¿Cómo aparece un arcoíris?" },
+    "choices": [
+      { "es": "La luz del Sol se separa en colores al atravesar gotas de lluvia" },
+      { "es": "Lo pintan los pájaros en el cielo" },
+      { "es": "Sale del suelo cuando hace calor" },
+      { "es": "Lo forma la luz de la Luna" }
+    ],
+    "correctIdx": 0,
+    "emoji": "🌈",
+    "explanation": { "es": "Las gotas de lluvia separan la luz blanca del Sol en todos sus colores." }
+  },
+  {
+    "id": "mundo-hojas-verdes",
+    "subskill": "como-funciona",
+    "question": { "es": "¿Por qué son verdes las hojas de las plantas?" },
+    "choices": [
+      { "es": "Por la clorofila, que usan para fabricar su alimento" },
+      { "es": "Porque las pintan las abejas" },
+      { "es": "Porque están frías" },
+      { "es": "Porque beben agua verde" }
+    ],
+    "correctIdx": 0,
+    "emoji": "🌿",
+    "explanation": { "es": "La clorofila es verde y ayuda a la planta a fabricar comida con la luz del Sol." }
+  },
+  {
+    "id": "mundo-abejas-miel",
+    "subskill": "como-funciona",
+    "question": { "es": "¿De qué fabrican la miel las abejas?" },
+    "choices": [
+      { "es": "Del néctar de las flores" },
+      { "es": "Del agua de la lluvia" },
+      { "es": "De la tierra del jardín" },
+      { "es": "De las hojas de los árboles" }
+    ],
+    "correctIdx": 0,
+    "emoji": "🐝",
+    "explanation": { "es": "Recogen néctar de las flores y lo transforman y guardan dentro del panal." }
+  },
+  {
+    "id": "mundo-agua-hielo",
+    "subskill": "como-funciona",
+    "question": { "es": "¿En qué se convierte el agua cuando se congela?" },
+    "choices": [{ "es": "en hielo" }, { "es": "en vapor" }, { "es": "en nube" }, { "es": "en lluvia" }],
+    "correctIdx": 0,
+    "emoji": "🧊",
+    "explanation": { "es": "Con mucho frío el agua líquida se vuelve sólida: eso es el hielo." }
+  },
+  {
+    "id": "mundo-agua-hierve",
+    "subskill": "como-funciona",
+    "question": { "es": "Cuando el agua hierve y sale «humo blanco», ¿qué está pasando?" },
+    "choices": [
+      { "es": "El agua se convierte en vapor" },
+      { "es": "El agua se congela" },
+      { "es": "El agua se vuelve hielo" },
+      { "es": "El agua desaparece para siempre" }
+    ],
+    "correctIdx": 0,
+    "emoji": "♨️",
+    "explanation": { "es": "Con calor el agua pasa a gas (vapor); al enfriarse forma gotitas que vemos como humo." }
+  },
+  {
+    "id": "mundo-volcan-lava",
+    "subskill": "como-funciona",
+    "question": { "es": "¿Qué sale de un volcán cuando entra en erupción?" },
+    "choices": [
+      { "es": "lava, que es roca fundida muy caliente" },
+      { "es": "agua fría del mar" },
+      { "es": "arena de la playa" },
+      { "es": "nieve derretida" }
+    ],
+    "correctIdx": 0,
+    "emoji": "🌋",
+    "explanation": { "es": "El magma del interior de la Tierra sube y sale a la superficie convertido en lava." }
+  },
+  {
+    "id": "mundo-nubes",
+    "subskill": "como-funciona",
+    "question": { "es": "¿De qué están hechas las nubes?" },
+    "choices": [
+      { "es": "de gotitas de agua y cristales de hielo" },
+      { "es": "de humo de las fábricas" },
+      { "es": "de algodón" },
+      { "es": "de aire caliente y nada más" }
+    ],
+    "correctIdx": 0,
+    "emoji": "☁️",
+    "explanation": { "es": "Millones de gotitas de agua y cristales de hielo flotando forman cada nube." }
+  },
+  {
+    "id": "mundo-ciclo-agua",
+    "subskill": "como-funciona",
+    "question": { "es": "En el ciclo del agua, ¿qué pasa antes de que se formen las nubes?" },
+    "choices": [
+      { "es": "El agua se evapora con el calor del Sol" },
+      { "es": "El agua se convierte en piedra" },
+      { "es": "El agua se vuelve invisible para siempre" },
+      { "es": "El agua se transforma en aire seco" }
+    ],
+    "correctIdx": 0,
+    "emoji": "💧",
+    "explanation": { "es": "El Sol evapora el agua, el vapor sube y al enfriarse forma nubes que luego llueven." }
+  },
+  {
+    "id": "mundo-dia-noche",
+    "subskill": "como-funciona",
+    "question": { "es": "¿Por qué hay día y noche?" },
+    "choices": [
+      { "es": "Porque la Tierra gira sobre sí misma" },
+      { "es": "Porque el Sol se apaga por la noche" },
+      { "es": "Porque las nubes tapan el Sol" },
+      { "es": "Porque la Luna empuja al Sol" }
+    ],
+    "correctIdx": 0,
+    "emoji": "🌗",
+    "explanation": { "es": "Al girar la Tierra, la parte que mira al Sol tiene día y la otra, noche." }
+  },
+  {
+    "id": "mundo-estaciones",
+    "subskill": "como-funciona",
+    "question": { "es": "¿Cuántas estaciones tiene el año?" },
+    "choices": [{ "es": "4" }, { "es": "2" }, { "es": "6" }, { "es": "12" }],
+    "correctIdx": 0,
+    "emoji": "🍂",
+    "explanation": { "es": "Son cuatro: primavera, verano, otoño e invierno." }
+  },
+  {
+    "id": "mundo-iman",
+    "subskill": "como-funciona",
+    "question": { "es": "¿Qué objetos atrae un imán?" },
+    "choices": [
+      { "es": "los de hierro o acero" },
+      { "es": "los de madera" },
+      { "es": "los de plástico" },
+      { "es": "los de papel" }
+    ],
+    "correctIdx": 0,
+    "emoji": "🧲",
+    "explanation": { "es": "El imán crea un campo magnético invisible que atrae el hierro y el acero." }
+  },
+  {
+    "id": "mundo-mareas-luna",
+    "subskill": "como-funciona",
+    "question": { "es": "¿Qué hace que suban y bajen las mareas del mar?" },
+    "choices": [
+      { "es": "La fuerza de atracción de la Luna" },
+      { "es": "Los peces al nadar" },
+      { "es": "El viento de la tarde" },
+      { "es": "Los barcos que pasan" }
+    ],
+    "correctIdx": 0,
+    "emoji": "🌊",
+    "explanation": { "es": "La Luna atrae el agua de los océanos y por eso el mar sube y baja." }
+  },
+  {
+    "id": "mundo-sonido-agua",
+    "subskill": "como-funciona",
+    "question": { "es": "¿Dónde viaja más rápido el sonido?" },
+    "choices": [
+      { "es": "en el agua" },
+      { "es": "en el aire" },
+      { "es": "en el espacio vacío" },
+      { "es": "el sonido no se mueve" }
+    ],
+    "correctIdx": 0,
+    "emoji": "🐋",
+    "explanation": { "es": "El sonido viaja más rápido en el agua; por eso las ballenas se oyen a kilómetros." }
+  },
+  {
+    "id": "mundo-corazon",
+    "subskill": "como-funciona",
+    "question": { "es": "¿Para qué sirve el corazón?" },
+    "choices": [
+      { "es": "para bombear la sangre por todo el cuerpo" },
+      { "es": "para respirar aire" },
+      { "es": "para digerir la comida" },
+      { "es": "para pensar" }
+    ],
+    "correctIdx": 0,
+    "emoji": "❤️",
+    "explanation": { "es": "El corazón late sin parar para llevar la sangre a todo el cuerpo." }
+  },
+  {
+    "id": "mundo-pulpo-corazones",
+    "subskill": "como-funciona",
+    "question": { "es": "¿Cuántos corazones tiene un pulpo?" },
+    "choices": [{ "es": "3" }, { "es": "1" }, { "es": "2" }, { "es": "5" }],
+    "correctIdx": 0,
+    "emoji": "🐙",
+    "explanation": { "es": "El pulpo tiene tres corazones y además puede cambiar de color para camuflarse." }
+  }
 ]
