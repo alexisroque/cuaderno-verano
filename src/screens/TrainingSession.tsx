@@ -14,11 +14,15 @@ import { Button } from '../components/ui/Button'
 import { useCelebrations } from './players/useCelebrations'
 import { GeneratorRound } from './players/GeneratorRound'
 import { QuizRound } from './players/QuizRound'
-import { geographyQuizItem, mundoQuizItem, englishReadingQuizItems, type QuizItem } from './players/quizItems'
+import { mundoQuizItem, englishReadingQuizItems, type QuizItem } from './players/quizItems'
 import { recordQuizAttempt } from './players/recordQuiz'
 
-/** Content-driven skills whose "exercises" are quiz items rather than generators. */
-const QUIZ_SKILLS = new Set<SkillId>(['geografia', 'mundo', 'english', 'lectura'])
+/**
+ * Content-driven skills whose "exercises" are quiz items rather than generators.
+ * `geografia` is intentionally NOT here: it has its own tap-on-map flow
+ * (MapTraining), routed directly from FreeTraining.
+ */
+const QUIZ_SKILLS = new Set<SkillId>(['mundo', 'english', 'lectura'])
 
 /** Spanish display name for a skill. */
 function skillName(profile: ProfileId, skill: SkillId): string {
@@ -30,8 +34,7 @@ function quizItemsForSkill(skill: SkillId, seed: string): QuizItem[] {
   const rng = createRng(seed)
   const bundle = getContentBundle()
   let items: QuizItem[] = []
-  if (skill === 'geografia') items = (bundle.geography ?? []).map((g) => geographyQuizItem(rng, g)).filter(Boolean) as QuizItem[]
-  else if (skill === 'mundo') items = (bundle.mundo ?? []).map((m) => mundoQuizItem(rng, m)).filter(Boolean) as QuizItem[]
+  if (skill === 'mundo') items = (bundle.mundo ?? []).map((m) => mundoQuizItem(rng, m)).filter(Boolean) as QuizItem[]
   else items = (bundle.englishReadings ?? []).flatMap((r) => englishReadingQuizItems(r))
   // english reading items feed english+lectura; keep whichever matches the picked skill.
   if (skill === 'english') items = items.filter((i) => i.skill === 'english')

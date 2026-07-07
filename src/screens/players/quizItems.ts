@@ -1,9 +1,12 @@
 import type { Rng } from '../../lib/rng'
-import type { GeographyItem, MundoItem, EnglishReading } from '../../content/schemas'
+import type { MundoItem, EnglishReading } from '../../content/schemas'
 import type { QuestionLike } from './QuestionTiles'
 
-/** The skills a quiz round records attempts against. */
-export type QuizSkill = 'geografia' | 'mundo' | 'english' | 'lectura'
+/**
+ * The skills a quiz round records attempts against. `geografia` is handled by
+ * the dedicated tap-on-map flow (MapRound / mapItems), not by these quiz items.
+ */
+export type QuizSkill = 'mundo' | 'english' | 'lectura'
 
 export interface QuizItem {
   /** Stable id for React keys and seeding. */
@@ -17,17 +20,6 @@ export interface QuizItem {
   skill: QuizSkill
   /** Subskill id recorded in the attempt. */
   subskill: string
-}
-
-/**
- * Spanish topic labels for geography tags, used to build a "¿sobre qué trata
- * este dato?" question whose choices are honest and distinct (the fact text
- * itself names the concept, so the mapping is verifiable, not invented).
- */
-const GEO_TAG_LABELS: Record<string, string> = {
-  'capital-of': 'la capital de un país',
-  'where-is': 'dónde está un lugar',
-  'flag-pick': 'una bandera',
 }
 
 /** Spanish topic labels for mundo tags. */
@@ -65,22 +57,7 @@ function topicQuestion(
   }
 }
 
-const GEO_FILLERS = ['un animal salvaje', 'una comida típica', 'un río muy largo', 'una montaña alta']
 const MUNDO_FILLERS = ['la historia antigua', 'los deportes', 'la música', 'los inventos famosos']
-
-/** Maps a geography tag to the geografia subskill it feeds (capitales/banderas/donde-esta). */
-function geoSubskillFor(tag: string | undefined): string {
-  if (tag === 'capital-of') return 'capitales'
-  if (tag === 'flag-pick') return 'banderas'
-  return 'donde-esta'
-}
-
-/** Builds a quiz item from a geography fact, or null if it isn't quizzable. */
-export function geographyQuizItem(rng: Rng, item: GeographyItem): QuizItem | null {
-  const question = topicQuestion(rng, item.tag, GEO_TAG_LABELS, GEO_FILLERS)
-  if (!question) return null
-  return { id: item.id, passage: item.text.es, question, skill: 'geografia', subskill: geoSubskillFor(item.tag) }
-}
 
 /** Builds a quiz item from a mundo fact, or null if it isn't quizzable. */
 export function mundoQuizItem(rng: Rng, item: MundoItem): QuizItem | null {

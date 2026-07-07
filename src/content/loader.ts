@@ -11,6 +11,7 @@ import {
   EnglishReadingsSchema,
   MundoItemsSchema,
 } from './schemas'
+import { assertGeographyRegions } from './maps'
 
 import chaptersJson from '../../content/chapters.json'
 import curiositiesJson from '../../content/curiosities.json'
@@ -59,7 +60,7 @@ export const CONTENT_BUNDLE: ContentBundle = {
   jokes: JokesSchema.parse(jokesJson),
   diaryPrompts: DiaryPromptsSchema.parse(diaryPromptsJson),
   cuentosLeo: CuentosLeoSchema.parse(cuentosLeoJson),
-  geography: GeographyItemsSchema.parse(geographyJson),
+  geography: assertGeographyRegions(GeographyItemsSchema.parse(geographyJson)),
   englishUnits: EnglishUnitsSchema.parse(englishUnitsJson),
   englishReadings: EnglishReadingsSchema.parse(englishReadingsJson),
   mundo: MundoItemsSchema.parse(mundoJson),

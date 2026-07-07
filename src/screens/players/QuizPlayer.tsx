@@ -11,8 +11,13 @@ import { usePlayerStore } from '../../state/playerStore'
 import { Shell } from '../../components/Shell'
 import { NoCard, PlayerHeader, CARD_COINS } from './playerChrome'
 import { QuizRound } from './QuizRound'
+import { MapRound } from './MapRound'
 import { recordQuizAttempt } from './recordQuiz'
-import { englishReadingQuizItems, geographyQuizItem, mundoQuizItem, type QuizItem } from './quizItems'
+import { recordMapAttempt } from './recordMap'
+import { englishReadingQuizItems, mundoQuizItem, type QuizItem } from './quizItems'
+import { buildMapRound } from './mapItems'
+import { MAP_IDS } from '../../content/maps'
+import { skillOfSubskill } from '../../engine/skills'
 
 /**
  * Generic 4-choice quiz route. Resolves the active card into a short round of
@@ -42,33 +47,41 @@ export function QuizPlayer() {
 
   const resolved = useMemo(() => {
     const ref = card?.contentRef
-    const rng = createRng(card?.generatorSeed ?? 'quiz')
-    if (ref?.readingId) {
-      const reading = englishReadingById(ref.readingId)
-      if (reading) return { items: englishReadingQuizItems(reading), title: `Reading · ${reading.title}`, consume: reading.id }
-    }
+    const seed = card?.generatorSeed ?? 'quiz'
+    const rng = createRng(seed)
     const bundle = getContentBundle()
     const skill = card?.subskill
+
+    // Geografia subskills → the tap-on-map round (SE Asia / Europe / World).
+    if (skill && skillOfSubskill(profile, skill) === 'geografia') {
+      const rngMap = createRng(seed)
+      const mapId = rngMap.pick(MAP_IDS.slice())
+      const mapItems = buildMapRound(rngMap, bundle.geography ?? [], mapId, 5)
+      return { kind: 'map' as const, mapItems, mapId, consume: undefined }
+    }
+
+    if (ref?.readingId) {
+      const reading = englishReadingById(ref.readingId)
+      if (reading) return { kind: 'quiz' as const, items: englishReadingQuizItems(reading), title: `Reading · ${reading.title}`, consume: reading.id }
+    }
     if (skill === 'espacio' || skill === 'como-funciona') {
       const items = (bundle.mundo ?? []).map((m) => mundoQuizItem(rng, m)).filter((x): x is QuizItem => x !== null)
-      return { items: rng.shuffle(items).slice(0, 5), title: 'Mundo', consume: undefined }
+      return { kind: 'quiz' as const, items: rng.shuffle(items).slice(0, 5), title: 'Mundo', consume: undefined }
     }
-    const items = (bundle.geography ?? []).map((g) => geographyQuizItem(rng, g)).filter((x): x is QuizItem => x !== null)
-    return { items: rng.shuffle(items).slice(0, 5), title: 'Geografía', consume: undefined }
-  }, [card])
+    // Fallback: default to a world map round so a stray geografia card never dead-ends.
+    const mapItems = buildMapRound(rng, bundle.geography ?? [], 'mundo', 5)
+    return { kind: 'map' as const, mapItems, mapId: 'mundo', consume: undefined }
+  }, [card, profile])
 
-  if (!card || resolved.items.length === 0) return <NoCard />
+  const empty = resolved.kind === 'map' ? resolved.mapItems.length === 0 : resolved.items.length === 0
+  if (!card || empty) return <NoCard />
 
   const exit = () => {
     clearActiveCard()
     navigate(returnTo)
   }
 
-  const onAnswer = (item: QuizItem, correct: boolean) => {
-    recordQuizAttempt(profile, item, correct, startedAt.current)
-  }
-
-  const onDone = () => {
+  const finish = () => {
     if (!finalized.current) {
       finalized.current = true
       if (resolved.consume) markConsumed(profile, 'englishReadings', resolved.consume)
@@ -82,7 +95,21 @@ export function QuizPlayer() {
     <Shell>
       <div className="mx-auto max-w-md pt-1">
         <PlayerHeader chapter={chapter} onExit={exit} />
-        <QuizRound items={resolved.items} title={resolved.title} onAnswer={onAnswer} onDone={onDone} />
+        {resolved.kind === 'map' ? (
+          <MapRound
+            items={resolved.mapItems}
+            mapId={resolved.mapId}
+            onAnswer={(item, correct) => recordMapAttempt(profile, item, correct, startedAt.current)}
+            onDone={finish}
+          />
+        ) : (
+          <QuizRound
+            items={resolved.items}
+            title={resolved.title}
+            onAnswer={(item, correct) => recordQuizAttempt(profile, item, correct, startedAt.current)}
+            onDone={finish}
+          />
+        )}
       </div>
     </Shell>
   )

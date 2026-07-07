@@ -4,3 +4,5 @@ node_modules/
 dist/
 dev-dist/
 *.tsbuildinfo
+# Cached source TopoJSON for scripts/gen-maps.ts (regenerable, not shipped)
+scripts/.ne-countries-*.json

@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "pretest": "npm run validate:content",
-    "validate:content": "tsx scripts/validate-content.ts"
+    "validate:content": "tsx scripts/validate-content.ts",
+    "gen:maps": "tsx scripts/gen-maps.ts"
   },
   "dependencies": {
     "idb-keyval": "^6.2.6",
@@ -22,13 +23,17 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.2",
     "@testing-library/react": "^16.3.2",
+    "@types/d3-geo": "^3.1.0",
     "@types/node": "^26.1.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
+    "@types/topojson-client": "^3.1.5",
     "@vitejs/plugin-react": "^5.2.0",
     "@vitest/coverage-v8": "^3.2.7",
+    "d3-geo": "^3.1.1",
     "jsdom": "^26.1.0",
     "tailwindcss": "^4.3.2",
+    "topojson-client": "^3.1.0",
     "tsx": "^4.23.0",
     "typescript": "~6.0.2",
     "vite": "^7.3.6",

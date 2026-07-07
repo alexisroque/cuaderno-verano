@@ -238,8 +238,24 @@ describe('DiaryPromptSchema', () => {
 })
 
 describe('GeographyItemSchema', () => {
-  it('accepts a minimal geography item', () => {
-    expect(() => GeographyItemSchema.parse({ id: 'g1', text: { es: 'Singapur es una isla-ciudad.' } })).not.toThrow()
+  const base = {
+    id: 'g1',
+    name: 'Malasia',
+    capital: 'Kuala Lumpur',
+    flag: '🇲🇾',
+    continent: 'Asia',
+    mapId: 'sudeste-asiatico',
+    regionId: 'malasia',
+  }
+
+  it('accepts a structured country entry', () => {
+    expect(() => GeographyItemSchema.parse(base)).not.toThrow()
+    expect(() => GeographyItemSchema.parse({ ...base, chapterId: 'kuala-lumpur' })).not.toThrow()
+  })
+
+  it('rejects an unknown continent and missing map fields', () => {
+    expect(() => GeographyItemSchema.parse({ ...base, continent: 'Marte' })).toThrow()
+    expect(() => GeographyItemSchema.parse({ ...base, regionId: undefined })).toThrow()
   })
 })
 

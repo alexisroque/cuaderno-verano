@@ -12,6 +12,7 @@ import { todayISO } from '../lib/clock'
 import { TrainingSession, hasUnlockedChallenge } from './TrainingSession'
 import { LightningRound } from './players/LightningRound'
 import { recordLightning } from './players/recordLightning'
+import { MapTraining } from './players/MapTraining'
 
 /**
  * "¿Quieres más?" free-training hub. Pick a gem (skill) → an endless training
@@ -71,7 +72,11 @@ export function FreeTraining() {
             </span>
             <h2 className="text-lg font-extrabold">{skillMeta[skill].name}</h2>
           </div>
-          <TrainingSession profile={profile} skill={skill} chapter={chapter} leo={leo} onExit={() => setSkill(null)} />
+          {skill === 'geografia' ? (
+            <MapTraining profile={profile} onExit={() => setSkill(null)} />
+          ) : (
+            <TrainingSession profile={profile} skill={skill} chapter={chapter} leo={leo} onExit={() => setSkill(null)} />
+          )}
         </div>
       </Shell>
     )

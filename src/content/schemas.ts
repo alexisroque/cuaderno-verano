@@ -232,12 +232,29 @@ export const DiaryPromptSchema = z.object({
 export type DiaryPrompt = z.infer<typeof DiaryPromptSchema>
 export const DiaryPromptsSchema = z.array(DiaryPromptSchema)
 
-/** A geography fact/quiz item tied to the trip itinerary. */
+/** The five continent labels a country can belong to (Spanish, kid-facing). */
+export const CONTINENTS = ['Europa', 'Asia', 'África', 'América', 'Oceanía'] as const
+
+/**
+ * One country on one of the three tap-on-map exercises (SE Asia, Europe,
+ * World). It carries everything the map players need: its Spanish name and
+ * capital, a flag emoji, its continent, which map it lives on (`mapId`) and the
+ * id of its tappable region in that map's SVG (`regionId`, matching a path id
+ * in `maps.generated.ts`). `chapterId` optionally ties it to a trip chapter.
+ *
+ * The same real country can appear on two maps (e.g. España on both `europa`
+ * and `mundo`), so `id` is per-entry, not per-country: an entry id is unique,
+ * but `(mapId, regionId)` is the key the map renderer taps against.
+ */
 export const GeographyItemSchema = z.object({
   id: z.string().min(1),
-  text: z.object({ es: z.string().min(1) }),
+  name: z.string().min(1),
+  capital: z.string().min(1),
+  flag: z.string().min(1),
+  continent: z.enum(CONTINENTS),
+  mapId: z.string().min(1),
+  regionId: z.string().min(1),
   chapterId: z.string().min(1).optional(),
-  tag: z.string().min(1).optional(),
 })
 
 export type GeographyItem = z.infer<typeof GeographyItemSchema>
