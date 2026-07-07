@@ -518,7 +518,7 @@
         {
           "q": "La paraula \"feliç\" acaba en ç. Quin truc et podria ajudar a recordar-ho?",
           "choices": [
-            "Pensar en el femení \"feliça\"... o millor, memoritzar que acaba en ç",
+            "Pensar en paraules com \"dolç\" i \"dolça\": si el femení fa -ça, el masculí acaba en ç",
             "Escriure sempre s al final",
             "No escriure mai la ç",
             "Posar dues esses"
@@ -539,7 +539,7 @@
         "es": "En el colegio vimos una película sobre una célula muy inteligente. Todos mirábamos la pantalla con mucha ilusión y en silencio. Después, la maestra tranquila nos explicó cómo funciona nuestro cuerpo."
       },
       "factExtra": {
-        "ca": "Sabies que el cos humà té bilions de cèl·lules i que cada segona en fabrica milions de noves per reparar-se?",
+        "ca": "Sabies que el cos humà té bilions de cèl·lules i que cada segon en fabrica milions de noves per reparar-se?",
         "es": "¿Sabías que el cuerpo humano tiene billones de células y que cada segundo fabrica millones de nuevas para repararse?"
       },
       "hook": "Demà seguirem amb la l·l, que porta un puntet al mig.",
