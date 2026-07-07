@@ -25,7 +25,7 @@ export default defineConfig({
         navigateFallback: '/cuaderno-verano/index.html',
         cleanupOutdatedCaches: true,
       },
-      includeAssets: ['favicon.svg', 'favicon-32.png', 'icons/apple-touch-icon.png'],
+      includeAssets: ['favicon-32.png', 'icons/apple-touch-icon.png'],
       manifest: {
         name: 'El Cuaderno de Verano',
         short_name: 'Cuaderno',
