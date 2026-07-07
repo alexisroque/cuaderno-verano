@@ -27,6 +27,8 @@ import aventuraHumanosSeries from '../../content/series/aventura-humanos.json'
 import exploradoresSeries from '../../content/series/exploradores.json'
 import inventosSeries from '../../content/series/inventos.json'
 import ortografiaMostraSeries from '../../content/series/ortografia-mostra.json'
+import ortografiaCaSeries from '../../content/series/ortografia-ca.json'
+import ortografiaEsSeries from '../../content/series/ortografia-es.json'
 
 /**
  * The single static content bundle for the whole app, built once at module
@@ -44,9 +46,15 @@ export const CONTENT_BUNDLE: ContentBundle = {
   // Cultural story series + the rule-focused dictation series. The composer
   // treats a series with focus-tagged episodes as the rule-focus pool and the
   // rest as the cultural pool (see contentSelection.pickDictadoContent).
-  series: [animalesSeries, aventuraHumanosSeries, exploradoresSeries, inventosSeries, ortografiaMostraSeries].map(
-    validateSeries,
-  ),
+  series: [
+    animalesSeries,
+    aventuraHumanosSeries,
+    exploradoresSeries,
+    inventosSeries,
+    ortografiaMostraSeries,
+    ortografiaCaSeries,
+    ortografiaEsSeries,
+  ].map(validateSeries),
   curiosities: CuriositiesSchema.parse(curiositiesJson),
   jokes: JokesSchema.parse(jokesJson),
   diaryPrompts: DiaryPromptsSchema.parse(diaryPromptsJson),

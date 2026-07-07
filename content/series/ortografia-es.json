@@ -1,0 +1,1057 @@
+{
+  "id": "ortografia-es",
+  "title": "Dictados de regla · castellano",
+  "emoji": "✏️",
+  "episodes": [
+    {
+      "id": "oes-01-bv",
+      "order": 1,
+      "title": "La b y la v (1)",
+      "focus": "es-b-v",
+      "lang": "es",
+      "dictation": {
+        "ca": "En Bernat vivia en un poble i tenia una vaca i un burro molt tranquils. Cada matí bevia llet fresca i sortia a treballar al camp verd. Al vespre tornava content per veure la posta de sol vora el riu.",
+        "es": "Benito vivía en un pueblo y tenía una vaca y un burro muy tranquilos. Cada mañana bebía leche fresca y salía a trabajar al campo verde. Por la tarde volvía contento para ver la puesta de sol junto al río."
+      },
+      "factExtra": {
+        "ca": "Sabies que en castellà la b i la v sonen exactament igual? Per això cal recordar de memòria com s'escriu cada paraula.",
+        "es": "¿Sabías que en español la b y la v suenan exactamente igual? Por eso hay que recordar de memoria cómo se escribe cada palabra."
+      },
+      "hook": "Mañana seguiremos con la b y la v en un viaje.",
+      "questions": [
+        {
+          "q": "¿Qué animales tenía Benito?",
+          "choices": ["Una vaca y un burro", "Un caballo y un perro", "Una oveja y una gallina", "Un gato y un pájaro"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "¿Por qué crees que la b y la v cuestan tanto en español?",
+          "choices": [
+            "Porque suenan igual y no podemos distinguirlas por el sonido",
+            "Porque la b no existe",
+            "Porque la v suena como una f",
+            "Porque son letras nuevas"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-02-bv",
+      "order": 2,
+      "title": "La b y la v (2)",
+      "focus": "es-b-v",
+      "lang": "es",
+      "dictation": {
+        "ca": "La Bàrbara volia ser una gran investigadora i viatjar per tot el món. Va escriure un bon llibre sobre els volcans i les seves aventures. La gent l'admirava perquè sabia moltes coses i era molt valenta.",
+        "es": "Bárbara quería ser una gran investigadora y viajar por todo el mundo. Escribió un buen libro sobre los volcanes y sus aventuras. La gente la admiraba porque sabía muchas cosas y era muy valiente."
+      },
+      "factExtra": {
+        "ca": "Sabies que un volcà pot estar adormit durant centenars d'anys i, de sobte, despertar-se i tornar a entrar en erupció?",
+        "es": "¿Sabías que un volcán puede estar dormido durante cientos de años y, de repente, despertarse y volver a entrar en erupción?"
+      },
+      "hook": "Mañana veremos la b y la v con un abuelo músico.",
+      "questions": [
+        {
+          "q": "¿Sobre qué escribió Bárbara su libro?",
+          "choices": ["Sobre los volcanes y sus aventuras", "Sobre los mares del mundo", "Sobre los animales del bosque", "Sobre las estrellas"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "¿Qué truco te ayuda a recordar si una palabra se escribe con b o con v?",
+          "choices": [
+            "Pensar en otra palabra de la misma familia que ya sepa escribir",
+            "Escribir siempre b porque es más fácil",
+            "Elegir al azar",
+            "Usar siempre la v"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-03-bv",
+      "order": 3,
+      "title": "La b y la v (3)",
+      "focus": "es-b-v",
+      "lang": "es",
+      "dictation": {
+        "ca": "L'avi tocava el violí vora la finestra mentre la Beatriu bevia llet. La vella cançó volava suau per tota la casa i convidava a somiar. Els veïns s'aturaven al carrer per escoltar aquella bonica melodia.",
+        "es": "El abuelo tocaba el violín junto a la ventana mientras Beatriz bebía leche. La vieja canción volaba suave por toda la casa e invitaba a soñar. Los vecinos se paraban en la calle para escuchar aquella bonita melodía."
+      },
+      "factExtra": {
+        "ca": "Sabies que la paraula \"violí\" i la paraula \"violoncel\" comparteixen família, encara que el violoncel és molt més gran?",
+        "es": "¿Sabías que la palabra \"violín\" y la palabra \"violonchelo\" comparten familia, aunque el violonchelo es mucho más grande?"
+      },
+      "hook": "Mañana seguiremos con la b y la v en invierno.",
+      "questions": [
+        {
+          "q": "¿Qué hacía el abuelo junto a la ventana?",
+          "choices": ["Tocaba el violín", "Leía un libro", "Bebía leche", "Miraba a los vecinos"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Como la b y la v suenan igual, ¿qué crees que es lo mejor para acertar?",
+          "choices": [
+            "Ir memorizando poco a poco las palabras y sus familias",
+            "No escribir nunca esas palabras",
+            "Poner la letra que se me ocurra primero",
+            "Dejar un hueco"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-04-bv",
+      "order": 4,
+      "title": "La b y la v (4)",
+      "focus": "es-b-v",
+      "lang": "es",
+      "dictation": {
+        "ca": "A l'hivern, la neu blanca cobria el poble i els nens baixaven amb trineu. La Victòria portava un abric blau i unes botes ben càlides. Després tots bevien xocolata calenta vora la vella llar de foc.",
+        "es": "En invierno, la nieve blanca cubría el pueblo y los niños bajaban en trineo. Victoria llevaba un abrigo azul y unas botas bien cálidas. Después todos bebían chocolate caliente junto a la vieja chimenea."
+      },
+      "factExtra": {
+        "ca": "Sabies que la neu és blanca perquè reflecteix tots els colors de la llum del sol alhora, i tots junts es veuen blancs?",
+        "es": "¿Sabías que la nieve es blanca porque refleja todos los colores de la luz del sol a la vez, y todos juntos se ven blancos?"
+      },
+      "hook": "Mañana cerraremos la b y la v con un huerto.",
+      "questions": [
+        {
+          "q": "¿Qué llevaba Victoria en invierno?",
+          "choices": ["Un abrigo azul y botas cálidas", "Un vestido de verano", "Un paraguas rojo", "Unas gafas de sol"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Cuando dudas entre b y v, ¿qué crees que conviene hacer?",
+          "choices": [
+            "Parar un momento y buscar la palabra si no estoy segura",
+            "Escribir la primera letra que se me ocurra",
+            "Borrar toda la frase",
+            "Dejarlo en blanco"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-05-bv",
+      "order": 5,
+      "title": "La b y la v (5)",
+      "focus": "es-b-v",
+      "lang": "es",
+      "dictation": {
+        "ca": "El vell jardiner cuidava molt bé les verdures del seu hort assolellat. Cada matí regava les bledes, les faves i unes carbasses enormes. Els veïns venien sovint a comprar-li tomàquets ben vermells i saborosos.",
+        "es": "El viejo jardinero cuidaba muy bien las verduras de su huerto soleado. Cada mañana regaba las acelgas, las habas y unas calabazas enormes. Los vecinos venían a menudo a comprarle tomates bien rojos y sabrosos."
+      },
+      "factExtra": {
+        "ca": "Sabies que les carbasses poden arribar a pesar més de mig tona i que hi ha concursos per veure quina és la més grossa?",
+        "es": "¿Sabías que las calabazas pueden llegar a pesar más de media tonelada y que hay concursos para ver cuál es la más grande?"
+      },
+      "hook": "Mañana empezaremos con la letra hache.",
+      "questions": [
+        {
+          "q": "¿Qué venían a comprar los vecinos?",
+          "choices": ["Tomates rojos y sabrosos", "Flores del jardín", "Pan recién hecho", "Peces del río"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "¿Por qué crees que merece la pena escribir bien la b y la v?",
+          "choices": [
+            "Porque escribir sin faltas hace que los demás me entiendan mejor",
+            "Porque así la letra es más grande",
+            "Porque no sirve de nada",
+            "Porque las tildes desaparecen"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-06-h",
+      "order": 6,
+      "title": "La hache (1)",
+      "focus": "es-h",
+      "lang": "es",
+      "dictation": {
+        "ca": "Avui, l'Héctor s'ha llevat molt d'hora per anar a fer una excursió. Ha agafat una hamaca, un entrepà i una ampolla d'aigua ben fresca. A l'hora de dinar, ha descansat a l'ombra d'un arbre molt alt.",
+        "es": "Hoy, Héctor se ha levantado muy temprano para ir a hacer una excursión. Ha cogido una hamaca, un bocadillo y una botella de agua bien fresca. A la hora de comer, ha descansado a la sombra de un árbol muy alto."
+      },
+      "factExtra": {
+        "ca": "Sabies que en castellà la hac tampoc no sona, però l'escrivim perquè ve d'altres llengües antigues com el llatí?",
+        "es": "¿Sabías que en español la hache tampoco suena, pero la escribimos porque viene de otras lenguas antiguas como el latín?"
+      },
+      "hook": "Mañana seguiremos con la hache y una hierba especial.",
+      "questions": [
+        {
+          "q": "¿Qué cogió Héctor para la excursión?",
+          "choices": ["Una hamaca, un bocadillo y agua", "Una bicicleta y un mapa", "Un paraguas y una linterna", "Un balón y una raqueta"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "¿Por qué crees que la hache es difícil, si no suena cuando la leemos?",
+          "choices": [
+            "Porque, como no suena, no nos avisa de cuándo hay que escribirla",
+            "Porque suena muy fuerte",
+            "Porque solo va al final",
+            "Porque cambia de sitio"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-07-h",
+      "order": 7,
+      "title": "La hache (2)",
+      "focus": "es-h",
+      "lang": "es",
+      "dictation": {
+        "ca": "A l'hort de l'àvia creixia herba fresca i moltes hortalisses saboroses. Ella collia tomàquets i, amb molta traça, feia una amanida deliciosa. Deia que menjar verdura ajuda a créixer sa i ben fort.",
+        "es": "En el huerto de la abuela crecía hierba fresca y muchas hortalizas sabrosas. Ella cogía tomates y, con mucha maña, hacía una ensalada deliciosa. Decía que comer verdura ayuda a crecer sano y bien fuerte."
+      },
+      "factExtra": {
+        "ca": "Sabies que les paraules \"hort\", \"herba\" i \"hortalissa\" pertanyen totes a la mateixa família i totes porten hac?",
+        "es": "¿Sabías que las palabras \"huerto\", \"hierba\" y \"hortaliza\" pertenecen todas a la misma familia y todas llevan hache?"
+      },
+      "hook": "Mañana seguiremos con la hache y un hombre viajero.",
+      "questions": [
+        {
+          "q": "¿Qué hacía la abuela con los tomates?",
+          "choices": ["Una ensalada deliciosa", "Una tarta dulce", "Una sopa caliente", "Un zumo rojo"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Muchas palabras de una misma familia llevan hache. ¿Por qué crees que eso ayuda?",
+          "choices": [
+            "Porque si sé que \"huerto\" lleva hache, recuerdo que \"hortaliza\" también",
+            "Porque las familias no tienen nada que ver",
+            "Porque cada palabra se escribe distinta",
+            "Porque la hache aparece sola"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-08-h",
+      "order": 8,
+      "title": "La hache (3)",
+      "focus": "es-h",
+      "lang": "es",
+      "dictation": {
+        "ca": "L'home viatjava en un vehicle antic per tota la carretera polsosa. A cada hostal on parava, explicava històries d'illes llunyanes. La gent l'escoltava fascinada mentre ell dibuixava mapes plens d'aventura.",
+        "es": "El hombre viajaba en un vehículo antiguo por toda la carretera polvorienta. En cada hostal donde paraba, contaba historias de islas lejanas. La gente lo escuchaba fascinada mientras él dibujaba mapas llenos de aventura."
+      },
+      "factExtra": {
+        "ca": "Sabies que la paraula \"història\" porta hac perquè ve del grec, i que d'aquí també ve la paraula \"historiador\"?",
+        "es": "¿Sabías que la palabra \"historia\" lleva hache porque viene del griego, y que de ahí también viene la palabra \"historiador\"?"
+      },
+      "hook": "Mañana seguiremos con la hache en medio de las palabras.",
+      "questions": [
+        {
+          "q": "¿Qué contaba el hombre en cada hostal?",
+          "choices": ["Historias de islas lejanas", "Chistes muy graciosos", "Recetas de cocina", "Canciones antiguas"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Hombre\", \"hostal\" e \"historia\" empiezan por hache. ¿Qué truco te ayuda a recordarlas?",
+          "choices": [
+            "Memorizarlas como un grupo, porque son palabras muy habituales con hache",
+            "Escribirlas sin hache para ir más rápido",
+            "No usarlas nunca",
+            "Poner hache en todas las palabras"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-09-h",
+      "order": 9,
+      "title": "La hache (4)",
+      "focus": "es-h",
+      "lang": "es",
+      "dictation": {
+        "ca": "A la nit, en Hugo posava el cap sobre un coixí tou i s'adormia de seguida. Somiava que era un heroi que salvava una illa plena de tresors. Al matí, es despertava content i explicava el somni a la seva germana.",
+        "es": "Por la noche, Hugo ponía la cabeza sobre una almohada blanda y se dormía enseguida. Soñaba que era un héroe que salvaba una isla llena de tesoros. Por la mañana, se despertaba contento y contaba el sueño a su hermana."
+      },
+      "factExtra": {
+        "ca": "Sabies que la paraula \"almohada\" porta una hac al mig que no sona, i que ve d'una paraula àrab molt antiga?",
+        "es": "¿Sabías que la palabra \"almohada\" lleva una hache en medio que no suena, y que viene de una palabra árabe muy antigua?"
+      },
+      "hook": "Mañana cerraremos la hache con un último dictado.",
+      "questions": [
+        {
+          "q": "¿Qué soñaba Hugo por la noche?",
+          "choices": ["Que era un héroe que salvaba una isla", "Que volaba sobre el mar", "Que ganaba una carrera", "Que era un mago"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Almohada\" y \"héroe\" tienen la hache en medio o poco visible. ¿Por qué crees que cuesta?",
+          "choices": [
+            "Porque, al no sonar y estar escondida, es fácil olvidarla",
+            "Porque suena muy fuerte",
+            "Porque no existe",
+            "Porque va siempre al principio"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-10-h",
+      "order": 10,
+      "title": "La hache (5)",
+      "focus": "es-h",
+      "lang": "es",
+      "dictation": {
+        "ca": "Els humans hem habitat la Terra des de fa moltíssims anys ja. Hem après a fer eines, a encendre el foc i a construir grans ciutats. Encara ens queda molta història per escriure en aquest planeta blau.",
+        "es": "Los humanos hemos habitado la Tierra desde hace muchísimos años ya. Hemos aprendido a hacer herramientas, a encender el fuego y a construir grandes ciudades. Todavía nos queda mucha historia por escribir en este planeta azul."
+      },
+      "factExtra": {
+        "ca": "Sabies que el verb \"haber\" en castellà sempre porta hac (he, has, ha, hemos) i el fem servir moltíssimes vegades cada dia?",
+        "es": "¿Sabías que el verbo \"haber\" en español siempre lleva hache (he, has, ha, hemos) y lo usamos muchísimas veces cada día?"
+      },
+      "hook": "Mañana empezaremos con la g y la j.",
+      "questions": [
+        {
+          "q": "¿Qué han aprendido a hacer los humanos, según el dictado?",
+          "choices": ["Herramientas, fuego y grandes ciudades", "A volar sin avión", "A vivir bajo el agua", "A no dormir nunca"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "El verbo \"haber\" (he, has, ha) siempre lleva hache. ¿Por qué crees que es bueno saberlo?",
+          "choices": [
+            "Porque lo usamos muchísimo y así no me equivoco cada día",
+            "Porque no se usa nunca",
+            "Porque suena mucho",
+            "Porque solo lo usan los adultos"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-11-gj",
+      "order": 11,
+      "title": "La g y la j (1)",
+      "focus": "es-g-j",
+      "lang": "es",
+      "dictation": {
+        "ca": "La girafa jove menjava fulles verdes al costat d'un gat molt gandul. El gat dormia damunt la gespa mentre uns micos jugaven amb alegria. Tots vivien junts en un parc gegant, tranquil i ple de vegetació.",
+        "es": "La jirafa joven comía hojas verdes al lado de un gato muy gandul. El gato dormía sobre el césped mientras unos monos jugaban con alegría. Todos vivían juntos en un parque gigante, tranquilo y lleno de vegetación."
+      },
+      "factExtra": {
+        "ca": "Sabies que en castellà la g davant de e i sona com la j (gente, girafa), però la g davant de a o u sona forta (gato, gusano)?",
+        "es": "¿Sabías que en español la g delante de e, i suena como la j (gente, jirafa), pero la g delante de a, o, u suena fuerte (gato, gusano)?"
+      },
+      "hook": "Mañana seguiremos con la g y la j en un mercado.",
+      "questions": [
+        {
+          "q": "¿Qué hacía el gato mientras los monos jugaban?",
+          "choices": ["Dormía sobre el césped", "Comía hojas verdes", "Corría por el parque", "Trepaba a un árbol"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Jirafa\" y \"gente\" tienen el mismo sonido pero distinta letra. ¿Por qué crees que confunde?",
+          "choices": [
+            "Porque la g ante e, i y la j suenan igual y hay que aprender cuándo va cada una",
+            "Porque la g no existe",
+            "Porque la j suena como una t",
+            "Porque todas las palabras llevan j"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-12-gj",
+      "order": 12,
+      "title": "La g y la j (2)",
+      "focus": "es-g-j",
+      "lang": "es",
+      "dictation": {
+        "ca": "Al mercat, la Gema va comprar taronges, mandarines i una gerra de mel. El paradista, molt amable, li va guardar les millors fruites del dia. De tornada a casa, va menjar-se una taronja dolça i sucosa.",
+        "es": "En el mercado, Gema compró naranjas, mandarinas y una jarra de miel. El tendero, muy amable, le guardó las mejores frutas del día. De vuelta a casa, se comió una naranja dulce y jugosa."
+      },
+      "factExtra": {
+        "ca": "Sabies que la mel no es fa malbé mai? S'han trobat pots de mel de fa milers d'anys que encara es podien menjar.",
+        "es": "¿Sabías que la miel no se estropea nunca? Se han encontrado tarros de miel de hace miles de años que todavía se podían comer."
+      },
+      "hook": "Mañana seguiremos con la g y la j y un buen viaje.",
+      "questions": [
+        {
+          "q": "¿Qué compró Gema en el mercado?",
+          "choices": ["Naranjas, mandarinas y miel", "Pan y leche", "Flores y semillas", "Pescado y sal"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "¿Qué truco te ayuda a decidir entre g y j delante de e o i?",
+          "choices": [
+            "Pensar en palabras de la familia y memorizar las que se escriben con j",
+            "Poner siempre j",
+            "Poner siempre g",
+            "Elegirlo a suerte"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-13-gj",
+      "order": 13,
+      "title": "La g y la j (3)",
+      "focus": "es-g-j",
+      "lang": "es",
+      "dictation": {
+        "ca": "En Jorge va fer un viatge llarg fins a una selva plena de vegetació. Va veure granotes de colors i un jaguar amagat entre les branques. Va apuntar tot el que descobria en un vell diari de viatge.",
+        "es": "Jorge hizo un viaje largo hasta una selva llena de vegetación. Vio ranas de colores y un jaguar escondido entre las ramas. Apuntó todo lo que descubría en un viejo diario de viaje."
+      },
+      "factExtra": {
+        "ca": "Sabies que el jaguar és el felí més fort d'Amèrica i que és un dels pocs que neda molt bé i caça dins l'aigua?",
+        "es": "¿Sabías que el jaguar es el felino más fuerte de América y que es uno de los pocos que nada muy bien y caza dentro del agua?"
+      },
+      "hook": "Mañana seguiremos con la g y la j jugando en el jardín.",
+      "questions": [
+        {
+          "q": "¿Qué animal vio Jorge escondido entre las ramas?",
+          "choices": ["Un jaguar", "Un mono", "Una jirafa", "Un gato"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Jorge\", \"jaguar\" y \"viaje\" llevan j. ¿Por qué crees que aquí es más fácil?",
+          "choices": [
+            "Porque el sonido fuerte con a, o, u siempre se escribe con j, no con g",
+            "Porque siempre va g",
+            "Porque no hay regla",
+            "Porque la j no suena"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-14-gj",
+      "order": 14,
+      "title": "La g y la j (4)",
+      "focus": "es-g-j",
+      "lang": "es",
+      "dictation": {
+        "ca": "En Gerard jugava al jardí ple de gessamins i geranis vermells. De sobte, un gran escarabat va aparèixer entre les fulles i el va sorprendre. Ell va riure i el va deixar marxar amb molta delicadesa.",
+        "es": "Gerardo jugaba en el jardín lleno de jazmines y geranios rojos. De repente, un gran escarabajo apareció entre las hojas y lo sorprendió. Él se rio y lo dejó marchar con mucha delicadeza."
+      },
+      "factExtra": {
+        "ca": "Sabies que els escarabats són el grup d'animals amb més espècies del món? N'hi ha centenars de milers de tipus diferents.",
+        "es": "¿Sabías que los escarabajos son el grupo de animales con más especies del mundo? Hay cientos de miles de tipos diferentes."
+      },
+      "hook": "Mañana cerraremos la g y la j con un mago.",
+      "questions": [
+        {
+          "q": "¿Qué apareció entre las hojas del jardín?",
+          "choices": ["Un gran escarabajo", "Un jaguar", "Un pájaro azul", "Una rana verde"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Geranio\" lleva g pero \"jardín\" lleva j. ¿Qué crees que te ayuda a no equivocarte?",
+          "choices": [
+            "Leer mucho para recordar cómo se escribe de verdad cada palabra",
+            "Poner siempre la misma letra",
+            "No escribir esas palabras",
+            "Elegir al azar"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-15-gj",
+      "order": 15,
+      "title": "La g y la j (5)",
+      "focus": "es-g-j",
+      "lang": "es",
+      "dictation": {
+        "ca": "El mag del circ feia gestos màgics i tots miràvem el joc amb atenció. Del seu barret en va sortir un colom blanc que va volar molt amunt. La gent aplaudia mentre el mag somreia, feliç del seu gran èxit.",
+        "es": "El mago del circo hacía gestos mágicos y todos mirábamos el juego con atención. De su sombrero salió una paloma blanca que voló muy alto. La gente aplaudía mientras el mago sonreía, feliz de su gran éxito."
+      },
+      "factExtra": {
+        "ca": "Sabies que la paraula \"mágico\" i la paraula \"mago\" són família, però \"mago\" sona amb g forta i \"mágico\" amb g suau?",
+        "es": "¿Sabías que la palabra \"mágico\" y la palabra \"mago\" son familia, pero \"mago\" suena con g fuerte y \"mágico\" con g suave?"
+      },
+      "hook": "Mañana empezaremos con la ll y la y.",
+      "questions": [
+        {
+          "q": "¿Qué salió del sombrero del mago?",
+          "choices": ["Una paloma blanca", "Un conejo", "Una flor", "Una moneda de oro"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "¿Por qué crees que leer mucho ayuda a elegir bien entre g y j?",
+          "choices": [
+            "Porque cuando veo las palabras escritas recuerdo cómo se escriben",
+            "Porque leer cansa",
+            "Porque las letras cambian cada día",
+            "Porque no hace falta saberlo"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-16-lly",
+      "order": 16,
+      "title": "La ll y la y (1)",
+      "focus": "es-ll-y",
+      "lang": "es",
+      "dictation": {
+        "ca": "La Iolanda va perdre la clau groga a prop de la platja de sorra. La va buscar per tot arreu, sota les cadires i entre les tovalloles. Al final la va trobar dins la seva pròpia butxaca i va riure molt.",
+        "es": "Yolanda perdió la llave amarilla cerca de la playa de arena. La buscó por todas partes, bajo las sillas y entre las toallas. Al final la encontró dentro de su propio bolsillo y se rio mucho."
+      },
+      "factExtra": {
+        "ca": "Sabies que en castellà molta gent pronuncia la ll i la y exactament igual, i per això és tan fàcil confondre-les en escriure?",
+        "es": "¿Sabías que en español mucha gente pronuncia la ll y la y exactamente igual, y por eso es tan fácil confundirlas al escribir?"
+      },
+      "hook": "Mañana seguiremos con la ll y la y y la lluvia.",
+      "questions": [
+        {
+          "q": "¿Dónde encontró Yolanda la llave al final?",
+          "choices": ["Dentro de su propio bolsillo", "Bajo una silla", "Entre las toallas", "En la arena"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Llave\" se escribe con ll y \"Yolanda\" con y, aunque suenen parecido. ¿Por qué crees que confunde?",
+          "choices": [
+            "Porque al hablar muchas personas las pronuncian igual",
+            "Porque la ll no existe",
+            "Porque la y suena como una i sola siempre",
+            "Porque no hay diferencia ninguna"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-17-lly",
+      "order": 17,
+      "title": "La ll y la y (2)",
+      "focus": "es-ll-y",
+      "lang": "es",
+      "dictation": {
+        "ca": "Queia molta pluja i la Estela mirava els llamps des de la finestra. Els núvols grisos cobrien tot el cel i el vent bufava amb força. Quan va sortir el sol, va aparèixer un arc de mil colors bonics.",
+        "es": "Caía mucha lluvia y Estela miraba los rayos desde la ventana. Las nubes grises cubrían todo el cielo y el viento soplaba con fuerza. Cuando salió el sol, apareció un arcoíris de mil colores bonitos."
+      },
+      "factExtra": {
+        "ca": "Sabies que un llamp és tan calent que escalfa l'aire del voltant fins a cinc vegades més que la superfície del sol?",
+        "es": "¿Sabías que un rayo es tan caliente que calienta el aire de alrededor hasta cinco veces más que la superficie del sol?"
+      },
+      "hook": "Mañana seguiremos con la ll y la y en el desayuno.",
+      "questions": [
+        {
+          "q": "¿Qué apareció cuando salió el sol?",
+          "choices": ["Un arcoíris", "Más lluvia", "Una tormenta", "Niebla espesa"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Lluvia\" lleva ll. ¿Qué truco te ayuda a recordar palabras con ll?",
+          "choices": [
+            "Fijarme en las que veo muy a menudo, como lluvia, calle o silla",
+            "Escribir siempre y",
+            "No escribirlas nunca",
+            "Poner ll en todas las palabras"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-18-lly",
+      "order": 18,
+      "title": "La ll y la y (3)",
+      "focus": "es-ll-y",
+      "lang": "es",
+      "dictation": {
+        "ca": "Per esmorzar, en Guillem va menjar un ou amb el rovell ben groc. La seva mare li va posar una mica de mel damunt del pa torrat. Després, tots dos van sortir al carrer sota un cel ple de sol.",
+        "es": "Para desayunar, Guillermo comió un huevo con la yema bien amarilla. Su madre le puso un poco de miel encima del pan tostado. Después, los dos salieron a la calle bajo un cielo lleno de sol."
+      },
+      "factExtra": {
+        "ca": "Sabies que el rovell de l'ou és groc gràcies al menjar de la gallina, i que com més sa menja, més intens és el color?",
+        "es": "¿Sabías que la yema del huevo es amarilla gracias a la comida de la gallina, y que cuanto más sano come, más intenso es el color?"
+      },
+      "hook": "Mañana seguiremos con la ll y la y en el campo.",
+      "questions": [
+        {
+          "q": "¿Qué desayunó Guillermo?",
+          "choices": ["Un huevo con la yema amarilla", "Un vaso de leche", "Fruta y galletas", "Pan con mantequilla"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Yema\" lleva y y \"Guillermo\" lleva ll. ¿Por qué crees que hay que fijarse mucho?",
+          "choices": [
+            "Porque suenan parecido y solo escribiéndolas bien recuerdo cuál es cuál",
+            "Porque la y no existe",
+            "Porque siempre va ll",
+            "Porque no importa"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-19-lly",
+      "order": 19,
+      "title": "La ll y la y (4)",
+      "focus": "es-ll-y",
+      "lang": "es",
+      "dictation": {
+        "ca": "El cavall galopava per l'ampla plana mentre el sol es ponia lluny. La seva cua ondulava al vent com una bandera de color castany. Un noi el mirava des de la tanca i somiava a poder muntar-hi algun dia.",
+        "es": "El caballo galopaba por la ancha llanura mientras el sol se ponía lejos. Su cola ondeaba al viento como una bandera de color castaño. Un chico lo miraba desde la valla y soñaba con poder montarlo algún día."
+      },
+      "factExtra": {
+        "ca": "Sabies que un cavall pot dormir tant dret com estirat, i que quan està tranquil sovint descansa aguantant-se a peu dret?",
+        "es": "¿Sabías que un caballo puede dormir tanto de pie como tumbado, y que cuando está tranquilo a menudo descansa sosteniéndose de pie?"
+      },
+      "hook": "Mañana cerraremos la ll y la y con un último dictado.",
+      "questions": [
+        {
+          "q": "¿Por dónde galopaba el caballo?",
+          "choices": ["Por la ancha llanura", "Por la playa", "Por el bosque", "Por la ciudad"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Llanura\" lleva ll y \"valla\" también. ¿Qué crees que te ayuda a acordarte de la ll?",
+          "choices": [
+            "Leer y escribir mucho esas palabras hasta que se me queden",
+            "Cambiar la ll por y siempre",
+            "No usarlas nunca",
+            "Dejar un hueco"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-20-lly",
+      "order": 20,
+      "title": "La ll y la y (5)",
+      "focus": "es-ll-y",
+      "lang": "es",
+      "dictation": {
+        "ca": "Aquell dia lluïa el sol i la Yaiza va anar a jugar al parc. Va pujar molt amunt al gronxador i després va baixar pel tobogan. Al vespre, ja cansada, va tornar a casa amb un iogurt de maduixa.",
+        "es": "Aquel día lucía el sol y Yaiza fue a jugar al parque. Subió muy alto en el columpio y después bajó por el tobogán. Por la tarde, ya cansada, volvió a casa con un yogur de fresa."
+      },
+      "factExtra": {
+        "ca": "Sabies que la paraula \"yogur\" ve del turc i que és un aliment que la gent menja des de fa milers d'anys?",
+        "es": "¿Sabías que la palabra \"yogur\" viene del turco y que es un alimento que la gente come desde hace miles de años?"
+      },
+      "hook": "Mañana empezaremos con las tildes.",
+      "questions": [
+        {
+          "q": "¿Qué se llevó Yaiza a casa por la tarde?",
+          "choices": ["Un yogur de fresa", "Una pelota nueva", "Un helado de vainilla", "Una flor amarilla"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Yaiza\" y \"yogur\" empiezan por y. ¿Por qué crees que merece la pena aprender bien la ll y la y?",
+          "choices": [
+            "Porque escribir sin faltas hace que se me entienda mejor",
+            "Porque así la letra es más grande",
+            "Porque no sirve de nada",
+            "Porque decora el texto"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-21-tildes",
+      "order": 21,
+      "title": "Las tildes (1)",
+      "focus": "es-tildes",
+      "lang": "es",
+      "dictation": {
+        "ca": "En Martín va escriure una redacció sobre el seu àlbum de fotos. Hi sortien un músic, un ocell i un cangur molt simpàtic. La mestra li va dir que havia posat molt bé totes les tildes.",
+        "es": "Martín escribió una redacción sobre su álbum de fotos. Aparecían un músico, un pájaro y un canguro muy simpático. La maestra le dijo que había puesto muy bien todas las tildes."
+      },
+      "factExtra": {
+        "ca": "Sabies que en castellà les paraules esdrúixoles, com \"música\" o \"pájaro\", sempre porten tilde sense excepció?",
+        "es": "¿Sabías que en español las palabras esdrújulas, como \"música\" o \"pájaro\", siempre llevan tilde sin excepción?"
+      },
+      "hook": "Mañana seguiremos con las tildes y las palabras agudas.",
+      "questions": [
+        {
+          "q": "¿Sobre qué escribió Martín su redacción?",
+          "choices": ["Sobre su álbum de fotos", "Sobre un partido de fútbol", "Sobre sus vacaciones", "Sobre su mascota"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "¿Por qué crees que conviene fijarse en las tildes al escribir?",
+          "choices": [
+            "Porque cambian cómo se lee y a veces el significado de la palabra",
+            "Porque hacen la letra más grande",
+            "Porque no sirven para nada",
+            "Porque solo adornan el texto"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-22-tildes",
+      "order": 22,
+      "title": "Las tildes (2): agudas",
+      "focus": "es-tildes",
+      "lang": "es",
+      "dictation": {
+        "ca": "El camió va arribar a la ciutat després d'un viatge molt llarg. El conductor buscava un cafè calent i un racó tranquil per descansar. Va aparcar a prop d'un jardí i va mirar el rellotge amb calma.",
+        "es": "El camión llegó a la ciudad después de un viaje muy largo. El conductor buscaba un café caliente y un rincón tranquilo para descansar. Aparcó cerca de un jardín y miró el reloj con calma."
+      },
+      "factExtra": {
+        "ca": "Sabies que les paraules agudes, com \"camión\" o \"café\", només porten tilde quan acaben en vocal, en ena o en essa?",
+        "es": "¿Sabías que las palabras agudas, como \"camión\" o \"café\", solo llevan tilde cuando acaban en vocal, en ene o en ese?"
+      },
+      "hook": "Mañana seguiremos con las tildes y las palabras llanas.",
+      "questions": [
+        {
+          "q": "¿Qué buscaba el conductor del camión?",
+          "choices": ["Un café caliente y un rincón tranquilo", "Un mapa nuevo", "Una gasolinera", "Un hotel de lujo"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Camión\" y \"café\" llevan tilde, pero \"reloj\" no. ¿Por qué crees que ocurre?",
+          "choices": [
+            "Porque las agudas solo llevan tilde si acaban en vocal, n o s",
+            "Porque todas las palabras cortas llevan tilde",
+            "Porque \"reloj\" es fácil",
+            "Porque no hay ninguna regla"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-23-tildes",
+      "order": 23,
+      "title": "Las tildes (3): llanas",
+      "focus": "es-tildes",
+      "lang": "es",
+      "dictation": {
+        "ca": "El futbolista corria per la gespa buscant marcar un gol difícil. El públic cridava el seu nom amb molta il·lusió des de la graderia. Va xutar fort i la pilota va entrar just a la cantonada de la porteria.",
+        "es": "El futbolista corría por el césped buscando marcar un gol difícil. El público gritaba su nombre con mucha ilusión desde la grada. Chutó fuerte y el balón entró justo en la esquina de la portería."
+      },
+      "factExtra": {
+        "ca": "Sabies que les paraules planes, com \"árbol\" o \"lápiz\", porten tilde només quan NO acaben en vocal, en ena o en essa?",
+        "es": "¿Sabías que las palabras llanas, como \"árbol\" o \"lápiz\", llevan tilde solo cuando NO acaban en vocal, en ene o en ese?"
+      },
+      "hook": "Mañana seguiremos con las tildes y las palabras esdrújulas.",
+      "questions": [
+        {
+          "q": "¿Qué buscaba el futbolista?",
+          "choices": ["Marcar un gol difícil", "Descansar en la grada", "Salir del campo", "Hablar con el público"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Árbol\" y \"lápiz\" llevan tilde, pero \"césped\" no acaba igual. ¿Por qué crees que las llanas cuestan?",
+          "choices": [
+            "Porque la regla es al revés que la de las agudas y es fácil confundirse",
+            "Porque las llanas no existen",
+            "Porque todas llevan tilde",
+            "Porque ninguna lleva tilde"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-24-tildes",
+      "order": 24,
+      "title": "Las tildes (4): esdrújulas",
+      "focus": "es-tildes",
+      "lang": "es",
+      "dictation": {
+        "ca": "La música sonava suau mentre l'Àngel llegia un llibre fantàstic. A la pàgina hi havia un ocell, un plàtan i una brúixola màgica. Va pensar que era la història més bonica que havia llegit mai.",
+        "es": "La música sonaba suave mientras Ángel leía un libro fantástico. En la página había un pájaro, un plátano y una brújula mágica. Pensó que era la historia más bonita que había leído nunca."
+      },
+      "factExtra": {
+        "ca": "Sabies que totes les paraules esdrúixoles del castellà porten tilde, sense cap excepció? Per això són les més fàcils de detectar.",
+        "es": "¿Sabías que todas las palabras esdrújulas del español llevan tilde, sin ninguna excepción? Por eso son las más fáciles de detectar."
+      },
+      "hook": "Mañana cerraremos las tildes con un último dictado.",
+      "questions": [
+        {
+          "q": "¿Qué había en la página del libro de Ángel?",
+          "choices": ["Un pájaro, un plátano y una brújula", "Un dibujo del mar", "Un mapa del mundo", "Una foto antigua"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Las esdrújulas SIEMPRE llevan tilde. ¿Por qué crees que esta regla es tan cómoda?",
+          "choices": [
+            "Porque no tiene excepciones: si es esdrújula, lleva tilde seguro",
+            "Porque las esdrújulas no existen",
+            "Porque a veces llevan y a veces no",
+            "Porque solo las usan los adultos"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-25-tildes",
+      "order": 25,
+      "title": "Las tildes (5)",
+      "focus": "es-tildes",
+      "lang": "es",
+      "dictation": {
+        "ca": "El científic estudiava la Lluna amb un telescopi molt potent. Deia que el satèl·lit reflecteix la llum del Sol i per això brilla tant. La seva néta li feia mil preguntes fantàstiques sobre l'univers.",
+        "es": "El científico estudiaba la Luna con un telescopio muy potente. Decía que el satélite refleja la luz del Sol y por eso brilla tanto. Su nieta le hacía mil preguntas fantásticas sobre el universo."
+      },
+      "factExtra": {
+        "ca": "Sabies que la paraula \"científico\" porta tilde perquè és esdrúixola, i que \"satélite\" també, per la mateixa regla?",
+        "es": "¿Sabías que la palabra \"científico\" lleva tilde porque es esdrújula, y que \"satélite\" también, por la misma regla?"
+      },
+      "hook": "Mañana empezaremos con las mayúsculas.",
+      "questions": [
+        {
+          "q": "¿Con qué estudiaba la Luna el científico?",
+          "choices": ["Con un telescopio potente", "Con unas gafas", "Con un microscopio", "Con unos prismáticos"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "¿Qué truco te va bien para no olvidar las tildes cuando escribes deprisa?",
+          "choices": [
+            "Releer la frase al final y comprobar cada palabra que suena fuerte",
+            "No releer nunca nada",
+            "Escribir sin parar",
+            "Dejarlo para cuando sea mayor"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-26-mayus",
+      "order": 26,
+      "title": "Las mayúsculas (1)",
+      "focus": "es-mayusculas",
+      "lang": "es",
+      "dictation": {
+        "ca": "La Marina viu a Madrid, molt a prop del riu Manzanares. El dilluns va anar amb el seu germà Pau a visitar un museu enorme. Van tornar a casa al vespre, cansats però molt contents del dia.",
+        "es": "Marina vive en Madrid, muy cerca del río Manzanares. El lunes fue con su hermano Pablo a visitar un museo enorme. Volvieron a casa por la tarde, cansados pero muy contentos del día."
+      },
+      "factExtra": {
+        "ca": "Sabies que en castellà els dies de la setmana, com \"lunes\", s'escriuen amb minúscula, encara que en anglès van amb majúscula?",
+        "es": "¿Sabías que en español los días de la semana, como \"lunes\", se escriben con minúscula, aunque en inglés van con mayúscula?"
+      },
+      "hook": "Mañana seguiremos con las mayúsculas y los lugares.",
+      "questions": [
+        {
+          "q": "¿Con quién fue Marina al museo?",
+          "choices": ["Con su hermano Pablo", "Con su madre", "Con una amiga", "Sola"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Madrid\" y \"Pablo\" van con mayúscula, pero \"lunes\" no. ¿Por qué crees que ocurre?",
+          "choices": [
+            "Porque los nombres propios van con mayúscula y los días de la semana no",
+            "Porque todas las palabras importantes van con mayúscula",
+            "Porque \"lunes\" es corto",
+            "Porque no hay ninguna regla"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-27-mayus",
+      "order": 27,
+      "title": "Las mayúsculas (2)",
+      "focus": "es-mayusculas",
+      "lang": "es",
+      "dictation": {
+        "ca": "Al mes de gener, la família Gómez va viatjar fins a Roma en avió. Van visitar el Coliseu i van passejar vora el riu Tíber. La Núria va escriure una postal per als seus avis de Sevilla.",
+        "es": "En el mes de enero, la familia Gómez viajó hasta Roma en avión. Visitaron el Coliseo y pasearon junto al río Tíber. Núria escribió una postal para sus abuelos de Sevilla."
+      },
+      "factExtra": {
+        "ca": "Sabies que el Coliseu de Roma té gairebé dos mil anys i que hi cabien més de cinquanta mil persones a dins?",
+        "es": "¿Sabías que el Coliseo de Roma tiene casi dos mil años y que cabían más de cincuenta mil personas dentro?"
+      },
+      "hook": "Mañana seguiremos con las mayúsculas y los meses.",
+      "questions": [
+        {
+          "q": "¿Qué visitaron en Roma?",
+          "choices": ["El Coliseo", "Un museo de trenes", "Una playa grande", "Un castillo antiguo"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Roma\", \"Tíber\" y \"Sevilla\" van con mayúscula, pero \"enero\" no. ¿Por qué crees que es así?",
+          "choices": [
+            "Porque los nombres de lugar son propios y los meses van con minúscula",
+            "Porque las ciudades son grandes",
+            "Porque \"enero\" es fácil",
+            "Porque los ríos no importan"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-28-mayus",
+      "order": 28,
+      "title": "Las mayúsculas (3)",
+      "focus": "es-mayusculas",
+      "lang": "es",
+      "dictation": {
+        "ca": "El riu Ebre és el més cabalós d'Espanya i desemboca al mar Mediterrani. Neix a la serralada Cantàbrica i travessa moltes ciutats pel camí. Molts ocells viuen al seu delta, ple de canyes i d'aigua tranquil·la.",
+        "es": "El río Ebro es el más caudaloso de España y desemboca en el mar Mediterráneo. Nace en la cordillera Cantábrica y atraviesa muchas ciudades por el camino. Muchos pájaros viven en su delta, lleno de cañas y de agua tranquila."
+      },
+      "factExtra": {
+        "ca": "Sabies que el riu Ebre és el més llarg que neix i mor dins d'Espanya, amb més de nou-cents quilòmetres de recorregut?",
+        "es": "¿Sabías que el río Ebro es el más largo que nace y muere dentro de España, con más de novecientos kilómetros de recorrido?"
+      },
+      "hook": "Mañana seguiremos con las mayúsculas de principio de frase.",
+      "questions": [
+        {
+          "q": "¿En qué mar desemboca el río Ebro?",
+          "choices": ["En el mar Mediterráneo", "En el océano Atlántico", "En un lago", "En otro río"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Ebro\", \"España\" y \"Cantábrica\" van con mayúscula. ¿Por qué crees que lo hacemos?",
+          "choices": [
+            "Porque son nombres propios de ríos, países y cordilleras concretos",
+            "Porque son palabras largas",
+            "Porque empiezan por E, E y C",
+            "Porque no hay regla"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-29-mayus",
+      "order": 29,
+      "title": "Las mayúsculas (4)",
+      "focus": "es-mayusculas",
+      "lang": "es",
+      "dictation": {
+        "ca": "Avui és dimarts i fa un sol esplèndid al mes d'abril. La mestra ens ha dit que el proper dijous anirem d'excursió a Toledo. Tots estem molt contents perquè fa temps que ho esperàvem amb ganes.",
+        "es": "Hoy es martes y hace un sol espléndido en el mes de abril. La maestra nos ha dicho que el próximo jueves iremos de excursión a Toledo. Todos estamos muy contentos porque hace tiempo que lo esperábamos con ganas."
+      },
+      "factExtra": {
+        "ca": "Sabies que Toledo és una ciutat molt antiga on durant segles van conviure cristians, jueus i musulmans tots junts?",
+        "es": "¿Sabías que Toledo es una ciudad muy antigua donde durante siglos convivieron cristianos, judíos y musulmanes todos juntos?"
+      },
+      "hook": "Mañana cerraremos las mayúsculas con un último dictado.",
+      "questions": [
+        {
+          "q": "¿Adónde irán de excursión el próximo jueves?",
+          "choices": ["A Toledo", "A Roma", "Al delta del Ebro", "A Sevilla"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Toledo\" va con mayúscula pero \"martes\", \"abril\" y \"jueves\" no. ¿Por qué crees que es así?",
+          "choices": [
+            "Porque Toledo es un nombre propio, y días y meses van siempre con minúscula",
+            "Porque las ciudades son grandes",
+            "Porque los días son cortos",
+            "Porque no importa nada"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oes-30-mayus",
+      "order": 30,
+      "title": "Las mayúsculas (5)",
+      "focus": "es-mayusculas",
+      "lang": "es",
+      "dictation": {
+        "ca": "En Leo va preguntar: \"On és el mar Mediterrani?\". La mare li va dir que banya les costes d'Espanya, d'Itàlia i de Grècia. Després van buscar tots aquells països junts en un mapa molt gran.",
+        "es": "Leo preguntó: \"¿Dónde está el mar Mediterráneo?\". La madre le dijo que baña las costas de España, de Italia y de Grecia. Después buscaron todos aquellos países juntos en un mapa muy grande."
+      },
+      "factExtra": {
+        "ca": "Sabies que el mar Mediterrani està gairebé tancat per terra i que només es connecta amb l'oceà per un pas molt estret?",
+        "es": "¿Sabías que el mar Mediterráneo está casi cerrado por tierra y que solo se conecta con el océano por un paso muy estrecho?"
+      },
+      "hook": "Mañana volveremos a mezclar todas las reglas.",
+      "questions": [
+        {
+          "q": "¿Qué países baña el mar Mediterráneo, según la madre?",
+          "choices": ["España, Italia y Grecia", "Inglaterra e Irlanda", "Japón y China", "Perú y Chile"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Después de un punto y al empezar una frase siempre ponemos mayúscula. ¿Por qué crees que ayuda?",
+          "choices": [
+            "Porque marca dónde empieza cada frase nueva y hace el texto más claro",
+            "Porque hace la letra más grande",
+            "Porque no sirve de nada",
+            "Porque decora el texto"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    }
+  ]
+}

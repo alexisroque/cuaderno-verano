@@ -1,0 +1,1582 @@
+{
+  "id": "ortografia-ca",
+  "title": "Dictats de regla · català",
+  "emoji": "✏️",
+  "episodes": [
+    {
+      "id": "oca-01-bv",
+      "order": 1,
+      "title": "La b i la v (1)",
+      "focus": "ca-b-v",
+      "lang": "ca",
+      "dictation": {
+        "ca": "La vaca bramava vora el bosc mentre el cavall bevia aigua del bassal. Un ocell blau volava molt avall, buscant algun bri d'herba. Al vespre, tot el ramat baixava tranquil cap a l'estable.",
+        "es": "La vaca mugía junto al bosque mientras el caballo bebía agua del charco. Un pájaro azul volaba muy bajo, buscando alguna brizna de hierba. Al atardecer, todo el rebaño bajaba tranquilo hacia el establo."
+      },
+      "factExtra": {
+        "ca": "Sabies que una vaca pot beure fins a cent litres d'aigua en un sol dia? Per això sempre busquen basses i rierols.",
+        "es": "¿Sabías que una vaca puede beber hasta cien litros de agua en un solo día? Por eso siempre buscan charcas y arroyos."
+      },
+      "hook": "Demà seguirem practicant la b i la v amb un viatge.",
+      "questions": [
+        {
+          "q": "Què feia el cavall a la vora del bosc?",
+          "choices": ["Bevia aigua del bassal", "Volava molt avall", "Menjava un bri d'herba", "Baixava a l'establia"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que costa tant recordar quan s'escriu b i quan v?",
+          "choices": [
+            "Perquè en molts llocs sonen gairebé igual",
+            "Perquè la v no existeix",
+            "Perquè la b sempre va al final",
+            "Perquè són lletres molt noves"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-02-bv",
+      "order": 2,
+      "title": "La b i la v (2)",
+      "focus": "ca-b-v",
+      "lang": "ca",
+      "dictation": {
+        "ca": "En Bernat volia treballar de savi explorador i viatjar molt lluny. Va agafar un vaixell nou i va navegar cap a una illa verda plena d'arbres. Allà va veure ocells blancs que bevien vora la platja.",
+        "es": "Bernat quería trabajar de sabio explorador y viajar muy lejos. Cogió un barco nuevo y navegó hacia una isla verde llena de árboles. Allí vio pájaros blancos que bebían junto a la playa."
+      },
+      "factExtra": {
+        "ca": "Sabies que els vaixells de vela antics podien navegar setmanes senceres guiant-se només pels estels i el vent?",
+        "es": "¿Sabías que los barcos de vela antiguos podían navegar semanas enteras guiándose solo por las estrellas y el viento?"
+      },
+      "hook": "Demà canviarem de regla i tocarem els accents.",
+      "questions": [
+        {
+          "q": "De què volia treballar en Bernat?",
+          "choices": ["De savi explorador", "De pescador", "De pintor", "De mestre"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Quin truc et podria ajudar a recordar si una paraula s'escriu amb b o amb v?",
+          "choices": [
+            "Pensar en una paraula de la mateixa família que ja sàpiga escriure",
+            "Escriure sempre b perquè és més fàcil",
+            "Tancar els ulls i triar a l'atzar",
+            "Fer servir sempre la v"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-03-bv",
+      "order": 3,
+      "title": "La b i la v (3)",
+      "focus": "ca-b-v",
+      "lang": "ca",
+      "dictation": {
+        "ca": "L'avi de la Beatriu havia estat un bon violinista. Cada vespre agafava el violí i tocava una vella cançó vora la finestra. La Beatriu bevia un got de llet i escoltava aquella música tan bonica.",
+        "es": "El abuelo de Beatriz había sido un buen violinista. Cada tarde cogía el violín y tocaba una vieja canción junto a la ventana. Beatriz bebía un vaso de leche y escuchaba aquella música tan bonita."
+      },
+      "factExtra": {
+        "ca": "Sabies que un violí té quatre cordes i pot fer més de mil notes diferents segons on poses els dits?",
+        "es": "¿Sabías que un violín tiene cuatro cuerdas y puede hacer más de mil notas diferentes según dónde pongas los dedos?"
+      },
+      "hook": "Demà seguirem amb la b i la v i molts animals.",
+      "questions": [
+        {
+          "q": "Què tocava l'avi cada vespre?",
+          "choices": ["El violí", "El piano", "La guitarra", "El tambor"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que és útil escoltar bé una paraula abans d'escriure-la?",
+          "choices": [
+            "Perquè de vegades el so em dona pistes, encara que b i v s'assemblin",
+            "Perquè així escric més a poc a poc",
+            "Perquè no cal pensar-hi mai",
+            "Perquè el so sempre diu la lletra exacta"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-04-bv",
+      "order": 4,
+      "title": "La b i la v (4)",
+      "focus": "ca-b-v",
+      "lang": "ca",
+      "dictation": {
+        "ca": "A l'hivern, la neu blanca cobria tot el poble i els vailets baixaven amb el trineu. La Vera portava un abric blau i unes botes velles molt càlides. Després tots bevien xocolata calenta vora el foc.",
+        "es": "En invierno, la nieve blanca cubría todo el pueblo y los niños bajaban con el trineo. Vera llevaba un abrigo azul y unas botas viejas muy cálidas. Después todos bebían chocolate caliente junto al fuego."
+      },
+      "factExtra": {
+        "ca": "Sabies que cada volva de neu té sis puntes i que, segons diuen els científics, no n'hi ha dues d'exactament iguals?",
+        "es": "¿Sabías que cada copo de nieve tiene seis puntas y que, según dicen los científicos, no hay dos exactamente iguales?"
+      },
+      "hook": "Demà acabarem la b i la v amb un últim dictat.",
+      "questions": [
+        {
+          "q": "Amb què baixaven els vailets per la neu?",
+          "choices": ["Amb el trineu", "Amb bicicleta", "Amb patins", "Amb barca"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Quan tens un dubte entre b i v, què creus que és millor fer?",
+          "choices": [
+            "Aturar-me un moment i buscar la paraula si no n'estic segura",
+            "Escriure la primera lletra que se m'acudeixi",
+            "Deixar un buit i seguir",
+            "Esborrar tota la frase"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-05-bv",
+      "order": 5,
+      "title": "La b i la v (5)",
+      "focus": "ca-b-v",
+      "lang": "ca",
+      "dictation": {
+        "ca": "El vell jardiner sabia molt bé com cuidar les verdures del seu hort. Cada matí regava les bledes, les faves i les carbasses amb aigua neta. Els seus veïns venien sovint a comprar-li tomàquets ben vermells.",
+        "es": "El viejo jardinero sabía muy bien cómo cuidar las verduras de su huerto. Cada mañana regaba las acelgas, las habas y las calabazas con agua limpia. Sus vecinos venían a menudo a comprarle tomates bien rojos."
+      },
+      "factExtra": {
+        "ca": "Sabies que el tomàquet és en realitat una fruita, encara que el fem servir com si fos una verdura a les amanides?",
+        "es": "¿Sabías que el tomate es en realidad una fruta, aunque lo usemos como si fuera una verdura en las ensaladas?"
+      },
+      "hook": "Demà començarem els accents i la dièresi.",
+      "questions": [
+        {
+          "q": "Què venien a comprar els veïns al jardiner?",
+          "choices": ["Tomàquets ben vermells", "Flors blanques", "Pa acabat de fer", "Peixos del riu"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que val la pena esforçar-se a escriure bé la b i la v?",
+          "choices": [
+            "Perquè escriure sense faltes fa que els altres m'entenguin millor",
+            "Perquè així la lletra és més gran",
+            "Perquè no serveix de res",
+            "Perquè els accents desapareixen"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-06-accents",
+      "order": 6,
+      "title": "Accents i dièresi (1)",
+      "focus": "ca-accents",
+      "lang": "ca",
+      "dictation": {
+        "ca": "La família del Mató va fer una excursió per conèixer la història d'un castell antic. El guia explicava anècdotes fantàstiques amb molta gràcia. Al capvespre, van pujar a la torre més alta per veure el paisatge.",
+        "es": "La familia de Mató hizo una excursión para conocer la historia de un castillo antiguo. El guía explicaba anécdotes fantásticas con mucha gracia. Al anochecer, subieron a la torre más alta para ver el paisaje."
+      },
+      "factExtra": {
+        "ca": "Sabies que molts castells medievals tenien torres rodones perquè així era més difícil enderrocar-les que si fossin quadrades?",
+        "es": "¿Sabías que muchos castillos medievales tenían torres redondas porque así era más difícil derribarlas que si fueran cuadradas?"
+      },
+      "hook": "Demà seguirem amb els accents i unes gotes de dièresi.",
+      "questions": [
+        {
+          "q": "Què van anar a conèixer amb l'excursió?",
+          "choices": ["La història d'un castell antic", "Una cova fosca", "Un mercat de peix", "Una fàbrica de xocolata"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que els accents ajuden qui llegeix un text en veu alta?",
+          "choices": [
+            "Perquè indiquen quina síl·laba sona més forta",
+            "Perquè fan la lletra més bonica",
+            "Perquè no serveixen de res",
+            "Perquè només decoren"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-07-accents",
+      "order": 7,
+      "title": "Accents i dièresi (2)",
+      "focus": "ca-accents",
+      "lang": "ca",
+      "dictation": {
+        "ca": "El pingüí caminava a poc a poc sobre el gel, com si fos un senyor molt educat. El seu veïnat del pol Sud és fredíssim i està ple de neu. Amb una mica de paciència, va arribar fins al mar.",
+        "es": "El pingüino caminaba despacio sobre el hielo, como si fuera un señor muy educado. Su vecindario del polo Sur es fresquísimo y está lleno de nieve. Con un poco de paciencia, llegó hasta el mar."
+      },
+      "factExtra": {
+        "ca": "Sabies que els pingüins no poden volar, però neden tan bé que semblen ocells volant sota l'aigua?",
+        "es": "¿Sabías que los pingüinos no pueden volar, pero nadan tan bien que parecen pájaros volando bajo el agua?"
+      },
+      "hook": "Demà tocarem els països i les paraules amb dièresi.",
+      "questions": [
+        {
+          "q": "On viu el pingüí del dictat?",
+          "choices": ["Al pol Sud", "Al desert", "A la selva", "Dalt d'una muntanya calenta"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "La paraula \"pingüí\" porta dièresi sobre la u. Per què creus que hi és?",
+          "choices": [
+            "Per avisar que la u sí que s'ha de pronunciar",
+            "Per fer la paraula més llarga",
+            "Perquè totes les u porten dièresi",
+            "Per decorar la lletra"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-08-accents",
+      "order": 8,
+      "title": "Accents i dièresi (3)",
+      "focus": "ca-accents",
+      "lang": "ca",
+      "dictation": {
+        "ca": "La Núria estudiava els països del món amb un mapa gegant. Li agradava molt saber com es diuen les capitals i quins veïns té cada nació. Deia que algun dia visitaria l'Índia, el Japó i el Perú.",
+        "es": "Núria estudiaba los países del mundo con un mapa gigante. Le gustaba mucho saber cómo se llaman las capitales y qué vecinos tiene cada nación. Decía que algún día visitaría la India, Japón y Perú."
+      },
+      "factExtra": {
+        "ca": "Sabies que al món hi ha uns dos-cents països, però moltes més llengües, perquè a cada país se'n parla més d'una?",
+        "es": "¿Sabías que en el mundo hay unos doscientos países, pero muchas más lenguas, porque en cada país se habla más de una?"
+      },
+      "hook": "Demà seguirem afinant els accents amb la ciència.",
+      "questions": [
+        {
+          "q": "Amb què estudiava la Núria els països?",
+          "choices": ["Amb un mapa gegant", "Amb una lupa", "Amb un telescopi", "Amb una calculadora"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que a tu et costen especialment els accents del català?",
+          "choices": [
+            "Perquè estic més acostumada a llegir i cal fixar-m'hi per escriure'ls bé",
+            "Perquè els accents no existeixen",
+            "Perquè totes les paraules porten accent",
+            "Perquè el català no té regles"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-09-accents",
+      "order": 9,
+      "title": "Accents i dièresi (4)",
+      "focus": "ca-accents",
+      "lang": "ca",
+      "dictation": {
+        "ca": "La científica observava la Lluna amb un telescopi molt potent des de la terrassa. Deia que el satèl·lit reflecteix la llum del Sol i per això brilla tant. La seva néta li feia mil preguntes sobre l'univers.",
+        "es": "La científica observaba la Luna con un telescopio muy potente desde la terraza. Decía que el satélite refleja la luz del Sol y por eso brilla tanto. Su nieta le hacía mil preguntas sobre el universo."
+      },
+      "factExtra": {
+        "ca": "Sabies que la Lluna no fa llum pròpia? Només ens reflecteix la llum del Sol, com si fos un mirall gegant.",
+        "es": "¿Sabías que la Luna no hace luz propia? Solo nos refleja la luz del Sol, como si fuera un espejo gigante."
+      },
+      "hook": "Demà tancarem els accents amb un últim dictat.",
+      "questions": [
+        {
+          "q": "Amb què observava la Lluna la científica?",
+          "choices": ["Amb un telescopi", "Amb unes ulleres", "Amb un microscopi", "Amb els prismàtics del pare"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que en \"científica\" o \"satèl·lit\" els accents són tan importants?",
+          "choices": [
+            "Perquè marquen com es diu la paraula i sense ells sonaria diferent",
+            "Perquè fan la paraula més curta",
+            "Perquè totes les paraules en porten",
+            "Perquè només decoren"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-10-accents",
+      "order": 10,
+      "title": "Accents i dièresi (5)",
+      "focus": "ca-accents",
+      "lang": "ca",
+      "dictation": {
+        "ca": "El músic tocava una cançó tranquil·la mentre queia la pluja damunt la teulada. A la ràdio, una veu greu recitava un poema molt bonic sobre la tardor. La gata dormia feliç a prop de l'estufa encesa.",
+        "es": "El músico tocaba una canción tranquila mientras caía la lluvia sobre el tejado. En la radio, una voz grave recitaba un poema muy bonito sobre el otoño. La gata dormía feliz cerca de la estufa encendida."
+      },
+      "factExtra": {
+        "ca": "Sabies que el so de la pluja relaxa perquè és un soroll suau i regular, sense sorpreses que ens facin estar alerta?",
+        "es": "¿Sabías que el sonido de la lluvia relaja porque es un ruido suave y regular, sin sorpresas que nos hagan estar alerta?"
+      },
+      "hook": "Demà començarem la essa: s, ss, c, ç i z.",
+      "questions": [
+        {
+          "q": "Què feia la gata durant la pluja?",
+          "choices": ["Dormia a prop de l'estufa", "Corria pel jardí", "Tocava la ràdio", "Recitava un poema"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Quin truc et va bé per no oblidar els accents quan escrius de pressa?",
+          "choices": [
+            "Rellegir la frase al final i comprovar-los un per un",
+            "No rellegir mai res",
+            "Escriure sense parar",
+            "Deixar-los per quan sigui gran"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-11-essa",
+      "order": 11,
+      "title": "La essa: s, ss, c, ç, z (1)",
+      "focus": "ca-essa",
+      "lang": "ca",
+      "dictation": {
+        "ca": "La caça de tresors va començar al pati del col·legi amb molta il·lusió. Cada pista estava escrita amb un llapis vermell sobre un tros de paper. La Cinta va córrer feliç fins a la bassa on hi havia el premi.",
+        "es": "La búsqueda del tesoro empezó en el patio del colegio con mucha ilusión. Cada pista estaba escrita con un lápiz rojo sobre un trozo de papel. Cinta corrió feliz hasta la balsa donde estaba el premio."
+      },
+      "factExtra": {
+        "ca": "Sabies que en català la ç es diu \"ce trencada\" i sona com una s? La fem servir davant de a, o i u.",
+        "es": "¿Sabías que en catalán la ç se llama \"ce trencada\" y suena como una s? Se usa delante de a, o y u."
+      },
+      "hook": "Demà seguirem amb la essa i una pissarra plena de sorpreses.",
+      "questions": [
+        {
+          "q": "On va trobar el premi la Cinta?",
+          "choices": ["A la bassa", "A la pissarra", "Sota un llapis", "Dins un tros de paper"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que la essa costa tant, amb tantes maneres d'escriure el mateix so?",
+          "choices": [
+            "Perquè s, ss, c i ç poden sonar igual i cal aprendre quan va cadascuna",
+            "Perquè la s no existeix",
+            "Perquè totes sonen diferent",
+            "Perquè només se n'usa una"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-12-essa",
+      "order": 12,
+      "title": "La essa: s, ss, c, ç, z (2)",
+      "focus": "ca-essa",
+      "lang": "ca",
+      "dictation": {
+        "ca": "A la classe, la mestra va escriure una cançó a la pissarra amb lletra ben clara. Tots els nens la cantaven contents mentre picaven de mans amb força. Després van dansar en cercle fins que van quedar cansats.",
+        "es": "En la clase, la maestra escribió una canción en la pizarra con letra bien clara. Todos los niños la cantaban contentos mientras aplaudían con fuerza. Después bailaron en círculo hasta que quedaron cansados."
+      },
+      "factExtra": {
+        "ca": "Sabies que cantar en grup ajuda a recordar millor les paraules? Per això moltes coses s'aprenen amb cançons.",
+        "es": "¿Sabías que cantar en grupo ayuda a recordar mejor las palabras? Por eso muchas cosas se aprenden con canciones."
+      },
+      "hook": "Demà seguirem amb la essa i un animal ratllat.",
+      "questions": [
+        {
+          "q": "Què va escriure la mestra a la pissarra?",
+          "choices": ["Una cançó", "Un problema de mates", "El nom dels nens", "Una llista de la compra"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Quan sents el so de la essa, què t'ajuda a decidir quina lletra posar?",
+          "choices": [
+            "Pensar en la regla i en si va entre vocals o davant de quina lletra",
+            "Posar sempre una s",
+            "Posar sempre dues esses",
+            "Triar-ho a l'atzar"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-13-essa",
+      "order": 13,
+      "title": "La essa: s, ss, c, ç, z (3)",
+      "focus": "ca-essa",
+      "lang": "ca",
+      "dictation": {
+        "ca": "La zebra pasturava tranquil·la per la sabana mentre el sol es ponia. Les seves ratlles blanques i negres semblen un dibuix fet amb molta cura. Els zoòlegs diuen que cap zebra no té les ratlles ben iguals.",
+        "es": "La cebra pastaba tranquila por la sabana mientras el sol se ponía. Sus rayas blancas y negras parecen un dibujo hecho con mucho cuidado. Los zoólogos dicen que ninguna cebra tiene las rayas iguales."
+      },
+      "factExtra": {
+        "ca": "Sabies que les ratlles de la zebra funcionen com una empremta dactilar? Cada zebra en té un dibuix únic.",
+        "es": "¿Sabías que las rayas de la cebra funcionan como una huella dactilar? Cada cebra tiene un dibujo único."
+      },
+      "hook": "Demà seguirem amb la essa i un passeig pel poble.",
+      "questions": [
+        {
+          "q": "Què diuen els zoòlegs sobre les ratlles de les zebres?",
+          "choices": ["Que cap zebra no les té iguals", "Que totes són idèntiques", "Que canvien de color", "Que desapareixen de nit"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "La paraula \"zebra\" comença amb z. Per què creus que la z és tan poc habitual en català?",
+          "choices": [
+            "Perquè el seu so sonor sovint s'escriu amb s entre vocals",
+            "Perquè la z està prohibida",
+            "Perquè només va al final de les paraules",
+            "Perquè sona com una t"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-14-essa",
+      "order": 14,
+      "title": "La essa: s, ss, c, ç, z (4)",
+      "focus": "ca-essa",
+      "lang": "ca",
+      "dictation": {
+        "ca": "El passeig vora el mar era fresc i feia olor de sal i de peix. Uns pescadors preparaven la xarxa asseguts en un banc de fusta. La Roser va comprar una dotzena de sardines per fer un sopar deliciós.",
+        "es": "El paseo junto al mar era fresco y olía a sal y a pescado. Unos pescadores preparaban la red sentados en un banco de madera. Roser compró una docena de sardinas para hacer una cena deliciosa."
+      },
+      "factExtra": {
+        "ca": "Sabies que les sardines viuen en grans grups anomenats bancs, que es mouen tots alhora per protegir-se dels depredadors?",
+        "es": "¿Sabías que las sardinas viven en grandes grupos llamados bancos, que se mueven todos a la vez para protegerse de los depredadores?"
+      },
+      "hook": "Demà tancarem la essa amb un últim dictat feliç.",
+      "questions": [
+        {
+          "q": "Què va comprar la Roser per sopar?",
+          "choices": ["Una dotzena de sardines", "Una xarxa nova", "Un banc de fusta", "Sal i sucre"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que val la pena aprendre bé quan va s i quan va ss entre vocals?",
+          "choices": [
+            "Perquè amb una sola s la paraula sonaria diferent, com \"casa\" i \"cassa\"",
+            "Perquè totes les paraules porten ss",
+            "Perquè la s no importa",
+            "Perquè ss només va al principi"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-15-essa",
+      "order": 15,
+      "title": "La essa: s, ss, c, ç, z (5)",
+      "focus": "ca-essa",
+      "lang": "ca",
+      "dictation": {
+        "ca": "El príncep feliç vivia en un palau amb una gran plaça al davant. Cada diumenge repartia dolços als nens del poble amb molta generositat. La gent el saludava contenta i li desitjava sort i salut.",
+        "es": "El príncipe feliz vivía en un palacio con una gran plaza delante. Cada domingo repartía dulces a los niños del pueblo con mucha generosidad. La gente lo saludaba contenta y le deseaba suerte y salud."
+      },
+      "factExtra": {
+        "ca": "Sabies que moltes paraules acabades en el so de essa sorda s'escriuen amb ç, com \"feliç\", \"dolç\" o \"capaç\"?",
+        "es": "¿Sabías que muchas palabras acabadas con el sonido de ese sorda se escriben con ç, como \"feliç\", \"dolç\" o \"capaç\"?"
+      },
+      "hook": "Demà començarem la ela geminada: la l·l.",
+      "questions": [
+        {
+          "q": "Què repartia el príncep cada diumenge?",
+          "choices": ["Dolços als nens del poble", "Monedes d'or", "Cartes secretes", "Flors del jardí"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "La paraula \"feliç\" acaba en ç. Quin truc et podria ajudar a recordar-ho?",
+          "choices": [
+            "Pensar en el femení \"feliça\"... o millor, memoritzar que acaba en ç",
+            "Escriure sempre s al final",
+            "No escriure mai la ç",
+            "Posar dues esses"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-16-elag",
+      "order": 16,
+      "title": "La ela geminada (1)",
+      "focus": "ca-ela-geminada",
+      "lang": "ca",
+      "dictation": {
+        "ca": "Al col·legi vam veure una pel·lícula sobre una cèl·lula molt intel·ligent. Tots miràvem la pantalla amb molta il·lusió i en silenci. Després, la mestra tranquil·la ens va explicar com funciona el nostre cos.",
+        "es": "En el colegio vimos una película sobre una célula muy inteligente. Todos mirábamos la pantalla con mucha ilusión y en silencio. Después, la maestra tranquila nos explicó cómo funciona nuestro cuerpo."
+      },
+      "factExtra": {
+        "ca": "Sabies que el cos humà té bilions de cèl·lules i que cada segona en fabrica milions de noves per reparar-se?",
+        "es": "¿Sabías que el cuerpo humano tiene billones de células y que cada segundo fabrica millones de nuevas para repararse?"
+      },
+      "hook": "Demà seguirem amb la l·l, que porta un puntet al mig.",
+      "questions": [
+        {
+          "q": "De què tractava la pel·lícula del col·legi?",
+          "choices": ["D'una cèl·lula molt intel·ligent", "D'un castell antic", "D'una zebra ratllada", "D'un vaixell pirata"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "La l·l s'escriu amb un puntet al mig. Per què creus que aquest puntet és tan fàcil d'oblidar?",
+          "choices": [
+            "Perquè és molt petit i quan escrivim de pressa no el veiem",
+            "Perquè no serveix de res",
+            "Perquè totes les eles el porten",
+            "Perquè el puntet no existeix"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-17-elag",
+      "order": 17,
+      "title": "La ela geminada (2)",
+      "focus": "ca-ela-geminada",
+      "lang": "ca",
+      "dictation": {
+        "ca": "La novel·la que llegia la Camil·la parlava d'un col·leccionista molt curiós. Tenia una col·lecció de segells brillants dins una capsa metàl·lica. Deia que cada segell era una petita finestra cap a un altre país.",
+        "es": "La novela que leía Camila hablaba de un coleccionista muy curioso. Tenía una colección de sellos brillantes dentro de una caja metálica. Decía que cada sello era una pequeña ventana hacia otro país."
+      },
+      "factExtra": {
+        "ca": "Sabies que el segell més car del món val milions d'euros i que en queda un de sol a tot el planeta?",
+        "es": "¿Sabías que el sello más caro del mundo vale millones de euros y que queda uno solo en todo el planeta?"
+      },
+      "hook": "Demà seguirem amb la l·l i una gran il·lusió.",
+      "questions": [
+        {
+          "q": "Què col·leccionava el personatge de la novel·la?",
+          "choices": ["Segells brillants", "Monedes velles", "Cromos de futbol", "Pedres del riu"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Quin truc et podria ajudar a recordar que \"col·lecció\" porta l·l?",
+          "choices": [
+            "Recordar que ve de la mateixa família que \"col·leccionar\" i totes porten l·l",
+            "Escriure sempre una sola l",
+            "No pensar-hi mai",
+            "Posar dues eles enganxades sense punt"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-18-elag",
+      "order": 18,
+      "title": "La ela geminada (3)",
+      "focus": "ca-ela-geminada",
+      "lang": "ca",
+      "dictation": {
+        "ca": "En Marcel·lí era un nen molt intel·ligent i sempre estava tranquil a classe. Un dia, ple d'il·lusió, va construir una maqueta d'un castell amb cartolina. La va il·luminar amb una petita bombeta que brillava molt.",
+        "es": "Marcelino era un niño muy inteligente y siempre estaba tranquilo en clase. Un día, lleno de ilusión, construyó una maqueta de un castillo con cartulina. La iluminó con una pequeña bombilla que brillaba mucho."
+      },
+      "factExtra": {
+        "ca": "Sabies que les primeres bombetes que funcionaven de veritat només duraven unes hores abans de fondre's?",
+        "es": "¿Sabías que las primeras bombillas que funcionaban de verdad solo duraban unas horas antes de fundirse?"
+      },
+      "hook": "Demà seguirem amb la l·l i unes vacances especials.",
+      "questions": [
+        {
+          "q": "Què va construir en Marcel·lí amb cartolina?",
+          "choices": ["Una maqueta d'un castell", "Una bicicleta", "Un vaixell de veritat", "Una pilota"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que és útil llegir molt per aprendre paraules amb l·l?",
+          "choices": [
+            "Perquè quan les veig escrites moltes vegades recordo el puntet del mig",
+            "Perquè llegir cansa la vista",
+            "Perquè així no cal escriure mai",
+            "Perquè el puntet apareix sol"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-19-elag",
+      "order": 19,
+      "title": "La ela geminada (4)",
+      "focus": "ca-ela-geminada",
+      "lang": "ca",
+      "dictation": {
+        "ca": "La família va llogar una vil·la tranquil·la a prop d'un poblet molt bonic. Cada matí anaven amb bicicleta fins a una petita cala d'aigua cristal·lina. Al vespre, il·luminaven el jardí amb unes espelmes brillants.",
+        "es": "La familia alquiló una villa tranquila cerca de un pueblecito muy bonito. Cada mañana iban en bicicleta hasta una pequeña cala de agua cristalina. Al atardecer, iluminaban el jardín con unas velas brillantes."
+      },
+      "factExtra": {
+        "ca": "Sabies que l'aigua del mar sembla cristal·lina quan és neta i poc profunda, perquè la llum del sol arriba fins al fons?",
+        "es": "¿Sabías que el agua del mar parece cristalina cuando está limpia y es poco profunda, porque la luz del sol llega hasta el fondo?"
+      },
+      "hook": "Demà tancarem la ela geminada amb un últim dictat.",
+      "questions": [
+        {
+          "q": "Fins on anaven cada matí amb bicicleta?",
+          "choices": ["Fins a una cala d'aigua cristal·lina", "Fins al col·legi", "Fins a la ciutat", "Fins a la muntanya"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Quan dubtes si una paraula porta l·l o una sola l, què creus que és millor fer?",
+          "choices": [
+            "Buscar-la o pensar en paraules de la família per no equivocar-me",
+            "Posar sempre l·l per si de cas",
+            "No escriure la paraula",
+            "Deixar-ho a la sort"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-20-elag",
+      "order": 20,
+      "title": "La ela geminada (5)",
+      "focus": "ca-ela-geminada",
+      "lang": "ca",
+      "dictation": {
+        "ca": "El sil·labari penjava a la paret de l'aula al costat d'un mapa molt gran. La mestra deia que sil·labejar bé ajuda a llegir amb més facilitat. Amb paciència i il·lusió, tots els alumnes van millorar de mica en mica.",
+        "es": "El silabario colgaba en la pared del aula al lado de un mapa muy grande. La maestra decía que silabear bien ayuda a leer con más facilidad. Con paciencia e ilusión, todos los alumnos mejoraron poco a poco."
+      },
+      "factExtra": {
+        "ca": "Sabies que separar les paraules en síl·labes ajuda el cervell a llegir més ràpid, sobretot amb les paraules llargues?",
+        "es": "¿Sabías que separar las palabras en sílabas ayuda al cerebro a leer más rápido, sobre todo con las palabras largas?"
+      },
+      "hook": "Demà començarem l'apòstrof: l', d', s' i les contraccions.",
+      "questions": [
+        {
+          "q": "Què deia la mestra que ajuda a llegir millor?",
+          "choices": ["Sil·labejar bé", "Cantar més fort", "Escriure de pressa", "Copiar el mapa"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que la ela geminada és una regla tan pròpia i especial del català?",
+          "choices": [
+            "Perquè poques llengües escriuen dues eles amb un puntet al mig",
+            "Perquè totes les llengües la tenen igual",
+            "Perquè no serveix per res",
+            "Perquè és un error d'impremta"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-21-apostrof",
+      "order": 21,
+      "title": "L'apòstrof i les contraccions (1)",
+      "focus": "ca-apostrof",
+      "lang": "ca",
+      "dictation": {
+        "ca": "L'home de l'estació esperava l'arribada del tren de les vuit. Duia un got d'aigua a la mà i el diari d'avui sota el braç. Quan el tren va sortir de l'andana, va pujar-hi de pressa cap a l'última porta.",
+        "es": "El hombre de la estación esperaba la llegada del tren de las ocho. Llevaba un vaso de agua en la mano y el periódico de hoy bajo el brazo. Cuando el tren salió del andén, subió deprisa hacia la última puerta."
+      },
+      "factExtra": {
+        "ca": "Sabies que els primers trens de vapor semblaven tan ràpids que la gent tenia por que l'aire els faltés dins del vagó?",
+        "es": "¿Sabías que los primeros trenes de vapor parecían tan rápidos que la gente temía que el aire les faltara dentro del vagón?"
+      },
+      "hook": "Demà seguirem amb l'apòstrof i una illa amagada.",
+      "questions": [
+        {
+          "q": "Què esperava l'home a l'estació?",
+          "choices": ["L'arribada del tren de les vuit", "Una carta important", "Un amic seu", "L'obertura de la botiga"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Escrivim \"l'home\" amb apòstrof. Per què creus que ho fem, si \"home\" comença amb h?",
+          "choices": [
+            "Perquè la h és muda i la paraula comença amb so de vocal",
+            "Perquè totes les h porten apòstrof",
+            "Perquè és més bonic",
+            "Perquè la h no existeix"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-22-apostrof",
+      "order": 22,
+      "title": "L'apòstrof i les contraccions (2)",
+      "focus": "ca-apostrof",
+      "lang": "ca",
+      "dictation": {
+        "ca": "L'Aina va arribar a l'illa d'hivern amb una barca petita. L'aigua era freda, però l'aire feia olor d'algues i de sal. A la vora s'enfilava un far antic que il·luminava tota l'entrada del port.",
+        "es": "Aina llegó a la isla en invierno con una barca pequeña. El agua estaba fría, pero el aire olía a algas y a sal. Junto a la orilla se alzaba un faro antiguo que iluminaba toda la entrada del puerto."
+      },
+      "factExtra": {
+        "ca": "Sabies que els fars antics feien servir grans miralls i una flama per llançar la llum molt lluny cap al mar?",
+        "es": "¿Sabías que los faros antiguos usaban grandes espejos y una llama para lanzar la luz muy lejos hacia el mar?"
+      },
+      "hook": "Demà seguirem amb l'apòstrof i un dia d'escola.",
+      "questions": [
+        {
+          "q": "Com va arribar l'Aina a l'illa?",
+          "choices": ["Amb una barca petita", "Amb un avió", "A peu per un pont", "Amb un tren"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que escrivim \"d'hivern\" i \"d'aigua\" amb apòstrof?",
+          "choices": [
+            "Perquè la paraula següent comença amb so de vocal i unim la preposició",
+            "Perquè totes les d porten apòstrof",
+            "Perquè així s'escriu més ràpid",
+            "Perquè la de sobra"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-23-apostrof",
+      "order": 23,
+      "title": "L'apòstrof i les contraccions (3)",
+      "focus": "ca-apostrof",
+      "lang": "ca",
+      "dictation": {
+        "ca": "El gat de la Júlia s'enfila sempre dalt de l'armari de la cuina. Des d'allà mira com bull l'olla i com cau l'aigua de l'aixeta. Quan s'adorm, ronca tan fort que se sent des de l'altra habitació.",
+        "es": "El gato de Julia se sube siempre encima del armario de la cocina. Desde allí mira cómo hierve la olla y cómo cae el agua del grifo. Cuando se duerme, ronca tan fuerte que se oye desde la otra habitación."
+      },
+      "factExtra": {
+        "ca": "Sabies que els gats poden saltar fins a cinc vegades la seva pròpia alçada? Per això s'enfilen tan amunt amb facilitat.",
+        "es": "¿Sabías que los gatos pueden saltar hasta cinco veces su propia altura? Por eso se suben tan alto con facilidad."
+      },
+      "hook": "Demà seguirem amb les contraccions: pel, del, al.",
+      "questions": [
+        {
+          "q": "On s'enfila el gat de la Júlia?",
+          "choices": ["Dalt de l'armari de la cuina", "Sota el llit", "Dins l'olla", "A la teulada"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "En \"s'enfila\" i \"s'adorm\" fem servir l'apòstrof amb el pronom. Per què creus que hi és?",
+          "choices": [
+            "Perquè el verb comença amb vocal i el pronom \"es\" s'hi uneix",
+            "Perquè tots els verbs el porten",
+            "Perquè és més divertit",
+            "Perquè el pronom no importa"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-24-apostrof",
+      "order": 24,
+      "title": "L'apòstrof i les contraccions (4)",
+      "focus": "ca-apostrof",
+      "lang": "ca",
+      "dictation": {
+        "ca": "Vam passejar pel bosc i vam arribar fins al cim del turó més alt. Des del mirador vèiem el riu que baixava cap al poble. El pare ens va parlar dels arbres i del vent que venia del nord.",
+        "es": "Paseamos por el bosque y llegamos hasta la cima del cerro más alto. Desde el mirador veíamos el río que bajaba hacia el pueblo. El padre nos habló de los árboles y del viento que venía del norte."
+      },
+      "factExtra": {
+        "ca": "Sabies que \"pel\", \"del\" i \"al\" són contraccions? Uneixen una preposició i l'article \"el\" en una sola paraula.",
+        "es": "¿Sabías que \"pel\", \"del\" y \"al\" son contracciones? Unen una preposición y el artículo \"el\" en una sola palabra."
+      },
+      "hook": "Demà tancarem l'apòstrof amb un últim dictat.",
+      "questions": [
+        {
+          "q": "Fins on van arribar passejant pel bosc?",
+          "choices": ["Fins al cim del turó més alt", "Fins a la platja", "Fins a la ciutat", "Fins al mar"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Pel\", \"del\" i \"al\" no porten apòstrof però són contraccions. Per què creus que costen?",
+          "choices": [
+            "Perquè s'assemblen a l'apòstrof però funcionen d'una altra manera",
+            "Perquè no existeixen",
+            "Perquè sempre porten apòstrof",
+            "Perquè totes s'escriuen igual"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-25-apostrof",
+      "order": 25,
+      "title": "L'apòstrof i les contraccions (5)",
+      "focus": "ca-apostrof",
+      "lang": "ca",
+      "dictation": {
+        "ca": "L'àguila d'ulls afilats volava per damunt de l'estany glaçat. D'un cop d'ala s'enlairava fins a dalt de tot i mirava cap a l'horitzó. L'amic que l'observava deia que era l'ocell més majestuós de la vall.",
+        "es": "El águila de ojos afilados volaba por encima del estanque helado. De un golpe de ala se elevaba hasta lo más alto y miraba hacia el horizonte. El amigo que la observaba decía que era el ave más majestuosa del valle."
+      },
+      "factExtra": {
+        "ca": "Sabies que una àguila veu vuit vegades millor que una persona i pot distingir un conill des de molt lluny?",
+        "es": "¿Sabías que un águila ve ocho veces mejor que una persona y puede distinguir un conejo desde muy lejos?"
+      },
+      "hook": "Demà començarem la hac muda.",
+      "questions": [
+        {
+          "q": "Per damunt de què volava l'àguila?",
+          "choices": ["De l'estany glaçat", "Del mar", "D'un bosc de pins", "D'una ciutat gran"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que és important saber quan es fa l'apòstrof i quan no?",
+          "choices": [
+            "Perquè fa que el text sigui correcte i més fàcil de llegir en veu alta",
+            "Perquè així el text és més curt",
+            "Perquè no serveix de res",
+            "Perquè només és per als adults"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-26-hmuda",
+      "order": 26,
+      "title": "La hac muda (1)",
+      "focus": "ca-h-muda",
+      "lang": "ca",
+      "dictation": {
+        "ca": "L'home va sortir de casa ben d'hora per collir herba fresca a l'hort. Feia molta humitat i el terra encara era moll pel gebre de la nit. Un hàmster petit corria amagat entre les fulles humides.",
+        "es": "El hombre salió de casa muy temprano para recoger hierba fresca en el huerto. Había mucha humedad y el suelo todavía estaba mojado por la escarcha de la noche. Un hámster pequeño corría escondido entre las hojas húmedas."
+      },
+      "factExtra": {
+        "ca": "Sabies que la lletra h en català no sona mai, però l'escrivim perquè ens recorda d'on ve la paraula fa molts anys?",
+        "es": "¿Sabías que la letra h en catalán no suena nunca, pero la escribimos porque nos recuerda de dónde viene la palabra hace muchos años?"
+      },
+      "hook": "Demà seguirem amb la hac muda i l'hivern.",
+      "questions": [
+        {
+          "q": "Per què va sortir l'home tan d'hora?",
+          "choices": ["Per collir herba fresca a l'hort", "Per anar a l'escola", "Per pescar al riu", "Per comprar pa"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que la hac és tan difícil, si no sona quan la llegim?",
+          "choices": [
+            "Perquè justament, com no sona, no ens avisa quan l'hem d'escriure",
+            "Perquè sona molt fort",
+            "Perquè només va al final",
+            "Perquè canvia de lloc"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-27-hmuda",
+      "order": 27,
+      "title": "La hac muda (2)",
+      "focus": "ca-h-muda",
+      "lang": "ca",
+      "dictation": {
+        "ca": "Ahir, a l'hivern, va nevar tant que no vam poder anar a l'hospital a veure l'àvia. Vam quedar-nos a casa fent xocolata calenta i mirant els flocs caure. A l'hora de dinar, el cel es va aclarir de sobte.",
+        "es": "Ayer, en invierno, nevó tanto que no pudimos ir al hospital a ver a la abuela. Nos quedamos en casa haciendo chocolate caliente y mirando los copos caer. A la hora de comer, el cielo se despejó de repente."
+      },
+      "factExtra": {
+        "ca": "Sabies que la paraula \"hivern\" ve del llatí i que per això, encara avui, l'escrivim amb una hac que no sona?",
+        "es": "¿Sabías que la palabra \"hivern\" viene del latín y que por eso, aún hoy, la escribimos con una hache que no suena?"
+      },
+      "hook": "Demà seguirem amb la hac muda i un vehicle curiós.",
+      "questions": [
+        {
+          "q": "Per què no van poder anar a veure l'àvia?",
+          "choices": ["Perquè va nevar molt", "Perquè feia molta calor", "Perquè no tenien cotxe", "Perquè estava tancat"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Ahir\", \"hivern\" i \"hora\" porten hac. Quin truc et pot ajudar a recordar-les?",
+          "choices": [
+            "Memoritzar-les com un grup, perquè són paraules molt habituals amb hac",
+            "Escriure-les sense hac per anar més ràpid",
+            "No usar-les mai",
+            "Posar hac a totes les paraules"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-28-hmuda",
+      "order": 28,
+      "title": "La hac muda (3)",
+      "focus": "ca-h-muda",
+      "lang": "ca",
+      "dictation": {
+        "ca": "El vehicle antic estava aturat davant d'un hostal molt vell del poble. Un home hi enganxava un adhesiu brillant al vidre del darrere. Deia que aquell cotxe havia fet una història ben llarga per tota Europa.",
+        "es": "El vehículo antiguo estaba parado delante de un hostal muy viejo del pueblo. Un hombre pegaba una pegatina brillante en el cristal de atrás. Decía que aquel coche había hecho una historia muy larga por toda Europa."
+      },
+      "factExtra": {
+        "ca": "Sabies que alguns cotxes antics de fa cent anys encara funcionen avui si se'ls cuida amb molta paciència?",
+        "es": "¿Sabías que algunos coches antiguos de hace cien años todavía funcionan hoy si se les cuida con mucha paciencia?"
+      },
+      "hook": "Demà seguirem amb la hac muda al mig de les paraules.",
+      "questions": [
+        {
+          "q": "Què enganxava l'home al vidre del cotxe?",
+          "choices": ["Un adhesiu brillant", "Un mapa antic", "Una fotografia", "Una flor"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Vehicle\" i \"adhesiu\" porten una hac al mig que no sona. Per què creus que costa recordar-la?",
+          "choices": [
+            "Perquè al mig de la paraula és encara més fàcil oblidar-se-la",
+            "Perquè sona molt fort",
+            "Perquè no existeix",
+            "Perquè va sempre al principi"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-29-hmuda",
+      "order": 29,
+      "title": "La hac muda (4)",
+      "focus": "ca-h-muda",
+      "lang": "ca",
+      "dictation": {
+        "ca": "Els humans hem habitat aquest planeta des de fa moltíssims anys. Hem après a conrear l'hort, a construir hospitals i a curar malalties. Encara ens queda molta història per escriure i molt món per descobrir.",
+        "es": "Los humanos hemos habitado este planeta desde hace muchísimos años. Hemos aprendido a cultivar el huerto, a construir hospitales y a curar enfermedades. Todavía nos queda mucha historia por escribir y mucho mundo por descubrir."
+      },
+      "factExtra": {
+        "ca": "Sabies que els primers hospitals de veritat es van crear fa més de mil cinc-cents anys per cuidar els malalts pobres?",
+        "es": "¿Sabías que los primeros hospitales de verdad se crearon hace más de mil quinientos años para cuidar a los enfermos pobres?"
+      },
+      "hook": "Demà tancarem la hac muda amb un últim dictat.",
+      "questions": [
+        {
+          "q": "Què han après a fer els humans, segons el dictat?",
+          "choices": ["A conrear l'hort i construir hospitals", "A volar sense avió", "A viure sota l'aigua", "A no dormir mai"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "El verb \"haver\" (hem, has, han) sempre porta hac. Per què creus que és bo saber-ho?",
+          "choices": [
+            "Perquè el fem servir moltíssim i així no m'equivoco cada dia",
+            "Perquè no s'usa mai",
+            "Perquè sona molt",
+            "Perquè només l'usen els adults"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-30-hmuda",
+      "order": 30,
+      "title": "La hac muda (5)",
+      "focus": "ca-h-muda",
+      "lang": "ca",
+      "dictation": {
+        "ca": "L'herba del jardí era plena d'herbes remeieres que fan bona olor. L'àvia deia que algunes ajuden a dormir i altres treuen el mal de panxa. Cada tarda en collia un grapat i les penjava a l'ombra del rebost.",
+        "es": "La hierba del jardín estaba llena de hierbas medicinales que huelen muy bien. La abuela decía que algunas ayudan a dormir y otras quitan el dolor de barriga. Cada tarde recogía un puñado y las colgaba a la sombra de la despensa."
+      },
+      "factExtra": {
+        "ca": "Sabies que la camamilla és una herba que la gent fa servir des de fa segles per calmar la panxa i ajudar a dormir?",
+        "es": "¿Sabías que la manzanilla es una hierba que la gente usa desde hace siglos para calmar la barriga y ayudar a dormir?"
+      },
+      "hook": "Demà començarem la g i la j.",
+      "questions": [
+        {
+          "q": "Què feia l'àvia amb les herbes remeieres?",
+          "choices": ["Les penjava a l'ombra del rebost", "Les llençava a les escombraries", "Les regalava als veïns", "Les plantava al balcó"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que llegir molt ajuda a escriure bé les paraules amb hac muda?",
+          "choices": [
+            "Perquè, com que la h no sona, només veient-la escrita l'aprenc",
+            "Perquè la h sona diferent en cada text",
+            "Perquè llegir no serveix per escriure",
+            "Perquè la h la posa l'ordinador"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-31-gj",
+      "order": 31,
+      "title": "La g i la j (1)",
+      "focus": "ca-g-j",
+      "lang": "ca",
+      "dictation": {
+        "ca": "La girafa jove menjava fulles verdes dalt d'un arbre molt gran. Amb el seu coll gegant arribava on cap altre animal no podia jugar. A la gespa, sota la seva ombra, uns micos jugaven molt contents.",
+        "es": "La jirafa joven comía hojas verdes en lo alto de un árbol muy grande. Con su cuello gigante llegaba donde ningún otro animal podía jugar. En el césped, bajo su sombra, unos monos jugaban muy contentos."
+      },
+      "factExtra": {
+        "ca": "Sabies que la girafa és l'animal més alt del món i que, tot i el coll tan llarg, té el mateix nombre de vèrtebres que nosaltres?",
+        "es": "¿Sabías que la jirafa es el animal más alto del mundo y que, pese al cuello tan largo, tiene el mismo número de vértebras que nosotros?"
+      },
+      "hook": "Demà seguirem amb la g i la j menjant taronges.",
+      "questions": [
+        {
+          "q": "Què menjava la girafa jove?",
+          "choices": ["Fulles verdes dalt d'un arbre", "Fruites del terra", "Herba de la gespa", "Flors vermelles"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "La g davant de e, i (com \"girafa\", \"gel\") sona com la j. Per què creus que això confon?",
+          "choices": [
+            "Perquè el mateix so el poden fer dues lletres diferents",
+            "Perquè la g no existeix",
+            "Perquè la j sona com una t",
+            "Perquè totes les paraules porten j"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-32-gj",
+      "order": 32,
+      "title": "La g i la j (2)",
+      "focus": "ca-g-j",
+      "lang": "ca",
+      "dictation": {
+        "ca": "Al mercat venien taronges dolces, mandarines i gerds acabats de collir. La Gemma va triar un gerro de vidre ple de mel taronja i brillant. El paradista, molt amable, li va regalar una bossa de móres.",
+        "es": "En el mercado vendían naranjas dulces, mandarinas y frambuesas recién recogidas. Gemma eligió un jarrón de cristal lleno de miel naranja y brillante. El tendero, muy amable, le regaló una bolsa de moras."
+      },
+      "factExtra": {
+        "ca": "Sabies que una sola taronja pot tenir més vitamina C de la que el nostre cos necessita en tot un dia?",
+        "es": "¿Sabías que una sola naranja puede tener más vitamina C de la que nuestro cuerpo necesita en todo un día?"
+      },
+      "hook": "Demà seguirem amb els grups tg i tj.",
+      "questions": [
+        {
+          "q": "Què va triar la Gemma al mercat?",
+          "choices": ["Un gerro ple de mel", "Una bossa de gerds", "Un cistell de taronges", "Un pot de móres"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Quin truc et va bé per decidir entre g i j davant de e o i?",
+          "choices": [
+            "Recordar que davant de e i sol anar g, i memoritzar les excepcions",
+            "Posar sempre j",
+            "Posar sempre g",
+            "Triar-ho a la sort"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-33-gj",
+      "order": 33,
+      "title": "La g i la j: tg i tj (3)",
+      "focus": "ca-g-j",
+      "lang": "ca",
+      "dictation": {
+        "ca": "Vam fer un viatge amb barca fins a una platja de sorra fina i daurada. Pel camí, un pont de fusta creuava un rierol on nedava un peix de fetge fort. A la tarda, vam menjar un bon plat de mongetes.",
+        "es": "Hicimos un viaje en barca hasta una playa de arena fina y dorada. Por el camino, un puente de madera cruzaba un arroyo donde nadaba un pez de hígado fuerte. Por la tarde, comimos un buen plato de judías."
+      },
+      "factExtra": {
+        "ca": "Sabies que la sorra de la platja són trossets minúsculs de roques i closques que el mar ha anat trencant durant milers d'anys?",
+        "es": "¿Sabías que la arena de la playa son trocitos minúsculos de rocas y conchas que el mar ha ido rompiendo durante miles de años?"
+      },
+      "hook": "Demà seguirem amb la g i la j jugant al parc.",
+      "questions": [
+        {
+          "q": "Com era la platja on van arribar?",
+          "choices": ["De sorra fina i daurada", "De pedres grises", "De roques altes", "Plena de gel"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Paraules com \"viatge\", \"platja\" i \"fetge\" porten tg o tj. Per què creus que costen tant?",
+          "choices": [
+            "Perquè sonen igual i cal recordar quan va tg i quan tj",
+            "Perquè no s'usen mai",
+            "Perquè totes porten tg",
+            "Perquè la t no sona"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-34-gj",
+      "order": 34,
+      "title": "La g i la j (4)",
+      "focus": "ca-g-j",
+      "lang": "ca",
+      "dictation": {
+        "ca": "En Jordi jugava a fet i amagar juntament amb els seus amics del barri. Es va amagar darrere d'un jardí ple de gessamins i geranis vermells. Quan el van trobar, tots van riure amb moltes ganes de seguir jugant.",
+        "es": "Jordi jugaba al escondite junto con sus amigos del barrio. Se escondió detrás de un jardín lleno de jazmines y geranios rojos. Cuando lo encontraron, todos rieron con muchas ganas de seguir jugando."
+      },
+      "factExtra": {
+        "ca": "Sabies que el gessamí fa una olor tan forta al vespre perquè així atreu els insectes que el pol·linitzen de nit?",
+        "es": "¿Sabías que el jazmín huele tan fuerte al atardecer porque así atrae a los insectos que lo polinizan de noche?"
+      },
+      "hook": "Demà tancarem la g i la j amb un últim dictat.",
+      "questions": [
+        {
+          "q": "On es va amagar en Jordi?",
+          "choices": ["Darrere d'un jardí de gessamins", "Dins d'una barca", "Sota un pont", "Dalt d'un arbre"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Jordi\", \"jugar\" i \"jardí\" porten j davant de vocal. Per què creus que aquí és més fàcil?",
+          "choices": [
+            "Perquè davant de a, o i u el so sempre s'escriu amb j, no amb g",
+            "Perquè sempre va g",
+            "Perquè no hi ha regla",
+            "Perquè la j no sona"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-35-gj",
+      "order": 35,
+      "title": "La g i la j (5)",
+      "focus": "ca-g-j",
+      "lang": "ca",
+      "dictation": {
+        "ca": "El mag del circ feia gestos màgics amb els dits i tots miràvem el joc. De sobte, del seu barret en va sortir un colom que va volar cap al sostre. La gent aplaudia i el mag somreia molt satisfet del seu èxit.",
+        "es": "El mago del circo hacía gestos mágicos con los dedos y todos mirábamos el juego. De repente, de su sombrero salió una paloma que voló hacia el techo. La gente aplaudía y el mago sonreía muy satisfecho de su éxito."
+      },
+      "factExtra": {
+        "ca": "Sabies que molts trucs de màgia funcionen perquè el mag desvia la nostra atenció cap a una mà mentre l'altra fa el truc?",
+        "es": "¿Sabías que muchos trucos de magia funcionan porque el mago desvía nuestra atención hacia una mano mientras la otra hace el truco?"
+      },
+      "hook": "Demà començarem la r i la rr.",
+      "questions": [
+        {
+          "q": "Què va sortir del barret del mag?",
+          "choices": ["Un colom", "Un conill", "Una flor", "Una moneda"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que llegir molt ajuda a triar bé entre g i j?",
+          "choices": [
+            "Perquè quan veig les paraules escrites recordo com s'escriuen de veritat",
+            "Perquè llegir cansa",
+            "Perquè les lletres canvien cada dia",
+            "Perquè no cal saber-ho"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-36-rr",
+      "order": 36,
+      "title": "La r i la rr (1)",
+      "focus": "ca-r-rr",
+      "lang": "ca",
+      "dictation": {
+        "ca": "El carro vermell corria per la carretera plena de terra i pedres. Al darrere, un gos petit corria també amb la llengua de fora. Quan van arribar a la torre, tots dos estaven cansats però molt contents.",
+        "es": "El carro rojo corría por la carretera llena de tierra y piedras. Detrás, un perro pequeño corría también con la lengua fuera. Cuando llegaron a la torre, los dos estaban cansados pero muy contentos."
+      },
+      "factExtra": {
+        "ca": "Sabies que un gos pot córrer molt més ràpid que una persona i que alguns arriben a seixanta quilòmetres per hora?",
+        "es": "¿Sabías que un perro puede correr mucho más rápido que una persona y que algunos alcanzan sesenta kilómetros por hora?"
+      },
+      "hook": "Demà seguirem amb la r forta entre vocals.",
+      "questions": [
+        {
+          "q": "Qui corria darrere del carro?",
+          "choices": ["Un gos petit", "Un cavall", "Un altre carro", "Un nen"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Carro\" i \"carretera\" porten rr enmig. Per què creus que a vegades n'oblidem una?",
+          "choices": [
+            "Perquè escrivim de pressa i no sentim que la erre és forta",
+            "Perquè la r no existeix",
+            "Perquè totes les paraules porten rr",
+            "Perquè la rr no sona"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-37-rr",
+      "order": 37,
+      "title": "La r i la rr (2)",
+      "focus": "ca-r-rr",
+      "lang": "ca",
+      "dictation": {
+        "ca": "La Marta tocava la guitarra asseguda damunt d'una roca vora el riu. La melodia arribava fins a la riba on jugaven uns quants nens. El sol es reflectia a l'aigua i tot el paisatge semblava una postal.",
+        "es": "Marta tocaba la guitarra sentada encima de una roca junto al río. La melodía llegaba hasta la orilla donde jugaban unos cuantos niños. El sol se reflejaba en el agua y todo el paisaje parecía una postal."
+      },
+      "factExtra": {
+        "ca": "Sabies que la guitarra té sis cordes i que, com més gruixuda és una corda, més greu és el so que fa?",
+        "es": "¿Sabías que la guitarra tiene seis cuerdas y que, cuanto más gruesa es una cuerda, más grave es el sonido que hace?"
+      },
+      "hook": "Demà seguirem amb la r i la rr al camp.",
+      "questions": [
+        {
+          "q": "On estava asseguda la Marta?",
+          "choices": ["Damunt d'una roca vora el riu", "Dins d'una barca", "A la riba de sorra", "Sota un pont"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Guitarra\" porta rr, però \"riu\" i \"roca\" fan el so fort amb una sola r. Per què creus que passa?",
+          "choices": [
+            "Perquè al principi de paraula la r ja sona forta amb una de sola",
+            "Perquè al principi sempre va rr",
+            "Perquè no hi ha regla",
+            "Perquè la r no sona al principi"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-38-rr",
+      "order": 38,
+      "title": "La r i la rr (3)",
+      "focus": "ca-r-rr",
+      "lang": "ca",
+      "dictation": {
+        "ca": "El ferrer treballava el ferro roent amb un martell molt gros i pesat. Les guspires saltaven amb força cap amunt com estrelles taronges. Al final del dia, va fabricar una reixa forta per a la porta del corral.",
+        "es": "El herrero trabajaba el hierro al rojo con un martillo muy grande y pesado. Las chispas saltaban con fuerza hacia arriba como estrellas naranjas. Al final del día, fabricó una reja fuerte para la puerta del corral."
+      },
+      "factExtra": {
+        "ca": "Sabies que el ferro es torna tou i roig quan s'escalfa molt, i per això el ferrer el pot doblegar amb el martell?",
+        "es": "¿Sabías que el hierro se vuelve blando y rojo cuando se calienta mucho, y por eso el herrero puede doblarlo con el martillo?"
+      },
+      "hook": "Demà seguirem amb la r i la rr corrent molt.",
+      "questions": [
+        {
+          "q": "Què va fabricar el ferrer al final del dia?",
+          "choices": ["Una reixa forta per al corral", "Una guitarra de ferro", "Un carro nou", "Un martell petit"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Ferrer\", \"ferro\" i \"corral\" porten rr o r forta. Quin truc et pot ajudar?",
+          "choices": [
+            "Escoltar si el so és fort i, si va entre vocals, escriure rr",
+            "Posar sempre una sola r",
+            "Posar sempre rr",
+            "No escoltar mai"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-39-rr",
+      "order": 39,
+      "title": "La r i la rr (4)",
+      "focus": "ca-r-rr",
+      "lang": "ca",
+      "dictation": {
+        "ca": "El corredor va arribar el primer a la meta després de córrer molts quilòmetres. La gent el rebia amb crits d'alegria i banderes de mil colors. Ell somreia, cansat però orgullós, mentre la seva germana l'abraçava.",
+        "es": "El corredor llegó el primero a la meta después de correr muchos kilómetros. La gente lo recibía con gritos de alegría y banderas de mil colores. Él sonreía, cansado pero orgulloso, mientras su hermana lo abrazaba."
+      },
+      "factExtra": {
+        "ca": "Sabies que la marató deu el nom a un soldat grec que, segons la llegenda, va córrer fins a Atenes per anunciar una victòria?",
+        "es": "¿Sabías que la maratón debe su nombre a un soldado griego que, según la leyenda, corrió hasta Atenas para anunciar una victoria?"
+      },
+      "hook": "Demà tancarem la r i la rr amb un últim dictat.",
+      "questions": [
+        {
+          "q": "Com el rebia la gent a la meta?",
+          "choices": ["Amb crits d'alegria i banderes", "En silenci absolut", "Amb un got d'aigua", "Amb una guitarra"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Corredor\" i \"córrer\" venen de la mateixa família. Per què creus que això ajuda amb la rr?",
+          "choices": [
+            "Perquè si una porta rr, les de la mateixa família també solen portar-ne",
+            "Perquè no tenen res a veure",
+            "Perquè cadascuna s'escriu diferent",
+            "Perquè la rr desapareix"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-40-rr",
+      "order": 40,
+      "title": "La r i la rr (5)",
+      "focus": "ca-r-rr",
+      "lang": "ca",
+      "dictation": {
+        "ca": "La rosa vermella creixia al racó més assolellat de tot el jardí. Cada matí, la Rita la regava amb molta cura perquè no s'assequés. Deia que era la flor més bonica de tot el carrer i n'estava orgullosa.",
+        "es": "La rosa roja crecía en el rincón más soleado de todo el jardín. Cada mañana, Rita la regaba con mucho cuidado para que no se secara. Decía que era la flor más bonita de toda la calle y estaba orgullosa."
+      },
+      "factExtra": {
+        "ca": "Sabies que les roses tenen espines per protegir-se dels animals que voldrien menjar-se les seves fulles tendres?",
+        "es": "¿Sabías que las rosas tienen espinas para protegerse de los animales que querrían comerse sus hojas tiernas?"
+      },
+      "hook": "Demà començarem les majúscules.",
+      "questions": [
+        {
+          "q": "Per què regava la Rita la rosa cada matí?",
+          "choices": ["Perquè no s'assequés", "Perquè fes més espines", "Perquè canviés de color", "Perquè creixés menys"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Rosa\" i \"Rita\" comencen amb r forta però amb una sola r. Per què creus que és així?",
+          "choices": [
+            "Perquè a l'inici de paraula la r ja es llegeix forta i no cal doblar-la",
+            "Perquè a l'inici sempre va rr",
+            "Perquè la r inicial no sona",
+            "Perquè és un error"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-41-majus",
+      "order": 41,
+      "title": "Les majúscules (1)",
+      "focus": "ca-majuscules",
+      "lang": "ca",
+      "dictation": {
+        "ca": "La Marina viu a Barcelona, molt a prop del mar Mediterrani. El dilluns va anar amb el seu germà Pau a visitar el museu de la ciutat. Van tornar a casa al vespre, cansats però contents del dia.",
+        "es": "Marina vive en Barcelona, muy cerca del mar Mediterráneo. El lunes fue con su hermano Pau a visitar el museo de la ciudad. Volvieron a casa por la tarde, cansados pero contentos del día."
+      },
+      "factExtra": {
+        "ca": "Sabies que en català els dies de la setmana, com \"dilluns\", s'escriuen amb minúscula, encara que en anglès van amb majúscula?",
+        "es": "¿Sabías que en catalán los días de la semana, como \"lunes\", se escriben con minúscula, aunque en inglés van con mayúscula?"
+      },
+      "hook": "Demà seguirem amb les majúscules i els noms de lloc.",
+      "questions": [
+        {
+          "q": "Amb qui va anar la Marina al museu?",
+          "choices": ["Amb el seu germà Pau", "Amb la seva mare", "Amb una amiga", "Sola"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Barcelona\" i \"Pau\" van amb majúscula, però \"dilluns\" no. Per què creus que passa?",
+          "choices": [
+            "Perquè els noms propis van amb majúscula i els dies de la setmana no",
+            "Perquè totes les paraules importants van amb majúscula",
+            "Perquè \"dilluns\" és curt",
+            "Perquè no hi ha cap regla"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-42-majus",
+      "order": 42,
+      "title": "Les majúscules (2)",
+      "focus": "ca-majuscules",
+      "lang": "ca",
+      "dictation": {
+        "ca": "Al mes de gener, la família Puig va viatjar fins a París en tren. Van visitar la torre Eiffel i van passejar vora el riu Sena. La Núria va escriure una postal per als seus avis de Girona.",
+        "es": "En el mes de enero, la familia Puig viajó hasta París en tren. Visitaron la torre Eiffel y pasearon junto al río Sena. Núria escribió una postal para sus abuelos de Girona."
+      },
+      "factExtra": {
+        "ca": "Sabies que la torre Eiffel es va construir fa més de cent anys i que molta gent, al principi, la trobava massa lletja?",
+        "es": "¿Sabías que la torre Eiffel se construyó hace más de cien años y que mucha gente, al principio, la encontraba demasiado fea?"
+      },
+      "hook": "Demà seguirem amb les majúscules i els mesos de l'any.",
+      "questions": [
+        {
+          "q": "Què van visitar a París?",
+          "choices": ["La torre Eiffel", "Un museu de trens", "Una platja gran", "Un castell antic"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"París\", \"Sena\" i \"Girona\" van amb majúscula, però \"gener\" no. Per què creus que és així?",
+          "choices": [
+            "Perquè els noms de lloc són noms propis i els mesos s'escriuen amb minúscula",
+            "Perquè les ciutats són grans",
+            "Perquè \"gener\" és fàcil",
+            "Perquè els rius no importen"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-43-majus",
+      "order": 43,
+      "title": "Les majúscules (3)",
+      "focus": "ca-majuscules",
+      "lang": "ca",
+      "dictation": {
+        "ca": "El riu Ebre és el més cabalós de Catalunya i desemboca al mar. Neix a la serralada Cantàbrica i travessa moltes ciutats abans d'arribar-hi. Molts ocells viuen al seu delta, ple de canyes i d'aigua tranquil·la.",
+        "es": "El río Ebro es el más caudaloso de Cataluña y desemboca en el mar. Nace en la cordillera Cantábrica y atraviesa muchas ciudades antes de llegar. Muchos pájaros viven en su delta, lleno de cañas y de agua tranquila."
+      },
+      "factExtra": {
+        "ca": "Sabies que el delta de l'Ebre és un dels llocs amb més ocells de tot Catalunya, amb centenars d'espècies diferents?",
+        "es": "¿Sabías que el delta del Ebro es uno de los lugares con más pájaros de toda Cataluña, con cientos de especies diferentes?"
+      },
+      "hook": "Demà seguirem amb les majúscules de començament de frase.",
+      "questions": [
+        {
+          "q": "On desemboca el riu Ebre?",
+          "choices": ["Al mar", "En un llac", "En un altre riu", "En una muntanya"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Ebre\", \"Catalunya\" i \"Cantàbrica\" van amb majúscula. Per què creus que ho fem?",
+          "choices": [
+            "Perquè són noms propis de rius, països i serralades concrets",
+            "Perquè són paraules llargues",
+            "Perquè comencen amb E, C i C",
+            "Perquè no hi ha regla"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-44-majus",
+      "order": 44,
+      "title": "Les majúscules (4)",
+      "focus": "ca-majuscules",
+      "lang": "ca",
+      "dictation": {
+        "ca": "Avui és dimarts i fa un sol esplèndid al mes d'abril. La mestra ens ha dit que el proper dijous anirem d'excursió a Montserrat. Tots estem molt contents perquè fa temps que ho esperàvem amb ganes.",
+        "es": "Hoy es martes y hace un sol espléndido en el mes de abril. La maestra nos ha dicho que el próximo jueves iremos de excursión a Montserrat. Todos estamos muy contentos porque hace tiempo que lo esperábamos con ganas."
+      },
+      "factExtra": {
+        "ca": "Sabies que Montserrat és una muntanya de roques rodones molt especials, formades per l'aigua i el vent durant milions d'anys?",
+        "es": "¿Sabías que Montserrat es una montaña de rocas redondeadas muy especiales, formadas por el agua y el viento durante millones de años?"
+      },
+      "hook": "Demà tancarem les majúscules amb un últim dictat.",
+      "questions": [
+        {
+          "q": "On aniran d'excursió el proper dijous?",
+          "choices": ["A Montserrat", "A París", "Al delta de l'Ebre", "A Girona"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "\"Montserrat\" va amb majúscula però \"dimarts\", \"abril\" i \"dijous\" no. Per què creus que és així?",
+          "choices": [
+            "Perquè Montserrat és un nom propi, i dies i mesos van sempre amb minúscula",
+            "Perquè les muntanyes són altes",
+            "Perquè els dies són curts",
+            "Perquè no importa gens"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "oca-45-majus",
+      "order": 45,
+      "title": "Les majúscules (5)",
+      "focus": "ca-majuscules",
+      "lang": "ca",
+      "dictation": {
+        "ca": "En Leo va preguntar: \"On és el mar Mediterrani?\". La mare li va respondre que banya les costes de Catalunya, d'Itàlia i de Grècia. Després van buscar tots aquells països junts en un mapa molt gran.",
+        "es": "Leo preguntó: \"¿Dónde está el mar Mediterráneo?\". La madre le respondió que baña las costas de Cataluña, de Italia y de Grecia. Después buscaron todos aquellos países juntos en un mapa muy grande."
+      },
+      "factExtra": {
+        "ca": "Sabies que el mar Mediterrani està gairebé tancat per terra i que només es connecta amb l'oceà per un pas molt estret?",
+        "es": "¿Sabías que el mar Mediterráneo está casi cerrado por tierra y que solo se conecta con el océano por un paso muy estrecho?"
+      },
+      "hook": "Demà tornarem a barrejar totes les regles del català.",
+      "questions": [
+        {
+          "q": "Quins països banya el mar Mediterrani, segons la mare?",
+          "choices": ["Catalunya, Itàlia i Grècia", "Anglaterra i Irlanda", "El Japó i la Xina", "El Perú i Xile"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Després d'un punt i al principi d'una frase sempre posem majúscula. Per què creus que ajuda?",
+          "choices": [
+            "Perquè marca on comença cada frase nova i fa el text més clar",
+            "Perquè fa la lletra més gran",
+            "Perquè no serveix de res",
+            "Perquè decora el text"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    }
+  ]
+}
