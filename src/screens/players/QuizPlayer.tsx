@@ -91,9 +91,10 @@ export function QuizPlayer() {
     exit()
   }
 
+  const isMap = resolved.kind === 'map'
   return (
     <Shell>
-      <div className="mx-auto max-w-md pt-1">
+      <div className={`mx-auto pt-1 ${isMap ? 'max-w-3xl' : 'max-w-md'}`}>
         <PlayerHeader chapter={chapter} onExit={exit} />
         {resolved.kind === 'map' ? (
           <MapRound

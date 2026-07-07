@@ -119,7 +119,9 @@ export function ReadingPlayer() {
             right={
               resolved.kind === 'english' ? (
                 <SpeakButton text={resolved.sentences.join(' ')} lang="en-GB" tone="mint" label="Listen" />
-              ) : undefined
+              ) : (
+                <SpeakButton text={resolved.text} lang="es-ES" tone="mint" label="Escuchar" />
+              )
             }
           />
           <div className="rounded-2xl p-3 text-base leading-relaxed" style={{ background: 'var(--bg)' }}>

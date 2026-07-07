@@ -80,7 +80,15 @@ export function SvgMap({
       viewBox={`0 0 ${geo.width} ${geo.height}`}
       role="group"
       aria-label={`Mapa: ${mapId}`}
-      style={{ width: '100%', height: 'auto', display: 'block', touchAction: 'manipulation' }}
+      preserveAspectRatio="xMidYMid meet"
+      style={{
+        width: '100%',
+        height: 'auto',
+        maxHeight: '100%',
+        display: 'block',
+        margin: '0 auto',
+        touchAction: 'manipulation',
+      }}
     >
       <defs>
         <clipPath id={clipId}>

@@ -65,7 +65,7 @@ export function FreeTraining() {
   if (skill) {
     return (
       <Shell>
-        <div className="mx-auto max-w-md pt-2">
+        <div className={`mx-auto pt-2 ${skill === 'geografia' ? 'max-w-3xl' : 'max-w-md'}`}>
           <div className="mb-3 flex items-center gap-2">
             <span className="text-2xl" aria-hidden>
               {skillMeta[skill].emoji}

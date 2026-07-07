@@ -33,6 +33,7 @@ const NAV: NavItem[] = [
  */
 export function Shell({ children }: { children: ReactNode }) {
   const profile = useProfileStore((s) => s.activeProfile)
+  const setActiveProfile = useProfileStore((s) => s.setActiveProfile)
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const streak = useProgressStore((s) => (profile ? s.profiles[profile].streak.count : 0))
@@ -105,6 +106,35 @@ export function Shell({ children }: { children: ReactNode }) {
               💎 {coins}
             </Pill>
           )}
+
+          {/* Switch child: back to the profile picker. Only clears the *active*
+              selection (a scalar) — each child's progress is stored separately,
+              so nothing is lost. */}
+          <button
+            type="button"
+            aria-label="Cambiar de perfil"
+            title="Cambiar de perfil"
+            onClick={() => {
+              setActiveProfile(null)
+              navigate('/')
+            }}
+            className="flex items-center justify-center rounded-full text-lg transition-transform active:translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--peach)]"
+            style={{ background: 'var(--peach-soft)', height: isLeo ? 60 : 44, width: isLeo ? 60 : 44 }}
+          >
+            <span aria-hidden>🏠</span>
+          </button>
+          {/* Parent area — still behind the PIN gate on /padres. Small and muted
+              so a kid is unlikely to tap it, but it keeps parents one tap away. */}
+          <button
+            type="button"
+            aria-label="Zona de padres"
+            title="Zona de padres"
+            onClick={() => navigate('/padres')}
+            className="flex items-center justify-center rounded-full text-base opacity-70 transition-opacity hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--peach)]"
+            style={{ background: 'rgba(255,255,255,.7)', height: isLeo ? 60 : 44, width: isLeo ? 60 : 44 }}
+          >
+            <span aria-hidden>🔒</span>
+          </button>
         </div>
       </header>
 

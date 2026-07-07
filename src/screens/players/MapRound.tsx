@@ -1,7 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
 import { SvgMap, type RegionStatus } from '../../components/geo/SvgMap'
+import { SpeakButton } from '../../components/ui/SpeakButton'
+import { MapOverlay } from './MapOverlay'
 import { MangaBurst } from '../../components/celebrations/MangaBurst'
 import { MAP_META } from '../../content/maps'
 import { getContentBundle } from '../../content/loader'
@@ -46,10 +48,20 @@ export function MapRound({
   const [tapStatus, setTapStatus] = useState<Record<string, RegionStatus>>({})
   const [pickedIdx, setPickedIdx] = useState<number | null>(null)
   const [burstKey, setBurstKey] = useState<number | null>(null)
+  const [expanded, setExpanded] = useState(false)
 
   const total = items.length
   const done = step >= total
   const item = items[step]
+
+  // Once a question is answered, drop back to the inline view so the child can
+  // read the result and reach the "Siguiente" button (both live under the overlay).
+  useEffect(() => {
+    if (answered) {
+      const t = window.setTimeout(() => setExpanded(false), 700)
+      return () => window.clearTimeout(t)
+    }
+  }, [answered])
 
   const settle = (correct: boolean) => {
     setAnswered(true)
@@ -111,6 +123,18 @@ export function MapRound({
 
   const isTap = item.mode === 'tap'
 
+  const mapSvg = (
+    <SvgMap
+      mapId={mapId}
+      highlightRegionId={answered && isTap ? item.target.regionId : item.highlightRegionId}
+      status={tapStatus}
+      tappable={isTap && !answered ? undefined : []}
+      showLabels={answered && !isTap}
+      onTapRegion={isTap && !answered ? onTap : undefined}
+      regionNames={names}
+    />
+  )
+
   return (
     <>
       {burstKey !== null && <MangaBurst key={burstKey} />}
@@ -124,25 +148,33 @@ export function MapRound({
           </span>
         </div>
 
-        <p className="mb-3 text-base font-extrabold" style={{ color: 'var(--ink)' }}>
-          {item.prompt}
-        </p>
+        <div className="mb-3 flex items-center gap-2">
+          <p className="flex-1 text-base font-extrabold" style={{ color: 'var(--ink)' }}>
+            {item.prompt}
+          </p>
+          <SpeakButton text={item.prompt} lang="es-ES" tone="mint" label="Escuchar" />
+        </div>
 
-        <div className="overflow-hidden rounded-2xl" style={{ background: '#eaf5fa' }}>
-          <SvgMap
-            mapId={mapId}
-            highlightRegionId={answered && isTap ? item.target.regionId : item.highlightRegionId}
-            status={tapStatus}
-            tappable={isTap && !answered ? undefined : []}
-            showLabels={answered && !isTap}
-            onTapRegion={isTap && !answered ? onTap : undefined}
-            regionNames={names}
-          />
+        <div className="relative overflow-hidden rounded-2xl" style={{ background: '#eaf5fa' }}>
+          {/* Larger map: fill available width, cap height to the viewport so a
+              landscape iPad shows big, finger-friendly countries. */}
+          <div className="mx-auto" style={{ maxHeight: '58vh', width: '100%', display: 'flex', justifyContent: 'center' }}>
+            {mapSvg}
+          </div>
+          <button
+            type="button"
+            onClick={() => setExpanded(true)}
+            aria-label="Ver el mapa más grande"
+            className="absolute right-2 top-2 flex h-11 w-11 items-center justify-center rounded-full text-xl shadow-[0_2px_6px_rgba(0,0,0,.18)] transition-transform active:translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--mint)]"
+            style={{ background: 'rgba(255,255,255,.92)' }}
+          >
+            <span aria-hidden>⛶</span>
+          </button>
         </div>
 
         {isTap && !answered && (
           <p className="mt-2 text-center text-xs font-bold" style={{ color: 'var(--ink-soft)' }}>
-            👆 Toca el país en el mapa
+            👆 Toca el país en el mapa · pulsa ⛶ para verlo más grande
           </p>
         )}
 
@@ -152,6 +184,17 @@ export function MapRound({
           </p>
         )}
       </Card>
+
+      {expanded && (
+        <MapOverlay
+          title={meta.title}
+          emoji={meta.emoji}
+          prompt={item.prompt}
+          showHint={isTap && !answered}
+          map={mapSvg}
+          onClose={() => setExpanded(false)}
+        />
+      )}
 
       {!isTap && (
         <Card className="mt-4">
