@@ -1,7 +1,7 @@
 import type { Rng } from '../../lib/rng'
 import type { Choice, Generator } from '../../types/exercise'
 import { clampDifficulty, exerciseId } from '../framework'
-import { cuantosFor, nounForCount, pickAnimal, pluralOf } from './emoji'
+import { cuantosFor, pickAnimal, pluralOf } from './emoji'
 
 /** Inclusive count range per difficulty (catalog range [1, 3] for contar-6). */
 const COUNT_RANGE: Record<number, [number, number]> = {
@@ -53,7 +53,7 @@ export const contarSeisGenerator: Generator = {
       subskill: 'contar-6',
       difficulty,
       prompt: {
-        text: `¿${cuantosFor(animal)} ${nounForCount(animal, n)} ves?`,
+        text: `¿${cuantosFor(animal)} ${pluralOf(animal)} ves?`,
         visual: { kind: 'emoji-count', emoji: animal.emoji, count: n },
       },
       answer: { kind: 'choice', correctId },
@@ -65,7 +65,7 @@ export const contarSeisGenerator: Generator = {
           steps: [{ text: 'Toca cada uno y cuenta en voz alta: 1, 2, 3...' }],
         },
       ],
-      audioText: `¿${cuantosFor(animal)} ${nounForCount(animal, n)} ves? Tócalos para contarlos.`,
+      audioText: `¿${cuantosFor(animal)} ${pluralOf(animal)} ves? Tócalos para contarlos.`,
       microlesson: 'Contar cosas de una en una es el primer paso para aprender a sumar.',
     }
   },
@@ -90,7 +90,7 @@ export const contarVeinteGenerator: Generator = {
       difficulty,
       challenge: true,
       prompt: {
-        text: `¿${cuantosFor(animal)} ${nounForCount(animal, n)} ves? Cuéntalos en filas.`,
+        text: `¿${cuantosFor(animal)} ${pluralOf(animal)} ves? Cuéntalos en filas.`,
         visual: { kind: 'emoji-count', emoji: animal.emoji, count: n, rows },
       },
       answer: { kind: 'choice', correctId },
@@ -102,7 +102,7 @@ export const contarVeinteGenerator: Generator = {
           steps: [{ text: 'Cuenta una fila entera y luego sigue con la siguiente.' }],
         },
       ],
-      audioText: `¿${cuantosFor(animal)} ${nounForCount(animal, n)} ves? Cuéntalos fila por fila con el dedo.`,
+      audioText: `¿${cuantosFor(animal)} ${pluralOf(animal)} ves? Cuéntalos fila por fila con el dedo.`,
       microlesson: 'Contar en filas ayuda cuando hay demasiados para contarlos todos de golpe.',
     }
   },
