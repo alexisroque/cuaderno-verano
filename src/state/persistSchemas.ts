@@ -72,6 +72,12 @@ const ChildSettingsSchema = z.object({
   weeklyFocus: z.array(z.string()),
 })
 
+const VoicePrefsSchema = z.object({
+  es: z.string().optional(),
+  ca: z.string().optional(),
+  en: z.string().optional(),
+})
+
 export const PersistedSettingsSchema = z.object({
   pin: z.string().nullable(),
   children: z.object({
@@ -81,4 +87,7 @@ export const PersistedSettingsSchema = z.object({
   // Optional so blobs persisted before this field existed still validate; the
   // store normalizes a missing value to null on hydration.
   lastExport: z.string().nullable().default(null),
+  // Optional so blobs persisted before this field existed still validate; the
+  // store normalizes a missing value to {} on hydration.
+  voicePrefs: VoicePrefsSchema.default({}),
 })

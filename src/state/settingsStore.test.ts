@@ -30,6 +30,14 @@ describe('settingsStore', () => {
     expect(useSettingsStore.getState().children.leo.missionSize).toBe(5)
   })
 
+  it('setVoicePref stores and clears a per-language voice choice', () => {
+    useSettingsStore.getState().setVoicePref('ca', 'com.apple.voice.enhanced.ca-ES.Nuria')
+    expect(useSettingsStore.getState().voicePrefs.ca).toBe('com.apple.voice.enhanced.ca-ES.Nuria')
+
+    useSettingsStore.getState().setVoicePref('ca', undefined)
+    expect(useSettingsStore.getState().voicePrefs.ca).toBeUndefined()
+  })
+
   it('flushSettings persists the current state immediately', async () => {
     useSettingsStore.getState().setPin('9999')
     await flushSettings()

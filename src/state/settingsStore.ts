@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import type { ProfileId } from './profileStore'
+import type { VoiceLangFamily, VoicePrefs } from '../lib/tts'
 import { createDebouncedPersist, loadState } from '../lib/storage'
 import { PersistedSettingsSchema } from './persistSchemas'
 
@@ -29,10 +30,14 @@ interface SettingsState {
   children: Record<ProfileId, ChildSettings>
   /** dateISO of the last successful backup export, or null if never exported. */
   lastExport: string | null
+  /** Parent-chosen TTS voice (a `voiceURI`) per language family. */
+  voicePrefs: VoicePrefs
   setPin: (pin: string | null) => void
   updateChildSettings: (profile: ProfileId, patch: Partial<ChildSettings>) => void
   /** Records a backup export having happened on `dateISO` (drives the backup nudge). */
   setLastExport: (dateISO: string) => void
+  /** Persists (or clears, with `undefined`) the chosen voice for a language. */
+  setVoicePref: (family: VoiceLangFamily, voiceURI: string | undefined) => void
 }
 
 function defaultChildSettings(): ChildSettings {
@@ -50,8 +55,8 @@ function defaultChildSettings(): ChildSettings {
 }
 
 const persister = createDebouncedPersist('settings', () => {
-  const { pin, children, lastExport } = useSettingsStore.getState()
-  return { pin, children, lastExport }
+  const { pin, children, lastExport, voicePrefs } = useSettingsStore.getState()
+  return { pin, children, lastExport, voicePrefs }
 })
 
 export const useSettingsStore = create<SettingsState>((set) => ({
@@ -61,6 +66,7 @@ export const useSettingsStore = create<SettingsState>((set) => ({
     leo: defaultChildSettings(),
   },
   lastExport: null,
+  voicePrefs: {},
   setPin: (pin) => {
     set({ pin })
     persister.schedule()
@@ -76,6 +82,15 @@ export const useSettingsStore = create<SettingsState>((set) => ({
   },
   setLastExport: (dateISO) => {
     set({ lastExport: dateISO })
+    persister.schedule()
+  },
+  setVoicePref: (family, voiceURI) => {
+    set((state) => {
+      const next = { ...state.voicePrefs }
+      if (voiceURI === undefined) delete next[family]
+      else next[family] = voiceURI
+      return { voicePrefs: next }
+    })
     persister.schedule()
   },
 }))
@@ -104,5 +119,6 @@ export async function hydrateSettings(): Promise<void> {
     pin: result.data.pin,
     children: result.data.children,
     lastExport: result.data.lastExport,
+    voicePrefs: result.data.voicePrefs,
   })
 }

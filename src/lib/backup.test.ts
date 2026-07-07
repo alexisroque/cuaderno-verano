@@ -43,6 +43,7 @@ function samplePayload(): BackupPayload {
       pin: '1234hash',
       children: { aira: childSettings(), leo: childSettings() },
       lastExport: null,
+      voicePrefs: {},
     },
   }
 }

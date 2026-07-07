@@ -87,4 +87,19 @@ describe('PersistedSettingsSchema', () => {
     const result = PersistedSettingsSchema.safeParse(corrupted)
     expect(result.success).toBe(false)
   })
+
+  it('defaults voicePrefs to {} for blobs saved before the field existed', () => {
+    const result = PersistedSettingsSchema.safeParse(validSettings())
+    expect(result.success).toBe(true)
+    if (result.success) expect(result.data.voicePrefs).toEqual({})
+  })
+
+  it('accepts a voicePrefs map of chosen voiceURIs', () => {
+    const result = PersistedSettingsSchema.safeParse({
+      ...validSettings(),
+      voicePrefs: { ca: 'ca-enhanced', es: 'es-siri' },
+    })
+    expect(result.success).toBe(true)
+    if (result.success) expect(result.data.voicePrefs).toEqual({ ca: 'ca-enhanced', es: 'es-siri' })
+  })
 })

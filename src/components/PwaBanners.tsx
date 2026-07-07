@@ -82,11 +82,12 @@ function CaVoiceBanner() {
           🗣️
         </span>
         <div className="flex-1 text-sm" style={{ color: 'var(--ink)' }}>
-          <p className="font-extrabold">Falta la voz en catalán</p>
+          <p className="font-extrabold">Mejora la voz de los dictados</p>
           <p className="mt-1" style={{ color: 'var(--ink)' }}>
-            Los dictados se leen en catalán. Para activar la voz en el iPad:
+            La voz instalada suena robótica (o falta). Para una voz más natural en el iPad:
             <br />
-            Ajustes → Accesibilidad → Contenido hablado → Voces → Català.
+            Ajustes → Accesibilidad → Contenido hablado → Voces → [idioma] → una voz «Mejorada» o
+            de Siri → Descargar. Luego elígela en Zona de padres → Voz.
           </p>
           <p className="mt-1" style={{ color: 'var(--ink-soft)' }}>
             Mientras tanto, puede leer un adulto. 😊

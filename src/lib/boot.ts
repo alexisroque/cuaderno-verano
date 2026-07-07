@@ -5,15 +5,18 @@
  */
 import { requestPersistence } from './storage'
 import { initServiceWorker } from './swUpdate'
-import { waitForVoices, voicesAvailable } from './tts'
+import { getLiveVoices, needsBetterVoice, setVoicePrefsSource, waitForVoices } from './tts'
+import { useSettingsStore } from '../state/settingsStore'
 
 const VOICE_BANNER_DISMISSED_KEY = 'cuaderno:ca-voice-banner-dismissed'
 
 /**
- * Fire-and-forget boot tasks: ask iOS to keep our IndexedDB (so a plane-mode
- * session isn't evicted) and register the service worker for offline use.
+ * Fire-and-forget boot tasks: point `speak` at the persisted voice prefs, ask
+ * iOS to keep our IndexedDB (so a plane-mode session isn't evicted), and
+ * register the service worker for offline use.
  */
 export function boot(): void {
+  setVoicePrefsSource(() => useSettingsStore.getState().voicePrefs)
   void requestPersistence()
   initServiceWorker()
 }
@@ -36,15 +39,18 @@ function caVoiceBannerDismissed(): boolean {
 }
 
 /**
- * Decides whether to nudge the parent to install the Catalan voice. Returns
- * true only when: the banner was never dismissed, speech synthesis exists, and
- * no `ca` voice is installed. Waits for the async voice list to populate first
- * (voices arrive after a `voiceschanged` event on iOS/Safari), so we don't
- * false-positive on a not-yet-loaded list. Dictations have an adult-reader
- * fallback, so this is a nudge, not a blocker.
+ * Decides whether to nudge the parent to download a better dictation voice.
+ * Returns true only when the banner was never dismissed and the best installed
+ * Catalan OR Spanish voice is missing or robotic (compact/eloquence/espeak) —
+ * i.e. the parent would benefit from an enhanced/Siri voice (choosable in the
+ * new "Voz" settings). Waits for the async voice list first (voices arrive
+ * after a `voiceschanged` event on iOS/Safari), so we don't false-positive on a
+ * not-yet-loaded list. Dictations have an adult-reader fallback, so this is a
+ * gentle nudge, not a blocker.
  */
 export async function shouldShowCaVoiceBanner(): Promise<boolean> {
   if (caVoiceBannerDismissed()) return false
   await waitForVoices()
-  return !voicesAvailable().ca
+  const voices = getLiveVoices()
+  return needsBetterVoice(voices, 'ca') || needsBetterVoice(voices, 'es')
 }

@@ -7,16 +7,18 @@ import { useParentSession } from './session'
 import { Dashboard } from './Dashboard'
 import { Heatmap } from './Heatmap'
 import { Settings } from './Settings'
+import { VoiceSettings } from './VoiceSettings'
 import { Backup } from './Backup'
 import { todayISO } from '../../lib/clock'
 import { daysBetween } from '../../lib/dates'
 
-type Tab = 'dashboard' | 'heatmap' | 'settings' | 'backup' | 'testmode'
+type Tab = 'dashboard' | 'heatmap' | 'settings' | 'voice' | 'backup' | 'testmode'
 
 const TABS: { id: Tab; label: string; emoji: string }[] = [
   { id: 'dashboard', label: 'Actividad', emoji: '📊' },
   { id: 'heatmap', label: 'Mapa de calor', emoji: '🗺️' },
   { id: 'settings', label: 'Ajustes', emoji: '⚙️' },
+  { id: 'voice', label: 'Voz', emoji: '🗣️' },
   { id: 'backup', label: 'Copia', emoji: '💾' },
   { id: 'testmode', label: 'Modo prueba', emoji: '🧪' },
 ]
@@ -217,6 +219,7 @@ export function ParentPanel() {
         )}
         {tab === 'heatmap' && <Heatmap profile={child} />}
         {tab === 'settings' && <Settings profile={child} />}
+        {tab === 'voice' && <VoiceSettings />}
         {tab === 'backup' && <Backup />}
         {tab === 'testmode' && <TestModePanel onEnabled={() => navigate('/')} />}
       </div>
