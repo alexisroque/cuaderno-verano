@@ -1,4 +1,5 @@
 import * as z from 'zod'
+import { ORTOGRAFIA_RULE_IDS, ruleLang } from '../engine/skills'
 
 /** YYYY-MM-DD date string, validated by pattern only (no calendar checks). */
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'expected YYYY-MM-DD')
@@ -73,12 +74,27 @@ function sentenceCount(text: string): number {
 
 const dictationRange = { minWords: 25, maxWords: 45, minSentences: 2, maxSentences: 4 }
 
-/** One episode of a serialized story: dictation in both languages, a wow-fact, a hook, and comprehension questions. */
+/** Ortografia spelling-rule ids a dictation can focus on (from the skills catalog). */
+const RuleFocusSchema = z.enum(ORTOGRAFIA_RULE_IDS as [string, ...string[]])
+
+/**
+ * One episode of a serialized story: dictation in both languages, a wow-fact,
+ * a hook, and comprehension questions.
+ *
+ * `focus`/`lang` (both optional) tag an episode as a spelling-rule-focused
+ * dictation: `focus` names the ortografia rule it trains (e.g. `ca-b-v`) and
+ * `lang` says which language's dictation to serve. Episodes WITHOUT `focus`
+ * are the cultural/story dictations (unchanged, still valid). When `focus` is
+ * present but `lang` is omitted, `lang` is inferred from the rule's prefix
+ * (see `ruleLang`); when both are present they must agree.
+ */
 export const EpisodeSchema = z
   .object({
     id: z.string().min(1),
     order: z.number().int().min(1),
     title: z.string().min(1),
+    focus: RuleFocusSchema.optional(),
+    lang: z.enum(['ca', 'es']).optional(),
     dictation: z.object({
       ca: z.string().min(1),
       es: z.string().min(1),
@@ -91,6 +107,13 @@ export const EpisodeSchema = z
     questions: z.array(QuestionSchema).min(1),
   })
   .superRefine((episode, ctx) => {
+    if (episode.focus && episode.lang && ruleLang(episode.focus) !== episode.lang) {
+      ctx.addIssue({
+        code: 'custom',
+        message: `episode "${episode.id}": lang "${episode.lang}" disagrees with focus "${episode.focus}" (a ${ruleLang(episode.focus)} rule)`,
+        path: ['lang'],
+      })
+    }
     for (const lang of ['ca', 'es'] as const) {
       const text = episode.dictation[lang]
       const words = wordCount(text)
@@ -121,6 +144,17 @@ export const EpisodeSchema = z
   })
 
 export type Episode = z.infer<typeof EpisodeSchema>
+
+/**
+ * The language a focus-tagged dictation should be served in: the episode's
+ * explicit `lang` if set, else inferred from the `focus` rule's prefix. Returns
+ * undefined for untagged (cultural) episodes, whose language is chosen by the
+ * day composer's rotation instead.
+ */
+export function episodeFocusLang(episode: Episode): 'ca' | 'es' | undefined {
+  if (!episode.focus) return undefined
+  return episode.lang ?? ruleLang(episode.focus)
+}
 
 /** A serialized story: an ordered sequence of episodes consumed one per day. */
 export const SeriesSchema = z.object({

@@ -1,5 +1,14 @@
 import { describe, expect, it } from 'vitest'
-import { CATALOG, SKILL_META, skillOfSubskill, subskillsForSkill } from './skills'
+import {
+  CATALOG,
+  SKILL_META,
+  skillOfSubskill,
+  subskillsForSkill,
+  ORTOGRAFIA_RULE_IDS,
+  ruleLang,
+  isOrtografiaRule,
+  subskillLabel,
+} from './skills'
 import { AIRA_PROBLEMA_SKILLS, LEO_SKILL_BY_SLOT } from './dayComposerCards'
 import type { ProfileId } from '../state/profileStore'
 
@@ -89,7 +98,23 @@ describe('Aira catalog contents', () => {
 
   it('ortografia, escritura, lectura, english, geografia, mundo have the expected subskills', () => {
     expect(new Set(Object.keys(CATALOG.aira.skills.ortografia.subskills))).toEqual(
-      new Set(['accents-ca', 'b-v', 'essa-sorda', 'apostrof', 'maj', 'puntuacio']),
+      new Set([
+        'ca-accents',
+        'ca-b-v',
+        'ca-essa',
+        'ca-ela-geminada',
+        'ca-apostrof',
+        'ca-h-muda',
+        'ca-g-j',
+        'ca-r-rr',
+        'ca-majuscules',
+        'es-b-v',
+        'es-h',
+        'es-g-j',
+        'es-ll-y',
+        'es-tildes',
+        'es-mayusculas',
+      ]),
     )
     expect(new Set(Object.keys(CATALOG.aira.skills.escritura.subskills))).toEqual(new Set(['diario']))
     expect(new Set(Object.keys(CATALOG.aira.skills.lectura.subskills))).toEqual(
@@ -215,6 +240,49 @@ describe('display metadata', () => {
     expect(SKILL_META.leo.numeros.name).toBe('Números')
     expect(SKILL_META.leo.english.name).toBe('English')
     expect(SKILL_META.leo.logica.name).toBe('Lógica')
+  })
+})
+
+describe('ortografia spelling rules', () => {
+  it('ORTOGRAFIA_RULE_IDS matches the ortografia subskill ids exactly', () => {
+    expect(new Set(ORTOGRAFIA_RULE_IDS)).toEqual(
+      new Set(Object.keys(CATALOG.aira.skills.ortografia.subskills)),
+    )
+    expect(ORTOGRAFIA_RULE_IDS).toHaveLength(15)
+  })
+
+  it('every rule has a kid-facing label in the correct language register', () => {
+    for (const id of ORTOGRAFIA_RULE_IDS) {
+      expect(subskillLabel(id)).not.toBe(id) // has a real label, not the raw id
+    }
+    // ca-* labels are Catalan, es-* labels are Spanish (spec-mandated strings).
+    expect(subskillLabel('ca-b-v')).toBe('La b i la v')
+    expect(subskillLabel('ca-ela-geminada')).toBe('La ela geminada (l·l)')
+    expect(subskillLabel('ca-accents')).toBe("L'accent i la dièresi")
+    expect(subskillLabel('es-b-v')).toBe('La b y la v')
+    expect(subskillLabel('es-tildes')).toBe('Las tildes')
+  })
+
+  it('ruleLang infers ca vs es from the id prefix', () => {
+    expect(ruleLang('ca-b-v')).toBe('ca')
+    expect(ruleLang('ca-majuscules')).toBe('ca')
+    expect(ruleLang('es-tildes')).toBe('es')
+    expect(ruleLang('es-mayusculas')).toBe('es')
+  })
+
+  it('every rule id is on the expected 1-4 difficulty scale', () => {
+    for (const id of ORTOGRAFIA_RULE_IDS) {
+      const def = CATALOG.aira.skills.ortografia.subskills[id]
+      expect(def.difficultyRange).toEqual([1, 4])
+    }
+  })
+
+  it('isOrtografiaRule recognizes rules and rejects other subskills', () => {
+    expect(isOrtografiaRule('ca-b-v')).toBe(true)
+    expect(isOrtografiaRule('es-tildes')).toBe(true)
+    expect(isOrtografiaRule('tablas')).toBe(false)
+    expect(isOrtografiaRule('diario')).toBe(false)
+    expect(isOrtografiaRule('nope')).toBe(false)
   })
 })
 

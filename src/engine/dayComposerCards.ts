@@ -112,16 +112,23 @@ function pickChallengeSubskill(
   return rng.pick(candidates)
 }
 
-/** Builds the `dictado` card: either a joke or the next unconsumed episode, with a deterministic date-patterned language. */
+/**
+ * Builds the `dictado` card: a joke, a rule-focused dictation (toward the
+ * child's weakest ortografia rule, or the parent's weekly pin), or a cultural
+ * story dictation — see `pickDictadoContent` for the balance. `subskill`
+ * carries the focus rule when the pick is rule-focused, so the attempt is
+ * recorded under that rule and the player can show the "avui treballem" banner.
+ */
 function buildDictadoCard(
   rng: Rng,
   content: ContentBundle,
   progress: ProfileProgress,
+  settings: ChildSettings,
   dateISO: string,
   seed: string,
 ): CardDescriptor {
-  const { contentRef, language } = pickDictadoContent(rng, content, progress, dateISO)
-  return { cardType: 'dictado', contentRef, generatorSeed: seed, language }
+  const { contentRef, language, focus } = pickDictadoContent(rng, content, progress, dateISO, settings.weeklyFocus)
+  return { cardType: 'dictado', contentRef, generatorSeed: seed, language, subskill: focus }
 }
 
 /**
@@ -262,7 +269,7 @@ export function buildAiraCards(
         cards.push(buildProblemaCard(rng, progress.attempts, settings, dateISO, gems, seed, surprise))
         break
       case 'dictado':
-        cards.push(buildDictadoCard(rng, content, progress, dateISO, seed))
+        cards.push(buildDictadoCard(rng, content, progress, settings, dateISO, seed))
         break
       case 'sabias-que':
         cards.push(buildSabiasQueCard(rng, content, progress, seed))

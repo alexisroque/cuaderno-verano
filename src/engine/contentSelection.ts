@@ -1,7 +1,10 @@
 import { createRng, type Rng } from '../lib/rng'
 import { daysBetween } from '../lib/dates'
 import type { ContentBundle, Episode, Series } from '../types/content'
-import type { ProfileProgress } from '../types/progress'
+import type { Attempt, ProfileProgress } from '../types/progress'
+import { episodeFocusLang } from '../content/schemas'
+import { masteryFor } from './mastery'
+import { ORTOGRAFIA_RULE_IDS, isOrtografiaRule, type SubskillId } from './skills'
 
 /**
  * Fixed epoch for the Catalan-dictation 3-day cycle, so the cycle boundary is
@@ -103,33 +106,162 @@ export function isJokeDay(rng: Rng): boolean {
   return rng.int(1, period) === 1
 }
 
-export interface DictadoPick {
-  contentRef?: { seriesId?: string; episodeId?: string; jokeId?: string }
-  language: 'ca' | 'es'
+/**
+ * Fixed epoch for the rule-focus vs cultural dictation cycle (mirrors the
+ * CA_CYCLE_EPOCH convention), so the balance pattern is stable regardless of
+ * when a chapter/campaign starts.
+ */
+const RULE_FOCUS_EPOCH = '2026-01-01'
+
+/**
+ * Balance between rule-focused dictations and cultural (story) dictations,
+ * over a repeating 3-day cycle: 2 rule-focus days + 1 cultural day. Spelling
+ * is Aira's weakness, so the day composer LEANS rule-focused (~2/3 of
+ * dictation days), but keeps the beloved cultural series in the mix (~1/3) so
+ * the summer story doesn't disappear. Deterministic per `dateISO` — same day
+ * always resolves the same way, preserving composeDay's "same inputs → equal
+ * page" invariant. A rule-focus day still falls back to a cultural dictation
+ * when no focus content exists for the target rule (today: only the fixture),
+ * so the day is never empty.
+ */
+const RULE_FOCUS_CYCLE: readonly ('rule' | 'cultural')[] = ['rule', 'rule', 'cultural']
+
+/** True if `dateISO` is a rule-focused dictation day per the balance cycle. */
+export function isRuleFocusDay(dateISO: string): boolean {
+  const dayIndex = daysBetween(RULE_FOCUS_EPOCH, dateISO)
+  const len = RULE_FOCUS_CYCLE.length
+  const pos = ((dayIndex % len) + len) % len
+  return RULE_FOCUS_CYCLE[pos] === 'rule'
+}
+
+/** True if `episode` is a rule-focused dictation (carries a `focus` tag). */
+function isFocusEpisode(episode: Episode): boolean {
+  return episode.focus !== undefined
 }
 
 /**
- * Picks the content + language for a `dictado` card: either a joke or the
- * next unconsumed episode. Language is the deterministic per-`dateISO`
- * pattern (see `pickDictationLanguage`), not seeded off `rng` — the joke/
- * episode pick and the joke-cadence check still use `rng`, so this keeps
- * joke-day behavior otherwise unchanged: a joke picked on a Catalan-pattern
- * day just carries `language: 'ca'` like any other dictation that day.
+ * The ortografia spelling rule the child is WEAKEST at, by min `masteryFor`
+ * across every rule. A never-attempted rule (mastery undefined) is treated as
+ * the weakest of all — untrained rules deserve first attention — and ties
+ * break by the catalog's declaration order (via ORTOGRAFIA_RULE_IDS), so the
+ * pick is deterministic. Returns the first rule id when there are no attempts
+ * at all. Assumes `ORTOGRAFIA_RULE_IDS` is non-empty (it always is).
+ */
+export function weakestOrtografiaRule(attempts: Attempt[]): SubskillId {
+  let weakest = ORTOGRAFIA_RULE_IDS[0]
+  // -1 sorts below any real mastery (0..1) so undefined/never-attempted wins.
+  let weakestScore = Infinity
+  for (const ruleId of ORTOGRAFIA_RULE_IDS) {
+    const relevant = attempts.filter((a) => a.subskill === ruleId)
+    const mastery = masteryFor(relevant, ruleId)
+    const score = mastery === undefined ? -1 : mastery
+    if (score < weakestScore) {
+      weakestScore = score
+      weakest = ruleId
+    }
+  }
+  return weakest
+}
+
+/**
+ * The rule to target for a rule-focus dictation: a parent's weekly pin wins
+ * (the first ortografia rule id in `weeklyFocus`, if any), otherwise the
+ * child's weakest rule. Keeps the adaptive default while honoring an explicit
+ * parent override.
+ */
+export function targetRule(attempts: Attempt[], weeklyFocus: string[]): SubskillId {
+  const pinned = weeklyFocus.find((id) => isOrtografiaRule(id))
+  return pinned ?? weakestOrtografiaRule(attempts)
+}
+
+/**
+ * Picks the next unconsumed focus episode whose rule === `rule`, lowest
+ * `order` first (rule series are sequential like any other). When every
+ * matching episode is consumed, resets (allows a repeat) rather than giving
+ * up, so a child who has seen all b/v dictations still gets a b/v dictation
+ * when b/v is the target. Returns undefined when no episode targets `rule`.
+ */
+export function pickFocusEpisodeForRule(
+  series: Series[],
+  rule: SubskillId,
+  consumed: string[],
+): { series: Series; episode: Episode } | undefined {
+  const consumedSet = new Set(consumed)
+  const matches: { series: Series; episode: Episode }[] = []
+  for (const s of series) {
+    for (const e of s.episodes) {
+      if (e.focus === rule) matches.push({ series: s, episode: e })
+    }
+  }
+  if (matches.length === 0) return undefined
+
+  const unconsumed = matches.filter((m) => !consumedSet.has(m.episode.id))
+  const pool = unconsumed.length > 0 ? unconsumed : matches
+  pool.sort((a, b) => a.episode.order - b.episode.order || a.series.id.localeCompare(b.series.id))
+  return pool[0]
+}
+
+/** Series filtered to those with at least one non-focus (cultural) episode. */
+function culturalSeries(series: Series[]): Series[] {
+  return series
+    .map((s) => ({ ...s, episodes: s.episodes.filter((e) => !isFocusEpisode(e)) }))
+    .filter((s) => s.episodes.length > 0)
+}
+
+export interface DictadoPick {
+  contentRef?: { seriesId?: string; episodeId?: string; jokeId?: string }
+  language: 'ca' | 'es'
+  /** The rule this dictation focuses on, when a rule-focused episode was chosen. */
+  focus?: SubskillId
+}
+
+/**
+ * Picks the content + language for a `dictado` card. Order of preference:
+ *
+ *  1. Joke day (unchanged cadence): serve a joke, language from the rotation.
+ *  2. Rule-focus day (see `isRuleFocusDay`): serve the next focus episode for
+ *     the target rule (parent pin > weakest rule, see `targetRule`). The
+ *     episode carries its own language (`episodeFocusLang`), so a b/v Catalan
+ *     dictation is always in Catalan regardless of the day's rotation. Falls
+ *     back to a cultural dictation when no focus content exists for that rule.
+ *  3. Cultural day (or the fallback above): serve the next unconsumed CULTURAL
+ *     (non-focus) episode, language from the deterministic rotation.
+ *
+ * Everything is deterministic per `dateISO` + progress, so composeDay's
+ * "same inputs → deep-equal page" invariant still holds. `settings.weeklyFocus`
+ * lets a parent pin the rule for the week (see `targetRule`).
  */
 export function pickDictadoContent(
   rng: Rng,
   content: ContentBundle,
   progress: ProfileProgress,
   dateISO: string,
+  weeklyFocus: string[] = [],
 ): DictadoPick {
   const language = pickDictationLanguage(dateISO)
+  const consumed = consumedIds(progress, 'episodes')
 
   if (isJokeDay(rng) && content.jokes.length > 0) {
     const joke = pickUnconsumed(rng, content.jokes, consumedIds(progress, 'jokes'))
     return { contentRef: joke ? { jokeId: joke.id } : undefined, language }
   }
 
-  const picked = pickNextEpisode(content.series, consumedIds(progress, 'episodes'))
+  if (isRuleFocusDay(dateISO)) {
+    const rule = targetRule(progress.attempts, weeklyFocus)
+    const focusPick = pickFocusEpisodeForRule(content.series, rule, consumed)
+    if (focusPick) {
+      return {
+        contentRef: { seriesId: focusPick.series.id, episodeId: focusPick.episode.id },
+        // A focus episode dictates in its own language, not the day's rotation.
+        language: episodeFocusLang(focusPick.episode) ?? language,
+        focus: focusPick.episode.focus,
+      }
+    }
+    // No focus content for this rule (e.g. only the fixture exists) → fall
+    // through to a cultural dictation so the day still has a dictado.
+  }
+
+  const picked = pickNextEpisode(culturalSeries(content.series), consumed)
   return {
     contentRef: picked ? { seriesId: picked.series.id, episodeId: picked.episode.id } : undefined,
     language,

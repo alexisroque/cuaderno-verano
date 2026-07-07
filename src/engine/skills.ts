@@ -94,13 +94,29 @@ export const CATALOG: {
         subskill('patrones-crecimiento', 'problemas', [2, 5]),
         subskill('proporcionalidad', 'problemas', [3, 5], { challenge: true }),
       ]),
+      // Ortografia subskills are the school-style spelling RULES a dictation
+      // can train, one rule per dictation ("avui treballem la b i la v"). Each
+      // id is prefixed by language (ca-*/es-*) so the same rule name (b/v, g/j,
+      // h) can coexist across Catalan and Spanish without colliding, and so a
+      // focus tag's language can be inferred from its id. Range [1,4] per spec.
       ortografia: skill('ortografia', [
-        subskill('accents-ca', 'ortografia', [1, 5]),
-        subskill('b-v', 'ortografia', [1, 5]),
-        subskill('essa-sorda', 'ortografia', [1, 5]),
-        subskill('apostrof', 'ortografia', [1, 5]),
-        subskill('maj', 'ortografia', [1, 5]),
-        subskill('puntuacio', 'ortografia', [1, 5]),
+        // Catalan rules
+        subskill('ca-accents', 'ortografia', [1, 4]),
+        subskill('ca-b-v', 'ortografia', [1, 4]),
+        subskill('ca-essa', 'ortografia', [1, 4]),
+        subskill('ca-ela-geminada', 'ortografia', [1, 4]),
+        subskill('ca-apostrof', 'ortografia', [1, 4]),
+        subskill('ca-h-muda', 'ortografia', [1, 4]),
+        subskill('ca-g-j', 'ortografia', [1, 4]),
+        subskill('ca-r-rr', 'ortografia', [1, 4]),
+        subskill('ca-majuscules', 'ortografia', [1, 4]),
+        // Spanish rules
+        subskill('es-b-v', 'ortografia', [1, 4]),
+        subskill('es-h', 'ortografia', [1, 4]),
+        subskill('es-g-j', 'ortografia', [1, 4]),
+        subskill('es-ll-y', 'ortografia', [1, 4]),
+        subskill('es-tildes', 'ortografia', [1, 4]),
+        subskill('es-mayusculas', 'ortografia', [1, 4]),
       ]),
       escritura: skill('escritura', [subskill('diario', 'escritura', [1, 5])]),
       lectura: skill('lectura', [
@@ -213,13 +229,23 @@ export const SUBSKILL_LABELS: Record<SubskillId, string> = {
   medida: 'Problemas de medida',
   'patrones-crecimiento': 'Patrones de crecimiento',
   proporcionalidad: 'Proporcionalidad',
-  // ortografia
-  'accents-ca': 'Acentos (catalán)',
-  'b-v': 'B / V',
-  'essa-sorda': 'S sorda / sonora',
-  apostrof: 'Apóstrofo',
-  maj: 'Mayúsculas',
-  puntuacio: 'Puntuación',
+  // ortografia — spelling rules. ca-* labels are kid-facing Catalan, es-*
+  // kid-facing Spanish (the rule names the child sees in the dictation banner).
+  'ca-accents': "L'accent i la dièresi",
+  'ca-b-v': 'La b i la v',
+  'ca-essa': 'La essa sorda i sonora',
+  'ca-ela-geminada': 'La ela geminada (l·l)',
+  'ca-apostrof': "L'apòstrof",
+  'ca-h-muda': 'La hac muda',
+  'ca-g-j': 'La g i la j',
+  'ca-r-rr': 'La r i la rr',
+  'ca-majuscules': 'Les majúscules',
+  'es-b-v': 'La b y la v',
+  'es-h': 'La hache',
+  'es-g-j': 'La g y la j',
+  'es-ll-y': 'La ll y la y',
+  'es-tildes': 'Las tildes',
+  'es-mayusculas': 'Las mayúsculas',
   // escritura / lectura
   diario: 'Diario',
   comprension: 'Comprensión lectora',
@@ -264,6 +290,25 @@ export const SUBSKILL_LABELS: Record<SubskillId, string> = {
 /** Friendly label for a subskill id, falling back to the raw id. */
 export function subskillLabel(id: SubskillId): string {
   return SUBSKILL_LABELS[id] ?? id
+}
+
+/**
+ * The spelling-rule subskill ids (ortografia), in declaration order, split by
+ * language. Single source of truth for the dictation `focus` tag: an episode's
+ * focus must be one of these, and the parent's weekly rule picker offers
+ * exactly these. Derived from the CATALOG so it can never drift from the
+ * catalog itself.
+ */
+export const ORTOGRAFIA_RULE_IDS: SubskillId[] = Object.keys(CATALOG.aira.skills.ortografia.subskills)
+
+/** Language of an ortografia rule id, inferred from its `ca-`/`es-` prefix. */
+export function ruleLang(ruleId: SubskillId): 'ca' | 'es' {
+  return ruleId.startsWith('es-') ? 'es' : 'ca'
+}
+
+/** True if `id` is a known ortografia spelling-rule subskill. */
+export function isOrtografiaRule(id: SubskillId): boolean {
+  return id in CATALOG.aira.skills.ortografia.subskills
 }
 
 /** Finds the skill id that owns `subskillId` for `profile`, or undefined if not found. */

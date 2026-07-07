@@ -147,6 +147,27 @@ describe('EpisodeSchema', () => {
     })
     expect(() => EpisodeSchema.parse(bad)).toThrow()
   })
+
+  it('accepts an untagged (cultural) episode with no focus', () => {
+    const parsed = EpisodeSchema.parse(makeEpisode())
+    expect(parsed.focus).toBeUndefined()
+  })
+
+  it('accepts a focus-tagged episode with a valid rule id + matching lang', () => {
+    expect(() => EpisodeSchema.parse(makeEpisode({ focus: 'ca-b-v', lang: 'ca' }))).not.toThrow()
+  })
+
+  it('accepts a focus-tagged episode with focus but no explicit lang', () => {
+    expect(() => EpisodeSchema.parse(makeEpisode({ focus: 'es-tildes' }))).not.toThrow()
+  })
+
+  it('rejects an unknown focus rule id', () => {
+    expect(() => EpisodeSchema.parse(makeEpisode({ focus: 'ca-nope' }))).toThrow()
+  })
+
+  it('rejects a focus/lang mismatch (ca rule tagged es)', () => {
+    expect(() => EpisodeSchema.parse(makeEpisode({ focus: 'ca-b-v', lang: 'es' }))).toThrow(/disagrees/i)
+  })
 })
 
 describe('SeriesSchema / validateSeries', () => {

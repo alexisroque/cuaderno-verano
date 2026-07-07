@@ -1,0 +1,112 @@
+{
+  "id": "ortografia-mostra",
+  "title": "Dictats de regla",
+  "emoji": "✏️",
+  "episodes": [
+    {
+      "id": "ort-01-ca-b-v",
+      "order": 1,
+      "title": "La b i la v",
+      "focus": "ca-b-v",
+      "lang": "ca",
+      "dictation": {
+        "ca": "La Berta vivia en un poble vora el riu. Cada vespre baixava a veure com volaven els ocells. El seu avi li havia explicat que abans allà hi havia un bosc molt vell.",
+        "es": "Berta vivía en un pueblo junto al río. Cada tarde bajaba a ver cómo volaban los pájaros. Su abuelo le había contado que antes allí había un bosque muy viejo."
+      },
+      "factExtra": {
+        "ca": "Sabies que en català la b i la v es pronuncien gairebé igual en molts llocs? Per això cal recordar bé com s'escriu cada paraula.",
+        "es": "¿Sabías que en catalán la b y la v se pronuncian casi igual en muchos lugares? Por eso hay que recordar bien cómo se escribe cada palabra."
+      },
+      "hook": "Demà practicarem els accents i la dièresi.",
+      "questions": [
+        {
+          "q": "On vivia la Berta?",
+          "choices": ["En un poble vora el riu", "A la ciutat gran", "Dalt d'una muntanya", "Vora el mar"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que és important recordar quan s'escriu b i quan v?",
+          "choices": [
+            "Perquè sonen igual i cal saber-ho de memòria",
+            "Perquè no importa gens",
+            "Perquè la b és més bonica",
+            "Perquè la v s'escriu més ràpid"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ort-02-ca-accents",
+      "order": 2,
+      "title": "L'accent i la dièresi",
+      "focus": "ca-accents",
+      "lang": "ca",
+      "dictation": {
+        "ca": "El científic estudiava la història del cel amb molta atenció. Deia que la Lluna i el Sol són com dos veïns antics. La seva família el trobava una mica despistat, però savi.",
+        "es": "El científico estudiaba la historia del cielo con mucha atención. Decía que la Luna y el Sol son como dos vecinos antiguos. Su familia lo encontraba un poco despistado, pero sabio."
+      },
+      "factExtra": {
+        "ca": "Sabies que la dièresi (¨) serveix per dir que la u sí que sona, com a \"pingüí\" o \"qüestió\"?",
+        "es": "¿Sabías que la diéresis (¨) sirve para indicar que la u sí suena, como en \"pingüí\" o \"qüestió\"?"
+      },
+      "hook": "Demà farem un dictat en castellà amb les tildes.",
+      "questions": [
+        {
+          "q": "Què estudiava el científic?",
+          "choices": ["La història del cel", "Els peixos del riu", "Les plantes del jardí", "Els cotxes antics"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "Per què creus que els accents ajuden qui llegeix un text?",
+          "choices": [
+            "Perquè indiquen com s'ha de pronunciar cada paraula",
+            "Perquè fan el text més curt",
+            "Perquè no serveixen de res",
+            "Perquè només decoren les lletres"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    },
+    {
+      "id": "ort-03-es-tildes",
+      "order": 3,
+      "title": "Las tildes",
+      "focus": "es-tildes",
+      "lang": "es",
+      "dictation": {
+        "ca": "En Martí va escriure una redacció sobre el seu àlbum de fotos preferit. Hi sortien un músic, un pàrquing i un cangur. La mestra li va dir que havia posat molt bé els accents.",
+        "es": "Martín escribió una redacción sobre su álbum de fotos preferido. Aparecían un músico, un pájaro y un canguro. La maestra le dijo que había puesto muy bien las tildes."
+      },
+      "factExtra": {
+        "ca": "Sabies que en castellà les paraules esdrúixoles, com \"música\" o \"pájaro\", sempre porten tilde?",
+        "es": "¿Sabías que en español las palabras esdrújulas, como \"música\" o \"pájaro\", siempre llevan tilde?"
+      },
+      "hook": "Demà tornarem als dictats de la sèrie d'aventures.",
+      "questions": [
+        {
+          "q": "¿Sobre qué escribió Martín su redacción?",
+          "choices": ["Su álbum de fotos preferido", "Un partido de fútbol", "Sus vacaciones en el mar", "Su mascota nueva"],
+          "correctIdx": 0,
+          "kind": "literal"
+        },
+        {
+          "q": "¿Por qué crees que conviene fijarse en las tildes al escribir?",
+          "choices": [
+            "Porque cambian cómo se lee y a veces el significado de la palabra",
+            "Porque hacen la letra más grande",
+            "Porque no sirven para nada",
+            "Porque solo adornan el texto"
+          ],
+          "correctIdx": 0,
+          "kind": "reflexiva"
+        }
+      ]
+    }
+  ]
+}

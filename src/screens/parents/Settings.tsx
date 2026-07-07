@@ -4,6 +4,9 @@ import {
   CATALOG,
   SKILL_META,
   subskillLabel,
+  ORTOGRAFIA_RULE_IDS,
+  isOrtografiaRule,
+  ruleLang,
   type SkillId,
   type SubskillDef,
 } from '../../engine/skills'
@@ -97,6 +100,19 @@ export function Settings({ profile }: { profile: ProfileId }) {
 
   const challengePercent = Math.round(settings.challengeFrequency * 100)
 
+  // The child has an ortografia skill (Aira) → offer the weekly spelling-rule
+  // pin. The pinned rule is whichever ortografia rule currently sits in
+  // weeklyFocus (at most one); setting it replaces that entry while leaving any
+  // non-ortografia focus subtemas untouched.
+  const hasOrtografia = 'ortografia' in CATALOG[profile].skills
+  const pinnedRule = settings.weeklyFocus.find((id) => isOrtografiaRule(id)) ?? ''
+
+  function setPinnedRule(ruleId: string) {
+    const rest = settings.weeklyFocus.filter((id) => !isOrtografiaRule(id))
+    const next = ruleId ? [...rest, ruleId].slice(0, MAX_FOCUS) : rest
+    update(profile, { weeklyFocus: next })
+  }
+
   function toggleFocus(id: string) {
     const current = settings.weeklyFocus
     if (current.includes(id)) {
@@ -154,6 +170,40 @@ export function Settings({ profile }: { profile: ProfileId }) {
           Ahora: {challengePercent === 0 ? 'sin desafíos' : `~${challengePercent}% de los días`}.
         </p>
       </Section>
+
+      {hasOrtografia && (
+        <Section
+          title="Regla de ortografía de la semana ✏️"
+          hint="Fija una regla y los dictados de la semana la trabajarán a fondo. Si no fijas ninguna, el motor elige la regla en la que va más floja."
+        >
+          <select
+            aria-label="Regla de ortografía de la semana"
+            value={pinnedRule}
+            onChange={(e) => setPinnedRule(e.target.value)}
+            className="min-h-[48px] w-full rounded-2xl px-4 text-sm font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--navy)]"
+            style={{ background: 'var(--bg)', color: 'var(--ink)' }}
+          >
+            <option value="">Automático (regla más floja)</option>
+            <optgroup label="Catalán">
+              {ORTOGRAFIA_RULE_IDS.filter((id) => ruleLang(id) === 'ca').map((id) => (
+                <option key={id} value={id}>
+                  {subskillLabel(id)}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label="Castellano">
+              {ORTOGRAFIA_RULE_IDS.filter((id) => ruleLang(id) === 'es').map((id) => (
+                <option key={id} value={id}>
+                  {subskillLabel(id)}
+                </option>
+              ))}
+            </optgroup>
+          </select>
+          <p className="mt-2 text-xs" style={{ color: 'var(--ink-soft)' }}>
+            {pinnedRule ? `Fijada: ${subskillLabel(pinnedRule)}.` : 'Ahora mismo: automático.'}
+          </p>
+        </Section>
+      )}
 
       <Section
         title="Modo foco semanal"

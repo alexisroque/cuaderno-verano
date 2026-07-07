@@ -7,6 +7,8 @@ import { todayISO } from '../../lib/clock'
 import { speak, voicesAvailable, type TtsLang } from '../../lib/tts'
 import { splitSentences } from '../../lib/sentences'
 import { diffText, isCorrectEnough, type TextDiff } from '../../lib/textDiff'
+import { subskillForDictation, ruleFeedbackLine, focusBannerText } from '../../lib/ruleFeedback'
+import { subskillLabel } from '../../engine/skills'
 import { useProfileStore } from '../../state/profileStore'
 import { useProgressStore } from '../../state/progressStore'
 import { usePlayerStore } from '../../state/playerStore'
@@ -22,17 +24,6 @@ import { DiffReview } from './DiffReview'
 /** Card language ('ca'|'es') -> BCP-47 tag the TTS wrapper speaks. */
 function ttsLang(lang: 'ca' | 'es'): TtsLang {
   return lang === 'ca' ? 'ca-ES' : 'es-ES'
-}
-
-/**
- * Maps a self-correction diff to an ortografia subskill for the attempt. Kept
- * deliberately simple (spec: "keep the mapping simple and documented"): if the
- * dominant error class is accents, tag `accents-ca`; otherwise fall back to the
- * general `essa-sorda` spelling subskill. Accent-perfect answers still tag
- * `accents-ca` since accents are the dictation's whole point.
- */
-function subskillForDiff(diff: TextDiff): string {
-  return diff.spellingCount > diff.accentCount ? 'essa-sorda' : 'accents-ca'
 }
 
 /**
@@ -80,6 +71,7 @@ export function DictationPlayer() {
           factExtra: found.episode.factExtra[lang],
           hook: found.episode.hook,
           consumeId: found.episode.id,
+          focus: found.episode.focus,
           lang,
         }
     }
@@ -97,6 +89,7 @@ export function DictationPlayer() {
           factExtra: '',
           hook: '',
           consumeId: joke!.id,
+          focus: undefined,
           lang,
         }
     }
@@ -123,7 +116,7 @@ export function DictationPlayer() {
     recordAttempt(profile, {
       dateISO: todayISO(),
       cardType: 'dictado',
-      subskill: subskillForDiff(d),
+      subskill: subskillForDictation(resolved.focus, d, resolved.lang),
       correct,
       hintsUsed: 0,
       ms: Date.now() - startedAt.current,
@@ -150,6 +143,16 @@ export function DictationPlayer() {
             subtitle={resolved.kind === 'episode' ? `Episodio ${resolved.order} · ${resolved.title}` : '¡A escribir!'}
             accent="var(--sky)"
           />
+
+          {resolved.focus && (
+            <div
+              className="mt-3 flex items-center gap-2 rounded-2xl px-3 py-2.5 text-sm font-extrabold"
+              style={{ background: '#eaf3fb', color: '#2f6690' }}
+            >
+              <span aria-hidden>✏️</span>
+              {focusBannerText(resolved.focus, subskillLabel(resolved.focus))}
+            </div>
+          )}
 
           {voiceMissing ? (
             <div className="rounded-2xl p-3 text-sm" style={{ background: 'var(--bg)' }}>
@@ -208,6 +211,11 @@ export function DictationPlayer() {
                 <p className="mb-1 text-sm font-extrabold">Casi… mira las palabras marcadas:</p>
               )}
               <DiffReview diff={diff} />
+              {resolved.focus && ruleFeedbackLine(resolved.focus, diff, resolved.lang) && (
+                <p className="mt-3 rounded-2xl px-3 py-2 text-sm font-bold" style={{ background: '#eaf3fb', color: '#2f6690' }}>
+                  {ruleFeedbackLine(resolved.focus, diff, resolved.lang)}
+                </p>
+              )}
               <p className="mt-3 text-xs" style={{ color: 'var(--ink-soft)' }}>
                 <span style={{ color: '#3f7d55' }}>■</span> bien&nbsp;&nbsp;
                 <span style={{ color: '#d98363' }}>■</span> acento&nbsp;&nbsp;

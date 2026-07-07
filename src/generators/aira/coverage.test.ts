@@ -20,7 +20,9 @@ import { getGenerator } from '../framework'
  * subskill (including challenge ones) is expected to be generator-backed;
  * everything under the other 6 Aira skills is content-driven instead:
  *
- *   - ortografia: accents-ca, b-v, essa-sorda, apostrof, maj, puntuacio
+ *   - ortografia: ca-accents, ca-b-v, ca-essa, ca-ela-geminada, ca-apostrof,
+ *                 ca-h-muda, ca-g-j, ca-r-rr, ca-majuscules, es-b-v, es-h,
+ *                 es-g-j, es-ll-y, es-tildes, es-mayusculas (spelling rules)
  *   - escritura:  diario
  *   - lectura:    comprension, reflexion
  *   - english:    reading, vocab
