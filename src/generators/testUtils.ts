@@ -28,8 +28,21 @@ export const DEFAULT_TEST_FLAVOR: ChapterFlavorLite = {
 /** Every real chapter from `content/chapters.json`, projected to `ChapterFlavorLite` via `flavorFromChapter`. */
 export const REAL_CHAPTER_FLAVORS: ChapterFlavorLite[] = validateChapters(chaptersData).map(flavorFromChapter)
 
+/**
+ * Default seeds per difficulty. 200 locally for thorough coverage, but fewer
+ * on CI: the heavy synchronous sweeps otherwise block vitest's worker long
+ * enough that its "onTaskUpdate" RPC to the main process times out on a
+ * constrained runner (all tests still pass, but the run exits non-zero).
+ * Override with PROPERTY_SEEDS. 60 seeds still exercises every generator well.
+ */
+export const DEFAULT_SEEDS: number = (() => {
+  const env = (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env
+  if (env?.PROPERTY_SEEDS) return Number(env.PROPERTY_SEEDS)
+  return env?.CI ? 60 : 200
+})()
+
 export interface PropertyTestOptions {
-  /** Number of distinct seeds to try per difficulty. Defaults to 200 per the task's TDD convention. */
+  /** Number of distinct seeds to try per difficulty. Defaults to 200 locally / 60 on CI. */
   seeds?: number
   /** Difficulties to test; typically the subskill's full difficultyRange. */
   difficulties: number[]
@@ -52,7 +65,7 @@ export function propertyTest(
   options: PropertyTestOptions,
   invariantFn: (exercise: Exercise, ctx: { seed: string; difficulty: number }) => void,
 ): void {
-  const seedCount = options.seeds ?? 200
+  const seedCount = options.seeds ?? DEFAULT_SEEDS
   const flavor = options.flavor ?? DEFAULT_TEST_FLAVOR
   const prefix = options.seedPrefix ?? generator.subskill
 

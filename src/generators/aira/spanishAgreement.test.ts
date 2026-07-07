@@ -3,7 +3,7 @@ import './index'
 import '../leo/index'
 import { createRng } from '../../lib/rng'
 import { listRegistered, getGenerator } from '../framework'
-import { REAL_CHAPTER_FLAVORS } from '../testUtils'
+import { REAL_CHAPTER_FLAVORS, DEFAULT_SEEDS } from '../testUtils'
 
 /**
  * Repo-wide Spanish-agreement sweep: scans every piece of Spanish prose a
@@ -63,7 +63,7 @@ function allProseIn(exercise: { prompt: { text: string }; strategies: { steps: {
 
 describe('Spanish-agreement sweep (repo-wide)', () => {
   const subskills = listRegistered()
-  const seeds = 200
+  const seeds = DEFAULT_SEEDS
 
   it('has generators registered to sweep', () => {
     expect(subskills.length).toBeGreaterThan(0)

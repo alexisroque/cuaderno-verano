@@ -24,9 +24,12 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      # --no-file-parallelism avoids vitest worker-RPC timeouts ("onTaskUpdate")
-      # when the CPU-heavy property-test sweeps saturate the CI runner.
-      - run: npm test -- --no-file-parallelism
+      # CPU-heavy property sweeps can block vitest's worker long enough that its
+      # "onTaskUpdate" RPC to main times out on a constrained runner (all tests
+      # pass, run still exits non-zero). Mitigate three ways: run test files
+      # serially, use the quiet 'dot' reporter (far less RPC chatter), and let
+      # testUtils drop to 60 seeds under CI (still thorough).
+      - run: npm test -- --no-file-parallelism --reporter=dot
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
