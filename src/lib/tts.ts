@@ -7,6 +7,8 @@
  * every function degrades to a safe no-op instead of throwing.
  */
 
+import { GOOD_VOICE_NAMES, LOW_QUALITY_HINTS, NOVELTY_VOICE_NAMES, QUALITY_HINTS, TIER } from './voiceLists'
+
 /** BCP-47 language tags the app speaks in. */
 export type TtsLang = 'es-ES' | 'ca-ES' | 'en-US' | 'en-GB'
 
@@ -30,16 +32,6 @@ export interface VoicesAvailable {
 /** Slightly slower than default so young children can follow along. */
 const KID_RATE = 0.9
 
-/**
- * Substrings (case-insensitive) that mark a voice as high quality: Apple's
- * Siri/enhanced/premium voices and neural/natural web voices. Checked against
- * both `name` and `voiceURI` since platforms expose the tier differently.
- */
-const QUALITY_HINTS = ['siri', 'premium', 'enhanced', 'neural', 'natural']
-
-/** Substrings that mark a voice as low quality (robotic / formant synths). */
-const LOW_QUALITY_HINTS = ['compact', 'eloquence', 'espeak']
-
 function synth(): SpeechSynthesis | undefined {
   if (typeof globalThis === 'undefined') return undefined
   const s = (globalThis as { speechSynthesis?: SpeechSynthesis }).speechSynthesis
@@ -52,21 +44,50 @@ function primary(lang: string): string {
 }
 
 /** True when `name`/`voiceURI` contains any of `hints` (case-insensitive). */
-function matchesHint(voice: SpeechSynthesisVoice, hints: string[]): boolean {
+function matchesHint(voice: SpeechSynthesisVoice, hints: readonly string[]): boolean {
   const haystack = `${voice.name} ${voice.voiceURI}`.toLowerCase()
   return hints.some((h) => haystack.includes(h))
 }
 
+/** True when `voice.name` contains any of `names` (case-insensitive). */
+function nameMatches(voice: SpeechSynthesisVoice, names: readonly string[]): boolean {
+  const name = voice.name.toLowerCase()
+  return names.some((n) => name.includes(n))
+}
+
+/** True when on the curated novelty denylist. */
+function isNovelty(voice: SpeechSynthesisVoice): boolean {
+  return nameMatches(voice, NOVELTY_VOICE_NAMES)
+}
+
+/** True when on the curated good-voice allowlist for its family. */
+function isGood(voice: SpeechSynthesisVoice): boolean {
+  const family = primary(voice.lang) as VoiceLangFamily
+  const list = GOOD_VOICE_NAMES[family]
+  return list !== undefined && nameMatches(voice, list)
+}
+
 /**
- * Scores a candidate voice for `lang` (higher = better). Weights are spread so
- * quality tier dominates (Siri/enhanced beats robotic even at worse region),
- * then exact region, then locality (offline). `-Infinity` = wrong family.
+ * Hard quality tier of a voice (higher = better). Strict ordering, never
+ * crossed by `scoreVoice`'s region/locality bonuses: Siri > allowlisted-good >
+ * plain > compact-marked > novelty. Denylist wins over allowlist.
+ */
+function voiceTier(voice: SpeechSynthesisVoice): number {
+  if (matchesHint(voice, QUALITY_HINTS)) return TIER.siri
+  if (isNovelty(voice)) return TIER.novelty
+  if (isGood(voice)) return TIER.good
+  if (matchesHint(voice, LOW_QUALITY_HINTS)) return TIER.lowQuality
+  return TIER.plain
+}
+
+/**
+ * Scores a candidate voice for `lang` (higher = better). Quality tier dominates;
+ * exact region (+100) and offline locality (+10) only break ties WITHIN a tier
+ * (tier gap 1000 » max bonus 110). `-Infinity` = wrong family.
  */
 function scoreVoice(voice: SpeechSynthesisVoice, lang: TtsLang): number {
   if (primary(voice.lang) !== primary(lang)) return -Infinity
-  let score = 0
-  if (matchesHint(voice, QUALITY_HINTS)) score += 1000
-  if (matchesHint(voice, LOW_QUALITY_HINTS)) score -= 1000
+  let score = voiceTier(voice)
   if (voice.lang.toLowerCase() === lang.toLowerCase()) score += 100 // exact region
   if (voice.localService) score += 10 // offline preferred
   return score
@@ -223,18 +244,22 @@ export function voicesAvailable(): VoicesAvailable {
 /** Coarse quality tier of a single voice, from its name/voiceURI hints. */
 export type VoiceQuality = 'high' | 'neutral' | 'low'
 
-/** Classifies a voice's quality tier (high = Siri/enhanced, low = robotic). */
+/**
+ * Classifies a voice's quality tier (high = Siri/enhanced/allowlisted,
+ * low = robotic or novelty). Used for the "download a better voice" nudge.
+ */
 export function voiceQuality(voice: SpeechSynthesisVoice): VoiceQuality {
   if (matchesHint(voice, QUALITY_HINTS)) return 'high'
+  if (isNovelty(voice)) return 'low'
+  if (isGood(voice)) return 'high'
   if (matchesHint(voice, LOW_QUALITY_HINTS)) return 'low'
   return 'neutral'
 }
 
 /**
- * Whether the best installed voice for `family` looks robotic or is missing,
- * i.e. worth nudging the parent to download an enhanced/Siri voice. Pure over
- * its `voices` argument. Returns true when there is no voice at all, or when
- * the best-scored candidate is classified `low`.
+ * Whether the best installed voice for `family` is robotic/novelty or missing,
+ * i.e. worth nudging the parent to download an enhanced/Siri voice. Pure. True
+ * when there is no voice at all, or the best-scored candidate is `low`.
  */
 export function needsBetterVoice(
   voices: SpeechSynthesisVoice[],

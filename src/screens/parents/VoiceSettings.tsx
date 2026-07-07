@@ -3,6 +3,7 @@ import { useSettingsStore } from '../../state/settingsStore'
 import {
   getLiveVoices,
   speak,
+  voiceQuality,
   voicesForLang,
   waitForVoices,
   type TtsLang,
@@ -16,9 +17,12 @@ const LANGS: { family: VoiceLangFamily; label: string; tts: TtsLang; sample: str
   { family: 'en', label: 'English', tts: 'en-US', sample: 'Hello! I will read the stories to you.' },
 ]
 
-/** Human label for a voice option: name + an offline marker when local. */
+/** Human label for a voice option: name, a quality mark, + offline marker. */
 function voiceLabel(v: SpeechSynthesisVoice): string {
-  return v.localService ? `${v.name} (sin conexión)` : v.name
+  const quality = voiceQuality(v)
+  const mark = quality === 'high' ? '⭐ ' : quality === 'low' ? '🤖 ' : ''
+  const offline = v.localService ? ' (sin conexión)' : ''
+  return `${mark}${v.name}${offline}`
 }
 
 function LangPicker({
@@ -38,6 +42,11 @@ function LangPicker({
   const setVoicePref = useSettingsStore((s) => s.setVoicePref)
   const options = voicesForLang(voices, family)
 
+  // The voice that will actually speak: the parent's pick, else the best (first,
+  // since `options` is sorted best-first). Drives the "voz actual" caption.
+  const active = options.find((v) => v.voiceURI === chosen) ?? options[0]
+  const bestIsRobotic = options.length > 0 && voiceQuality(options[0]) === 'low'
+
   return (
     <div className="rounded-2xl px-4 py-3" style={{ background: 'var(--bg)' }}>
       <div className="mb-2 flex items-center justify-between gap-3">
@@ -48,7 +57,7 @@ function LangPicker({
           type="button"
           onClick={() => speak(sample, tts, { [family]: chosen })}
           disabled={options.length === 0}
-          className="min-h-[40px] rounded-full px-4 text-sm font-bold text-white transition-transform active:translate-y-[1px] disabled:opacity-40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--navy)]"
+          className="min-h-[48px] rounded-full px-6 text-base font-bold text-white transition-transform active:translate-y-[1px] disabled:opacity-40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--navy)]"
           style={{ background: 'var(--peach)', boxShadow: '0 3px 0 #d98363' }}
         >
           Probar 🔊
@@ -60,20 +69,33 @@ function LangPicker({
           No hay ninguna voz de este idioma instalada.
         </p>
       ) : (
-        <select
-          value={chosen ?? ''}
-          onChange={(e) => setVoicePref(family, e.target.value === '' ? undefined : e.target.value)}
-          aria-label={`Voz para ${label}`}
-          className="min-h-[44px] w-full rounded-xl px-3 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--navy)]"
-          style={{ background: 'var(--card)', color: 'var(--ink)' }}
-        >
-          <option value="">Automática (la mejor disponible)</option>
-          {options.map((v) => (
-            <option key={v.voiceURI} value={v.voiceURI}>
-              {voiceLabel(v)}
-            </option>
-          ))}
-        </select>
+        <>
+          <select
+            value={chosen ?? ''}
+            onChange={(e) => setVoicePref(family, e.target.value === '' ? undefined : e.target.value)}
+            aria-label={`Voz para ${label}`}
+            className="min-h-[44px] w-full rounded-xl px-3 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--navy)]"
+            style={{ background: 'var(--card)', color: 'var(--ink)' }}
+          >
+            <option value="">Automática (la mejor disponible)</option>
+            {options.map((v) => (
+              <option key={v.voiceURI} value={v.voiceURI}>
+                {voiceLabel(v)}
+              </option>
+            ))}
+          </select>
+          {active && (
+            <p className="mt-1 text-xs" style={{ color: 'var(--ink-soft)' }}>
+              Voz actual: <strong>{active.name}</strong>
+              {chosen ? '' : ' (elegida automáticamente)'}
+            </p>
+          )}
+          {bestIsRobotic && (
+            <p className="mt-1 text-xs font-semibold" style={{ color: 'var(--peach)' }}>
+              Solo hay una voz robótica para este idioma. Descarga una voz «Mejorada» o de Siri (ver abajo).
+            </p>
+          )}
+        </>
       )}
     </div>
   )
@@ -108,8 +130,8 @@ export function VoiceSettings() {
         Voz de los dictados
       </h3>
       <p className="mt-1 mb-4 text-xs" style={{ color: 'var(--ink-soft)' }}>
-        Elige la voz que leerá cada idioma y pruébala. Las voces «sin conexión» funcionan sin
-        internet.
+        Elige la voz que leerá cada idioma y pruébala. Las voces salen ordenadas de mejor a peor:
+        ⭐ = natural (Siri/Mejorada), 🤖 = robótica. Las voces «sin conexión» funcionan sin internet.
       </p>
 
       <div className="flex flex-col gap-3">

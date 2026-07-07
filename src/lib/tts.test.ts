@@ -115,10 +115,60 @@ describe('pickVoice', () => {
   })
 
   it('breaks ties deterministically by voiceURI (stable across reloads)', () => {
-    const b = voice('es-ES', 'Bruno', true)
+    const b = voice('es-ES', 'Brunilda', true)
     const a = voice('es-ES', 'Alba', true)
     expect(pickVoice([b, a], 'es-ES')).toBe(a)
     expect(pickVoice([a, b], 'es-ES')).toBe(a)
+  })
+
+  it('a plain voice beats a novelty voice (Eddy loses)', () => {
+    const novelty = voice('es-ES', 'Eddy', true)
+    const plain = voice('es-ES', 'Voz Neutra', true)
+    expect(pickVoice([novelty, plain], 'es-ES')).toBe(plain)
+  })
+
+  it('an allowlisted good es voice (Mónica) beats a novelty (Eddy)', () => {
+    const eddy = voice('es-ES', 'Eddy', true)
+    const monica = voice('es-ES', 'Mónica', true)
+    expect(pickVoice([eddy, monica], 'es-ES')).toBe(monica)
+  })
+
+  it('an allowlisted good en voice (Samantha) beats a novelty (Eddy)', () => {
+    const eddy = voice('en-US', 'Eddy', true)
+    const samantha = voice('en-US', 'Samantha', true)
+    expect(pickVoice([eddy, samantha], 'en-US')).toBe(samantha)
+  })
+
+  it('an allowlisted good voice beats a plain unknown one', () => {
+    const plain = voice('es-ES', 'Voz Neutra', true)
+    const monica = voice('es-ES', 'Mónica', true)
+    expect(pickVoice([plain, monica], 'es-ES')).toBe(monica)
+  })
+
+  it('a Siri voice beats everything (allowlisted + novelty)', () => {
+    const novelty = voice('es-ES', 'Eddy', true)
+    const good = voice('es-ES', 'Mónica', true)
+    const siri = voice('es-ES', 'Voz Siri', true)
+    expect(pickVoice([novelty, good, siri], 'es-ES')).toBe(siri)
+  })
+
+  it('novelty ranks below a compact-marked voice', () => {
+    const novelty = voice('es-ES', 'Zarvox', true)
+    const compact = voice('es-ES', 'Voz (compact)', true)
+    expect(pickVoice([novelty, compact], 'es-ES')).toBe(compact)
+  })
+
+  it('still returns a voice when the only option is a novelty one', () => {
+    const novelty = voice('es-ES', 'Rocko', true)
+    expect(pickVoice([novelty], 'es-ES')).toBe(novelty)
+  })
+
+  it('picks the least-bad among only novelty voices (deterministic)', () => {
+    const flo = voice('es-ES', 'Flo', true)
+    const eddy = voice('es-ES', 'Eddy', true)
+    // Same tier + region + locality → deterministic tiebreak by voiceURI.
+    expect(pickVoice([flo, eddy], 'es-ES')).toBe(eddy)
+    expect(pickVoice([eddy, flo], 'es-ES')).toBe(eddy)
   })
 })
 
@@ -128,11 +178,19 @@ describe('voiceQuality', () => {
     expect(voiceQuality(voice('es-ES', 'Siri Voice'))).toBe('high')
   })
   it('classifies compact/eloquence/espeak as low', () => {
-    expect(voiceQuality(voice('es-ES', 'Mónica compact'))).toBe('low')
+    expect(voiceQuality(voice('es-ES', 'Zzz compact'))).toBe('low')
     expect(voiceQuality(voice('es-ES', 'eSpeak es'))).toBe('low')
   })
-  it('classifies a plain voice as neutral', () => {
-    expect(voiceQuality(voice('es-ES', 'Mónica'))).toBe('neutral')
+  it('classifies a novelty voice as low', () => {
+    expect(voiceQuality(voice('es-ES', 'Eddy'))).toBe('low')
+    expect(voiceQuality(voice('en-US', 'Zarvox'))).toBe('low')
+  })
+  it('classifies an allowlisted good voice as high', () => {
+    expect(voiceQuality(voice('es-ES', 'Mónica'))).toBe('high')
+    expect(voiceQuality(voice('en-US', 'Samantha'))).toBe('high')
+  })
+  it('classifies an unknown plain voice as neutral', () => {
+    expect(voiceQuality(voice('es-ES', 'Voz Desconocida'))).toBe('neutral')
   })
 })
 
