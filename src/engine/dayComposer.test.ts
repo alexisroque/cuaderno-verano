@@ -144,13 +144,28 @@ describe('composeDay', () => {
     expect(day1).toEqual(day2)
   })
 
-  it('produces the Aira card sequence [problema, dictado, sabias-que, diario] with default mission size 4', () => {
-    const day = composeDay('2026-07-16', 'aira', progress(), bundle(), settings({ missionSize: 4 }), {})
-    expect(day.cards.map((c) => c.cardType)).toEqual(['problema', 'dictado', 'sabias-que', 'diario'])
+  it('produces one Aira card per enabled skill (all 8) in the fixed display order by default', () => {
+    const day = composeDay('2026-07-16', 'aira', progress(), bundle(), settings(), {})
+    expect(day.cards.map((c) => c.cardType)).toEqual([
+      'calculo',
+      'problemas',
+      'dictado',
+      'diario',
+      'sabias-que',
+      'english',
+      'geografia',
+      'mundo',
+    ])
   })
 
-  it('produces the Leo card sequence [trazos, contar, english, sorpresa-rotatoria] with mission size 3+sorpresa', () => {
-    const day = composeDay('2026-07-16', 'leo', progress(), bundle(), settings({ missionSize: 3 }), {})
+  it('never contains two Aira cards of the same cardType by default', () => {
+    const day = composeDay('2026-07-16', 'aira', progress(), bundle(), settings(), {})
+    const types = day.cards.map((c) => c.cardType)
+    expect(new Set(types).size).toBe(types.length)
+  })
+
+  it('produces the Leo card sequence [trazos, contar, english, sorpresa-rotatoria] (one per enabled skill)', () => {
+    const day = composeDay('2026-07-16', 'leo', progress(), bundle(), settings(), {})
     expect(day.cards.map((c) => c.cardType)).toEqual(['trazos', 'contar', 'english', 'sorpresa-rotatoria'])
   })
 
@@ -213,22 +228,44 @@ describe('composeDay', () => {
     expect(diario?.contentRef).toMatchObject({ promptId: 'prompt-3' })
   })
 
-  it('the problema card subskill belongs to problemas or calculo', () => {
+  it('the calculo card subskill belongs to the calculo skill', () => {
+    const CALCULO_SUBSKILLS = new Set(Object.keys(CATALOG.aira.skills.calculo.subskills))
     const day = composeDay('2026-07-16', 'aira', progress(), bundle(), settings(), {})
-    const problema = day.cards.find((c) => c.cardType === 'problema')
-    expect(problema?.subskill).toBeDefined()
+    const calculo = day.cards.find((c) => c.cardType === 'calculo')
+    expect(CALCULO_SUBSKILLS.has(calculo?.subskill ?? '')).toBe(true)
   })
 
-  it('the problema card sets a difficulty derived from mastery + settings offset, clamped to range', () => {
+  it('the problemas card subskill belongs to the problemas skill', () => {
+    const PROBLEMAS_SUBSKILLS = new Set(Object.keys(CATALOG.aira.skills.problemas.subskills))
     const day = composeDay('2026-07-16', 'aira', progress(), bundle(), settings(), {})
-    const problema = day.cards.find((c) => c.cardType === 'problema')
-    expect(typeof problema?.difficulty).toBe('number')
+    const problemas = day.cards.find((c) => c.cardType === 'problemas')
+    expect(PROBLEMAS_SUBSKILLS.has(problemas?.subskill ?? '')).toBe(true)
   })
 
-  it('respects a custom Aira missionSize', () => {
-    const day = composeDay('2026-07-16', 'aira', progress(), bundle(), settings({ missionSize: 2 }), {})
-    expect(day.cards).toHaveLength(2)
-    expect(day.cards.map((c) => c.cardType)).toEqual(['problema', 'dictado'])
+  it('the calculo and problemas cards set a numeric difficulty clamped to their range', () => {
+    const day = composeDay('2026-07-16', 'aira', progress(), bundle(), settings(), {})
+    expect(typeof day.cards.find((c) => c.cardType === 'calculo')?.difficulty).toBe('number')
+    expect(typeof day.cards.find((c) => c.cardType === 'problemas')?.difficulty).toBe('number')
+  })
+
+  it('the geografia card carries a geografia subskill and the mundo card a mundo subskill', () => {
+    const GEO_SUBSKILLS = new Set(Object.keys(CATALOG.aira.skills.geografia.subskills))
+    const MUNDO_SUBSKILLS = new Set(Object.keys(CATALOG.aira.skills.mundo.subskills))
+    const day = composeDay('2026-07-16', 'aira', progress(), bundle(), settings(), {})
+    expect(GEO_SUBSKILLS.has(day.cards.find((c) => c.cardType === 'geografia')?.subskill ?? '')).toBe(true)
+    expect(MUNDO_SUBSKILLS.has(day.cards.find((c) => c.cardType === 'mundo')?.subskill ?? '')).toBe(true)
+  })
+
+  it('the english card serves an unconsumed english-reading when the bundle has readings', () => {
+    const withReadings = bundle({
+      englishReadings: [
+        { id: 'read-1', title: 'One', sentences: ['a'], questions: [] },
+        { id: 'read-2', title: 'Two', sentences: ['b'], questions: [] },
+      ],
+    })
+    const day = composeDay('2026-07-16', 'aira', progress(), withReadings, settings(), {})
+    const english = day.cards.find((c) => c.cardType === 'english')
+    expect(english?.contentRef?.readingId).toBeDefined()
   })
 
   it('produces a surprise (or null) consistent with the surprise seed convention', () => {
@@ -237,7 +274,7 @@ describe('composeDay', () => {
   })
 })
 
-describe('sabias-que wires english readings into daily play', () => {
+describe('english readings drive the dedicated english card', () => {
   const reading = (id: string) => ({
     id,
     title: id,
@@ -250,49 +287,27 @@ describe('sabias-que wires english readings into daily play', () => {
   const withReadings = () =>
     bundle({ englishReadings: [reading('read-1'), reading('read-2'), reading('read-3')] })
 
-  it('falls back to only curiosityId when the bundle has no english readings', () => {
-    const day = composeDay('2026-07-16', 'aira', progress(), bundle(), settings(), {})
+  it('the sabias-que (lectura) card is curiosity-only now that english is its own card', () => {
+    const day = composeDay('2026-07-16', 'aira', progress(), withReadings(), settings(), {})
     const sabiasQue = day.cards.find((c) => c.cardType === 'sabias-que')
     expect(sabiasQue?.contentRef?.readingId).toBeUndefined()
     expect(sabiasQue?.contentRef?.curiosityId).toBeDefined()
   })
 
-  it('surfaces an english reading (with reflexiva questions) on some days when readings exist', () => {
-    // Sweep a month: with a 1-in-3 seeded rate, at least one day must serve a reading.
-    let readingDays = 0
-    let curiosityDays = 0
-    for (let d = 1; d <= 28; d++) {
-      const dateISO = `2026-07-${String(d).padStart(2, '0')}`
-      const day = composeDay(dateISO, 'aira', progress(), withReadings(), settings(), {})
-      const sabiasQue = day.cards.find((c) => c.cardType === 'sabias-que')
-      if (sabiasQue?.contentRef?.readingId) readingDays++
-      if (sabiasQue?.contentRef?.curiosityId) curiosityDays++
-    }
-    expect(readingDays).toBeGreaterThan(0)
-    expect(curiosityDays).toBeGreaterThan(0)
-  })
-
-  it('is deterministic: the same day yields the same sabias-que ref with readings present', () => {
+  it('serves the lowest unconsumed reading on the english card (deterministic)', () => {
     const a = composeDay('2026-07-20', 'aira', progress(), withReadings(), settings(), {})
     const b = composeDay('2026-07-20', 'aira', progress(), withReadings(), settings(), {})
-    const refA = a.cards.find((c) => c.cardType === 'sabias-que')?.contentRef
-    const refB = b.cards.find((c) => c.cardType === 'sabias-que')?.contentRef
+    const refA = a.cards.find((c) => c.cardType === 'english')?.contentRef
+    const refB = b.cards.find((c) => c.cardType === 'english')?.contentRef
+    expect(refA?.readingId).toBeDefined()
     expect(refA).toEqual(refB)
   })
 
-  it('avoids re-serving a consumed reading', () => {
+  it('avoids re-serving a consumed reading on the english card', () => {
     const consumed = progress({ consumedContent: { englishReadings: ['read-1', 'read-2'] } })
-    // Find a day that serves a reading, then assert it is the only unconsumed one.
-    for (let d = 1; d <= 28; d++) {
-      const dateISO = `2026-07-${String(d).padStart(2, '0')}`
-      const day = composeDay(dateISO, 'aira', consumed, withReadings(), settings(), {})
-      const readingId = day.cards.find((c) => c.cardType === 'sabias-que')?.contentRef?.readingId
-      if (readingId) {
-        expect(readingId).toBe('read-3')
-        return
-      }
-    }
-    throw new Error('expected at least one reading day in the sweep')
+    const day = composeDay('2026-07-20', 'aira', consumed, withReadings(), settings(), {})
+    const english = day.cards.find((c) => c.cardType === 'english')
+    expect(english?.contentRef?.readingId).toBe('read-3')
   })
 })
 
@@ -313,7 +328,7 @@ describe('desafio surprise injects a challenge card', () => {
     'estimar',
   ])
 
-  it('turns the Aira problema card into a challenge card when a desafio surprise fires', () => {
+  it('turns the Aira calculo card into a challenge card when a desafio surprise fires', () => {
     const gems = { calculo: { skillId: 'calculo', level: 2, progress: 0 } }
     const day = composeDay('2026-01-04', 'aira', progress(), bundle(), settings(), gems)
 
@@ -321,10 +336,21 @@ describe('desafio surprise injects a challenge card', () => {
     const challengeCards = day.cards.filter((c) => c.challenge === true)
     expect(challengeCards).toHaveLength(1)
 
-    const problema = day.cards.find((c) => c.cardType === 'problema')
-    expect(problema?.challenge).toBe(true)
-    expect(AIRA_CHALLENGE_SUBSKILLS.has(problema!.subskill ?? '')).toBe(true)
-    expect(problema?.difficulty).toBe(3) // all listed challenge subskills' difficultyRange[0] is 3
+    const calculo = day.cards.find((c) => c.cardType === 'calculo')
+    expect(calculo?.challenge).toBe(true)
+    expect(AIRA_CHALLENGE_SUBSKILLS.has(calculo!.subskill ?? '')).toBe(true)
+    expect(calculo?.difficulty).toBe(3) // all listed challenge subskills' difficultyRange[0] is 3
+  })
+
+  it('converts the problemas card (not calculo) when calculo is disabled on a desafio day', () => {
+    const gems = { problemas: { skillId: 'problemas', level: 2, progress: 0 } }
+    const day = composeDay('2026-01-04', 'aira', progress(), bundle(), settings({ moduleToggles: { calculo: false } }), gems)
+
+    expect(day.surprise).toEqual({ kind: 'desafio' })
+    expect(day.cards.find((c) => c.cardType === 'calculo')).toBeUndefined()
+    const problemas = day.cards.find((c) => c.cardType === 'problemas')
+    expect(problemas?.challenge).toBe(true)
+    expect(day.cards.filter((c) => c.challenge === true)).toHaveLength(1)
   })
 
   it('turns the Leo contar card into a challenge card when a desafio surprise fires', () => {
@@ -401,36 +427,47 @@ describe('moduleToggles are consumed in day composition', () => {
       'aira',
       progress(),
       bundle(),
-      settings({ missionSize: 4, moduleToggles: { ortografia: false } }),
+      settings({ moduleToggles: { ortografia: false } }),
       {},
     )
     const types = day.cards.map((c) => c.cardType)
     expect(types).not.toContain('dictado')
-    // The dropped slot is not refilled: the day is one card shorter.
-    expect(types).toEqual(['problema', 'sabias-que', 'diario'])
+    // The dropped card is not refilled: the day is one card shorter than the full 8.
+    expect(types).toEqual(['calculo', 'problemas', 'diario', 'sabias-que', 'english', 'geografia', 'mundo'])
     // Card identity is the cardType (React keys + completion), so never duplicated.
     expect(new Set(types).size).toBe(types.length)
   })
 
-  it('drops multiple disabled content slots (dictado/sabias-que/diario), leaving only problema', () => {
+  it('drops every disabled skill card, leaving only the enabled ones', () => {
     const day = composeDay(
       '2026-07-16',
       'aira',
       progress(),
       bundle(),
-      settings({ missionSize: 4, moduleToggles: { ortografia: false, lectura: false, escritura: false } }),
+      settings({
+        moduleToggles: {
+          problemas: false,
+          ortografia: false,
+          lectura: false,
+          escritura: false,
+          english: false,
+          geografia: false,
+          mundo: false,
+        },
+      }),
       {},
     )
-    expect(day.cards.map((c) => c.cardType)).toEqual(['problema'])
+    expect(day.cards.map((c) => c.cardType)).toEqual(['calculo'])
   })
 
-  it('never produces two cards of the same cardType, even with toggles dropping slots', () => {
+  it('never produces two cards of the same cardType, even with toggles dropping cards', () => {
     // Sweep a set of toggle combos across dates; card identity must stay unique.
     const combos: Record<string, boolean>[] = [
       { ortografia: false },
       { lectura: false, escritura: false },
       { problemas: false, calculo: false },
-      { ortografia: false, lectura: false },
+      { ortografia: false, lectura: false, geografia: false },
+      { english: false, mundo: false },
     ]
     for (const moduleToggles of combos) {
       for (let d = 1; d <= 10; d++) {
@@ -442,42 +479,35 @@ describe('moduleToggles are consumed in day composition', () => {
     }
   })
 
-  it('drops the problema slot without refilling with problema when both problemas and calculo are off', () => {
+  it('drops both number cards when problemas and calculo are off (no refill)', () => {
     const day = composeDay(
       '2026-07-16',
       'aira',
       progress(),
       bundle(),
-      settings({ missionSize: 4, moduleToggles: { problemas: false, calculo: false } }),
+      settings({ moduleToggles: { problemas: false, calculo: false } }),
       {},
     )
     const types = day.cards.map((c) => c.cardType)
-    expect(types).not.toContain('problema')
-    // Only the 3 remaining content slots survive; no problema to refill with.
-    expect(types).toEqual(['dictado', 'sabias-que', 'diario'])
+    expect(types).not.toContain('calculo')
+    expect(types).not.toContain('problemas')
+    expect(types).toEqual(['dictado', 'diario', 'sabias-que', 'english', 'geografia', 'mundo'])
   })
 
-  it('restricts the problema subskill to the enabled problema skill (problemas off → calculo only)', () => {
+  it('restricts the calculo card subskill to the calculo skill', () => {
     const AIRA_CALCULO_SUBSKILLS = new Set(Object.keys(CATALOG.aira.skills.calculo.subskills))
-    const day = composeDay(
-      '2026-07-16',
-      'aira',
-      progress(),
-      bundle(),
-      settings({ moduleToggles: { problemas: false } }),
-      {},
-    )
-    const problema = day.cards.find((c) => c.cardType === 'problema')
-    expect(AIRA_CALCULO_SUBSKILLS.has(problema?.subskill ?? '')).toBe(true)
+    const day = composeDay('2026-07-16', 'aira', progress(), bundle(), settings(), {})
+    const calculo = day.cards.find((c) => c.cardType === 'calculo')
+    expect(AIRA_CALCULO_SUBSKILLS.has(calculo?.subskill ?? '')).toBe(true)
   })
 
-  it('drops Leo base slots and the rotation card per toggles', () => {
+  it('drops Leo base cards and the rotation card per toggles', () => {
     const day = composeDay(
       '2026-07-16',
       'leo',
       progress(),
       bundle(),
-      settings({ missionSize: 3, moduleToggles: { numeros: false, logica: false } }),
+      settings({ moduleToggles: { numeros: false, logica: false } }),
       {},
     )
     const types = day.cards.map((c) => c.cardType)
@@ -597,7 +627,10 @@ describe('joke cadence', () => {
       const dictado = day.cards.find((c) => c.cardType === 'dictado')
       if (dictado?.contentRef && 'jokeId' in dictado.contentRef) jokeDays++
     }
-    expect(jokeDays).toBeGreaterThanOrEqual(7)
-    expect(jokeDays).toBeLessThanOrEqual(14)
+    // ~1-in-6.5 over 70 days ≈ 10.8 expected. The exact count depends on the
+    // dictado card's per-day seed (its index in the daily card list), so we
+    // assert a wide statistically-sound band rather than an over-fitted point.
+    expect(jokeDays).toBeGreaterThanOrEqual(5)
+    expect(jokeDays).toBeLessThanOrEqual(18)
   })
 })

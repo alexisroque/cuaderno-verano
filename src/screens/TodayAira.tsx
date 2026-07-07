@@ -15,19 +15,27 @@ import { gemVisual } from '../engine/gems'
 import type { Surprise } from '../engine/surprises'
 import { cardTeaser, playerRouteFor } from './cardTeasers'
 
-/** Per-cardType display chrome for Aira's 2×2 grid, matching the mockup. */
+/**
+ * Per-cardType display chrome for Aira's daily grid — one card per skill. Order
+ * here does not drive the day (composeDay does); it just supplies the title,
+ * icon, accent and gem hint for whichever cards the day contains.
+ */
 const AIRA_CARD_META: Record<string, { title: string; emoji: string; accent: string; gemHint: string; badge: string }> = {
-  problema: { title: 'El problema del día', emoji: '🔢', accent: '#f59e0b', gemHint: '💎 Problemas', badge: 'NUEVO' },
-  dictado: { title: 'El dictado del día', emoji: '✏️', accent: '#3b82f6', gemHint: '💎 Ortografía', badge: 'NUEVO' },
-  'sabias-que': { title: '¿Sabías que…?', emoji: '🌍', accent: '#10b981', gemHint: '💎 Lectura', badge: 'NUEVO' },
-  diario: { title: 'Mi diario', emoji: '📔', accent: '#8b5cf6', gemHint: '💎 Escritura', badge: 'HOY' },
+  calculo: { title: 'Cálculo', emoji: '🔢', accent: '#f59e0b', gemHint: '💎 Cálculo', badge: 'HOY' },
+  problemas: { title: 'Problemas', emoji: '🧩', accent: '#f4805a', gemHint: '💎 Problemas', badge: 'HOY' },
+  dictado: { title: 'Ortografía', emoji: '✏️', accent: '#3b82f6', gemHint: '💎 Ortografía', badge: 'HOY' },
+  diario: { title: 'Escritura', emoji: '📔', accent: '#8b5cf6', gemHint: '💎 Escritura', badge: 'HOY' },
+  'sabias-que': { title: 'Lectura', emoji: '📖', accent: '#10b981', gemHint: '💎 Lectura', badge: 'HOY' },
+  english: { title: 'English', emoji: '🗣️', accent: '#ec4899', gemHint: '💎 English', badge: 'HOY' },
+  geografia: { title: 'Geografía', emoji: '🌍', accent: '#0ea5e9', gemHint: '💎 Geografía', badge: 'HOY' },
+  mundo: { title: 'Mundo', emoji: '🪐', accent: '#6366f1', gemHint: '💎 Mundo', badge: 'HOY' },
 }
 
 /** Stable empty array so the completed-cards selector never returns a fresh reference. */
 const EMPTY: string[] = []
 
 const SURPRISE_BANNER: Record<Surprise['kind'], { emoji: string; text: string }> = {
-  desafio: { emoji: '🚀', text: '¡Hoy hay un desafío de 5º escondido en el problema!' },
+  desafio: { emoji: '🚀', text: '¡Hoy hay un desafío de 5º escondido en una tarjeta de números!' },
   relampago: { emoji: '⚡', text: '¡Ronda relámpago! Resuelve rápido para ganar extra.' },
   'gema-doble': { emoji: '💎', text: '¡Hoy tu gema más floja gana el doble de progreso!' },
   invitado: { emoji: '🐾', text: '¡Un animal invitado te acompaña hoy!' },
@@ -35,10 +43,12 @@ const SURPRISE_BANNER: Record<Surprise['kind'], { emoji: string; text: string }>
 }
 
 /**
- * Aira's "La página de hoy": the 4 daily cards as a 2×2 grid (problema,
- * dictado, sabías-que, diario), each a door into its own player. Below: a
- * "¿quieres más?" strip into free training and the gem cabinet. Deterministic —
- * `composeDay` yields the same page for the same day.
+ * Aira's "La página de hoy": ONE card per enabled skill (up to 8: Cálculo,
+ * Problemas, Ortografía, Escritura, Lectura, English, Geografía, Mundo), laid
+ * out in a calm responsive grid — 2 columns on iPad portrait, 4 in landscape.
+ * Each card is a door into its own player. Completing all of them finishes the
+ * day. Below: a "¿quieres más?" strip into free training and the gem cabinet.
+ * Deterministic — `composeDay` yields the same page for the same day.
  */
 export function TodayAira() {
   const navigate = useNavigate()
@@ -66,7 +76,7 @@ export function TodayAira() {
 
   return (
     <Shell>
-      <div className="mx-auto max-w-2xl pt-1">
+      <div className="mx-auto max-w-3xl pt-1">
         {/* Surprise banner */}
         {day.surprise && (
           <div
@@ -87,15 +97,15 @@ export function TodayAira() {
           </span>
         </div>
 
-        {/* 2×2 grid of day cards */}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        {/* One card per enabled skill — calm 2-up grid, 4-up on wide screens. */}
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-4">
           {day.cards.map((card) => {
             const meta = AIRA_CARD_META[card.cardType] ?? {
               title: card.cardType,
               emoji: '✨',
               accent: 'var(--peach)',
               gemHint: '',
-              badge: 'NUEVO',
+              badge: 'HOY',
             }
             const isDone = completed.includes(card.cardType)
             return (
@@ -104,11 +114,16 @@ export function TodayAira() {
                 accent={meta.accent}
                 interactive
                 onClick={() => openCard(card)}
-                className="flex flex-col"
+                className="flex min-h-[112px] flex-col"
+                style={isDone ? { opacity: 0.72 } : undefined}
               >
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-1.5 text-sm font-extrabold" style={{ color: 'var(--ink)' }}>
-                    <span aria-hidden>{meta.emoji}</span> {meta.title}
+                <div className="flex items-start justify-between gap-1">
+                  <span
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[30%] text-xl"
+                    style={{ background: `${meta.accent}22` }}
+                    aria-hidden
+                  >
+                    {meta.emoji}
                   </span>
                   {isDone ? (
                     <span
@@ -120,21 +135,19 @@ export function TodayAira() {
                     </span>
                   ) : (
                     <span
-                      className="rounded-lg px-2 py-0.5 text-[10px] font-black"
+                      className="rounded-lg px-1.5 py-0.5 text-[9px] font-black tracking-wide"
                       style={{ background: 'var(--peach-soft)', color: '#c26a4c' }}
                     >
                       {meta.badge}
                     </span>
                   )}
                 </div>
-                <p className="mt-1.5 text-xs leading-snug" style={{ color: 'var(--ink-soft)' }}>
+                <span className="mt-1.5 text-sm font-extrabold" style={{ color: 'var(--ink)' }}>
+                  {meta.title}
+                </span>
+                <p className="mt-0.5 line-clamp-2 text-[11px] leading-snug" style={{ color: 'var(--ink-soft)' }}>
                   {cardTeaser(card, chapter)}
                 </p>
-                {meta.gemHint && (
-                  <p className="mt-2 text-[11px] font-bold" style={{ color: 'var(--ink-soft)' }}>
-                    + {meta.gemHint}
-                  </p>
-                )}
               </Card>
             )
           })}

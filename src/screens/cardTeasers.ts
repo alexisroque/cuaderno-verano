@@ -4,7 +4,7 @@ import { getGenerator, flavorFromChapter } from '../generators/framework'
 import '../generators/aira'
 import '../generators/leo'
 import { createRng } from '../lib/rng'
-import { curiosityById, diaryPromptById, episodeById, jokeById, cuentoLeoById } from '../content/loader'
+import { curiosityById, diaryPromptById, episodeById, jokeById, cuentoLeoById, englishReadingById } from '../content/loader'
 
 /** Truncates a teaser to a comfortable one-liner. */
 function clip(text: string, max = 90): string {
@@ -19,7 +19,8 @@ function clip(text: string, max = 90): string {
  */
 export function cardTeaser(card: CardDescriptor, chapter: Chapter): string {
   switch (card.cardType) {
-    case 'problema':
+    case 'calculo':
+    case 'problemas':
     case 'contar': {
       if (!card.subskill) return 'Un reto de números te espera.'
       const gen = getGenerator(card.subskill)
@@ -44,6 +45,14 @@ export function cardTeaser(card: CardDescriptor, chapter: Chapter): string {
       const cur = card.contentRef?.curiosityId ? curiosityById(card.contentRef.curiosityId) : undefined
       return cur ? clip(cur.text.es) : 'Un dato curioso del mundo.'
     }
+    case 'english': {
+      const reading = card.contentRef?.readingId ? englishReadingById(card.contentRef.readingId) : undefined
+      return reading ? clip(`Reading: ${reading.title}`) : 'Lee en inglés y responde.'
+    }
+    case 'geografia':
+      return 'Encuentra el país en el mapa. 🗺️'
+    case 'mundo':
+      return '¿Cómo funciona el mundo? Una pregunta curiosa.'
     case 'diario': {
       const dp = card.contentRef?.promptId ? diaryPromptById(card.contentRef.promptId) : undefined
       return dp ? clip(dp.text.es) : 'Escribe algo sobre tu día.'
@@ -77,7 +86,10 @@ const TAP_IMAGE_LOGIC = new Set(['patrones', 'formas', 'simetria', 'clasificar',
  */
 export function playerRouteFor(card: CardDescriptor): string {
   switch (card.cardType) {
-    case 'problema':
+    case 'calculo':
+    case 'problemas':
+      // The two Aira number cards both run the ProblemPlayer (each carries its
+      // own single-skill subskill), so they stay separate cards but share a loop.
       return '/jugar/problema'
     case 'contar':
       // Aira has no `contar` slot; for Leo this is the counting/number-sense player.
@@ -86,6 +98,15 @@ export function playerRouteFor(card: CardDescriptor): string {
       return '/jugar/dictado'
     case 'sabias-que':
       return '/jugar/sabias-que'
+    case 'english':
+      // Aira's english card is an english-reading with its literal/reflexiva
+      // quiz, served by the QuizPlayer (records into the english + lectura gems).
+      return '/jugar/quiz'
+    case 'geografia':
+    case 'mundo':
+      // The QuizPlayer dispatches by the card's subskill: a geografia subskill
+      // → tap-on-map round; a mundo subskill → mundo quiz round.
+      return '/jugar/quiz'
     case 'diario':
       return '/jugar/diario'
     case 'trazos':

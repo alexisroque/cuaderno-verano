@@ -17,24 +17,37 @@ import { suggestedDifficulty } from './mastery'
 import { consumedIds, pickDictadoContent, pickUnconsumed } from './contentSelection'
 import type { Surprise } from './surprises'
 
-/** Fixed rotation order for Leo's daily "sorpresa-rotatoria" card. */
+/** Fixed rotation order for Leo's daily "sorpresa-rotatoria" (lógica) card. */
 const LEO_ROTATION: readonly string[] = ['patrones', 'formas', 'simetria', 'clasificar', 'posiciones', 'cuento']
 
-const AIRA_CARD_TYPES = ['problema', 'dictado', 'sabias-que', 'diario'] as const
+/**
+ * Aira's daily page has ONE card per enabled skill (all of them), so the child
+ * touches every skill every day. Each card type maps 1:1 to a skill; a skill
+ * disabled in the parent's `moduleToggles` simply drops its card (the day
+ * shrinks). Card identity across the app (React keys, per-day completion in
+ * progressStore) is the `cardType`, so a day never contains two cards of the
+ * same type.
+ *
+ * Order below is the display order on the daily page.
+ */
+const AIRA_CARD_TYPES = ['calculo', 'problemas', 'dictado', 'diario', 'sabias-que', 'english', 'geografia', 'mundo'] as const
+
 const LEO_BASE_CARD_TYPES = ['trazos', 'contar', 'english'] as const
 
 /**
- * Which catalog skill(s) each Aira daily slot draws from. A slot is kept only
- * if at least one of its skills is enabled in the parent's `moduleToggles`;
- * otherwise it is dropped and the day refills from still-enabled skills (see
- * `buildAiraCards`). The `problema` slot spans problemas/calculo (mirrors
- * `AIRA_PROBLEMA_SKILLS`), so it survives as long as either is on.
+ * Which catalog skill each Aira daily card draws from. A card is kept only if
+ * its skill is enabled in the parent's `moduleToggles`; otherwise it is dropped
+ * (see `buildAiraCards`).
  */
-const AIRA_SLOT_SKILLS: Record<(typeof AIRA_CARD_TYPES)[number], SkillId[]> = {
-  problema: ['problemas', 'calculo'],
-  dictado: ['ortografia'],
-  'sabias-que': ['lectura'],
-  diario: ['escritura'],
+const AIRA_CARD_SKILL: Record<(typeof AIRA_CARD_TYPES)[number], SkillId> = {
+  calculo: 'calculo',
+  problemas: 'problemas',
+  dictado: 'ortografia',
+  diario: 'escritura',
+  'sabias-que': 'lectura',
+  english: 'english',
+  geografia: 'geografia',
+  mundo: 'mundo',
 }
 
 type AiraCardType = (typeof AIRA_CARD_TYPES)[number]
@@ -48,7 +61,7 @@ export interface ContentRef {
   curiosityId?: string
   promptId?: string
   cuentoId?: string
-  /** English mini-reading id (english-readings), used by the ReadingPlayer. */
+  /** English mini-reading id (english-readings), used by the ReadingPlayer/QuizPlayer. */
   readingId?: string
 }
 
@@ -132,42 +145,56 @@ function buildDictadoCard(
 }
 
 /**
- * Skills searched by `pickChallengeSubskill` for Aira's `problema` slot.
- * Exported so a catalog-coverage invariant test (skills.test.ts) can assert
- * every challenge-bearing Aira skill is included here — otherwise a future
- * catalog edit (e.g. a challenge subskill added to a skill outside this
- * list) would silently never surface via `desafio`, failing only at runtime
- * (see `pickChallengeSubskill`'s thrown error) instead of at commit time.
+ * The skill(s) the `desafio` surprise draws its challenge from for Aira.
+ * A desafio converts the Cálculo card (or, if calculo is off, the Problemas
+ * card) into a challenge exercise — the two number skills that carry challenge
+ * subskills. Exported so a catalog-coverage invariant test (skills.test.ts)
+ * can assert every challenge-bearing Aira skill is listed here — otherwise a
+ * future catalog edit (e.g. a challenge subskill added to a skill outside this
+ * list) would silently never surface via `desafio`.
  */
-export const AIRA_PROBLEMA_SKILLS: SkillId[] = ['problemas', 'calculo']
+export const AIRA_PROBLEMA_SKILLS: SkillId[] = ['calculo', 'problemas']
 
 /**
- * Builds the `problema` card: subskill restricted to problemas/calculo,
- * difficulty from mastery + parent offset. On a `desafio` surprise day, this
- * becomes a challenge card instead: a challenge subskill (gem level >= 2)
- * is picked, seeded via `rng`, with difficulty pinned to its range floor —
- * a desafio is meant to spotlight the harder material, not additionally
- * ramp its difficulty via mastery.
+ * Which Aira card the `desafio` surprise converts. It must be a number card
+ * that is BOTH enabled AND actually has an unlocked challenge subskill (gem
+ * level >= 2), otherwise `pickChallengeSubskill` would throw. Prefers Cálculo,
+ * then Problemas. Returns null when neither qualifies (the desafio then leaves
+ * the day as-is) — `rollSurprise` only fires desafio when some skill qualifies,
+ * so in practice one of these two matches.
  */
-function buildProblemaCard(
+function desafioCardTypeFor(settings: ChildSettings, gems: Record<string, GemState>): AiraCardType | null {
+  for (const cardType of ['calculo', 'problemas'] as const) {
+    if (!isSkillEnabled(settings.moduleToggles, cardType)) continue
+    if (unlockedChallengeSubskills('aira', [cardType], gems).length > 0) return cardType
+  }
+  return null
+}
+
+/**
+ * Builds a number card (`calculo` or `problemas`): subskill restricted to that
+ * single skill, difficulty from mastery + parent offset. When `asChallenge` is
+ * set (this is the card a `desafio` surprise converts), it instead picks a
+ * challenge subskill (gem level >= 2) seeded via `rng`, with difficulty pinned
+ * to its range floor — a desafio spotlights harder material, not extra ramp.
+ */
+function buildNumberCard(
+  cardType: 'calculo' | 'problemas',
   rng: Rng,
   attempts: ProfileProgress['attempts'],
   settings: ChildSettings,
   dateISO: string,
   gems: Record<string, GemState>,
   seed: string,
-  surprise: Surprise | null,
+  asChallenge: boolean,
 ): CardDescriptor {
-  // Restrict to the problema skills the parent left enabled. `buildAiraCards`
-  // only produces a problema card when at least one is enabled, so this is
-  // non-empty here.
-  const problemaSkills = AIRA_PROBLEMA_SKILLS.filter((s) => isSkillEnabled(settings.moduleToggles, s))
-  const skillFilter = problemaSkills.length > 0 ? problemaSkills : AIRA_PROBLEMA_SKILLS
+  const skill = AIRA_CARD_SKILL[cardType]
+  const skillFilter: SkillId[] = [skill]
 
-  if (surprise?.kind === 'desafio') {
+  if (asChallenge) {
     const challengeSubskill = pickChallengeSubskill(rng, 'aira', skillFilter, gems)
     return {
-      cardType: 'problema',
+      cardType,
       subskill: challengeSubskill.id,
       generatorSeed: seed,
       difficulty: challengeSubskill.difficultyRange[0],
@@ -175,11 +202,9 @@ function buildProblemaCard(
     }
   }
 
-  const subskillId = pickSubskill(rng, attempts, 'aira', settings, dateISO, gems, {
-    skillFilter,
-  })
+  const subskillId = pickSubskill(rng, attempts, 'aira', settings, dateISO, gems, { skillFilter })
 
-  const owningSkill = skillOfSubskill('aira', subskillId) ?? 'problemas'
+  const owningSkill = skillOfSubskill('aira', subskillId) ?? skill
   const skills = CATALOG.aira.skills as Record<
     string,
     { subskills: Record<string, { difficultyRange: [number, number] }> }
@@ -191,33 +216,35 @@ function buildProblemaCard(
   const [min, max] = difficultyRange
   const difficulty = Math.min(max, Math.max(min, base + offset))
 
-  return { cardType: 'problema', subskill: subskillId, generatorSeed: seed, difficulty }
+  return { cardType, subskill: subskillId, generatorSeed: seed, difficulty }
 }
 
 /**
- * Builds the `sabias-que` card. It rotates between two kinds of reading so
- * Aira's English mini-readings (each carrying a reflexiva comprehension
- * question) actually surface in daily play (Task 5.7, closing a 5.5 gap):
- * - On roughly 1 day in 3 (seeded via `rng`) it serves the next unconsumed
- *   `english-reading` (contentRef.readingId), which the ReadingPlayer renders
- *   with its literal + reflexiva questions.
- * - Otherwise, or if no unconsumed reading is available, it serves the next
- *   unconsumed curiosity (contentRef.curiosityId), preserving the original
- *   behavior when `content.englishReadings` is absent/empty.
- * The choice is fully deterministic (same seed → same card), so composeDay's
- * "same inputs → deep-equal page" invariant still holds.
+ * Builds the `sabias-que` (Lectura) card: a curiosity/serie reading with a
+ * comprehension question in Spanish/Catalan. Since English is now its own card,
+ * this always serves a curiosity (contentRef.curiosityId) — the reflexiva
+ * question, when any, is added by the ReadingPlayer.
  */
 function buildSabiasQueCard(rng: Rng, content: ContentBundle, progress: ProfileProgress, seed: string): CardDescriptor {
-  const readings = content.englishReadings ?? []
-  const preferReading = readings.length > 0 && rng.chance(1 / 3)
-  if (preferReading) {
-    const reading = pickUnconsumed(rng, readings, consumedIds(progress, 'englishReadings'))
-    if (reading) {
-      return { cardType: 'sabias-que', contentRef: { readingId: reading.id }, generatorSeed: seed }
-    }
-  }
   const picked = pickUnconsumed(rng, content.curiosities, consumedIds(progress, 'curiosities'))
   return { cardType: 'sabias-que', contentRef: picked ? { curiosityId: picked.id } : undefined, generatorSeed: seed }
+}
+
+/**
+ * Builds the `english` card: the next unconsumed English mini-reading, rendered
+ * by the QuizPlayer as its literal + reflexiva questions (records into the
+ * english + lectura gems). Falls back to no contentRef if the pool is exhausted;
+ * the player then shows the gentle "no card" state.
+ */
+function buildEnglishCard(rng: Rng, content: ContentBundle, progress: ProfileProgress, seed: string): CardDescriptor {
+  const readings = content.englishReadings ?? []
+  const reading = pickUnconsumed(rng, readings, consumedIds(progress, 'englishReadings'))
+  return {
+    cardType: 'english',
+    subskill: 'reading',
+    contentRef: reading ? { readingId: reading.id } : undefined,
+    generatorSeed: seed,
+  }
 }
 
 function buildDiarioCard(rng: Rng, content: ContentBundle, progress: ProfileProgress, seed: string): CardDescriptor {
@@ -225,26 +252,42 @@ function buildDiarioCard(rng: Rng, content: ContentBundle, progress: ProfileProg
   return { cardType: 'diario', contentRef: picked ? { promptId: picked.id } : undefined, generatorSeed: seed }
 }
 
-/** True if any of `skills` is enabled in the parent's module toggles. */
-function anySkillEnabled(settings: ChildSettings, skills: SkillId[]): boolean {
-  return skills.some((s) => isSkillEnabled(settings.moduleToggles, s))
+/**
+ * Builds a quiz-style card (`geografia` or `mundo`) by picking a subskill of
+ * that skill via the scheduler. The QuizPlayer resolves this: a geografia
+ * subskill → tap-on-map round; a mundo subskill → mundo quiz round.
+ */
+function buildQuizCard(
+  cardType: 'geografia' | 'mundo',
+  rng: Rng,
+  attempts: ProfileProgress['attempts'],
+  settings: ChildSettings,
+  dateISO: string,
+  gems: Record<string, GemState>,
+  seed: string,
+): CardDescriptor {
+  const skill = AIRA_CARD_SKILL[cardType]
+  const subskillId = pickSubskill(rng, attempts, 'aira', settings, dateISO, gems, { skillFilter: [skill] })
+  return { cardType, subskill: subskillId, generatorSeed: seed }
 }
 
 /**
- * Builds Aira's mission cards. The base sequence is
- * [problema, dictado, sabias-que, diario], truncated to `settings.missionSize`.
+ * Builds Aira's daily cards: one card per ENABLED skill, in the fixed display
+ * order (calculo, problemas, dictado, diario, sabias-que, english, geografia,
+ * mundo).
  *
- * Module toggles: a slot whose owning skill(s) are all disabled is DROPPED and
- * the day SHRINKS gracefully (the remaining slots keep their fixed order). We
- * intentionally do NOT refill a dropped slot with a duplicate card type —
- * card identity across the app (React keys, per-day completion tracking in
- * progressStore) is the `cardType`, so a day must never contain two cards of
- * the same type. Each Aira card type is bound to a distinct skill, so honoring
- * a toggle simply means one fewer card that day.
+ * Module toggles: a card whose skill is disabled is DROPPED and the day
+ * SHRINKS gracefully; the remaining cards keep their order. Card identity is
+ * the `cardType` (React keys, per-day completion), so a day never contains two
+ * cards of the same type. missionSize does NOT truncate the daily page — the
+ * default day is the full set of enabled skills; parents shrink the day via the
+ * module toggles, not a card-count cap.
  *
- * If a parent disables everything, `enabledSkillIds`-style all-off handling
- * would leave no slots; we then fall back to a single problema card so the day
- * is never empty.
+ * A `desafio` surprise converts one number card (Cálculo, or Problemas if
+ * calculo is off) into an actual challenge exercise.
+ *
+ * If a parent disables every skill, we fall back to a single calculo card so
+ * the day is never empty.
  */
 export function buildAiraCards(
   dateISO: string,
@@ -255,41 +298,53 @@ export function buildAiraCards(
   gems: Record<string, GemState>,
   surprise: Surprise | null = null,
 ): CardDescriptor[] {
-  const enabledSlots = AIRA_CARD_TYPES.filter((cardType) =>
-    anySkillEnabled(settings, AIRA_SLOT_SKILLS[cardType]),
+  const enabledCardTypes = AIRA_CARD_TYPES.filter((cardType) =>
+    isSkillEnabled(settings.moduleToggles, AIRA_CARD_SKILL[cardType]),
   )
 
+  const desafioCardType = surprise?.kind === 'desafio' ? desafioCardTypeFor(settings, gems) : null
+
   const cards: CardDescriptor[] = []
-  const push = (cardType: (typeof AIRA_CARD_TYPES)[number]) => {
+  const push = (cardType: AiraCardType) => {
     const i = cards.length
     const seed = `${dateISO}:${profile}:${i}`
     const rng = createRng(seed)
     switch (cardType) {
-      case 'problema':
-        cards.push(buildProblemaCard(rng, progress.attempts, settings, dateISO, gems, seed, surprise))
+      case 'calculo':
+        cards.push(buildNumberCard('calculo', rng, progress.attempts, settings, dateISO, gems, seed, desafioCardType === 'calculo'))
+        break
+      case 'problemas':
+        cards.push(buildNumberCard('problemas', rng, progress.attempts, settings, dateISO, gems, seed, desafioCardType === 'problemas'))
         break
       case 'dictado':
         cards.push(buildDictadoCard(rng, content, progress, settings, dateISO, seed))
         break
+      case 'diario':
+        cards.push(buildDiarioCard(rng, content, progress, seed))
+        break
       case 'sabias-que':
         cards.push(buildSabiasQueCard(rng, content, progress, seed))
         break
-      case 'diario':
-        cards.push(buildDiarioCard(rng, content, progress, seed))
+      case 'english':
+        cards.push(buildEnglishCard(rng, content, progress, seed))
+        break
+      case 'geografia':
+        cards.push(buildQuizCard('geografia', rng, progress.attempts, settings, dateISO, gems, seed))
+        break
+      case 'mundo':
+        cards.push(buildQuizCard('mundo', rng, progress.attempts, settings, dateISO, gems, seed))
         break
     }
   }
 
-  // Kept slots, in their fixed order, up to missionSize.
-  for (const cardType of enabledSlots) {
-    if (cards.length >= settings.missionSize) break
+  for (const cardType of enabledCardTypes) {
     push(cardType)
   }
 
-  // Never emit an empty day: a lone problema is the gentle fallback when a
+  // Never emit an empty day: a lone calculo card is the gentle fallback when a
   // parent has turned every module off.
   if (cards.length === 0) {
-    push('problema')
+    push('calculo')
   }
 
   return cards
@@ -340,7 +395,7 @@ function buildRotationCard(dateISO: string, profile: ProfileId, progress: Profil
  * Builds one of Leo's base cards (trazos/contar/english). On a `desafio`
  * surprise day, the `contar` slot (numeros) becomes a challenge card
  * instead: a challenge subskill (gem level >= 2) is picked, seeded via
- * `rng`, difficulty pinned to its range floor — mirrors buildProblemaCard's
+ * `rng`, difficulty pinned to its range floor — mirrors buildNumberCard's
  * desafio handling for Aira.
  */
 function buildLeoBaseCard(
@@ -373,14 +428,15 @@ function buildLeoBaseCard(
 }
 
 /**
- * Builds Leo's mission cards: [trazos, contar, english] (truncated to
- * `settings.missionSize`) + a trailing sorpresa-rotatoria (logica/cuento).
- * `surprise` is the day's already-rolled surprise (see composeDay).
+ * Builds Leo's daily cards: one card per enabled skill — [trazos, contar,
+ * english] + a trailing sorpresa-rotatoria (lógica/cuento). `surprise` is the
+ * day's already-rolled surprise (see composeDay).
  *
- * Module toggles: a base slot whose skill is disabled is dropped; the
- * remaining base slots keep their order. The trailing sorpresa-rotatoria is
- * dropped only when `logica` is disabled. If everything Leo has is disabled we
- * still emit a single trazos card so the day is never empty.
+ * Module toggles: a base card whose skill is disabled is dropped; the remaining
+ * base cards keep their order. The trailing sorpresa-rotatoria (lógica) is
+ * dropped only when `logica` is disabled. missionSize does NOT truncate the
+ * day. If everything Leo has is disabled we still emit a single trazos card so
+ * the day is never empty.
  */
 export function buildLeoCards(
   dateISO: string,
@@ -397,7 +453,6 @@ export function buildLeoCards(
   const cards: CardDescriptor[] = []
 
   for (const cardType of enabledBaseSlots) {
-    if (cards.length >= settings.missionSize) break
     const seed = `${dateISO}:${profile}:${cards.length}`
     const rng = createRng(seed)
     cards.push(buildLeoBaseCard(rng, cardType, progress, settings, dateISO, gems, seed, surprise))

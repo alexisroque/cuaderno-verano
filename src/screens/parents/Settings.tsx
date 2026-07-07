@@ -7,15 +7,10 @@ import {
   ORTOGRAFIA_RULE_IDS,
   isOrtografiaRule,
   ruleLang,
+  enabledSkillIds,
   type SkillId,
   type SubskillDef,
 } from '../../engine/skills'
-
-/** Mission-size bounds per child (design §4: Leo 3-4 cards, Aira 4-6). */
-const MISSION_BOUNDS: Record<ProfileId, [number, number]> = {
-  aira: [4, 6],
-  leo: [3, 4],
-}
 
 const MAX_FOCUS = 3
 
@@ -47,43 +42,6 @@ function Section({
   )
 }
 
-function Stepper({
-  value,
-  min,
-  max,
-  onChange,
-  suffix,
-}: {
-  value: number
-  min: number
-  max: number
-  onChange: (v: number) => void
-  suffix?: string
-}) {
-  const btn = (label: string, delta: number, disabled: boolean) => (
-    <button
-      type="button"
-      aria-label={delta < 0 ? 'Menos' : 'Más'}
-      disabled={disabled}
-      onClick={() => onChange(Math.min(max, Math.max(min, value + delta)))}
-      className="flex h-12 w-12 items-center justify-center rounded-2xl text-2xl font-black transition-transform active:translate-y-[1px] disabled:opacity-30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--navy)]"
-      style={{ background: 'var(--bg)', color: 'var(--navy)' }}
-    >
-      {label}
-    </button>
-  )
-  return (
-    <div className="flex items-center gap-4">
-      {btn('−', -1, value <= min)}
-      <span className="min-w-[3ch] text-center text-2xl font-black" style={{ color: 'var(--ink)' }}>
-        {value}
-        {suffix ? <span className="ml-1 text-base font-bold" style={{ color: 'var(--ink-soft)' }}>{suffix}</span> : null}
-      </span>
-      {btn('+', 1, value >= max)}
-    </div>
-  )
-}
-
 /** A labelled on/off switch row (reused by the narration + module toggles). */
 function Toggle({ on, label, aria, onToggle }: { on: boolean; label: string; aria: string; onToggle: () => void }) {
   return (
@@ -112,7 +70,7 @@ export function Settings({ profile }: { profile: ProfileId }) {
   const leoAutoNarration = useSettingsStore((s) => s.leoAutoNarration)
   const setLeoAutoNarration = useSettingsStore((s) => s.setLeoAutoNarration)
 
-  const [missionMin, missionMax] = MISSION_BOUNDS[profile]
+  const enabledSkillCount = enabledSkillIds(profile, settings.moduleToggles).length
   const skillIds = Object.keys(CATALOG[profile].skills) as SkillId[]
   const meta = SKILL_META[profile] as Record<string, { name: string; emoji: string }>
   const allSubskills = skillIds.flatMap(
@@ -168,16 +126,12 @@ export function Settings({ profile }: { profile: ProfileId }) {
       )}
 
       <Section
-        title="Tamaño de la misión diaria"
-        hint={`Cuántas tarjetas trae la página de hoy (${missionMin}-${missionMax}).`}
+        title="La página de hoy"
+        hint="Cada día trae una tarjeta por cada habilidad activa, para que se trabajen todas. Para acortar el día, apaga las habilidades que no quieras en «Módulos activos». En «¿Quieres más?» hay práctica extra opcional."
       >
-        <Stepper
-          value={Math.min(missionMax, Math.max(missionMin, settings.missionSize))}
-          min={missionMin}
-          max={missionMax}
-          suffix="tarjetas"
-          onChange={(v) => update(profile, { missionSize: v })}
-        />
+        <p className="text-sm font-bold" style={{ color: 'var(--ink)' }}>
+          {enabledSkillCount} tarjeta{enabledSkillCount === 1 ? '' : 's'} al día
+        </p>
       </Section>
 
       <Section
