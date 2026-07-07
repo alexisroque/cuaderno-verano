@@ -69,6 +69,10 @@ export function TracingPlayer() {
   const [points, setPoints] = useState<StrokePoint[]>([])
   const [stars, setStars] = useState<number | null>(null)
   const [canvasKey, setCanvasKey] = useState(0)
+  // The child has made at least one mark → stop the wordless demo tracer.
+  const [hasDrawn, setHasDrawn] = useState(false)
+  // A gentle "trace first" nudge shown if they tap ¡Ya está! with (almost) no ink.
+  const [nudge, setNudge] = useState(false)
   const startedAt = useRef(Date.now())
   const finalized = useRef(false)
 
@@ -91,9 +95,9 @@ export function TracingPlayer() {
     navigate(returnTo)
   }
 
-  const finish = () => {
-    const result = traceScore(guide, points)
+  const commit = (result: ReturnType<typeof traceScore>) => {
     setStars(result.stars)
+    setNudge(false)
     speak(praiseFor(result.stars), 'es-ES')
     if (!finalized.current) {
       finalized.current = true
@@ -114,11 +118,37 @@ export function TracingPlayer() {
     }
   }
 
+  // Explicit "¡Ya está!" tap. If there's essentially no ink, don't punish with a
+  // sad 0-star screen — gently ask them to trace first (and replay the demo).
+  const finish = () => {
+    const result = traceScore(guide, points)
+    if (points.length < 4 || result.coverage < 0.15) {
+      setNudge(true)
+      setHasDrawn(false) // bring the wordless demo back so they see what to do
+      setPoints([])
+      setCanvasKey((k) => k + 1)
+      speak('Sigue la línea con el dedo.', 'es-ES')
+      return
+    }
+    commit(result)
+  }
+
+  // Fired when the child lifts their finger. If they've already covered enough
+  // of the letter, finish automatically so the abstract button isn't required.
+  const onLift = (pts: StrokePoint[]) => {
+    setPoints(pts)
+    if (stars !== null) return
+    const result = traceScore(guide, pts)
+    if (result.stars >= 2) commit(result)
+  }
+
   const retry = () => {
     setStars(null)
     setPoints([])
+    setNudge(false)
+    setHasDrawn(false)
     finalized.current = false
-    // Force the canvas to reset by remounting via key (see below).
+    // Force the canvas to reset (and replay the demo) by remounting via key.
     setCanvasKey((k) => k + 1)
   }
 
@@ -146,23 +176,52 @@ export function TracingPlayer() {
               >
                 {glyph}
               </span>
-              <TracingCanvas key={canvasKey} guide={guide} ghost={ghost} onChange={setPoints} size={300} />
+              <TracingCanvas
+                key={canvasKey}
+                guide={guide}
+                ghost={ghost}
+                onStart={() => {
+                  setHasDrawn(true)
+                  setNudge(false)
+                }}
+                onChange={onLift}
+                demo={!hasDrawn}
+                size={360}
+              />
             </div>
 
             {stars === null ? (
-              <Button
-                variant="primary"
-                size="lg"
-                onClick={finish}
-                disabled={points.length === 0}
-                className="mt-4 w-full"
-              >
-                ¡Ya está! ✨
-              </Button>
+              <>
+                {nudge && (
+                  <p
+                    className="mt-3 text-center text-lg font-bold"
+                    style={{ color: '#c26a4c' }}
+                    aria-live="polite"
+                  >
+                    👆 Sigue la línea con el dedo
+                  </p>
+                )}
+                <Button
+                  variant="primary"
+                  size="lg"
+                  onClick={finish}
+                  className="mt-4 w-full"
+                >
+                  ¡Ya está! ✨
+                </Button>
+              </>
             ) : (
               <div className="mt-3 w-full">
                 <Celebration emoji={stars >= 1 ? '⭐' : '💪'} line={praiseFor(stars)} />
-                <div className="mt-1 flex flex-col gap-2">
+                {/* Big, obvious star row (filled vs empty) — readable by a 4yo. */}
+                <div className="mb-1 flex justify-center gap-2 text-5xl" aria-hidden>
+                  {[1, 2, 3].map((n) => (
+                    <span key={n} style={{ opacity: n <= stars ? 1 : 0.22 }}>
+                      ⭐
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-2 flex flex-col gap-2">
                   <Button variant="soft" size="lg" onClick={retry} className="w-full">
                     Otra vez 🔁
                   </Button>

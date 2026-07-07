@@ -6,6 +6,11 @@
   --ink-soft: #b0958a;
   --peach: #f4a988;
   --peach-soft: #ffe8d6;
+  /* Child's tracing ink — high-contrast royal blue so every finger stroke
+     pops against the peach guide and the white canvas (fixes the "no funciona"
+     invisible-ink bug where peach ink hid on a peach guide). */
+  --trace-ink: #2563eb;
+  --trace-ink-glow: #60a5fa;
   --mint: #d9ead6;
   --sky: #cfe2ef;
   --card: #ffffff;

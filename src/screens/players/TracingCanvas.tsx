@@ -1,59 +1,80 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Stroke, StrokePoint } from '../../types/exercise'
+import { guideSamples, pointerToNorm } from '../../lib/traceGeom'
+import { redraw } from './traceDraw'
 
 /**
  * The finger-tracing surface: draws the glyph's guide strokes as a fat light
- * outline, an animated pulsing dot at the start of the first stroke plus a
- * direction arrow, and captures the child's finger path as live ink. Pointer
- * Events + `touch-action: none` so a resting palm or a scroll gesture never
- * fights the drawing. Reports the accumulated points to the parent on every
- * pen-up via `onChange` (the parent scores them).
+ * peach outline, an animated pulsing start dot + direction arrow, a WORDLESS
+ * demo "fingertip" that travels the guide on a loop (so a non-reader sees what
+ * to do), and captures the child's finger path as live BLUE ink that pops on
+ * the peach guide. Pointer Events + `touch-action: none` so a resting palm or
+ * a scroll gesture never fights the drawing. Reports points to the parent on
+ * every pen-up via `onChange`; `onLiftCoverage` lets the parent auto-finish.
  */
 export function TracingCanvas({
   guide,
   ghost,
   onChange,
-  size = 300,
+  onStart,
+  size = 340,
+  demo = true,
 }: {
   guide: Stroke[]
   /** Optional faint "wrong way" strokes drawn behind the guide (mirror-prone glyphs). */
   ghost?: Stroke[]
   onChange: (points: StrokePoint[]) => void
+  /** Fired once when the child makes their first mark (parent stops the demo). */
+  onStart?: () => void
   size?: number
+  /** Whether to play the looping wordless demo tracer (off once the child draws). */
+  demo?: boolean
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const drawingRef = useRef(false)
   const pointsRef = useRef<StrokePoint[]>([])
+  const hasDrawnRef = useRef(false)
   const [, setTick] = useState(0)
 
   // Reset ink whenever the glyph changes.
   useEffect(() => {
     pointsRef.current = []
+    hasDrawnRef.current = false
   }, [guide, ghost])
 
-  // Animation loop: keeps the pulsing start dot alive and repaints ink.
+  // Animation loop: pulsing start dot, the demo tracer, and the child's ink.
   useEffect(() => {
     let raf = 0
+    const path = demo ? guideSamples(guide) : []
     const loop = () => {
-      redraw(canvasRef.current, guide, ghost, pointsRef.current, size)
+      redraw(canvasRef.current, guide, ghost, pointsRef.current, size, demo ? path : null)
       raf = requestAnimationFrame(loop)
     }
     raf = requestAnimationFrame(loop)
     return () => cancelAnimationFrame(raf)
-  }, [guide, ghost, size])
+  }, [guide, ghost, size, demo])
 
+  // Pointer → normalized (0..1). getBoundingClientRect reflects the *rendered*
+  // size, so this stays correct even when the canvas is CSS-scaled by
+  // maxWidth:100% (rendered width < the backing `size` attribute).
   const toNorm = (e: React.PointerEvent): StrokePoint => {
     const rect = canvasRef.current!.getBoundingClientRect()
-    return {
-      x: (e.clientX - rect.left) / rect.width,
-      y: (e.clientY - rect.top) / rect.height,
-    }
+    return pointerToNorm(e.clientX, e.clientY, rect)
   }
 
   const start = (e: React.PointerEvent) => {
     e.preventDefault()
-    canvasRef.current?.setPointerCapture(e.pointerId)
+    // Guard setPointerCapture: not every environment/pointer supports it.
+    try {
+      canvasRef.current?.setPointerCapture(e.pointerId)
+    } catch {
+      /* ignore — drawing still works via document-level pointer routing */
+    }
     drawingRef.current = true
+    if (!hasDrawnRef.current) {
+      hasDrawnRef.current = true
+      onStart?.()
+    }
     pointsRef.current.push(toNorm(e))
   }
 
@@ -96,91 +117,3 @@ export function TracingCanvas({
   )
 }
 
-/** Redraws the whole canvas: ghost, guide, start dot + arrow, and the child's ink. */
-function redraw(
-  canvas: HTMLCanvasElement | null,
-  guide: Stroke[],
-  ghost: Stroke[] | undefined,
-  ink: StrokePoint[],
-  size: number,
-) {
-  if (!canvas) return
-  const ctx = canvas.getContext('2d')
-  if (!ctx) return
-  ctx.clearRect(0, 0, size, size)
-
-  const px = (v: number) => v * size
-
-  // 1. Ghost "wrong way" strokes, very faint (mirror-prone comparison aid).
-  if (ghost) {
-    ctx.strokeStyle = 'rgba(176,149,138,.18)'
-    ctx.lineWidth = size * 0.05
-    ctx.lineCap = 'round'
-    ctx.lineJoin = 'round'
-    for (const stroke of ghost) drawPolyline(ctx, stroke, px)
-  }
-
-  // 2. Guide strokes: fat, light peach outline.
-  ctx.strokeStyle = 'rgba(244,169,136,.45)'
-  ctx.lineWidth = size * 0.11
-  ctx.lineCap = 'round'
-  ctx.lineJoin = 'round'
-  for (const stroke of guide) drawPolyline(ctx, stroke, px)
-
-  // 3. Start dot + direction arrow on the first stroke.
-  const first = guide[0]
-  if (first && first.length >= 2) {
-    const start = first[0]
-    const next = first[1]
-    // Pulsing green start dot.
-    const t = (Date.now() % 1000) / 1000
-    const pulse = 1 + Math.sin(t * Math.PI * 2) * 0.15
-    ctx.fillStyle = '#10b981'
-    ctx.beginPath()
-    ctx.arc(px(start.x), px(start.y), size * 0.035 * pulse, 0, Math.PI * 2)
-    ctx.fill()
-    // Small arrowhead pointing toward the next point.
-    drawArrowhead(ctx, px(start.x), px(start.y), px(next.x), px(next.y), size * 0.05)
-  }
-
-  // 4. The child's live ink.
-  if (ink.length > 0) {
-    ctx.strokeStyle = '#f4a988'
-    ctx.lineWidth = size * 0.045
-    ctx.lineCap = 'round'
-    ctx.lineJoin = 'round'
-    ctx.beginPath()
-    ctx.moveTo(px(ink[0].x), px(ink[0].y))
-    for (const p of ink) ctx.lineTo(px(p.x), px(p.y))
-    ctx.stroke()
-  }
-}
-
-function drawPolyline(ctx: CanvasRenderingContext2D, stroke: StrokePoint[], px: (v: number) => number) {
-  if (stroke.length === 0) return
-  ctx.beginPath()
-  ctx.moveTo(px(stroke[0].x), px(stroke[0].y))
-  for (const p of stroke) ctx.lineTo(px(p.x), px(p.y))
-  ctx.stroke()
-}
-
-/** Draws a filled arrowhead at (fromX,fromY) aimed toward (toX,toY). */
-function drawArrowhead(
-  ctx: CanvasRenderingContext2D,
-  fromX: number,
-  fromY: number,
-  toX: number,
-  toY: number,
-  len: number,
-) {
-  const angle = Math.atan2(toY - fromY, toX - fromX)
-  const tipX = fromX + Math.cos(angle) * len * 1.6
-  const tipY = fromY + Math.sin(angle) * len * 1.6
-  ctx.fillStyle = '#059669'
-  ctx.beginPath()
-  ctx.moveTo(tipX, tipY)
-  ctx.lineTo(tipX - Math.cos(angle - 0.5) * len, tipY - Math.sin(angle - 0.5) * len)
-  ctx.lineTo(tipX - Math.cos(angle + 0.5) * len, tipY - Math.sin(angle + 0.5) * len)
-  ctx.closePath()
-  ctx.fill()
-}
