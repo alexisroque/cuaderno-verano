@@ -8,6 +8,7 @@ import { speak } from '../../lib/tts'
 import { useProfileStore } from '../../state/profileStore'
 import { useProgressStore } from '../../state/progressStore'
 import { usePlayerStore } from '../../state/playerStore'
+import { useSettingsStore } from '../../state/settingsStore'
 import { Shell } from '../../components/Shell'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
@@ -39,10 +40,12 @@ function emojiForSentence(sentence: string): string {
 
 /**
  * Leo's audio cuento (spec §5.6): resolves the rotating "sorpresa" cuento from
- * content, shows one big illustration emoji per sentence and speaks it (auto on
- * page change) with a "siguiente" + replay, then poses the ONE comprehension
- * question as big spoken choice tiles. Records a gentle attempt into the
- * `lectura`-flavored `cuento` subskill, awards coins, marks the card complete.
+ * content, shows one big illustration emoji per sentence with a big
+ * "🔊 Escucha" button to hear it, a "siguiente" + replay, then poses the ONE
+ * comprehension question as big spoken choice tiles. Silent by default — the
+ * child taps to hear each page (auto-speak only when the parent opted in via
+ * `leoAutoNarration`). Records a gentle attempt into the `lectura`-flavored
+ * `cuento` subskill, awards coins, marks the card complete.
  */
 export function CuentoPlayer() {
   const navigate = useNavigate()
@@ -55,6 +58,7 @@ export function CuentoPlayer() {
   const markCardComplete = useProgressStore((s) => s.markCardComplete)
   const markConsumed = useProgressStore((s) => s.markConsumed)
   const { overlays, celebrateCorrect, settleAttempt } = useCelebrations()
+  const autoNarrate = useSettingsStore((s) => s.leoAutoNarration)
 
   const chapter = chapterById(chapterId)
   const cuento = useMemo(() => (card?.contentRef?.cuentoId ? cuentoLeoById(card.contentRef.cuentoId) : undefined), [card])
@@ -69,8 +73,10 @@ export function CuentoPlayer() {
 
   const sentence = cuento?.sentences[page]
 
-  // Auto-speak each story page as it appears.
+  // Silent by default: each story page and the question are tap-to-hear via the
+  // 🔊 button. Auto-speak on page/phase change only when the parent opted in.
   useEffect(() => {
+    if (!autoNarrate) return
     if (phase === 'story' && sentence) speak(sentence, 'es-ES')
     if (phase === 'question' && cuento) speak(cuento.question.q, 'es-ES')
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -136,9 +142,9 @@ export function CuentoPlayer() {
             accent="#fce7f3"
             right={
               phase === 'story' && sentence ? (
-                <SpeakButton text={sentence} tone="peach" size="lg" />
+                <SpeakButton text={sentence} tone="peach" size="lg" caption="Escucha" />
               ) : phase === 'question' ? (
-                <SpeakButton text={cuento.question.q} tone="peach" size="lg" />
+                <SpeakButton text={cuento.question.q} tone="peach" size="lg" caption="Escucha" />
               ) : undefined
             }
           />

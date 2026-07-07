@@ -11,6 +11,7 @@ import { speak } from '../../lib/tts'
 import { useProfileStore } from '../../state/profileStore'
 import { useProgressStore } from '../../state/progressStore'
 import { usePlayerStore } from '../../state/playerStore'
+import { useSettingsStore } from '../../state/settingsStore'
 import { Shell } from '../../components/Shell'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
@@ -46,6 +47,7 @@ export function TapImagePlayer() {
   const recordAttempt = useProgressStore((s) => s.recordAttempt)
   const markCardComplete = useProgressStore((s) => s.markCardComplete)
   const { overlays, celebrateCorrect, settleAttempt } = useCelebrations()
+  const autoNarrate = useSettingsStore((s) => s.leoAutoNarration)
 
   const chapter = chapterById(chapterId)
   const isEnglish = card?.cardType === 'english'
@@ -71,8 +73,13 @@ export function TapImagePlayer() {
   const promptAudio = isEnglish ? english?.target.audioText : exercise?.audioText ?? exercise?.prompt.text
   const audioLang = isEnglish ? 'en-GB' : 'es-ES'
 
+  // Silent by default. Even for English "tap the word you hear" — where the
+  // audio IS the task — nothing blares on open: the child taps the big
+  // "🔊 Escucha / Listen" button (below) to hear the target word and can re-tap
+  // to repeat, so the exercise stays solvable. Auto-speak once only if the
+  // parent turned `leoAutoNarration` on.
   useEffect(() => {
-    if (promptAudio) speak(promptAudio, audioLang)
+    if (autoNarrate && promptAudio) speak(promptAudio, audioLang)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [english?.target.id, exercise?.id])
 
@@ -140,6 +147,7 @@ export function TapImagePlayer() {
                   tone={isEnglish ? 'sky' : 'peach'}
                   size="lg"
                   label={isEnglish ? 'Listen' : 'Escuchar'}
+                  caption={isEnglish ? 'Listen' : 'Escucha'}
                 />
               ) : undefined
             }

@@ -44,6 +44,7 @@ function samplePayload(): BackupPayload {
       children: { aira: childSettings(), leo: childSettings() },
       lastExport: null,
       voicePrefs: {},
+      leoAutoNarration: false,
     },
   }
 }

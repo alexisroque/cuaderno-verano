@@ -1,10 +1,9 @@
-import { useEffect, type ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import { useProfileStore, type ProfileId } from '../state/profileStore'
 import { useProgressStore } from '../state/progressStore'
 import { useTestModeStore } from '../state/testModeStore'
 import { currentChapter } from '../content/chapters'
-import { speak } from '../lib/tts'
 import { Pill } from './ui/Pill'
 import { IconTile } from './ui/IconTile'
 
@@ -28,8 +27,9 @@ const NAV: NavItem[] = [
 
 /**
  * App chrome for the two kid areas: a warm header (greeting + chapter + streak
- * + coins) and a bottom nav. Leo gets a larger, sparser header and hears his
- * greeting spoken aloud on mount (he can't read yet).
+ * + coins) and a bottom nav. Leo gets a larger, sparser header. Nothing is
+ * spoken on mount — Leo's audio is tap-to-hear (a big 🔊 button on every card),
+ * so the shell never greets aloud (§5.6, parent-requested "silence by default").
  */
 export function Shell({ children }: { children: ReactNode }) {
   const profile = useProfileStore((s) => s.activeProfile)
@@ -43,14 +43,6 @@ export function Shell({ children }: { children: ReactNode }) {
 
   const isLeo = profile === 'leo'
   const chapter = currentChapter()
-
-  useEffect(() => {
-    if (isLeo && profile) {
-      speak(`¡Hola, Leo! Hoy estamos ${chapter.flavor.placePhrase}.`, 'es-ES')
-    }
-    // greet once per mount for Leo
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profile])
 
   if (!profile) return <>{children}</>
   const meta = PROFILE_META[profile]

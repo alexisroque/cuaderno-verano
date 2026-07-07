@@ -32,12 +32,21 @@ interface SettingsState {
   lastExport: string | null
   /** Parent-chosen TTS voice (a `voiceURI`) per language family. */
   voicePrefs: VoicePrefs
+  /**
+   * Whether Leo's screens auto-speak their instruction once on open. Default
+   * OFF: nothing speaks on its own — the child taps a 🔊 button to hear audio.
+   * When ON, each Leo player gently auto-speaks its instruction once per screen
+   * (never the greeting, never repeated) for families with a pre-reader.
+   */
+  leoAutoNarration: boolean
   setPin: (pin: string | null) => void
   updateChildSettings: (profile: ProfileId, patch: Partial<ChildSettings>) => void
   /** Records a backup export having happened on `dateISO` (drives the backup nudge). */
   setLastExport: (dateISO: string) => void
   /** Persists (or clears, with `undefined`) the chosen voice for a language. */
   setVoicePref: (family: VoiceLangFamily, voiceURI: string | undefined) => void
+  /** Toggles Leo's once-per-screen instruction auto-speak (default OFF). */
+  setLeoAutoNarration: (on: boolean) => void
 }
 
 function defaultChildSettings(): ChildSettings {
@@ -55,8 +64,8 @@ function defaultChildSettings(): ChildSettings {
 }
 
 const persister = createDebouncedPersist('settings', () => {
-  const { pin, children, lastExport, voicePrefs } = useSettingsStore.getState()
-  return { pin, children, lastExport, voicePrefs }
+  const { pin, children, lastExport, voicePrefs, leoAutoNarration } = useSettingsStore.getState()
+  return { pin, children, lastExport, voicePrefs, leoAutoNarration }
 })
 
 export const useSettingsStore = create<SettingsState>((set) => ({
@@ -67,6 +76,7 @@ export const useSettingsStore = create<SettingsState>((set) => ({
   },
   lastExport: null,
   voicePrefs: {},
+  leoAutoNarration: false,
   setPin: (pin) => {
     set({ pin })
     persister.schedule()
@@ -91,6 +101,10 @@ export const useSettingsStore = create<SettingsState>((set) => ({
       else next[family] = voiceURI
       return { voicePrefs: next }
     })
+    persister.schedule()
+  },
+  setLeoAutoNarration: (on) => {
+    set({ leoAutoNarration: on })
     persister.schedule()
   },
 }))
@@ -120,5 +134,6 @@ export async function hydrateSettings(): Promise<void> {
     children: result.data.children,
     lastExport: result.data.lastExport,
     voicePrefs: result.data.voicePrefs,
+    leoAutoNarration: result.data.leoAutoNarration,
   })
 }

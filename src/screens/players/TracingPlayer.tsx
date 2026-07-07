@@ -14,6 +14,7 @@ import { speak } from '../../lib/tts'
 import { useProfileStore } from '../../state/profileStore'
 import { useProgressStore } from '../../state/progressStore'
 import { usePlayerStore } from '../../state/playerStore'
+import { useSettingsStore } from '../../state/settingsStore'
 import { Shell } from '../../components/Shell'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
@@ -41,7 +42,8 @@ function praiseFor(stars: number): string {
  * light guide with an animated start dot + direction arrow, let the child
  * finger-trace it on a canvas, score the path generously into 1-3 stars, and
  * celebrate with TTS praise. Records into the `trazos` skill, awards coins,
- * marks the card complete. audioText is spoken on mount.
+ * marks the card complete. The instruction is tap-to-hear via the 🔊 button;
+ * it only auto-speaks once on open if the parent enabled `leoAutoNarration`.
  */
 export function TracingPlayer() {
   const navigate = useNavigate()
@@ -53,6 +55,7 @@ export function TracingPlayer() {
   const recordAttempt = useProgressStore((s) => s.recordAttempt)
   const markCardComplete = useProgressStore((s) => s.markCardComplete)
   const { overlays, celebrateCorrect, settleAttempt } = useCelebrations()
+  const autoNarrate = useSettingsStore((s) => s.leoAutoNarration)
 
   const chapter = chapterById(chapterId)
 
@@ -69,8 +72,10 @@ export function TracingPlayer() {
   const startedAt = useRef(Date.now())
   const finalized = useRef(false)
 
+  // Silent by default: the instruction only auto-speaks once per screen when
+  // the parent opted in. Otherwise the child taps the 🔊 button to hear it.
   useEffect(() => {
-    if (exercise?.audioText) speak(exercise.audioText, 'es-ES')
+    if (autoNarrate && exercise?.audioText) speak(exercise.audioText, 'es-ES')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exercise?.id])
 
@@ -129,7 +134,7 @@ export function TracingPlayer() {
             title={`Escribe ${glyph}`}
             subtitle="Sigue la flecha verde con el dedo"
             accent="#fef3c7"
-            right={<SpeakButton text={exercise.audioText ?? exercise.prompt.text} tone="peach" size="lg" />}
+            right={<SpeakButton text={exercise.audioText ?? exercise.prompt.text} tone="peach" size="lg" caption="Escucha" />}
           />
 
           <div className="mt-2 flex flex-col items-center">

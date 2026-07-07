@@ -11,6 +11,7 @@ import { speak } from '../../lib/tts'
 import { useProfileStore } from '../../state/profileStore'
 import { useProgressStore } from '../../state/progressStore'
 import { usePlayerStore } from '../../state/playerStore'
+import { useSettingsStore } from '../../state/settingsStore'
 import { Shell } from '../../components/Shell'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
@@ -54,6 +55,7 @@ export function CountingPlayer() {
   const recordAttempt = useProgressStore((s) => s.recordAttempt)
   const markCardComplete = useProgressStore((s) => s.markCardComplete)
   const { overlays, celebrateCorrect, settleAttempt } = useCelebrations()
+  const autoNarrate = useSettingsStore((s) => s.leoAutoNarration)
 
   const chapter = chapterById(chapterId)
 
@@ -70,8 +72,10 @@ export function CountingPlayer() {
   const startedAt = useRef(Date.now())
   const finalized = useRef(false)
 
+  // Silent by default: auto-speak the instruction once only if the parent
+  // opted in; otherwise the child taps the 🔊 button to hear it.
   useEffect(() => {
-    if (exercise?.audioText) speak(exercise.audioText, 'es-ES')
+    if (autoNarrate && exercise?.audioText) speak(exercise.audioText, 'es-ES')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exercise?.id])
 
@@ -126,7 +130,7 @@ export function CountingPlayer() {
             title="Contar"
             subtitle="Mira y toca la respuesta"
             accent="var(--mint)"
-            right={<SpeakButton text={exercise.audioText ?? exercise.prompt.text} tone="mint" size="lg" />}
+            right={<SpeakButton text={exercise.audioText ?? exercise.prompt.text} tone="mint" size="lg" caption="Escucha" />}
           />
 
           <div className="mt-2 flex justify-center">

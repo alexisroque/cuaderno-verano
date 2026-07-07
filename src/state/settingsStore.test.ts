@@ -30,6 +30,17 @@ describe('settingsStore', () => {
     expect(useSettingsStore.getState().children.leo.missionSize).toBe(5)
   })
 
+  it('leoAutoNarration defaults OFF (silent by default)', () => {
+    expect(useSettingsStore.getState().leoAutoNarration).toBe(false)
+  })
+
+  it('setLeoAutoNarration toggles the once-per-screen auto-speak flag', () => {
+    useSettingsStore.getState().setLeoAutoNarration(true)
+    expect(useSettingsStore.getState().leoAutoNarration).toBe(true)
+    useSettingsStore.getState().setLeoAutoNarration(false)
+    expect(useSettingsStore.getState().leoAutoNarration).toBe(false)
+  })
+
   it('setVoicePref stores and clears a per-language voice choice', () => {
     useSettingsStore.getState().setVoicePref('ca', 'com.apple.voice.enhanced.ca-ES.Nuria')
     expect(useSettingsStore.getState().voicePrefs.ca).toBe('com.apple.voice.enhanced.ca-ES.Nuria')
@@ -70,6 +81,17 @@ describe('settingsStore', () => {
 
     expect(useSettingsStore.getState().pin).toBe('4242')
     expect(useSettingsStore.getState().children.aira.missionSize).toBe(7)
+    // Blob predates leoAutoNarration → normalized to the silent-by-default false.
+    expect(useSettingsStore.getState().leoAutoNarration).toBe(false)
+  })
+
+  it('hydrateSettings restores a persisted leoAutoNarration=true', async () => {
+    useSettingsStore.getState().setLeoAutoNarration(true)
+    await flushSettings()
+    useSettingsStore.setState({ leoAutoNarration: false })
+
+    await hydrateSettings()
+    expect(useSettingsStore.getState().leoAutoNarration).toBe(true)
   })
 
   it('hydrateSettings falls back to defaults when the persisted blob is corrupted', async () => {

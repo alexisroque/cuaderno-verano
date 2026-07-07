@@ -5,6 +5,7 @@ import '../../generators/aira'
 import '../../generators/leo'
 import { createRng } from '../../lib/rng'
 import { speak } from '../../lib/tts'
+import { useSettingsStore } from '../../state/settingsStore'
 import type { Chapter } from '../../content/schemas'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
@@ -25,9 +26,11 @@ function isCorrect(exercise: Exercise, given: string): boolean {
 /**
  * One free-training generator exercise: materializes it from a subskill +
  * seed, renders a keypad (number answers) or big choice tiles, grades locally,
- * and calls `onAnswer(subskill, correct, difficulty)` then `onNext()`. Audio-
- * first for Leo (auto-speaks the prompt). Deliberately lean — the daily
- * ProblemPlayer keeps the full Innovamat scaffold; free training is fast reps.
+ * and calls `onAnswer(subskill, correct, difficulty)` then `onNext()`. For Leo
+ * the prompt is tap-to-hear via the 🔊 button (silent by default; auto-speaks
+ * once only when the parent enabled `leoAutoNarration`). Deliberately lean —
+ * the daily ProblemPlayer keeps the full Innovamat scaffold; free training is
+ * fast reps.
  */
 export function GeneratorRound({
   subskill,
@@ -56,10 +59,13 @@ export function GeneratorRound({
 
   const [entry, setEntry] = useState('')
   const [result, setResult] = useState<'right' | 'wrong' | null>(null)
+  const autoNarrate = useSettingsStore((s) => s.leoAutoNarration)
 
+  // Silent by default: Leo taps the 🔊 button to hear the prompt. Auto-speak
+  // once only when the parent opted into `leoAutoNarration`.
   useEffect(() => {
-    if (leo && exercise?.audioText) speak(exercise.audioText, 'es-ES')
-  }, [exercise?.id, leo])
+    if (leo && autoNarrate && exercise?.audioText) speak(exercise.audioText, 'es-ES')
+  }, [exercise?.id, leo, autoNarrate])
 
   if (!exercise) {
     return (
@@ -90,7 +96,12 @@ export function GeneratorRound({
       <Card accent="var(--peach)">
         <div className="mb-2 flex items-center justify-between gap-2">
           <p className="flex-1 text-base leading-relaxed">{exercise.prompt.text}</p>
-          <SpeakButton text={exercise.audioText ?? exercise.prompt.text} tone="peach" size={leo ? 'lg' : 'md'} />
+          <SpeakButton
+            text={exercise.audioText ?? exercise.prompt.text}
+            tone="peach"
+            size={leo ? 'lg' : 'md'}
+            caption={leo ? 'Escucha' : undefined}
+          />
         </div>
         {exercise.prompt.visual && exercise.prompt.visual.kind !== 'none' && (
           <div className="mt-2 flex justify-center">

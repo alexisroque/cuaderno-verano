@@ -94,6 +94,18 @@ describe('PersistedSettingsSchema', () => {
     if (result.success) expect(result.data.voicePrefs).toEqual({})
   })
 
+  it('defaults leoAutoNarration to false for blobs saved before the field existed', () => {
+    const result = PersistedSettingsSchema.safeParse(validSettings())
+    expect(result.success).toBe(true)
+    if (result.success) expect(result.data.leoAutoNarration).toBe(false)
+  })
+
+  it('accepts an explicit leoAutoNarration=true', () => {
+    const result = PersistedSettingsSchema.safeParse({ ...validSettings(), leoAutoNarration: true })
+    expect(result.success).toBe(true)
+    if (result.success) expect(result.data.leoAutoNarration).toBe(true)
+  })
+
   it('accepts a voicePrefs map of chosen voiceURIs', () => {
     const result = PersistedSettingsSchema.safeParse({
       ...validSettings(),

@@ -90,4 +90,7 @@ export const PersistedSettingsSchema = z.object({
   // Optional so blobs persisted before this field existed still validate; the
   // store normalizes a missing value to {} on hydration.
   voicePrefs: VoicePrefsSchema.default({}),
+  // Optional so blobs persisted before this field existed still validate; the
+  // store normalizes a missing value to false (silent-by-default) on hydration.
+  leoAutoNarration: z.boolean().default(false),
 })

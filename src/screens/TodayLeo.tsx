@@ -29,8 +29,10 @@ const EMPTY: string[] = []
 
 /**
  * Leo's "página de hoy": 3 big cards (trazos, contar, english) + a rotating
- * surprise card, every card with a 🔊 button and ≥60px touch targets, plus a
- * mural strip. A short greeting is spoken on mount (Leo can't read).
+ * surprise card, every card with a big tap-to-hear 🔊 button and ≥60px touch
+ * targets, plus a mural strip. Nothing is spoken on mount — audio is on tap
+ * only (parent-requested "silence by default"); the only spoken line is the
+ * "¡Nueva pegatina!" reward, which fires on the child completing the day.
  */
 export function TodayLeo() {
   const navigate = useNavigate()
@@ -51,12 +53,6 @@ export function TodayLeo() {
   )
 
   const allDone = day.cards.length > 0 && day.cards.every((c) => completed.includes(c.cardType))
-
-  useEffect(() => {
-    speak('¡Hola, Leo! Elige una tarjeta para empezar.', 'es-ES')
-    // greet once on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   // Brief "¡Nueva pegatina!" toast the moment the day is completed, so the
   // reward is visible above the fold without scrolling down to the mural strip.

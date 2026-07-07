@@ -36,13 +36,13 @@ export function Backup() {
 
   function handleExportAll() {
     const { profiles } = useProgressStore.getState()
-    const { pin, children, voicePrefs, setLastExport } = useSettingsStore.getState()
+    const { pin, children, voicePrefs, leoAutoNarration, setLastExport } = useSettingsStore.getState()
     const today = todayISO()
     const payload: BackupPayload = {
       version: BACKUP_VERSION,
       exportedAt: today,
       profiles: { aira: profiles.aira, leo: profiles.leo },
-      settings: { pin, children, lastExport: today, voicePrefs },
+      settings: { pin, children, lastExport: today, voicePrefs, leoAutoNarration },
     }
     downloadFile(`cuaderno-verano-copia-${today}.json`, serializeBackup(payload), 'application/json')
     setLastExport(today)
@@ -84,6 +84,7 @@ export function Backup() {
       children: pending.settings.children,
       lastExport: pending.settings.lastExport,
       voicePrefs: pending.settings.voicePrefs,
+      leoAutoNarration: pending.settings.leoAutoNarration,
     })
     // A raw setState doesn't go through the stores' debounced persisters, so
     // persist the imported blobs directly — otherwise a reload would revert to
@@ -96,6 +97,7 @@ export function Backup() {
         children: pending.settings.children,
         lastExport: pending.settings.lastExport,
         voicePrefs: pending.settings.voicePrefs,
+        leoAutoNarration: pending.settings.leoAutoNarration,
       }),
     ])
     setPending(null)

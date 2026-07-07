@@ -84,9 +84,33 @@ function Stepper({
   )
 }
 
+/** A labelled on/off switch row (reused by the narration + module toggles). */
+function Toggle({ on, label, aria, onToggle }: { on: boolean; label: string; aria: string; onToggle: () => void }) {
+  return (
+    <div className="flex items-center justify-between rounded-2xl px-4 py-3" style={{ background: 'var(--bg)' }}>
+      <span className="flex items-center gap-2 text-sm font-bold" style={{ color: 'var(--ink)' }}>
+        {label}
+      </span>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={on}
+        aria-label={aria}
+        onClick={onToggle}
+        className="relative h-7 w-12 rounded-full transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--navy)]"
+        style={{ background: on ? 'var(--peach)' : 'rgba(30,58,95,.2)' }}
+      >
+        <span className="absolute top-1 h-5 w-5 rounded-full bg-white transition-[left]" style={{ left: on ? 26 : 4 }} />
+      </button>
+    </div>
+  )
+}
+
 export function Settings({ profile }: { profile: ProfileId }) {
   const settings = useSettingsStore((s) => s.children[profile])
   const update = useSettingsStore((s) => s.updateChildSettings)
+  const leoAutoNarration = useSettingsStore((s) => s.leoAutoNarration)
+  const setLeoAutoNarration = useSettingsStore((s) => s.setLeoAutoNarration)
 
   const [missionMin, missionMax] = MISSION_BOUNDS[profile]
   const skillIds = Object.keys(CATALOG[profile].skills) as SkillId[]
@@ -129,6 +153,20 @@ export function Settings({ profile }: { profile: ProfileId }) {
 
   return (
     <div className="flex flex-col gap-5">
+      {profile === 'leo' && (
+        <Section
+          title="Narración automática para Leo 🔊"
+          hint="Por defecto está apagada: nada suena solo. Leo pulsa el botón 🔊 para escuchar. Enciéndela si prefieres que la instrucción de cada pantalla se lea sola una vez (útil para quien aún no lee)."
+        >
+          <Toggle
+            on={leoAutoNarration}
+            label={leoAutoNarration ? 'Encendida (lee la instrucción sola)' : 'Apagada (solo al pulsar 🔊)'}
+            aria={`Narración automática para Leo: ${leoAutoNarration ? 'encendida' : 'apagada'}`}
+            onToggle={() => setLeoAutoNarration(!leoAutoNarration)}
+          />
+        </Section>
+      )}
+
       <Section
         title="Tamaño de la misión diaria"
         hint={`Cuántas tarjetas trae la página de hoy (${missionMin}-${missionMax}).`}
@@ -241,31 +279,15 @@ export function Settings({ profile }: { profile: ProfileId }) {
         <div className="flex flex-col gap-2">
           {skillIds.map((skillId) => {
             const on = settings.moduleToggles[skillId] ?? true
+            const name = meta[skillId]?.name ?? skillId
             return (
-              <div
+              <Toggle
                 key={skillId}
-                className="flex items-center justify-between rounded-2xl px-4 py-3"
-                style={{ background: 'var(--bg)' }}
-              >
-                <span className="flex items-center gap-2 text-sm font-bold" style={{ color: 'var(--ink)' }}>
-                  <span aria-hidden>{meta[skillId]?.emoji}</span>
-                  {meta[skillId]?.name ?? skillId}
-                </span>
-                <button
-                  type="button"
-                  role="switch"
-                  aria-checked={on}
-                  aria-label={`${meta[skillId]?.name ?? skillId}: ${on ? 'activo' : 'apagado'}`}
-                  onClick={() => toggleModule(skillId)}
-                  className="relative h-7 w-12 rounded-full transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--navy)]"
-                  style={{ background: on ? 'var(--peach)' : 'rgba(30,58,95,.2)' }}
-                >
-                  <span
-                    className="absolute top-1 h-5 w-5 rounded-full bg-white transition-[left]"
-                    style={{ left: on ? 26 : 4 }}
-                  />
-                </button>
-              </div>
+                on={on}
+                label={`${meta[skillId]?.emoji ?? ''} ${name}`.trim()}
+                aria={`${name}: ${on ? 'activo' : 'apagado'}`}
+                onToggle={() => toggleModule(skillId)}
+              />
             )
           })}
         </div>
